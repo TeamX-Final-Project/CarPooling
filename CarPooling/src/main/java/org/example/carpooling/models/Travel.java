@@ -29,6 +29,10 @@ public class Travel {
     @JoinColumn(name = "user_id")
     private User userId;
 
+    //TODO implement the comment logic probably OneToMany
+    // since one travel can have many comments for pets,luggage,smoking,etc...
+
+
     public Travel() {
     }
 

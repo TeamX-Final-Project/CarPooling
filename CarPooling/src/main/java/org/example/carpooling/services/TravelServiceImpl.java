@@ -1,6 +1,7 @@
 package org.example.carpooling.services;
 
 import org.example.carpooling.models.Travel;
+import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.repositories.contracts.TravelRepository;
 import org.example.carpooling.services.contracts.TravelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +11,15 @@ import java.util.List;
 
 @Service
 public class TravelServiceImpl implements TravelService {
-    private TravelRepository travelRepository;
+    private final TravelRepository travelRepository;
     @Autowired
     public TravelServiceImpl(TravelRepository travelRepository) {
         this.travelRepository = travelRepository;
     }
 
     @Override
-    public List<Travel> getAllTravels() {
-        return null;
+    public List<Travel> getAllTravels(TravelFilterOptions travelFilterOptions) {
+        return travelRepository.getAllTravels(travelFilterOptions);
     }
 
     @Override
