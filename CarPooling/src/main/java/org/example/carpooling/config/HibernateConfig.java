@@ -28,7 +28,7 @@ public class HibernateConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("com/telerikacademy/web/sportforumgroup10/models");
+        sessionFactory.setPackagesToScan("org/example/carpooling/models");
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }
