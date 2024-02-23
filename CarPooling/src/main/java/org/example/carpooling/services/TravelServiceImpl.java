@@ -12,6 +12,7 @@ import java.util.List;
 @Service
 public class TravelServiceImpl implements TravelService {
     private final TravelRepository travelRepository;
+
     @Autowired
     public TravelServiceImpl(TravelRepository travelRepository) {
         this.travelRepository = travelRepository;
@@ -24,12 +25,15 @@ public class TravelServiceImpl implements TravelService {
 
     @Override
     public Travel getById(int id) {
+        //TODO create the logic for the authorization to search travel by ID
         return travelRepository.getById(id);
     }
 
     @Override
-    public Travel create() {
-        return null;
+    public Travel create(Travel travel, User creator) {
+        //        TODO create the logic for the authorization and check if the user is blocked before creating new travel
+
+        return travelRepository.create(travel);
     }
 
     @Override
@@ -46,4 +50,6 @@ public class TravelServiceImpl implements TravelService {
     public long getTravelsCount() {
         return 0;
     }
+
+
 }

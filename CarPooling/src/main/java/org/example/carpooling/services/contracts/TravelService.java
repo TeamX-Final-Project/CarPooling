@@ -11,7 +11,7 @@ public interface TravelService {
 
     Travel getById(int id);
 
-    Travel create();
+    Travel create(Travel travel, User creator);
 
     Travel updated();
 
