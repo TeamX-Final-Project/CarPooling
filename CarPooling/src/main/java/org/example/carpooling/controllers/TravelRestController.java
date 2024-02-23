@@ -1,15 +1,18 @@
 package org.example.carpooling.controllers;
 
+import jakarta.validation.Valid;
+import org.example.carpooling.exceptions.AuthorizationException;
+import org.example.carpooling.exceptions.BlockedUserException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
+import org.example.carpooling.helpers.TravelMapper;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
+import org.example.carpooling.models.dto.TravelDto;
 import org.example.carpooling.services.contracts.TravelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -19,10 +22,12 @@ import java.util.List;
 public class TravelRestController {
 
     private final TravelService travelService;
+    private final TravelMapper travelMapper;
 
     @Autowired
-    public TravelRestController(TravelService travelService) {
+    public TravelRestController(TravelService travelService, TravelMapper travelMapper) {
         this.travelService = travelService;
+        this.travelMapper = travelMapper;
     }
 
     @GetMapping
@@ -44,5 +49,31 @@ public class TravelRestController {
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
+    }
+
+    @GetMapping("/{id}")
+    public Travel getTravelById(@RequestHeader HttpHeaders headers, @PathVariable int id) {
+        try {
+            //TODO wait for the User class implementation for the logic to authenticate the user before searching for travel by id
+            User user = authenticationHelper.tryGetCurrentUser(headers);
+            return travelService.getById(id);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
+    }
+
+    @PostMapping
+    public Travel createTravel(@RequestHeader HttpHeaders headers, @Valid @RequestBody TravelDto travelDto) {
+        try {
+            //TODO wait for the User class implementation for the logic to authenticate the user before creating a new travel
+            User creator = authenticationHelper.tryGetCurrentUser(headers);
+            Travel newTravel = travelMapper.fromDto(travelDto);
+            return travelService.create(newTravel, creator);
+        } catch (AuthorizationException | BlockedUserException e){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
+
     }
 }

@@ -12,7 +12,7 @@ public interface TravelRepository {
 
     Travel getById(int id);
 
-    Travel create();
+    Travel create(Travel travel);
 
     Travel updated();
 

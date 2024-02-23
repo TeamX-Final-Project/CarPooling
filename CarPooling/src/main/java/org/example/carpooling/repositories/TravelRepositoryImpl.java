@@ -62,12 +62,24 @@ public class TravelRepositoryImpl implements TravelRepository {
 
     @Override
     public Travel getById(int id) {
-        return null;
+        try (Session session = sessionFactory.openSession()) {
+            Travel travel = session.get(Travel.class, id);
+            if (travel == null) {
+                throw new EntityNotFoundException("User", id);
+            }
+            return travel;
+        }
+
     }
 
     @Override
-    public Travel create() {
-        return null;
+    public Travel create(Travel travel) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.persist(travel);
+            session.getTransaction().commit();
+        }
+        return travel;
     }
 
     @Override
