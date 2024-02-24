@@ -15,7 +15,7 @@ public interface TravelService {
 
     Travel update(User userModifier, Travel travelToUpdate);
 
-    Travel delete();
+    Travel delete(int id, User userModifier);
 
     long getTravelsCount();
 }

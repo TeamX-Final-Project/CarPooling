@@ -40,13 +40,21 @@ public class TravelServiceImpl implements TravelService {
 
     @Override
     public Travel update(User userModifier, Travel travelToUpdate) {
+        //TODO double check the getByID since once you take the travelToUpdate here
+        // then again is used getById in checkModifyPermission and one more time in the travelMapper.fromDTO
+        Travel travel = getById(travelToUpdate.getTravelId());
         checkModifyPermission(userModifier, travelToUpdate);
         return travelRepository.update(travelToUpdate);
     }
 
     @Override
-    public Travel delete() {
-        return null;
+    public Travel delete(int id, User userModifier) {
+        //TODO double check the getByID since once you take the travelToDelete here
+        // then again is used getById in checkModifyPermission
+        Travel travelToDelete = getById(id);
+        checkModifyPermission(userModifier, travelToDelete);
+        travelToDelete.setDeleted(true);
+        return travelRepository.delete(travelToDelete);
     }
 
     @Override
@@ -55,8 +63,8 @@ public class TravelServiceImpl implements TravelService {
     }
 
     private void checkModifyPermission(User userModifier, Travel travelToUpdate) {
-        Travel travel = getById(travelToUpdate.getTravelId());
-        if (userModifier.getId() != travel.getUserId()) {
+
+        if (userModifier.getId() != travelToUpdate.getUserId()) {
             throw new AuthorizationException(YOU_ARE_NOT_THE_CREATOR_OF_THE_TRAVEL_ERROR);
         }
     }

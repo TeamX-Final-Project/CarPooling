@@ -16,7 +16,7 @@ public interface TravelRepository {
 
     Travel update(Travel travelToUpdate);
 
-    Travel delete();
+    Travel delete(Travel travelToDelete);
 
     long getTravelsCount();
 }
