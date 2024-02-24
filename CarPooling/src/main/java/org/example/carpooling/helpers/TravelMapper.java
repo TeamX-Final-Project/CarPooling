@@ -9,18 +9,30 @@ import org.springframework.stereotype.Component;
 @Component
 public class TravelMapper {
     private TravelService travelService;
+
     @Autowired
     public TravelMapper(TravelService travelService) {
         this.travelService = travelService;
     }
 
-    public Travel fromDto(TravelDto travelDto){
+    public Travel fromDto(int id, TravelDto travelDto) {
+        Travel travel = travelService.getById(id);
+        modifyTravel(travelDto, travel);
+        return travel;
+    }
+
+    public Travel fromDto(TravelDto travelDto) {
         Travel travel = new Travel();
+        modifyTravel(travelDto, travel);
+        return travel;
+    }
+
+    private static void modifyTravel(TravelDto travelDto, Travel travel) {
         travel.setTitle(travelDto.getTitle());
         travel.setStartPoint(travelDto.getStartPoint());
         travel.setEndPoint(travelDto.getEndPoint());
         travel.setDepartureTime(travelDto.getDepartureTime());
         travel.setFreeSpots(travelDto.getFreeSpots());
-        return travel;
     }
+
 }

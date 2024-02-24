@@ -13,9 +13,9 @@ public interface TravelService {
 
     Travel create(Travel travel, User creator);
 
-    Travel updated();
+    Travel update(User userModifier, Travel travelToUpdate);
 
-    Travel delete();
+    Travel delete(int id, User userModifier);
 
     long getTravelsCount();
 }

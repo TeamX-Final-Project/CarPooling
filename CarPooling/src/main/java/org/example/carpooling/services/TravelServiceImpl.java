@@ -1,5 +1,6 @@
 package org.example.carpooling.services;
 
+import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.repositories.contracts.TravelRepository;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Service
 public class TravelServiceImpl implements TravelService {
+    public static final String YOU_ARE_NOT_THE_CREATOR_OF_THE_TRAVEL_ERROR = "You are not the creator of the travel";
     private final TravelRepository travelRepository;
 
     @Autowired
@@ -37,13 +39,22 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
-    public Travel updated() {
-        return null;
+    public Travel update(User userModifier, Travel travelToUpdate) {
+        //TODO double check the getByID since once you take the travelToUpdate here
+        // then again is used getById in checkModifyPermission and one more time in the travelMapper.fromDTO
+        Travel travel = getById(travelToUpdate.getTravelId());
+        checkModifyPermission(userModifier, travelToUpdate);
+        return travelRepository.update(travelToUpdate);
     }
 
     @Override
-    public Travel delete() {
-        return null;
+    public Travel delete(int id, User userModifier) {
+        //TODO double check the getByID since once you take the travelToDelete here
+        // then again is used getById in checkModifyPermission
+        Travel travelToDelete = getById(id);
+        checkModifyPermission(userModifier, travelToDelete);
+        travelToDelete.setDeleted(true);
+        return travelRepository.delete(travelToDelete);
     }
 
     @Override
@@ -51,5 +62,13 @@ public class TravelServiceImpl implements TravelService {
         return 0;
     }
 
+    private void checkModifyPermission(User userModifier, Travel travelToUpdate) {
+
+        if (userModifier.getId() != travelToUpdate.getUserId()) {
+            throw new AuthorizationException(YOU_ARE_NOT_THE_CREATOR_OF_THE_TRAVEL_ERROR);
+        }
+    }
+
 
 }
+
