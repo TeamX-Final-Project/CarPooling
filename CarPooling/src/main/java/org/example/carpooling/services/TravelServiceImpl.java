@@ -1,5 +1,6 @@
 package org.example.carpooling.services;
 
+import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.repositories.contracts.TravelRepository;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Service
 public class TravelServiceImpl implements TravelService {
+    public static final String YOU_ARE_NOT_THE_CREATOR_OF_THE_TRAVEL_ERROR = "You are not the creator of the travel";
     private final TravelRepository travelRepository;
 
     @Autowired
@@ -37,8 +39,9 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
-    public Travel updated() {
-        return null;
+    public Travel update(User userModifier, Travel travelToUpdate) {
+        checkModifyPermission(userModifier, travelToUpdate);
+        return travelRepository.update(travelToUpdate);
     }
 
     @Override
@@ -51,5 +54,13 @@ public class TravelServiceImpl implements TravelService {
         return 0;
     }
 
+    private void checkModifyPermission(User userModifier, Travel travelToUpdate) {
+        Travel travel = getById(travelToUpdate.getTravelId());
+        if (userModifier.getId() != travel.getUserId()) {
+            throw new AuthorizationException(YOU_ARE_NOT_THE_CREATOR_OF_THE_TRAVEL_ERROR);
+        }
+    }
+
 
 }
+

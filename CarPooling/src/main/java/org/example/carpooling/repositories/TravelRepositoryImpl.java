@@ -83,8 +83,13 @@ public class TravelRepositoryImpl implements TravelRepository {
     }
 
     @Override
-    public Travel updated() {
-        return null;
+    public Travel update(Travel travelToUpdate) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.merge(travelToUpdate);
+            session.getTransaction().commit();
+        }
+        return travelToUpdate;
     }
 
     @Override

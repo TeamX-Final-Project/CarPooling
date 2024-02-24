@@ -14,7 +14,7 @@ public interface TravelRepository {
 
     Travel create(Travel travel);
 
-    Travel updated();
+    Travel update(Travel travelToUpdate);
 
     Travel delete();
 

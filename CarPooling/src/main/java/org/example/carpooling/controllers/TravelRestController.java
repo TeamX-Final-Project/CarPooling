@@ -71,9 +71,25 @@ public class TravelRestController {
             User creator = authenticationHelper.tryGetCurrentUser(headers);
             Travel newTravel = travelMapper.fromDto(travelDto);
             return travelService.create(newTravel, creator);
-        } catch (AuthorizationException | BlockedUserException e){
+        } catch (AuthorizationException | BlockedUserException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
+    }
+
+    @PutMapping("/{id}")
+    public Travel updateTravel(@RequestHeader HttpHeaders headers,
+                               @PathVariable int id,
+                               @Valid @RequestBody TravelDto travelDto) {
+        try {
+            User userModifier = authenticationHelper.tryGetCurrentUser(headers);
+            Travel travelToUpdate = travelMapper.fromDto(id, travelDto);
+            return travelService.update(userModifier, travelToUpdate);
+        } catch (AuthorizationException | BlockedUserException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+
 
     }
 }
