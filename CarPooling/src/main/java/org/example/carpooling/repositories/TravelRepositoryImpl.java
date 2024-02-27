@@ -23,6 +23,7 @@ public class TravelRepositoryImpl implements TravelRepository {
         this.sessionFactory = sessionFactory;
     }
 
+    //TODO fix this method to work for travels
     @Override
     public List<Travel> getAllTravels(TravelFilterOptions travelFilterOptions) {
         try (Session session = sessionFactory.openSession()) {
@@ -30,10 +31,6 @@ public class TravelRepositoryImpl implements TravelRepository {
             Map<String, Object> params = new HashMap<>();
             StringBuilder queryString = new StringBuilder(" from Travel ");
 
-            travelFilterOptions.getTitle().ifPresent(value -> {
-                filters.add(" title like :title");
-                params.put("title", String.format("%%%s%%", value));
-            });
             travelFilterOptions.getStartPoint().ifPresent(value -> {
                 filters.add(" startPoint like :startPoint");
                 params.put("startPoint", String.format("%%%s%%", value));
@@ -41,10 +38,6 @@ public class TravelRepositoryImpl implements TravelRepository {
             travelFilterOptions.getEndPoint().ifPresent(value -> {
                 filters.add(" endPoint like :endPoint");
                 params.put("endPoint", String.format("%%%s%%", value));
-            });
-            travelFilterOptions.getCreatedBy().ifPresent(value -> {
-                filters.add(" createdBy.username like :createdBy");
-                params.put("createdBy", String.format("%%%s%%", value));
             });
 
             if (!filters.isEmpty()) {
@@ -132,9 +125,6 @@ public class TravelRepositoryImpl implements TravelRepository {
                 break;
             case "endPoint":
                 orderBy = "endPoint";
-                break;
-            case "username":
-                orderBy = "username";
                 break;
             default:
                 return "";
