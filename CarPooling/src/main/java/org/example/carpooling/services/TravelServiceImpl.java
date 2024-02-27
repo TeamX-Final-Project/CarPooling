@@ -3,6 +3,7 @@ package org.example.carpooling.services;
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
+import org.example.carpooling.models.enums.TravelStatus;
 import org.example.carpooling.repositories.contracts.TravelRepository;
 import org.example.carpooling.services.contracts.TravelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,14 @@ public class TravelServiceImpl implements TravelService {
         checkModifyPermission(userModifier, travelToDelete);
         travelToDelete.setDeleted(true);
         return travelRepository.delete(travelToDelete);
+    }
+
+    @Override
+    public Travel cancel(int id, User userModifier) {
+        Travel travelToCancel = getById(id);
+        checkModifyPermission(userModifier, travelToCancel);
+        travelToCancel.setTravelStatus(TravelStatus.CANCELED);
+        return travelRepository.cancel(travelToCancel);
     }
 
     @Override

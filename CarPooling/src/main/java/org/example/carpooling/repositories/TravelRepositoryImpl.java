@@ -103,6 +103,16 @@ public class TravelRepositoryImpl implements TravelRepository {
     }
 
     @Override
+    public Travel cancel(Travel travelToCancel) {
+        try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.merge(travelToCancel);
+            session.getTransaction().commit();
+        }
+        return travelToCancel;
+    }
+
+    @Override
     public long getTravelsCount() {
         return 0;
     }

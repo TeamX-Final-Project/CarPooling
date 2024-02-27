@@ -1,9 +1,10 @@
 package org.example.carpooling.models;
 
 import jakarta.persistence.*;
+import org.example.carpooling.models.enums.TravelStatus;
 
 import java.sql.Timestamp;
-import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "travels")
@@ -12,8 +13,6 @@ public class Travel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "travel_id")
     private int travelId;
-    @Column(name = "title")
-    private String title;
     @Column(name = "start_point")
 
     private String startPoint;
@@ -29,6 +28,12 @@ public class Travel {
     @JoinColumn(name = "user_id")
     private User userId;
 
+    //ToDo double check this part for the travelStatus
+    @Enumerated(EnumType.STRING)
+    @Column(name = "travel_status_id")
+    private TravelStatus travelStatus;
+
+
     //TODO implement the comment logic probably OneToMany
     // since one travel can have many comments for pets,luggage,smoking,etc...
 
@@ -42,14 +47,6 @@ public class Travel {
 
     public void setTravelId(int travelId) {
         this.travelId = travelId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getStartPoint() {
@@ -100,4 +97,11 @@ public class Travel {
         this.userId = userId;
     }
 
+    public TravelStatus getTravelStatus() {
+        return travelStatus;
+    }
+
+    public void setTravelStatus(TravelStatus travelStatus) {
+        this.travelStatus = travelStatus;
+    }
 }

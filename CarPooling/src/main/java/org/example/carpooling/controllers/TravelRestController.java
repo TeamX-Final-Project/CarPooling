@@ -102,7 +102,18 @@ public class TravelRestController {
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
+    }
 
-
+    @PutMapping("/cancel:{id}")
+    public Travel cancelTravel(@RequestHeader HttpHeaders headers, @PathVariable int id){
+        try {
+            User userModifier = authenticationHelper.tryGetCurrentUser(headers);
+            return travelService.cancel(id, userModifier);
+        } catch (AuthorizationException | BlockedUserException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
     }
 }
+

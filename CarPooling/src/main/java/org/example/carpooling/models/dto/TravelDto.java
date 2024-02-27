@@ -2,6 +2,7 @@ package org.example.carpooling.models.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import org.example.carpooling.models.enums.TravelStatus;
 
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -21,6 +22,8 @@ public class TravelDto {
     private Timestamp departureTime;
     @NotEmpty
     private int freeSpots;
+    @NotEmpty
+    private TravelStatus travelStatus;
 
     public TravelDto() {
     }
@@ -63,6 +66,14 @@ public class TravelDto {
 
     public void setFreeSpots(int freeSpots) {
         this.freeSpots = freeSpots;
+    }
+
+    public TravelStatus getTravelStatus() {
+        return travelStatus;
+    }
+
+    public void setTravelStatus(TravelStatus travelStatus) {
+        this.travelStatus = travelStatus;
     }
 
     @Override
