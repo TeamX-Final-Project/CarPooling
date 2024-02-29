@@ -4,25 +4,23 @@ import java.util.Optional;
 
 public class UserFilterOptions {
 
-    private final Optional<String> firstName;
+    private final Optional<String> phoneNumber;
     private final Optional<String> email;
     private final Optional<String> username;
-    //TODO double check this since there is no post.id field in User to search from here
-//    private Optional<Integer> postId;
     private final Optional<String> sortBy;
     private final Optional<String> orderBy;
 
     public UserFilterOptions() {
-        this.firstName = Optional.empty();
+        this.phoneNumber = Optional.empty();
         this.email = Optional.empty();
         this.username = Optional.empty();
         this.sortBy = Optional.empty();
         this.orderBy = Optional.empty();
     }
 
-    public UserFilterOptions(String firstName, String email,
+    public UserFilterOptions(String phoneNumber, String email,
                              String username, String sortBy, String orderBy) {
-        this.firstName = Optional.ofNullable(firstName);
+        this.phoneNumber = Optional.ofNullable(phoneNumber);
         this.email = Optional.ofNullable(email);
         this.username = Optional.ofNullable(username);
 //        this.postId = Optional.ofNullable(postId);
@@ -32,8 +30,8 @@ public class UserFilterOptions {
 
 
 
-    public Optional<String> getFirstName() {
-        return firstName;
+    public Optional<String> getPhoneNumber() {
+        return phoneNumber;
     }
 
     public Optional<String> getEmail() {

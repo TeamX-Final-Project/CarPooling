@@ -11,7 +11,7 @@ public interface UserService {
 
     User getById(int id);
 
-    User getByFirstName(String firstName, User user);
+    User getByPhoneNumber(String phoneNumber, User user);
 
     User getByEmail(String email, User user);
 

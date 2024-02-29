@@ -3,6 +3,7 @@ package org.example.carpooling.services;
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
+import org.example.carpooling.models.User;
 import org.example.carpooling.repositories.contracts.TravelRepository;
 import org.example.carpooling.services.contracts.TravelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,7 @@ public class TravelServiceImpl implements TravelService {
 
     private void checkModifyPermission(User userModifier, Travel travelToUpdate) {
 
-        if (userModifier.getId() != travelToUpdate.getUserId()) {
+        if (userModifier.getUserId() != travelToUpdate.getUserId().getUserId()) {
             throw new AuthorizationException(YOU_ARE_NOT_THE_CREATOR_OF_THE_TRAVEL_ERROR);
         }
     }

@@ -1,4 +1,4 @@
-package org.example.carpooling.models.Dto;
+package org.example.carpooling.models.dto;
 
 import org.checkerframework.common.aliasing.qual.Unique;
 
@@ -9,7 +9,8 @@ public class ProfileDto {
     @Unique
     private String email;
     private String password;
-//    private String phoneNumber;
+    @Unique
+    private String phoneNumber;
 
     public String getPassword() {
         return password;
@@ -19,13 +20,13 @@ public class ProfileDto {
         this.password = password;
     }
 
-//    public String getPhoneNumber() {
-//        return phoneNumber;
-//    }
-//
-//    public void setPhoneNumber(String phoneNumber) {
-//        this.phoneNumber = phoneNumber;
-//    }
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     public String getFirstName() {
         return firstName;

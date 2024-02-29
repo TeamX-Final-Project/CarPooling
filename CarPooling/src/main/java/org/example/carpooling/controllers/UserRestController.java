@@ -7,7 +7,7 @@ import org.example.carpooling.exceptions.EntityDuplicateException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.helpers.AuthenticationHelper;
 import org.example.carpooling.helpers.UserMapper;
-import org.example.carpooling.models.Dto.UserDto;
+import org.example.carpooling.models.dto.UserDto;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserFilterOptions;
 import org.example.carpooling.services.contracts.UserService;
@@ -37,41 +37,39 @@ public class UserRestController {
 
     @GetMapping
     public List<User> getAllUsers(@RequestHeader HttpHeaders headers,
-                                  @RequestParam(required = false) String firstName,
+                                  @RequestParam(required = false) String phoneNumber,
                                   @RequestParam(required = false) String email,
                                   @RequestParam(required = false) String username,
-                                  ////TODO double check this since there is no post.id field in User to search from here
-//                                  @RequestParam(required = false) Integer postId,
                                   @RequestParam(required = false) String sortBy,
                                   @RequestParam(required = false) String sortOrder) {
-        try {
-            UserFilterOptions filterOptions = new UserFilterOptions(firstName, email, username, sortBy, sortOrder);
-            return userService.getAllUsers(filterOptions);
-        } catch (EntityNotFoundException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-
-        // TODO need to discuss if there is need for only admin to search all users(probably not)
 //        try {
-//            User user = authenticationHelper.tryGetUser(headers);
-//            ;
-////
-////            if (!user.isAdmin()) {
-////                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, ERROR_MESSAGE);
-////            }
-//            return userService.getAllUsers();
-//        } catch (AuthorizationException e) {
-//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+//            UserFilterOptions filterOptions = new UserFilterOptions(phoneNumber, email, username, sortBy, sortOrder);
+//            return userService.getAllUsers(filterOptions);
+//        } catch (EntityNotFoundException e){
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 //        }
+        try {
+            User user = authenticationHelper.tryGetUser(headers);
+            if (!user.isAdmin()) {
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, ERROR_MESSAGE);
+            } else {
+                UserFilterOptions filterOptions = new UserFilterOptions(phoneNumber, email, username, sortBy, sortOrder);
+                return userService.getAllUsers(filterOptions);
+            }
+ //           return userService.getAllUsers(filterOptions);
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
     }
 
     @GetMapping("/{id}")
     public User getUserById(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
-            //TODO probably no need to check if the user is logged in to see only firstName, lastName, username, email
             User user = authenticationHelper.tryGetUser(headers);
+            //todo Pet: make access check
+            //todo Pet:  (anonymous user) not logged in user should NOT be abel to see any user private data
+            //todo Pet: only admin can access other user data ;
             return userService.getById(id);
-            //TODO probably no need for Authorization Exception
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -143,6 +141,8 @@ public class UserRestController {
         try {
             User userModifier = authenticationHelper.tryGetUser(headers);
             User userToBeModified = userMapper.fromDto(id, userDto);
+            //todo Pet: wrong naming: userToBeModified -> userUpdates;
+            // userToBeModified sounds like current user data
 
             return userService.update(userToBeModified);
         } catch (AuthorizationException e) {

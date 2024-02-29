@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import org.checkerframework.common.aliasing.qual.Unique;
+import org.example.carpooling.models.enums.UserStatus;
 
 import java.util.Objects;
 
@@ -17,7 +18,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "user_id")
     @JsonIgnore
     private int userId;
 
@@ -41,29 +42,31 @@ public class User {
 
     @NotNull(message = CAN_T_BE_EMPTY)
     @Column(name = "phoneNumber")
-    private int phoneNumber;
+    private String phoneNumber;
 
     @NotNull(message = CAN_T_BE_EMPTY)
     @JsonIgnore
     @Column(name = "password")
     private String password;
 
-
-    @Column(name = "is_blocked")
-    private boolean isBlocked;
-
-    @Column(name = "is_deleted")
-    private boolean isDeleted;
-
     @Column(name = "is_admin")
     private boolean isAdmin;
 
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "user_status")
+    private UserStatus userStatus;
 
+
+    //    @Column(name = "is_blocked")
+//    private boolean isBlocked;
+//
+//    @Column(name = "is_deleted")
+//    private boolean isDeleted;
     public User() {
     }
 
-    public User(int userId, String firstName, String lastName, String email, String username,int phoneNumber,
-                String password, boolean isBlocked, boolean isDeleted, boolean isAdmin) {
+    public User(int userId, String firstName, String lastName, String email, String username, String phoneNumber,
+                String password, UserStatus userStatus, boolean isAdmin) {
 //        setId(id);
 //        setFirstName(firstName);
 //        setLastName(lastName);
@@ -81,8 +84,7 @@ public class User {
         this.username = username;
         this.phoneNumber = phoneNumber;
         this.password = password;
-        this.isBlocked = isBlocked;
-        this.isDeleted = isDeleted;
+        this.userStatus = userStatus;
         this.isAdmin = isAdmin;
     }
 
@@ -126,11 +128,11 @@ public class User {
         this.username = username;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -142,20 +144,12 @@ public class User {
         this.password = password;
     }
 
-    public boolean isBlocked() {
-        return isBlocked;
+    public UserStatus getUserStatus() {
+        return userStatus;
     }
 
-    public void setBlocked(boolean blocked) {
-        isBlocked = blocked;
-    }
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+    public void setUserStatus(UserStatus userStatus) {
+        this.userStatus = userStatus;
     }
 
     public boolean isAdmin() {
