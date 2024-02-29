@@ -4,9 +4,12 @@ import jakarta.validation.Valid;
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.BlockedUserException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
+import org.example.carpooling.helpers.AuthenticationHelper;
 import org.example.carpooling.helpers.TravelMapper;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
+import org.example.carpooling.models.User;
+
 import org.example.carpooling.models.dto.TravelDto;
 import org.example.carpooling.services.contracts.TravelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +24,16 @@ import java.util.List;
 @RequestMapping("/api/travels")
 public class TravelRestController {
 
+
+    private final AuthenticationHelper authenticationHelper;
     private final TravelService travelService;
     private final TravelMapper travelMapper;
 
     @Autowired
-    public TravelRestController(TravelService travelService, TravelMapper travelMapper) {
+    public TravelRestController(TravelService travelService, TravelMapper travelMapper, AuthenticationHelper authenticationHelper) {
         this.travelService = travelService;
         this.travelMapper = travelMapper;
+        this.authenticationHelper = authenticationHelper;
     }
 
     @GetMapping
@@ -55,7 +61,7 @@ public class TravelRestController {
     public Travel getTravelById(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
             //TODO wait for the User class implementation for the logic to authenticate the user before searching for travel by id
-            User user = authenticationHelper.tryGetCurrentUser(headers);
+            User user = authenticationHelper.tryGetUser(headers);
             return travelService.getById(id);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
@@ -68,7 +74,7 @@ public class TravelRestController {
     public Travel createTravel(@RequestHeader HttpHeaders headers, @Valid @RequestBody TravelDto travelDto) {
         try {
             //TODO wait for the User class implementation for the logic to authenticate the user before creating a new travel
-            User creator = authenticationHelper.tryGetCurrentUser(headers);
+            User creator = authenticationHelper.tryGetUser(headers);
             Travel newTravel = travelMapper.fromDto(travelDto);
             return travelService.create(newTravel, creator);
         } catch (AuthorizationException | BlockedUserException e) {
@@ -81,7 +87,7 @@ public class TravelRestController {
                                @PathVariable int id,
                                @Valid @RequestBody TravelDto travelDto) {
         try {
-            User userModifier = authenticationHelper.tryGetCurrentUser(headers);
+            User userModifier = authenticationHelper.tryGetUser(headers);
             Travel travelToUpdate = travelMapper.fromDto(id, travelDto);
             return travelService.update(userModifier, travelToUpdate);
         } catch (AuthorizationException | BlockedUserException e) {
@@ -95,7 +101,7 @@ public class TravelRestController {
     public Travel deleteTravel(@RequestHeader HttpHeaders headers,
                                @PathVariable int id) {
         try {
-            User userModifier = authenticationHelper.tryGetCurrentUser(headers);
+            User userModifier = authenticationHelper.tryGetUser(headers);
             return travelService.delete(id, userModifier);
         } catch (AuthorizationException | BlockedUserException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());

@@ -10,6 +10,13 @@ create table cities
     name varchar(50) not null
 );
 
+create table user_status
+(
+    id    int auto_increment
+        primary key,
+    value int not null
+);
+
 create table travel_status
 (
     id            int auto_increment
@@ -27,6 +34,10 @@ create table users
     last_name    varchar(20) not null,
     email        varchar(50) not null,
     phone_number varchar(20) not null,
+    user_status  int         not null,
+    is_admin     tinyint     not null,
+    constraint users_user_status_id_fk
+        foreign key (user_status) references user_status (id),
     constraint users_pk2
         unique (username),
     constraint users_pk3
@@ -127,15 +138,3 @@ create table travel_preferences
         foreign key (travel_id) references travels (travel_id)
 );
 
-create table user_status
-(
-    id          int auto_increment
-        primary key,
-    user_status int     not null,
-    is_deleted  tinyint not null,
-    is_blocked  tinyint not null,
-    is_admin    tinyint not null,
-    user_id     int     not null,
-    constraint user_status_users_user_id_fk
-        foreign key (user_id) references users (user_id)
-);
