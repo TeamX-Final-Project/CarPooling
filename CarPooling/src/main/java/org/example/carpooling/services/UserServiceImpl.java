@@ -36,10 +36,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getByFirstName(String firstName, User user) {
+    public User getByPhoneNumber(String phoneNumber, User user) {
 
-        checkAccessPermissionString(firstName, user);
-        return userRepository.getByFirstName(firstName);
+        checkAccessPermissionString(phoneNumber, user);
+        return userRepository.getByPhoneNumber(phoneNumber);
     }
 
     @Override
@@ -76,6 +76,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(User user) {
+        //todo Pet: wrong access permission check ;
+        // 1. you are not passing requesting user
+        // 2. user should be able to update his own data
         checkAccessPermissionId(user.getUserId(), user);
         User userToUpdate = getById(user.getUserId());
         validateFirstName(user, userToUpdate);
@@ -88,11 +91,13 @@ public class UserServiceImpl implements UserService {
         return userRepository.update(userToUpdate);
     }
 
+    //todo Pet: why static methods?
     private static void validatePassword(User user, User userToUpdate) {
         if (user.getPassword().equals(userToUpdate.getPassword())) {
             throw new PasswordChangeProfileError(PASSWORD_IS_THE_SAME_AS_BEFORE_ERROR);
         }
         if (user.getPassword().isEmpty()) {
+            //todo Pet: not needed
             userToUpdate.setPassword(userToUpdate.getPassword());
         } else {
             userToUpdate.setPassword(user.getPassword());
@@ -112,6 +117,7 @@ public class UserServiceImpl implements UserService {
 
     private static void validateFirstName(User user, User userToUpdate) {
         if (user.getFirstName().isEmpty()) {
+            //todo Pet: upper check should be the opposite -> !
             userToUpdate.setFirstName(userToUpdate.getFirstName());
         }
         if (!(user.getFirstName().isEmpty()) && (user.getFirstName().length() > 4 || user.getFirstName().length() < 32)) {
@@ -120,6 +126,7 @@ public class UserServiceImpl implements UserService {
         if (!(user.getFirstName().isEmpty()) && (user.getFirstName().length() < 4 || user.getFirstName().length() > 32)) {
             throw new FirstNameChangeProfileError(FIRST_NAME_MUST_BE_BETWEEN_2_AND_20_SYMBOLS_ERROR);
         }
+         //todo Pet: can you simplify that method ?
     }
 
     private static void validateLastName(User user, User userToUpdate) {

@@ -5,7 +5,8 @@ package org.example.carpooling.helpers;
 import jakarta.servlet.http.HttpSession;
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
-import org.example.carpooling.models.Dto.LoginDto;
+
+import org.example.carpooling.models.dto.LoginDto;
 import org.example.carpooling.models.User;
 import org.example.carpooling.services.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class AuthenticationHelper {
             throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
         }
     }
-
+//todo Pet: this and next method look pretty similar;
     public User tryGetUserFromSession(HttpSession session){
         try {
             return userService.getByUsernameAuthentication((String) session.getAttribute("currentUser"));
@@ -60,7 +61,7 @@ public class AuthenticationHelper {
 
 
 
-    public User tryGetCurrentUser(HttpSession session) {
+    public User tryGetUser(HttpSession session) {
         String currentUsername = (String) session.getAttribute("currentUser");
 
         if (currentUsername == null) {

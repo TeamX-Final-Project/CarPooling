@@ -2,6 +2,7 @@ package org.example.carpooling.services.contracts;
 
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
+import org.example.carpooling.models.User;
 
 import java.util.List;
 

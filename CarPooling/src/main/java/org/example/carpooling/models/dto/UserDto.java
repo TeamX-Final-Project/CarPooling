@@ -1,4 +1,4 @@
-package org.example.carpooling.models.Dto;
+package org.example.carpooling.models.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -29,7 +29,7 @@ public class UserDto {
 
     @NotNull(message = NUMBER_CAN_T_BE_EMPTY_MESSAGE)
     @Size(min = 10, message = NUMBER_SHOULD_BE_10_DIGITS_MESSAGE)
-    private int phoneNumber;
+    private String phoneNumber;
 
     //ToDo double check how to use @Unique annotation
     @NotNull(message = NAME_CAN_T_BE_EMPTY_MESSAGE)
@@ -42,38 +42,31 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(String firstName, String lastName, String email, String username, int phoneNumber,String password) {
+    public UserDto(String firstName, String lastName, String email,
+                   String username, String phoneNumber,String password) {
         setFirstName(firstName);
         setLastName(lastName);
         setEmail(email);
         setUsername(username);
         setPhoneNumber(phoneNumber);
         setPassword(password);
+
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public String getEmail() {
         return email;
@@ -93,6 +86,16 @@ public class UserDto {
 
     public String getPassword() {
         return password;
+    }
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public void setPassword(String password) {

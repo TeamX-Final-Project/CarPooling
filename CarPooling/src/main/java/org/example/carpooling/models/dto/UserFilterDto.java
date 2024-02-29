@@ -1,20 +1,23 @@
-package org.example.carpooling.models.Dto;
+package org.example.carpooling.models.dto;
 
 public class UserFilterDto {
 
     private String firstName;
     private String username;
     private String email;
+
+    private String phoneNumber;
     private String sortBy;
     private String orderBy;
 
     public UserFilterDto() {
     }
 
-    public UserFilterDto(String firstName, String username, String email, String sortBy, String orderBy) {
+    public UserFilterDto(String firstName, String username, String email, String phoneNumber, String sortBy, String orderBy) {
         this.firstName = firstName;
         this.username = username;
         this.email = email;
+        this.phoneNumber = phoneNumber;
         this.sortBy = sortBy;
         this.orderBy = orderBy;
     }
@@ -41,6 +44,14 @@ public class UserFilterDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getSortBy() {

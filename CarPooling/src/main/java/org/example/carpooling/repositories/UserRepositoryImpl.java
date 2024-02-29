@@ -12,19 +12,23 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+@Repository
 public class UserRepositoryImpl implements UserRepository {
 
     private static final String USER_CONSTANT = "User not found";
     private final SessionFactory sessionFactory;
 
+
     @Autowired
-    public UserRepositoryImpl(SessionFactory sessionFactory, TravelRepository travelRepository) {
+    public UserRepositoryImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -35,8 +39,8 @@ public class UserRepositoryImpl implements UserRepository {
             Map<String, Object> params = new HashMap<>();
             StringBuilder queryString = new StringBuilder(" from User ");
 
-            filterOptions.getFirstName().ifPresent(value -> {
-                filters.add(" firstName like :firstName ");
+            filterOptions.getPhoneNumber().ifPresent(value -> {
+                filters.add(" phoneNumber like :phoneNumber ");
                 params.put("firstName", String.format("%%%s%%", value));
             });
             filterOptions.getEmail().ifPresent(value -> {
@@ -62,7 +66,7 @@ public class UserRepositoryImpl implements UserRepository {
             query.setProperties(params);
             return query.list();
             //TODO how to implement exception if the result of the query doesn't find user with the requested information
-        } catch (EntityNotFoundException e){
+        } catch (EntityNotFoundException e) {
             throw new EntityNotFoundException(USER_CONSTANT);
         }
     }
@@ -79,13 +83,13 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User getByFirstName(String firstName) {
+    public User getByPhoneNumber(String phoneNumber) {
         try (Session session = sessionFactory.openSession()) {
-            Query<User> query = session.createQuery("from User where firstName = :firstName", User.class);
-            query.setParameter("firstName", firstName);
+            Query<User> query = session.createQuery("from User where phoneNumber = :phoneNumber", User.class);
+            query.setParameter("phoneNumber", phoneNumber);
             List<User> result = query.list();
             if (result.isEmpty()) {
-                throw new EntityNotFoundException("User", "first name", firstName);
+                throw new EntityNotFoundException("Phone number", "phone number", phoneNumber);
             }
             return result.get(0);
         }
@@ -110,7 +114,6 @@ public class UserRepositoryImpl implements UserRepository {
             Query<User> query = session.createQuery("from User where username = :username", User.class);
             query.setParameter("username", username);
             List<User> result = query.list();
-
             if (result.isEmpty()) {
                 throw new EntityNotFoundException("User", "username", username);
             }
@@ -131,7 +134,6 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User update(User user) {
-
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.merge(user);
@@ -142,11 +144,13 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User delete(int id) {
+        //todo Pet: business logic should be in service layer; repo is for the communication with database; same for other methods here
         User userToDelete = getByUserId(id);
         if (userToDelete.isDeleted()) {
             throw new EntityDeletedException("User", "username", userToDelete.getUsername());
         }
         userToDelete.setDeleted(true);
+        // --- from here starts communication with DB layer
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.merge(userToDelete);
@@ -157,12 +161,13 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User makeUserAdmin(int id) {
+
         User userToMakeAdmin = getByUserId(id);
-        if (userToMakeAdmin.isAdmin()){
+        if (userToMakeAdmin.isAdmin()) {
             throw new EntityAlreadyAdminException("User", "username", userToMakeAdmin.getUsername());
         }
         userToMakeAdmin.setAdmin(true);
-        try(Session session = sessionFactory.openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.merge(userToMakeAdmin);
             session.getTransaction().commit();
@@ -173,8 +178,9 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User unmakeUserAdmin(int id) {
         User userToMakeAdmin = getByUserId(id);
+        //todo Pet: make code consistent with other logic : if already not admin -> exception; same for other methods block/unblock
         userToMakeAdmin.setAdmin(false);
-        try(Session session = sessionFactory.openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.merge(userToMakeAdmin);
             session.getTransaction().commit();
@@ -186,7 +192,8 @@ public class UserRepositoryImpl implements UserRepository {
     public User blockUser(int id) {
         User userToBlock = getByUserId(id);
         userToBlock.setBlocked(true);
-        try(Session session = sessionFactory.openSession()) {
+        //todo Pet:  extract in update method and reuse
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.merge(userToBlock);
             session.getTransaction().commit();
@@ -198,7 +205,7 @@ public class UserRepositoryImpl implements UserRepository {
     public User unblockUser(int id) {
         User userToBlock = getByUserId(id);
         userToBlock.setBlocked(false);
-        try(Session session = sessionFactory.openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.merge(userToBlock);
             session.getTransaction().commit();
@@ -213,8 +220,8 @@ public class UserRepositoryImpl implements UserRepository {
 
         String orderBy = "";
         switch (filterOptions.getSortBy().get()) {
-            case "firstName":
-                orderBy = "firstName";
+            case "phoneNumber":
+                orderBy = "phoneNumber";
                 break;
             case "email":
                 orderBy = "email";

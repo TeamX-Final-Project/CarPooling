@@ -1,4 +1,4 @@
-package org.example.carpooling.models.Dto;
+package org.example.carpooling.models.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 
