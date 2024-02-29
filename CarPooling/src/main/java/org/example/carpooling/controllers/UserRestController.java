@@ -103,28 +103,18 @@ public class UserRestController {
         }
     }
 
-    @GetMapping("/firstName:{firstName}")
-    public User getUserByFirstName(@RequestHeader HttpHeaders headers, @PathVariable String firstName) {
-        try {
-            User user = authenticationHelper.tryGetUser(headers);
-            return userService.getByFirstName(firstName, user);
-        } catch (AuthorizationException e) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-        } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-    }
-
-//    @GetMapping("/userPosts:{id}")
-//    public List<Post> getUserPosts(@RequestHeader HttpHeaders headers, @PathVariable int id) {
+//    @GetMapping("/firstName:{firstName}")
+//    public User getUserByFirstName(@RequestHeader HttpHeaders headers, @PathVariable String firstName) {
 //        try {
-//            User requestingUser = authenticationHelper.tryGetUser(headers);
-//            User userToGetPosts = userService.getById(id);
-//            return new ArrayList<>(userToGetPosts.getUsersPosts());
-//        } catch (EntityNotFoundException e){
+//            User user = authenticationHelper.tryGetUser(headers);
+//            return userService.getByFirstName(firstName, user);
+//        } catch (AuthorizationException e) {
+//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+//        } catch (EntityNotFoundException e) {
 //            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 //        }
 //    }
+
 
     @PostMapping
     public User create(@Valid @RequestBody UserDto userDto) {
@@ -150,17 +140,17 @@ public class UserRestController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public User delete(@RequestHeader HttpHeaders headers, @PathVariable int id) {
-        try {
-            User userModifier = authenticationHelper.tryGetUser(headers);
-            return userService.delete(id, userModifier);
-        } catch (AuthorizationException e) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-        } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-    }
+//    @DeleteMapping("/{id}")
+//    public User delete(@RequestHeader HttpHeaders headers, @PathVariable int id) {
+//        try {
+//            User userModifier = authenticationHelper.tryGetUser(headers);
+//            return userService.delete(id, userModifier);
+//        } catch (AuthorizationException e) {
+//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+//        } catch (EntityNotFoundException e) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+//        }
+//    }
 
     @PutMapping("/makeAdmin:{id}")
     public User makeUserAdmin(@RequestHeader HttpHeaders headers, @PathVariable int id) {
@@ -188,27 +178,27 @@ public class UserRestController {
         }
     }
 
-    @PutMapping("/blockUser:{id}")
-    public User blockUser(@RequestHeader HttpHeaders headers, @PathVariable int id) {
-        try {
-            User userModifier = authenticationHelper.tryGetUser(headers);
-            return userService.blockUser(id, userModifier);
-        } catch (AuthorizationException e) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-        } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-    }
+//    @PutMapping("/blockUser:{id}")
+//    public User blockUser(@RequestHeader HttpHeaders headers, @PathVariable int id) {
+//        try {
+//            User userModifier = authenticationHelper.tryGetUser(headers);
+//            return userService.blockUser(id, userModifier);
+//        } catch (AuthorizationException e) {
+//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+//        } catch (EntityNotFoundException e) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+//        }
+//    }
 
-    @PutMapping("/unblockUser:{id}")
-    public User unblockUser(@RequestHeader HttpHeaders headers, @PathVariable int id) {
-        try {
-            User userModifier = authenticationHelper.tryGetUser(headers);
-            return userService.unblockUser(id, userModifier);
-        } catch (AuthorizationException e) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-        } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-    }
+//    @PutMapping("/unblockUser:{id}")
+//    public User unblockUser(@RequestHeader HttpHeaders headers, @PathVariable int id) {
+//        try {
+//            User userModifier = authenticationHelper.tryGetUser(headers);
+//            return userService.unblockUser(id, userModifier);
+//        } catch (AuthorizationException e) {
+//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+//        } catch (EntityNotFoundException e) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+//        }
+//    }
 }

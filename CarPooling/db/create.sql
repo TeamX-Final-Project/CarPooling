@@ -10,12 +10,6 @@ create table cities
     name varchar(50) not null
 );
 
-create table user_status
-(
-    id    int auto_increment
-        primary key,
-    value int not null
-);
 
 create table travel_status
 (
@@ -36,8 +30,6 @@ create table users
     phone_number varchar(20) not null,
     user_status  int         not null,
     is_admin     tinyint     not null,
-    constraint users_user_status_id_fk
-        foreign key (user_status) references user_status (id),
     constraint users_pk2
         unique (username),
     constraint users_pk3

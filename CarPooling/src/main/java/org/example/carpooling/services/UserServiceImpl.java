@@ -2,6 +2,7 @@ package org.example.carpooling.services;
 
 import org.example.carpooling.exceptions.*;
 import org.example.carpooling.models.User;
+import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.models.UserFilterOptions;
 import org.example.carpooling.repositories.contracts.UserRepository;
 import org.example.carpooling.services.contracts.UserService;
@@ -26,7 +27,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsers(UserFilterOptions filterOptions) {
-
         return userRepository.getAllUsers(filterOptions);
     }
 
@@ -37,7 +37,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getByPhoneNumber(String phoneNumber, User user) {
-
         checkAccessPermissionString(phoneNumber, user);
         return userRepository.getByPhoneNumber(phoneNumber);
     }
@@ -56,7 +55,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getByUsernameAuthentication(String username) {
-
         return userRepository.getByUsername(username);
     }
 
@@ -71,6 +69,7 @@ public class UserServiceImpl implements UserService {
         if (duplicateUserExists) {
             throw new EntityDuplicateException("User", "username", user.getUsername());
         }
+        user.setUserStatus(UserStatus.ACTIVE);
         return userRepository.create(user);
     }
 
@@ -92,7 +91,7 @@ public class UserServiceImpl implements UserService {
     }
 
     //todo Pet: why static methods?
-    private static void validatePassword(User user, User userToUpdate) {
+    private void validatePassword(User user, User userToUpdate) {
         if (user.getPassword().equals(userToUpdate.getPassword())) {
             throw new PasswordChangeProfileError(PASSWORD_IS_THE_SAME_AS_BEFORE_ERROR);
         }
@@ -104,7 +103,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private static void validateEmail(User user, User userToUpdate) {
+    private void validateEmail(User user, User userToUpdate) {
         if (user.getEmail().equals(userToUpdate.getEmail())) {
             throw new EmailChangeProfileError(EMAIL_IS_THE_SAME_AS_BEFORE_ERROR);
         }
@@ -126,7 +125,7 @@ public class UserServiceImpl implements UserService {
         if (!(user.getFirstName().isEmpty()) && (user.getFirstName().length() < 4 || user.getFirstName().length() > 32)) {
             throw new FirstNameChangeProfileError(FIRST_NAME_MUST_BE_BETWEEN_2_AND_20_SYMBOLS_ERROR);
         }
-         //todo Pet: can you simplify that method ?
+        //todo Pet: can you simplify that method ?
     }
 
     private static void validateLastName(User user, User userToUpdate) {
@@ -142,11 +141,11 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    @Override
-    public User delete(int id, User userModifier) {
-        checkAccessPermissionId(id, userModifier);
-        return userRepository.delete(id);
-    }
+//    @Override
+//    public User delete(int id, User userModifier) {
+//        checkAccessPermissionId(id, userModifier);
+//        return userRepository.delete(id);
+//    }
 
     @Override
     public User makeUserAdmin(int id, User userModifier) {
@@ -160,17 +159,17 @@ public class UserServiceImpl implements UserService {
         return userRepository.unmakeUserAdmin(id);
     }
 
-    @Override
-    public User blockUser(int id, User userModifier) {
-        checkAccessPermissionId(id, userModifier);
-        return userRepository.blockUser(id);
-    }
-
-    @Override
-    public User unblockUser(int id, User userModifier) {
-        checkAccessPermissionId(id, userModifier);
-        return userRepository.unblockUser(id);
-    }
+//    @Override
+//    public User blockUser(int id, User userModifier) {
+//        checkAccessPermissionId(id, userModifier);
+//        return userRepository.blockUser(id);
+//    }
+//
+//    @Override
+//    public User unblockUser(int id, User userModifier) {
+//        checkAccessPermissionId(id, userModifier);
+//        return userRepository.unblockUser(id);
+//    }
 
     private void checkAccessPermissionId(int id, User requestingUser) {
         if (!requestingUser.isAdmin()) {
@@ -187,9 +186,9 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
-    public long getUserCount() {
-
-        return userRepository.getUserCount();
-    }
+//    @Override
+//    public long getUserCount() {
+//
+//        return userRepository.getUserCount();
+//    }
 }

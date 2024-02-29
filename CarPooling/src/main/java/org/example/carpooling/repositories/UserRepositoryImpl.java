@@ -142,22 +142,22 @@ public class UserRepositoryImpl implements UserRepository {
         return user;
     }
 
-    @Override
-    public User delete(int id) {
-        //todo Pet: business logic should be in service layer; repo is for the communication with database; same for other methods here
-        User userToDelete = getByUserId(id);
-        if (userToDelete.isDeleted()) {
-            throw new EntityDeletedException("User", "username", userToDelete.getUsername());
-        }
-        userToDelete.setDeleted(true);
-        // --- from here starts communication with DB layer
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            session.merge(userToDelete);
-            session.getTransaction().commit();
-        }
-        return userToDelete;
-    }
+//    @Override
+//    public User delete(int id) {
+//        //todo Pet: business logic should be in service layer; repo is for the communication with database; same for other methods here
+//        User userToDelete = getByUserId(id);
+//        if (userToDelete.isDeleted()) {
+//            throw new EntityDeletedException("User", "username", userToDelete.getUsername());
+//        }
+//        userToDelete.setDeleted(true);
+//        // --- from here starts communication with DB layer
+//        try (Session session = sessionFactory.openSession()) {
+//            session.beginTransaction();
+//            session.merge(userToDelete);
+//            session.getTransaction().commit();
+//        }
+//        return userToDelete;
+//    }
 
     @Override
     public User makeUserAdmin(int id) {
@@ -188,30 +188,30 @@ public class UserRepositoryImpl implements UserRepository {
         return userToMakeAdmin;
     }
 
-    @Override
-    public User blockUser(int id) {
-        User userToBlock = getByUserId(id);
-        userToBlock.setBlocked(true);
-        //todo Pet:  extract in update method and reuse
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            session.merge(userToBlock);
-            session.getTransaction().commit();
-        }
-        return userToBlock;
-    }
-
-    @Override
-    public User unblockUser(int id) {
-        User userToBlock = getByUserId(id);
-        userToBlock.setBlocked(false);
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            session.merge(userToBlock);
-            session.getTransaction().commit();
-        }
-        return userToBlock;
-    }
+//    @Override
+//    public User blockUser(int id) {
+//        User userToBlock = getByUserId(id);
+//        userToBlock.setBlocked(true);
+//        //todo Pet:  extract in update method and reuse
+//        try (Session session = sessionFactory.openSession()) {
+//            session.beginTransaction();
+//            session.merge(userToBlock);
+//            session.getTransaction().commit();
+//        }
+//        return userToBlock;
+//    }
+//
+//    @Override
+//    public User unblockUser(int id) {
+//        User userToBlock = getByUserId(id);
+//        userToBlock.setBlocked(false);
+//        try (Session session = sessionFactory.openSession()) {
+//            session.beginTransaction();
+//            session.merge(userToBlock);
+//            session.getTransaction().commit();
+//        }
+//        return userToBlock;
+//    }
 
     private String generateOrderBy(UserFilterOptions filterOptions) {
         if (filterOptions.getSortBy().isEmpty()) {
@@ -242,16 +242,16 @@ public class UserRepositoryImpl implements UserRepository {
         return orderBy;
     }
 
-    @Override
-    public long getUserCount() {
-        try (Session session = sessionFactory.openSession()) {
-            String hql = "SELECT COUNT(*) FROM User where isDeleted=false";
-
-            Query<Long> query = session.createQuery(hql, Long.class);
-
-            List<Long> resultList = query.list();
-
-            return resultList.get(0);
-        }
-    }
+//    @Override
+//    public long getUserCount() {
+//        try (Session session = sessionFactory.openSession()) {
+//            String hql = "SELECT COUNT(*) FROM User where isDeleted=false";
+//
+//            Query<Long> query = session.createQuery(hql, Long.class);
+//
+//            List<Long> resultList = query.list();
+//
+//            return resultList.get(0);
+//        }
+//    }
 }
