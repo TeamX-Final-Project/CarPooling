@@ -36,7 +36,8 @@ public class TravelServiceImpl implements TravelService {
     @Override
     public Travel create(Travel travel, User creator) {
         //        TODO create the logic for the authorization and check if the user is blocked before creating new travel
-
+        travel.setUserId(creator);
+//        travel.setTravelStatus(travel.getTravelStatus());
         return travelRepository.create(travel);
     }
 

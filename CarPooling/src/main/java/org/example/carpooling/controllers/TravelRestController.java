@@ -113,7 +113,7 @@ public class TravelRestController {
     @PutMapping("/cancel:{id}")
     public Travel cancelTravel(@RequestHeader HttpHeaders headers, @PathVariable int id){
         try {
-            User userModifier = authenticationHelper.tryGetCurrentUser(headers);
+            User userModifier = authenticationHelper.tryGetUser(headers);
             return travelService.cancel(id, userModifier);
         } catch (AuthorizationException | BlockedUserException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());

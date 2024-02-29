@@ -14,7 +14,6 @@ public class Travel {
     @Column(name = "travel_id")
     private int travelId;
     @Column(name = "start_point")
-
     private String startPoint;
     @Column(name = "end_point")
     private String endPoint;

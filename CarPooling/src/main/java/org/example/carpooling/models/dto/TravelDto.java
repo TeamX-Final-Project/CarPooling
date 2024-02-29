@@ -10,31 +10,21 @@ import java.util.Objects;
 public class TravelDto {
 
     @NotEmpty
-    @Size(min = 4, max = 50, message = "Title must be between 4 and 50 symbols")
-    private String title;
-    @NotEmpty
     @Size(min = 4, max = 20, message = "Start point must be between 4 and 20 symbols")
     private String startPoint;
     @NotEmpty
     @Size(min = 4, max = 20, message = "End point must be between 4 and 20 symbols")
     private String endPoint;
-    @NotEmpty
+//    @NotEmpty
     private Timestamp departureTime;
-    @NotEmpty
+//    @NotEmpty
     private int freeSpots;
-    @NotEmpty
+//    @NotEmpty
     private TravelStatus travelStatus;
 
     public TravelDto() {
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public String getStartPoint() {
         return startPoint;
@@ -55,7 +45,6 @@ public class TravelDto {
     public Timestamp getDepartureTime() {
         return departureTime;
     }
-
     public void setDepartureTime(Timestamp departureTime) {
         this.departureTime = departureTime;
     }
@@ -76,16 +65,4 @@ public class TravelDto {
         this.travelStatus = travelStatus;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TravelDto travelDto = (TravelDto) o;
-        return Objects.equals(title, travelDto.title);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(title);
-    }
 }
