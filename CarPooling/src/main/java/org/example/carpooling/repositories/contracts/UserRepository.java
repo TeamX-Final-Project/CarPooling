@@ -21,7 +21,7 @@ public interface UserRepository {
 
     User update(User user);
 
-//    User delete(int id);
+    User delete(int id);
 
     User makeUserAdmin(int id);
 

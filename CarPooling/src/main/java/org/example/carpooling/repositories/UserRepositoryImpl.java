@@ -2,11 +2,10 @@ package org.example.carpooling.repositories;
 
 
 import org.example.carpooling.exceptions.EntityAlreadyAdminException;
-import org.example.carpooling.exceptions.EntityDeletedException;
+
 import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserFilterOptions;
-import org.example.carpooling.repositories.contracts.TravelRepository;
 import org.example.carpooling.repositories.contracts.UserRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -51,17 +50,10 @@ public class UserRepositoryImpl implements UserRepository {
                 filters.add(" username like :username ");
                 params.put("username", String.format("%%%s%%", value));
             });
-//TODO double check this since there is no post.id field in User to search from here
-//            filterOptions.getPostId().ifPresent(value -> {
-//                filters.add(" post.id = :postId ");
-//                params.put("postId", value);
-//            });
-
             if (!filters.isEmpty()) {
                 queryString.append("where").append(String.join(" and ", filters));
             }
             queryString.append(generateOrderBy(filterOptions));
-
             Query<User> query = session.createQuery(queryString.toString(), User.class);
             query.setProperties(params);
             return query.list();
@@ -142,22 +134,22 @@ public class UserRepositoryImpl implements UserRepository {
         return user;
     }
 
-//    @Override
-//    public User delete(int id) {
+    @Override
+    public User delete(int id) {
 //        //todo Pet: business logic should be in service layer; repo is for the communication with database; same for other methods here
-//        User userToDelete = getByUserId(id);
+        User userToDelete = getByUserId(id);
 //        if (userToDelete.isDeleted()) {
 //            throw new EntityDeletedException("User", "username", userToDelete.getUsername());
 //        }
 //        userToDelete.setDeleted(true);
-//        // --- from here starts communication with DB layer
-//        try (Session session = sessionFactory.openSession()) {
-//            session.beginTransaction();
-//            session.merge(userToDelete);
-//            session.getTransaction().commit();
-//        }
-//        return userToDelete;
-//    }
+        // --- from here starts communication with DB layer
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.merge(userToDelete);
+            session.getTransaction().commit();
+        }
+        return userToDelete;
+    }
 
     @Override
     public User makeUserAdmin(int id) {
@@ -217,7 +209,6 @@ public class UserRepositoryImpl implements UserRepository {
         if (filterOptions.getSortBy().isEmpty()) {
             return "";
         }
-
         String orderBy = "";
         switch (filterOptions.getSortBy().get()) {
             case "phoneNumber":
