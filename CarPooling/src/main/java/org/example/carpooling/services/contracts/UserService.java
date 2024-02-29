@@ -23,15 +23,15 @@ public interface UserService {
 
     User update(User user);
 
-    User delete(int id, User userModifier);
+//    User delete(int id, User userModifier);
 
     User makeUserAdmin(int id, User userModifier);
 
     User unmakeUserAdmin(int id, User userModifier);
 
-    User blockUser(int id, User userModifier);
+//    User blockUser(int id, User userModifier);
 
-    User unblockUser(int id, User userModifier);
+//    User unblockUser(int id, User userModifier);
 
-    long getUserCount();
+//    long getUserCount();
 }

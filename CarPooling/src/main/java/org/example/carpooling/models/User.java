@@ -41,7 +41,7 @@ public class User {
     private String username;
 
     @NotNull(message = CAN_T_BE_EMPTY)
-    @Column(name = "phoneNumber")
+    @Column(name = "phone_number")
     private String phoneNumber;
 
     @NotNull(message = CAN_T_BE_EMPTY)

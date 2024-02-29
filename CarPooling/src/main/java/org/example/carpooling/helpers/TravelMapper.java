@@ -28,11 +28,11 @@ public class TravelMapper {
     }
 
     private static void modifyTravel(TravelDto travelDto, Travel travel) {
-        travel.setTitle(travelDto.getTitle());
         travel.setStartPoint(travelDto.getStartPoint());
         travel.setEndPoint(travelDto.getEndPoint());
         travel.setDepartureTime(travelDto.getDepartureTime());
         travel.setFreeSpots(travelDto.getFreeSpots());
+        travel.setTravelStatus(travelDto.getTravelStatus());
     }
 
 }

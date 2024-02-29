@@ -3,6 +3,7 @@ package org.example.carpooling.services;
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
+import org.example.carpooling.models.enums.TravelStatus;
 import org.example.carpooling.models.User;
 import org.example.carpooling.repositories.contracts.TravelRepository;
 import org.example.carpooling.services.contracts.TravelService;
@@ -35,7 +36,8 @@ public class TravelServiceImpl implements TravelService {
     @Override
     public Travel create(Travel travel, User creator) {
         //        TODO create the logic for the authorization and check if the user is blocked before creating new travel
-
+        travel.setUserId(creator);
+//        travel.setTravelStatus(travel.getTravelStatus());
         return travelRepository.create(travel);
     }
 
@@ -56,6 +58,14 @@ public class TravelServiceImpl implements TravelService {
         checkModifyPermission(userModifier, travelToDelete);
         travelToDelete.setDeleted(true);
         return travelRepository.delete(travelToDelete);
+    }
+
+    @Override
+    public Travel cancel(int id, User userModifier) {
+        Travel travelToCancel = getById(id);
+        checkModifyPermission(userModifier, travelToCancel);
+        travelToCancel.setTravelStatus(TravelStatus.CANCELED);
+        return travelRepository.cancel(travelToCancel);
     }
 
     @Override

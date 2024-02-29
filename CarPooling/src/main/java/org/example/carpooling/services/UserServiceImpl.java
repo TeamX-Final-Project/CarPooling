@@ -142,11 +142,11 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    @Override
-    public User delete(int id, User userModifier) {
-        checkAccessPermissionId(id, userModifier);
-        return userRepository.delete(id);
-    }
+//    @Override
+//    public User delete(int id, User userModifier) {
+//        checkAccessPermissionId(id, userModifier);
+//        return userRepository.delete(id);
+//    }
 
     @Override
     public User makeUserAdmin(int id, User userModifier) {
@@ -160,17 +160,17 @@ public class UserServiceImpl implements UserService {
         return userRepository.unmakeUserAdmin(id);
     }
 
-    @Override
-    public User blockUser(int id, User userModifier) {
-        checkAccessPermissionId(id, userModifier);
-        return userRepository.blockUser(id);
-    }
+//    @Override
+//    public User blockUser(int id, User userModifier) {
+//        checkAccessPermissionId(id, userModifier);
+//        return userRepository.blockUser(id);
+//    }
 
-    @Override
-    public User unblockUser(int id, User userModifier) {
-        checkAccessPermissionId(id, userModifier);
-        return userRepository.unblockUser(id);
-    }
+//    @Override
+//    public User unblockUser(int id, User userModifier) {
+//        checkAccessPermissionId(id, userModifier);
+//        return userRepository.unblockUser(id);
+//    }
 
     private void checkAccessPermissionId(int id, User requestingUser) {
         if (!requestingUser.isAdmin()) {
@@ -187,9 +187,9 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
-    public long getUserCount() {
-
-        return userRepository.getUserCount();
-    }
+//    @Override
+//    public long getUserCount() {
+//
+//        return userRepository.getUserCount();
+//    }
 }
