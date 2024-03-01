@@ -30,7 +30,6 @@ public class AuthenticationHelper {
         if (!headers.containsKey(AUTHORIZATION_HEADER_NAME)) {
             throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
         }
-
         String userInfo = headers.getFirst(AUTHORIZATION_HEADER_NAME);
         String username = getUsername(userInfo);
         String password = getPassword(userInfo);
@@ -98,6 +97,5 @@ public class AuthenticationHelper {
         } catch (EntityNotFoundException e){
             throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
         }
-
     }
 }

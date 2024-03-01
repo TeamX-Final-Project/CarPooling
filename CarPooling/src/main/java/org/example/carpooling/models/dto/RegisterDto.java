@@ -4,19 +4,21 @@ package org.example.carpooling.models.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import org.checkerframework.common.aliasing.qual.Unique;
 
 public class RegisterDto extends LoginDto {
     @NotEmpty(message = "First name can't be empty")
-    @Size(min = 4, max = 32, message = "First Name must be between 4 and 32 symbols")
+    @Size(min = 2, max = 20, message = "First Name must be between 2 and 20 symbols")
     private String firstName;
     @NotEmpty(message = "Last name can't be empty")
-    @Size(min = 4, max = 32, message = "Last Name must be between 4 and 32 symbols")
+    @Size(min = 2, max = 20, message = "Last Name must be between 2 and 20 symbols")
     private String lastName;
-    @Unique
     @Email(message = "Email must be valid")
     @NotEmpty(message = "Email can't be empty")
     private String email;
+
+    @Size(min = 10, message = "Phone number must be 10 digits")
+    private String phoneNumber;
+
     @NotEmpty(message = "Password confirmation can't be empty")
     private String passwordConfirm;
 
@@ -51,5 +53,13 @@ public class RegisterDto extends LoginDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

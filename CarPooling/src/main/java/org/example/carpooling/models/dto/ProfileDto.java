@@ -5,11 +5,8 @@ import org.checkerframework.common.aliasing.qual.Unique;
 public class ProfileDto {
     private String firstName;
     private String lastName;
-
-    @Unique
     private String email;
     private String password;
-    @Unique
     private String phoneNumber;
 
     public String getPassword() {
