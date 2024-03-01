@@ -29,7 +29,7 @@ public class Travel {
 
     //ToDo double check this part for the travelStatus
     @Enumerated(EnumType.STRING)
-    @Column(name = "travel_status_id")
+    @JoinColumn(name = "travel_status_id")
     private TravelStatus travelStatus;
 
 
