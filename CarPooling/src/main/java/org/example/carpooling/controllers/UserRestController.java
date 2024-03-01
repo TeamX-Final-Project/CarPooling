@@ -53,7 +53,7 @@ public class UserRestController {
                 UserFilterOptions filterOptions = new UserFilterOptions(phoneNumber, email, username, sortBy, sortOrder);
                 return userService.getAllUsers(filterOptions);
             }
-            //           return userService.getAllUsers(filterOptions);
+//                       return userService.getAllUsers(filterOptions);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
@@ -136,6 +136,8 @@ public class UserRestController {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (OperationNotAllowedException e) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
+        } catch (EntityDuplicateException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }
 
@@ -177,27 +179,27 @@ public class UserRestController {
         }
     }
 
-//    @PutMapping("/blockUser:{id}")
-//    public User blockUser(@RequestHeader HttpHeaders headers, @PathVariable int id) {
-//        try {
-//            User userModifier = authenticationHelper.tryGetUser(headers);
-//            return userService.blockUser(id, userModifier);
-//        } catch (AuthorizationException e) {
-//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-//        } catch (EntityNotFoundException e) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-//        }
-//    }
+    @PutMapping("/blockUser:{id}")
+    public User blockUser(@RequestHeader HttpHeaders headers, @PathVariable int id) {
+        try {
+            User userModifier = authenticationHelper.tryGetUser(headers);
+            return userService.blockUser(id, userModifier);
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
 
-//    @PutMapping("/unblockUser:{id}")
-//    public User unblockUser(@RequestHeader HttpHeaders headers, @PathVariable int id) {
-//        try {
-//            User userModifier = authenticationHelper.tryGetUser(headers);
-//            return userService.unblockUser(id, userModifier);
-//        } catch (AuthorizationException e) {
-//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-//        } catch (EntityNotFoundException e) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-//        }
-//    }
+    @PutMapping("/unblockUser:{id}")
+    public User unblockUser(@RequestHeader HttpHeaders headers, @PathVariable int id) {
+        try {
+            User userModifier = authenticationHelper.tryGetUser(headers);
+            return userService.unblockUser(id, userModifier);
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
 }

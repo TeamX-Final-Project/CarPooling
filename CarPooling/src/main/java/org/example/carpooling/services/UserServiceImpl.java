@@ -2,6 +2,7 @@ package org.example.carpooling.services;
 
 import org.example.carpooling.exceptions.*;
 import org.example.carpooling.models.User;
+import org.example.carpooling.models.dto.UserDto;
 import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.models.UserFilterOptions;
 import org.example.carpooling.repositories.contracts.UserRepository;
@@ -14,12 +15,12 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     private static final String ERROR_MESSAGE = "You are not authorized";
-    public static final String LAST_NAME_MUST_BE_BETWEEN_2_AND_20_SYMBOLS_ERROR = "Last name must be between 2 and 20 symbols";
-    public static final String EMAIL_IS_THE_SAME_AS_BEFORE_ERROR = "Email is the same as before";
-    public static final String PASSWORD_IS_THE_SAME_AS_BEFORE_ERROR = "Password is the same as before";
-    public static final String FIRST_NAME_MUST_BE_BETWEEN_2_AND_20_SYMBOLS_ERROR = "First name must be between 2 and 20 symbols";
-    public static final String USERNAME_IS_THE_SAME_AS_BEFORE_ERROR = "Username is the same as before";
-    ;
+//    public static final String LAST_NAME_MUST_BE_BETWEEN_2_AND_20_SYMBOLS_ERROR = "Last name must be between 2 and 20 symbols";
+//    public static final String EMAIL_IS_THE_SAME_AS_BEFORE_ERROR = "Email is the same as before";
+//    public static final String PASSWORD_IS_THE_SAME_AS_BEFORE_ERROR = "Password is the same as before";
+//    public static final String FIRST_NAME_MUST_BE_BETWEEN_2_AND_20_SYMBOLS_ERROR = "First name must be between 2 and 20 symbols";
+//    public static final String USERNAME_IS_THE_SAME_AS_BEFORE_ERROR = "Username is the same as before";
+
     private final UserRepository userRepository;
 
     @Autowired
@@ -71,32 +72,37 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User update(User user) {
-        User userToUpdate = getById(user.getUserId());
-//        validateFirstName(user, userToUpdate);
-//        validateLastName(user, userToUpdate);
-        validateUniqueUsername(user);
-        validateUniqueEmail(user);
-        validatePassword(user, userToUpdate);
-        validateUniquePhoneNumber(user);
-        return userRepository.update(userToUpdate);
+    public User update(User updatedUser) {
+        User existingUser = getById(updatedUser.getUserId());
+        validateUniqueUsername(updatedUser);
+        validateUniqueEmail(updatedUser);
+        validateUniquePhoneNumber(updatedUser);
+//        validatePassword(updatedUser.getPassword(), existingUser);
+
+        existingUser.setFirstName(updatedUser.getFirstName());
+        existingUser.setLastName(updatedUser.getLastName());
+        existingUser.setEmail(updatedUser.getEmail());
+        existingUser.setPhoneNumber(updatedUser.getPhoneNumber());
+        existingUser.setUsername(updatedUser.getUsername());
+        existingUser.setPassword(updatedUser.getPassword());
+        return userRepository.update(existingUser);
     }
 
     @Override
     public User delete(int userId, User userModifier) {
+        //todo what to do with deleted uncompleted travels
+
+        validateAdminOrOwner(userId, userModifier);
         User userToDelete = getById(userId);
-        checkAccessPermissionId(userId, userModifier);
         userToDelete.setUserStatus(UserStatus.DELETED);
-        return userRepository.delete(userId);
+        return userRepository.delete(userToDelete);
     }
 
-
-    private void validatePassword(User user, User userToUpdate) {
-        if (user.getPassword().equals(userToUpdate.getPassword())) {
-            throw new PasswordChangeProfileError(PASSWORD_IS_THE_SAME_AS_BEFORE_ERROR);
-        }
-        userToUpdate.setPassword(user.getPassword());
-    }
+//    private void validatePassword(String currentPassword, User userToUpdate) {
+//        if (currentPassword.equals(userToUpdate.getPassword())) {
+//            throw new PasswordChangeProfileError(PASSWORD_IS_THE_SAME_AS_BEFORE_ERROR);
+//        }
+//    }
 
     //todo check @ for email
 //    private void validateEmail(User user, User userToUpdate) {
@@ -160,33 +166,49 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User makeUserAdmin(int id, User userModifier) {
-        checkAccessPermissionId(id, userModifier);
+        validateIsAdmin(userModifier);
         return userRepository.makeUserAdmin(id);
     }
 
     @Override
     public User unmakeUserAdmin(int id, User userModifier) {
-        checkAccessPermissionId(id, userModifier);
+        validateIsAdmin(userModifier);
         return userRepository.unmakeUserAdmin(id);
     }
 
-//    @Override
-//    public User blockUser(int id, User userModifier) {
-//        checkAccessPermissionId(id, userModifier);
-//        return userRepository.blockUser(id);
-//    }
-//
-//    @Override
-//    public User unblockUser(int id, User userModifier) {
-//        checkAccessPermissionId(id, userModifier);
-//        return userRepository.unblockUser(id);
-//    }
+    @Override
+    public User blockUser(int id, User userModifier) {
+        //todo what to do with blocked travels
 
-    private void checkAccessPermissionId(int id, User requestingUser) {
+        validateIsAdmin(userModifier);
+        User userToBlock = getById(id);
+        userToBlock.setUserStatus(UserStatus.BLOCKED);
+        return userRepository.blockUser(userToBlock);
+    }
+
+    @Override
+    public User unblockUser(int id, User userModifier) {
+        validateIsAdmin(userModifier);
+        User userToUnblock = getById(id);
+        userToUnblock.setUserStatus(UserStatus.ACTIVE);
+        return userRepository.unblockUser(userToUnblock);
+    }
+
+    private void validateAdminOrOwner(int id, User requestingUser) {
+        if (!requestingUser.isAdmin() && requestingUser.getUserId() != id) {
+            throw new AuthorizationException(ERROR_MESSAGE);
+        }
+    }
+
+    private void validateIsAdmin(User requestingUser) {
         if (!requestingUser.isAdmin()) {
-            if (requestingUser.getUserId() != id) {
-                throw new AuthorizationException(ERROR_MESSAGE);
-            }
+            throw new AuthorizationException(ERROR_MESSAGE);
+        }
+    }
+
+    private void validateIsOwner(int id, User requestingUser) {
+        if (requestingUser.getUserId() != id) {
+            throw new AuthorizationException(ERROR_MESSAGE);
         }
     }
 
@@ -201,7 +223,10 @@ public class UserServiceImpl implements UserService {
     private void validateUniqueUsername(User user) {
         boolean duplicateUserExists = true;
         try {
-            userRepository.getByUsername(user.getUsername());
+            User foundUser = userRepository.getByUsername(user.getUsername());
+            if (foundUser.getUserId() == user.getUserId()) {
+                duplicateUserExists = false;
+            }
         } catch (EntityNotFoundException e) {
             duplicateUserExists = false;
         }
@@ -213,31 +238,36 @@ public class UserServiceImpl implements UserService {
     private void validateUniqueEmail(User user) {
         boolean duplicateUserExists = true;
         try {
-            userRepository.getByEmail(user.getEmail());
+            User foundUser = userRepository.getByEmail(user.getEmail());
+            if (foundUser.getUserId() == user.getUserId()) {
+                duplicateUserExists = false;
+            }
         } catch (EntityNotFoundException e) {
             duplicateUserExists = false;
         }
         if (duplicateUserExists) {
-            throw new EntityDuplicateException("Email", "email", user.getEmail());
+            throw new EntityDuplicateException("User", "email", user.getEmail());
         }
     }
 
     private void validateUniquePhoneNumber(User user) {
         boolean duplicateUserExists = true;
         try {
-            userRepository.getByPhoneNumber(user.getPhoneNumber());
+            User foundUser = userRepository.getByPhoneNumber(user.getPhoneNumber());
+            if (foundUser.getUserId() == user.getUserId()) {
+                duplicateUserExists = false;
+            }
         } catch (EntityNotFoundException e) {
             duplicateUserExists = false;
         }
         if (duplicateUserExists) {
-            throw new EntityDuplicateException("Phone number", "phone number", user.getPhoneNumber());
+            throw new EntityDuplicateException("User", "phone number", user.getPhoneNumber());
         }
     }
 
 
-//    @Override
-//    public long getUserCount() {
-//
-//        return userRepository.getUserCount();
-//    }
+    @Override
+    public long getUserCount() {
+        return userRepository.getUserCount();
+    }
 }

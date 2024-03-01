@@ -2,6 +2,7 @@ package org.example.carpooling.services.contracts;
 
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserFilterOptions;
+import org.example.carpooling.models.dto.UserDto;
 
 import java.util.List;
 
@@ -29,9 +30,9 @@ public interface UserService {
 
     User unmakeUserAdmin(int id, User userModifier);
 
-//    User blockUser(int id, User userModifier);
-//
-//    User unblockUser(int id, User userModifier);
-//
-//    long getUserCount();
+    User blockUser(int id, User userModifier);
+
+    User unblockUser(int id, User userModifier);
+
+    long getUserCount();
 }

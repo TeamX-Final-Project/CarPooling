@@ -28,8 +28,17 @@ public class UserMapper {
         user.setUsername(userDto.getUsername());
         user.setPhoneNumber(userDto.getPhoneNumber());
         user.setPassword(userDto.getPassword());
-//        user.setUserStatus(UserStatus.PENDING);
         return user;
+    }
+
+    public User mapUpdates(UserDto userUpdates, User existingUser) {
+        existingUser.setUsername(userUpdates.getUsername());
+        existingUser.setPassword(userUpdates.getPassword());
+        existingUser.setFirstName(userUpdates.getFirstName());
+        existingUser.setLastName(userUpdates.getLastName());
+        existingUser.setEmail(userUpdates.getEmail());
+        existingUser.setPhoneNumber(userUpdates.getPhoneNumber());
+        return existingUser;
     }
 
     public User fromDto(RegisterDto registerDto) {

@@ -25,17 +25,14 @@ public class UserDto {
     private String lastName;
 
     //ToDo double check how to use @Unique annotation
-    @Unique
+
     @NotNull(message = NAME_CAN_T_BE_EMPTY_MESSAGE)
     private String email;
 
-    @Unique
     @NotNull(message = NUMBER_CAN_T_BE_EMPTY_MESSAGE)
     @Size(min = 10, message = NUMBER_SHOULD_BE_10_DIGITS_MESSAGE)
     private String phoneNumber;
 
-    //ToDo double check how to use @Unique annotation
-    @Unique
     @NotNull(message = NAME_CAN_T_BE_EMPTY_MESSAGE)
     private String username;
 
