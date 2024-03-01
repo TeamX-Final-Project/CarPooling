@@ -18,5 +18,7 @@ public interface TravelRepository {
 
     Travel delete(Travel travelToDelete);
 
+    Travel cancel(Travel travelToCancel);
+
     long getTravelsCount();
 }

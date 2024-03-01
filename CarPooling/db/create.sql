@@ -84,10 +84,6 @@ create table travels
     is_deleted       tinyint(1) not null,
     user_id          int        not null,
     travel_status_id int        not null,
-    constraint travels_cities_id_fk
-        foreign key (start_point) references cities (id),
-    constraint travels_cities_id_fk2
-        foreign key (end_point) references cities (id),
     constraint travels_travel_status_id_fk
         foreign key (travel_status_id) references travel_status (id),
     constraint travels_users_user_id_fk
