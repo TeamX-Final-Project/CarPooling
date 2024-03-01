@@ -2,11 +2,9 @@ package org.example.carpooling.repositories;
 
 
 import org.example.carpooling.exceptions.EntityAlreadyAdminException;
-
 import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserFilterOptions;
-import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.repositories.contracts.UserRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
