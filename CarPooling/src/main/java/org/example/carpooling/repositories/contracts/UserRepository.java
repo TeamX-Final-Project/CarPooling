@@ -21,16 +21,16 @@ public interface UserRepository {
 
     User update(User user);
 
-//    User delete(int id);
+    User delete(User user);
 
     User makeUserAdmin(int id);
 
     User unmakeUserAdmin(int id);
 
-//    User blockUser(int id);
+    User blockUser(User user);
 
-//    User unblockUser(int id);
+    User unblockUser(User user);
 
-//    long getUserCount();
+    long getUserCount();
 }
 

@@ -23,7 +23,6 @@ public class UserFilterOptions {
         this.phoneNumber = Optional.ofNullable(phoneNumber);
         this.email = Optional.ofNullable(email);
         this.username = Optional.ofNullable(username);
-//        this.postId = Optional.ofNullable(postId);
         this.sortBy = Optional.ofNullable(sortBy);
         this.orderBy = Optional.ofNullable(orderBy);
     }

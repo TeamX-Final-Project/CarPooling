@@ -4,27 +4,19 @@ import org.example.carpooling.models.dto.ProfileDto;
 import org.example.carpooling.models.dto.RegisterDto;
 import org.example.carpooling.models.dto.UserDto;
 import org.example.carpooling.models.User;
+import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.services.contracts.UserService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
-    private final UserService userService;
 
-    private final AuthenticationHelper authenticationHelper;
-
-    public UserMapper(UserService userService, AuthenticationHelper authenticationHelper) {
-
-        this.userService = userService;
-
-        this.authenticationHelper = authenticationHelper;
+    public UserMapper() {
     }
 
     public User fromDto(int id, UserDto userDto) {
         User user = fromDto(userDto);
         user.setUserId(id);
-        //todo Pet: here should be only mapping logic; you shouldn't get user from service by id in the Mapper layer
-        User repositoryUser = userService.getById(id);
         return user;
     }
 
@@ -39,6 +31,16 @@ public class UserMapper {
         return user;
     }
 
+    public User mapUpdates(UserDto userUpdates, User existingUser) {
+        existingUser.setUsername(userUpdates.getUsername());
+        existingUser.setPassword(userUpdates.getPassword());
+        existingUser.setFirstName(userUpdates.getFirstName());
+        existingUser.setLastName(userUpdates.getLastName());
+        existingUser.setEmail(userUpdates.getEmail());
+        existingUser.setPhoneNumber(userUpdates.getPhoneNumber());
+        return existingUser;
+    }
+
     public User fromDto(RegisterDto registerDto) {
         User user = new User();
         user.setUsername(registerDto.getUsername());
@@ -46,6 +48,8 @@ public class UserMapper {
         user.setFirstName(registerDto.getFirstName());
         user.setLastName(registerDto.getLastName());
         user.setEmail(registerDto.getEmail());
+        user.setPhoneNumber(registerDto.getPhoneNumber());
+//        user.setUserStatus(UserStatus.PENDING);
         return user;
     }
 
@@ -54,10 +58,7 @@ public class UserMapper {
         user.setLastName(profileDto.getLastName());
         user.setEmail(profileDto.getEmail());
         user.setPassword(profileDto.getPassword());
-
-//        TODO double check how to do the phone number field
-//        user.setPhoneNumber(profileDto.getPhoneNumber());
+        user.setPhoneNumber(profileDto.getPhoneNumber());
         return user;
     }
-
 }

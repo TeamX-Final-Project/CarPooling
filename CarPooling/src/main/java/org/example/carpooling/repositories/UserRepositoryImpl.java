@@ -2,11 +2,11 @@ package org.example.carpooling.repositories;
 
 
 import org.example.carpooling.exceptions.EntityAlreadyAdminException;
-import org.example.carpooling.exceptions.EntityDeletedException;
+
 import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserFilterOptions;
-import org.example.carpooling.repositories.contracts.TravelRepository;
+import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.repositories.contracts.UserRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -51,17 +51,10 @@ public class UserRepositoryImpl implements UserRepository {
                 filters.add(" username like :username ");
                 params.put("username", String.format("%%%s%%", value));
             });
-//TODO double check this since there is no post.id field in User to search from here
-//            filterOptions.getPostId().ifPresent(value -> {
-//                filters.add(" post.id = :postId ");
-//                params.put("postId", value);
-//            });
-
             if (!filters.isEmpty()) {
                 queryString.append("where").append(String.join(" and ", filters));
             }
             queryString.append(generateOrderBy(filterOptions));
-
             Query<User> query = session.createQuery(queryString.toString(), User.class);
             query.setProperties(params);
             return query.list();
@@ -142,26 +135,23 @@ public class UserRepositoryImpl implements UserRepository {
         return user;
     }
 
-//    @Override
-//    public User delete(int id) {
+    @Override
+    public User delete(User user) {
 //        //todo Pet: business logic should be in service layer; repo is for the communication with database; same for other methods here
-//        User userToDelete = getByUserId(id);
 //        if (userToDelete.isDeleted()) {
 //            throw new EntityDeletedException("User", "username", userToDelete.getUsername());
 //        }
 //        userToDelete.setDeleted(true);
-//        // --- from here starts communication with DB layer
-//        try (Session session = sessionFactory.openSession()) {
-//            session.beginTransaction();
-//            session.merge(userToDelete);
-//            session.getTransaction().commit();
-//        }
-//        return userToDelete;
-//    }
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.merge(user);
+            session.getTransaction().commit();
+        }
+        return user;
+    }
 
     @Override
     public User makeUserAdmin(int id) {
-
         User userToMakeAdmin = getByUserId(id);
         if (userToMakeAdmin.isAdmin()) {
             throw new EntityAlreadyAdminException("User", "username", userToMakeAdmin.getUsername());
@@ -188,36 +178,30 @@ public class UserRepositoryImpl implements UserRepository {
         return userToMakeAdmin;
     }
 
-//    @Override
-//    public User blockUser(int id) {
-//        User userToBlock = getByUserId(id);
-//        userToBlock.setBlocked(true);
-//        //todo Pet:  extract in update method and reuse
-//        try (Session session = sessionFactory.openSession()) {
-//            session.beginTransaction();
-//            session.merge(userToBlock);
-//            session.getTransaction().commit();
-//        }
-//        return userToBlock;
-//    }
+    @Override
+    public User blockUser(User userToBlock) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.merge(userToBlock);
+            session.getTransaction().commit();
+        }
+        return userToBlock;
+    }
 
-//    @Override
-//    public User unblockUser(int id) {
-//        User userToBlock = getByUserId(id);
-//        userToBlock.setBlocked(false);
-//        try (Session session = sessionFactory.openSession()) {
-//            session.beginTransaction();
-//            session.merge(userToBlock);
-//            session.getTransaction().commit();
-//        }
-//        return userToBlock;
-//    }
+    @Override
+    public User unblockUser(User userToUnblock) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.merge(userToUnblock);
+            session.getTransaction().commit();
+        }
+        return userToUnblock;
+    }
 
     private String generateOrderBy(UserFilterOptions filterOptions) {
         if (filterOptions.getSortBy().isEmpty()) {
             return "";
         }
-
         String orderBy = "";
         switch (filterOptions.getSortBy().get()) {
             case "phoneNumber":
@@ -242,16 +226,16 @@ public class UserRepositoryImpl implements UserRepository {
         return orderBy;
     }
 
-//    @Override
-//    public long getUserCount() {
-//        try (Session session = sessionFactory.openSession()) {
-//            String hql = "SELECT COUNT(*) FROM User where isDeleted=false";
-//
-//            Query<Long> query = session.createQuery(hql, Long.class);
-//
-//            List<Long> resultList = query.list();
-//
-//            return resultList.get(0);
-//        }
-//    }
+    @Override
+    public long getUserCount() {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "SELECT COUNT(*) FROM User where userStatus=1";
+
+            Query<Long> query = session.createQuery(hql, Long.class);
+
+            List<Long> resultList = query.list();
+
+            return resultList.get(0);
+        }
+    }
 }

@@ -32,7 +32,6 @@ public class User {
 
     @NotNull(message = CAN_T_BE_EMPTY)
     @Email
-    @Unique
     @Column(name = "email")
     private String email;
 
@@ -56,12 +55,6 @@ public class User {
     @Column(name = "user_status")
     private UserStatus userStatus;
 
-
-    //    @Column(name = "is_blocked")
-//    private boolean isBlocked;
-//
-//    @Column(name = "is_deleted")
-//    private boolean isDeleted;
     public User() {
     }
 

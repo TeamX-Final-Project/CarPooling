@@ -2,6 +2,7 @@ package org.example.carpooling.models.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.checkerframework.common.aliasing.qual.Unique;
 
 import java.util.Objects;
 
@@ -24,6 +25,7 @@ public class UserDto {
     private String lastName;
 
     //ToDo double check how to use @Unique annotation
+
     @NotNull(message = NAME_CAN_T_BE_EMPTY_MESSAGE)
     private String email;
 
@@ -31,7 +33,6 @@ public class UserDto {
     @Size(min = 10, message = NUMBER_SHOULD_BE_10_DIGITS_MESSAGE)
     private String phoneNumber;
 
-    //ToDo double check how to use @Unique annotation
     @NotNull(message = NAME_CAN_T_BE_EMPTY_MESSAGE)
     private String username;
 
@@ -39,18 +40,31 @@ public class UserDto {
     @NotNull(message = NAME_CAN_T_BE_EMPTY_MESSAGE)
     private String password;
 
-    public UserDto() {
+    @Size(min = 8, message = PASSWORD_REQUIREMENTS_MESSAGE)
+    @NotNull(message = NAME_CAN_T_BE_EMPTY_MESSAGE)
+    private String passwordConfirm;
+
+//    public UserDto() {
+//    }
+//
+//    public UserDto(String firstName, String lastName, String email,
+//                   String username, String phoneNumber,String password) {
+//        setFirstName(firstName);
+//        setLastName(lastName);
+//        setEmail(email);
+//        setUsername(username);
+//        setPhoneNumber(phoneNumber);
+//        setPassword(password);
+//
+//    }
+
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
     }
 
-    public UserDto(String firstName, String lastName, String email,
-                   String username, String phoneNumber,String password) {
-        setFirstName(firstName);
-        setLastName(lastName);
-        setEmail(email);
-        setUsername(username);
-        setPhoneNumber(phoneNumber);
-        setPassword(password);
-
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
     }
 
     public String getPhoneNumber() {
