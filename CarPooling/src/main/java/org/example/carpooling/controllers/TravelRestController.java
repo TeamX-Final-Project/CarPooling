@@ -37,15 +37,13 @@ public class TravelRestController {
     }
 
     @GetMapping
-    public List<Travel> getAllTravels(@RequestParam(required = false) String title,
-                                      @RequestParam(required = false) String startPoint,
+    public List<Travel> getAllTravels(@RequestParam(required = false) String startPoint,
                                       @RequestParam(required = false) String endPoint,
                                       @RequestParam(required = false) String createdBy,
                                       @RequestParam(required = false) String sortBy,
                                       @RequestParam(required = false) String orderBy) {
         try {
             TravelFilterOptions travelFilterOptions = new TravelFilterOptions(
-                    title,
                     startPoint,
                     endPoint,
                     createdBy,
@@ -111,7 +109,7 @@ public class TravelRestController {
     }
 
     @PutMapping("/cancel:{id}")
-    public Travel cancelTravel(@RequestHeader HttpHeaders headers, @PathVariable int id){
+    public Travel cancelTravel(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
             User userModifier = authenticationHelper.tryGetUser(headers);
             return travelService.cancel(id, userModifier);

@@ -1,5 +1,6 @@
 package org.example.carpooling.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.example.carpooling.models.enums.TravelStatus;
 
@@ -12,6 +13,7 @@ public class Travel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "travel_id")
+    @JsonIgnore
     private int travelId;
     @Column(name = "start_point")
     private String startPoint;
@@ -22,14 +24,17 @@ public class Travel {
     @Column(name = "free_spots")
     private int freeSpots;
     @Column(name = "is_deleted")
+    @JsonIgnore
     private boolean isDeleted;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User userId;
 
     //ToDo double check this part for the travelStatus
+
     @Enumerated(EnumType.STRING)
-    @JoinColumn(name = "travel_status_id")
+    @Column(name = "travel_status")
+    @JsonIgnore
     private TravelStatus travelStatus;
 
 

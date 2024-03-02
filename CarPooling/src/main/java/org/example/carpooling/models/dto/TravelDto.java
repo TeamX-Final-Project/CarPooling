@@ -1,6 +1,7 @@
 package org.example.carpooling.models.dto;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.example.carpooling.models.enums.TravelStatus;
 
@@ -9,17 +10,17 @@ import java.util.Objects;
 
 public class TravelDto {
 
-    @NotEmpty
+    @NotNull(message = "Start point can't be empty")
     @Size(min = 4, max = 20, message = "Start point must be between 4 and 20 symbols")
     private String startPoint;
-    @NotEmpty
+    @NotNull(message = "End point can't be empty")
     @Size(min = 4, max = 20, message = "End point must be between 4 and 20 symbols")
     private String endPoint;
-//    @NotEmpty
+    @NotNull(message = "Departure time can't be empty")
     private Timestamp departureTime;
-//    @NotEmpty
+    @NotNull(message = "Free spots can't be empty")
     private int freeSpots;
-//    @NotEmpty
+    @NotNull(message = "Travel status can't be empty")
     private TravelStatus travelStatus;
 
     public TravelDto() {
