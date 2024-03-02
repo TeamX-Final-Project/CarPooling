@@ -11,10 +11,8 @@ import java.util.Objects;
 public class TravelDto {
 
     @NotNull(message = "Start point can't be empty")
-    @Size(min = 4, max = 20, message = "Start point must be between 4 and 20 symbols")
     private String startPoint;
     @NotNull(message = "End point can't be empty")
-    @Size(min = 4, max = 20, message = "End point must be between 4 and 20 symbols")
     private String endPoint;
     @NotNull(message = "Departure time can't be empty")
     private Timestamp departureTime;

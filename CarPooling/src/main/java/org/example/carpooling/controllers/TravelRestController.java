@@ -119,5 +119,7 @@ public class TravelRestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
+
+    //TODO apply/approve methods for travels
 }
 
