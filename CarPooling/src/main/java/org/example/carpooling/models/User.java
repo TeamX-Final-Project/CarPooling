@@ -48,7 +48,6 @@ public class User {
     private String password;
     @JsonIgnore
     @Column(name = "is_admin")
-
     private boolean isAdmin;
     @JsonIgnore
     @Enumerated(EnumType.ORDINAL)

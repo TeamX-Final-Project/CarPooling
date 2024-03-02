@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import org.example.carpooling.models.enums.TravelStatus;
 
 import java.sql.Timestamp;
-import java.util.Set;
 
 @Entity
 @Table(name = "travels")
@@ -23,24 +22,20 @@ public class Travel {
     private Timestamp departureTime;
     @Column(name = "free_spots")
     private int freeSpots;
+
     @Column(name = "is_deleted")
     @JsonIgnore
     private boolean isDeleted;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User userId;
-
-    //ToDo double check this part for the travelStatus
-
     @Enumerated(EnumType.STRING)
     @Column(name = "travel_status")
     @JsonIgnore
     private TravelStatus travelStatus;
 
-
     //TODO implement the comment logic probably OneToMany
     // since one travel can have many comments for pets,luggage,smoking,etc...
-
 
     public Travel() {
     }
