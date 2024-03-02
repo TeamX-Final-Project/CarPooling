@@ -58,7 +58,7 @@ public class TravelRepositoryImpl implements TravelRepository {
         try (Session session = sessionFactory.openSession()) {
             Travel travel = session.get(Travel.class, id);
             if (travel == null) {
-                throw new EntityNotFoundException("User", id);
+                throw new EntityNotFoundException("Travel", id);
             }
             return travel;
         }

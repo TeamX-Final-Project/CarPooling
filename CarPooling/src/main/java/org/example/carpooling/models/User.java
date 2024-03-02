@@ -42,15 +42,15 @@ public class User {
     @NotNull(message = CAN_T_BE_EMPTY)
     @Column(name = "phone_number")
     private String phoneNumber;
-
-    @NotNull(message = CAN_T_BE_EMPTY)
     @JsonIgnore
+    @NotNull(message = CAN_T_BE_EMPTY)
     @Column(name = "password")
     private String password;
-
+    @JsonIgnore
     @Column(name = "is_admin")
-    private boolean isAdmin;
 
+    private boolean isAdmin;
+    @JsonIgnore
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "user_status")
     private UserStatus userStatus;
