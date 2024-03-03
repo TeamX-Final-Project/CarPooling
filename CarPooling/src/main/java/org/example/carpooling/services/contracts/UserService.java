@@ -1,8 +1,8 @@
 package org.example.carpooling.services.contracts;
 
+//import org.example.carpooling.models.ImageData;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserFilterOptions;
-import org.example.carpooling.models.dto.UserDto;
 
 import java.util.List;
 
@@ -24,15 +24,17 @@ public interface UserService {
 
     User update(User user);
 
-//    User delete(int id, User userModifier);
+    User delete(int id, User userModifier);
 
     User makeUserAdmin(int id, User userModifier);
 
     User unmakeUserAdmin(int id, User userModifier);
 
-//    User blockUser(int id, User userModifier);
+    User blockUser(int id, User userModifier);
 
-//    User unblockUser(int id, User userModifier);
+    User unblockUser(int id, User userModifier);
 
-//    long getUserCount();
+    long getUserCount();
+
+ //   void updatePhoto(ImageData imageData, User user);
 }

@@ -1,9 +1,13 @@
 package org.example.carpooling.controllers;
 
+import com.cloudinary.utils.ObjectUtils;
+import com.cloudinary.Cloudinary;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.example.carpooling.exceptions.*;
 import org.example.carpooling.helpers.AuthenticationHelper;
 import org.example.carpooling.helpers.UserMapper;
+//import org.example.carpooling.models.ImageData;
 import org.example.carpooling.models.dto.UserDto;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserFilterOptions;
@@ -12,9 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
@@ -24,12 +31,15 @@ public class UserRestController {
     private final UserService userService;
     private final AuthenticationHelper authenticationHelper;
     private final UserMapper userMapper;
+    private final Cloudinary cloudinary;
 
     @Autowired
-    public UserRestController(UserService userService, AuthenticationHelper authenticationHelper, UserMapper userMapper) {
+    public UserRestController(UserService userService, AuthenticationHelper authenticationHelper,
+                              UserMapper userMapper, Cloudinary cloudinary) {
         this.userService = userService;
         this.authenticationHelper = authenticationHelper;
         this.userMapper = userMapper;
+        this.cloudinary = cloudinary;
     }
 
     @GetMapping
@@ -202,4 +212,27 @@ public class UserRestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
+//    @PostMapping("updateImage")
+//    public String updateImage(@RequestParam("avatar") MultipartFile file, HttpSession session) {
+//        try {
+//            ImageData imageData = new ImageData();
+//            User user = authenticationHelper.tryGetCurrentUser(session);
+//            String url = cloudinaryUploader(file);
+//            imageData.setImage(url);
+//            imageData.setUserId(user);
+//            userService.updatePhoto(imageData, user);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return "redirect:/user";
+//    }
+//    private String cloudinaryUploader(MultipartFile file) throws IOException {
+//        Map upload = cloudinary.uploader()
+//                .upload(file.getBytes()
+//                        , ObjectUtils.asMap("resource_type", "auto"));
+//        String url = (String) upload.get("url");
+//
+//        return url;
+//    }
+
 }

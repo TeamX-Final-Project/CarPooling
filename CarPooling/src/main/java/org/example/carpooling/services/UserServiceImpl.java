@@ -1,8 +1,8 @@
 package org.example.carpooling.services;
 
 import org.example.carpooling.exceptions.*;
+//import org.example.carpooling.models.ImageData;
 import org.example.carpooling.models.User;
-import org.example.carpooling.models.dto.UserDto;
 import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.models.UserFilterOptions;
 import org.example.carpooling.repositories.contracts.UserRepository;
@@ -15,11 +15,6 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     private static final String ERROR_MESSAGE = "You are not authorized";
-//    public static final String LAST_NAME_MUST_BE_BETWEEN_2_AND_20_SYMBOLS_ERROR = "Last name must be between 2 and 20 symbols";
-//    public static final String EMAIL_IS_THE_SAME_AS_BEFORE_ERROR = "Email is the same as before";
-//    public static final String PASSWORD_IS_THE_SAME_AS_BEFORE_ERROR = "Password is the same as before";
-//    public static final String FIRST_NAME_MUST_BE_BETWEEN_2_AND_20_SYMBOLS_ERROR = "First name must be between 2 and 20 symbols";
-//    public static final String USERNAME_IS_THE_SAME_AS_BEFORE_ERROR = "Username is the same as before";
 
     private final UserRepository userRepository;
 
@@ -77,8 +72,6 @@ public class UserServiceImpl implements UserService {
         validateUniqueUsername(updatedUser);
         validateUniqueEmail(updatedUser);
         validateUniquePhoneNumber(updatedUser);
-//        validatePassword(updatedUser.getPassword(), existingUser);
-
         existingUser.setFirstName(updatedUser.getFirstName());
         existingUser.setLastName(updatedUser.getLastName());
         existingUser.setEmail(updatedUser.getEmail());
@@ -97,12 +90,6 @@ public class UserServiceImpl implements UserService {
         userToDelete.setUserStatus(UserStatus.DELETED);
         return userRepository.delete(userToDelete);
     }
-
-//    private void validatePassword(String currentPassword, User userToUpdate) {
-//        if (currentPassword.equals(userToUpdate.getPassword())) {
-//            throw new PasswordChangeProfileError(PASSWORD_IS_THE_SAME_AS_BEFORE_ERROR);
-//        }
-//    }
 
     //todo check @ for email
 //    private void validateEmail(User user, User userToUpdate) {
@@ -265,6 +252,9 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+//    @Override
+//    public void updatePhoto(ImageData imageData, User user) {
+//    }
 
     @Override
     public long getUserCount() {
