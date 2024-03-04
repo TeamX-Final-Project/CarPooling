@@ -38,21 +38,19 @@ public class TravelServiceImpl implements TravelService {
     public Travel create(Travel travel, User creator) {
         //        TODO create the logic for the authorization and check if the user is blocked before creating new travel
         travel.setUserId(creator);
-        String startPoint = travel.getStartPoint();
-        String endPoint = travel.getEndPoint();
-        int[] distanceTravel = DistanceTravelImpl.getTravelDetails(startPoint, endPoint);
-        int[] durationTravel = DistanceTravelImpl.getTravelDetails(startPoint, endPoint);
-        travel.setDistanceTravel(distanceTravel[0]);
-        travel.setDurationTravel(durationTravel[1]);
+        calculateTravelInformation(travel);
 //        travel.setTravelStatus(travel.getTravelStatus());
         return travelRepository.create(travel);
     }
+
+
 
     @Override
     public Travel update(User userModifier, Travel travelToUpdate) {
         //TODO double check the getByID since once you take the travelToUpdate here
         // then again is used getById in checkModifyPermission and one more time in the travelMapper.fromDTO
-        Travel travel = getById(travelToUpdate.getTravelId());
+//        Travel travel = getById(travelToUpdate.getTravelId());
+        calculateTravelInformation(travelToUpdate);
         checkModifyPermission(userModifier, travelToUpdate);
         return travelRepository.update(travelToUpdate);
     }
@@ -85,6 +83,15 @@ public class TravelServiceImpl implements TravelService {
         if (userModifier.getUserId() != travelToUpdate.getUserId().getUserId()) {
             throw new AuthorizationException(YOU_ARE_NOT_THE_CREATOR_OF_THE_TRAVEL_ERROR);
         }
+    }
+
+    private static void calculateTravelInformation(Travel travel) {
+        String startPoint = travel.getStartPoint();
+        String endPoint = travel.getEndPoint();
+        int[] distanceTravel = DistanceTravelImpl.getTravelDetails(startPoint, endPoint);
+        int[] durationTravel = DistanceTravelImpl.getTravelDetails(startPoint, endPoint);
+        travel.setDistanceTravel(distanceTravel[0]);
+        travel.setDurationTravel(durationTravel[1]);
     }
 
 
