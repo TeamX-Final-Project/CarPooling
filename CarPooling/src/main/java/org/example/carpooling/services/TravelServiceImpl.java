@@ -1,6 +1,7 @@
 package org.example.carpooling.services;
 
 import org.example.carpooling.exceptions.AuthorizationException;
+import org.example.carpooling.models.DistanceTravelImpl;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.enums.TravelStatus;
@@ -37,6 +38,12 @@ public class TravelServiceImpl implements TravelService {
     public Travel create(Travel travel, User creator) {
         //        TODO create the logic for the authorization and check if the user is blocked before creating new travel
         travel.setUserId(creator);
+        String startPoint = travel.getStartPoint();
+        String endPoint = travel.getEndPoint();
+        int[] distanceTravel = DistanceTravelImpl.getTravelDetails(startPoint, endPoint);
+        int[] durationTravel = DistanceTravelImpl.getTravelDetails(startPoint, endPoint);
+        travel.setDistanceTravel(distanceTravel[0]);
+        travel.setDurationTravel(durationTravel[1]);
 //        travel.setTravelStatus(travel.getTravelStatus());
         return travelRepository.create(travel);
     }

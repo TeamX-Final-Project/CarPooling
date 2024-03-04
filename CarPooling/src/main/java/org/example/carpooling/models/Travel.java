@@ -22,7 +22,6 @@ public class Travel {
     private Timestamp departureTime;
     @Column(name = "free_spots")
     private int freeSpots;
-
     @Column(name = "is_deleted")
     @JsonIgnore
     private boolean isDeleted;
@@ -34,7 +33,13 @@ public class Travel {
     @JsonIgnore
     private TravelStatus travelStatus;
 
-    //TODO implement the comment logic probably OneToMany
+    @Column(name = "distance_travel")
+    private int distanceTravel;
+    @Column(name = "duration_travel")
+    private int durationTravel;
+
+
+//TODO implement the comment logic probably OneToMany
     // since one travel can have many comments for pets,luggage,smoking,etc...
 
     public Travel() {
@@ -102,5 +107,21 @@ public class Travel {
 
     public void setTravelStatus(TravelStatus travelStatus) {
         this.travelStatus = travelStatus;
+    }
+
+    public int getDistanceTravel() {
+        return distanceTravel;
+    }
+
+    public void setDistanceTravel(int distanceTravel) {
+        this.distanceTravel = distanceTravel;
+    }
+
+    public int getDurationTravel() {
+        return durationTravel;
+    }
+
+    public void setDurationTravel(int durationTravel) {
+        this.durationTravel = durationTravel;
     }
 }
