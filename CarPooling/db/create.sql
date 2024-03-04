@@ -1,21 +1,8 @@
-drop database if exists carpoolingx;
-
-create database carpoolingx;
-use carpoolingx;
-
 create table cities
 (
     id   int auto_increment
         primary key,
     name varchar(50) not null
-);
-
-create table travel_status
-(
-    id            int auto_increment
-        primary key,
-    travel_status int         not null,
-    value         varchar(20) not null
 );
 
 create table user_status
@@ -42,9 +29,7 @@ create table users
     constraint users_pk3
         unique (email),
     constraint users_pk4
-        unique (phone_number),
-    constraint users_user_status_id_fk
-        foreign key (user_status) references user_status (id)
+        unique (phone_number)
 );
 
 create table feedbacks
@@ -72,6 +57,16 @@ create table comments_text
         foreign key (feedback_id) references feedbacks (id)
 );
 
+create table image_data
+(
+    id      int         not null
+        primary key,
+    image   varchar(50) null,
+    user_id int         not null,
+    constraint image_data_users_user_id_fk
+        foreign key (user_id) references users (user_id)
+);
+
 create table notification
 (
     id                int auto_increment
@@ -94,6 +89,8 @@ create table travels
     user_id         int         not null,
     travel_status   varchar(20) not null,
     distance_travel int         not null,
+    duration_travel int         not null,
+    comment_travel  varchar(20) null,
     constraint travels_users_user_id_fk
         foreign key (user_id) references users (user_id)
 );

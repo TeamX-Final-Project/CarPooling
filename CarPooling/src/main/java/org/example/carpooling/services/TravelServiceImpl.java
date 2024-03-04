@@ -1,11 +1,13 @@
 package org.example.carpooling.services;
 
 import org.example.carpooling.exceptions.AuthorizationException;
+import org.example.carpooling.exceptions.OperationNotAllowedException;
 import org.example.carpooling.models.DistanceTravelImpl;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.enums.TravelStatus;
 import org.example.carpooling.models.User;
+import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.repositories.contracts.TravelRepository;
 import org.example.carpooling.services.contracts.TravelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import java.util.List;
 @Service
 public class TravelServiceImpl implements TravelService {
     public static final String YOU_ARE_NOT_THE_CREATOR_OF_THE_TRAVEL_ERROR = "You are not the creator of the travel";
+    public static final String YOU_ARE_NOT_ALLOWED_TO_CREATE_A_TRAVEL_ERROR = "You are not allowed to create a post";
     private final TravelRepository travelRepository;
 
     @Autowired
@@ -38,10 +41,13 @@ public class TravelServiceImpl implements TravelService {
     public Travel create(Travel travel, User creator) {
         //        TODO create the logic for the authorization and check if the user is blocked before creating new travel
         travel.setUserId(creator);
+        checkIsUserActive(creator);
+
         calculateTravelInformation(travel);
 //        travel.setTravelStatus(travel.getTravelStatus());
         return travelRepository.create(travel);
     }
+
 
 
 
@@ -84,7 +90,6 @@ public class TravelServiceImpl implements TravelService {
             throw new AuthorizationException(YOU_ARE_NOT_THE_CREATOR_OF_THE_TRAVEL_ERROR);
         }
     }
-
     private static void calculateTravelInformation(Travel travel) {
         String startPoint = travel.getStartPoint();
         String endPoint = travel.getEndPoint();
@@ -92,6 +97,11 @@ public class TravelServiceImpl implements TravelService {
         int[] durationTravel = DistanceTravelImpl.getTravelDetails(startPoint, endPoint);
         travel.setDistanceTravel(distanceTravel[0]);
         travel.setDurationTravel(durationTravel[1]);
+    }
+    private static void checkIsUserActive(User creator) {
+        if (!creator.getUserStatus().equals(UserStatus.ACTIVE)){
+            throw new OperationNotAllowedException(YOU_ARE_NOT_ALLOWED_TO_CREATE_A_TRAVEL_ERROR);
+        }
     }
 
 

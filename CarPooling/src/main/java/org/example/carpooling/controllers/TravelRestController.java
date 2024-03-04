@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.BlockedUserException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
+import org.example.carpooling.exceptions.OperationNotAllowedException;
 import org.example.carpooling.helpers.AuthenticationHelper;
 import org.example.carpooling.helpers.TravelMapper;
 import org.example.carpooling.models.Travel;
@@ -77,6 +78,8 @@ public class TravelRestController {
             return travelService.create(newTravel, creator);
         } catch (AuthorizationException | BlockedUserException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        } catch (OperationNotAllowedException e){
+            throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED, e.getMessage());
         }
     }
 
