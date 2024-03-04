@@ -1,8 +1,3 @@
-drop database if exists carpoolingx;
-
-create database carpoolingx;
-use carpoolingx;
-
 create table cities
 (
     id   int auto_increment
@@ -14,15 +9,7 @@ create table travel_status
 (
     id            int auto_increment
         primary key,
-    travel_status int         not null,
-    value         varchar(20) not null
-);
-
-create table user_status
-(
-    id    int auto_increment
-        primary key,
-    value int not null
+    travel_status int not null
 );
 
 create table users
@@ -42,9 +29,7 @@ create table users
     constraint users_pk3
         unique (email),
     constraint users_pk4
-        unique (phone_number),
-    constraint users_user_status_id_fk
-        foreign key (user_status) references user_status (id)
+        unique (phone_number)
 );
 
 create table feedbacks
@@ -72,6 +57,16 @@ create table comments_text
         foreign key (feedback_id) references feedbacks (id)
 );
 
+create table image_data
+(
+    id      int         not null
+        primary key,
+    image   varchar(50) null,
+    user_id int         not null,
+    constraint image_data_users_user_id_fk
+        foreign key (user_id) references users (user_id)
+);
+
 create table notification
 (
     id                int auto_increment
@@ -84,16 +79,21 @@ create table notification
 
 create table travels
 (
-    travel_id       int auto_increment
+    travel_id        int auto_increment
         primary key,
-    start_point     varchar(20) not null,
-    end_point       varchar(20) not null,
-    departure_time  timestamp   not null,
-    free_spots      int         not null,
-    is_deleted      tinyint(1)  not null,
-    user_id         int         not null,
-    travel_status   varchar(20) not null,
-    distance_travel int         not null,
+    start_point      int        not null,
+    end_point        int        not null,
+    departure_time   timestamp  not null,
+    free_spots       int        not null,
+    is_deleted       tinyint(1) not null,
+    user_id          int        not null,
+    travel_status_id int        not null,
+    constraint travels_cities_id_fk
+        foreign key (start_point) references cities (id),
+    constraint travels_cities_id_fk2
+        foreign key (end_point) references cities (id),
+    constraint travels_travel_status_id_fk
+        foreign key (travel_status_id) references travel_status (id),
     constraint travels_users_user_id_fk
         foreign key (user_id) references users (user_id)
 );
@@ -129,18 +129,8 @@ create table travel_preferences
     is_pet_allowed   tinyint       not null,
     is_smoke_allowed tinyint       not null,
     text             varchar(2000) null,
-    luggage_allowed  int           null,
     travel_id        int           not null,
+    luggage_allowed  int           null,
     constraint travel_preferences_travels_travel_id_fk
         foreign key (travel_id) references travels (travel_id)
 );
-
-create index travels_cities_id_fk
-    on travels (start_point);
-
-create index travels_cities_id_fk2
-    on travels (end_point);
-
-create index travels_travel_status_id_fk
-    on travels (travel_status);
-
