@@ -1,8 +1,9 @@
 package org.example.carpooling.services.contracts;
 
+//import org.example.carpooling.models.ImageData;
+import org.example.carpooling.models.ImageData;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserFilterOptions;
-import org.example.carpooling.models.dto.UserDto;
 
 import java.util.List;
 
@@ -35,4 +36,7 @@ public interface UserService {
     User unblockUser(int id, User userModifier);
 
     long getUserCount();
+
+   ImageData saveImage (ImageData imageData, User user);
+
 }

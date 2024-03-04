@@ -1,11 +1,9 @@
 package org.example.carpooling.helpers;
 
+import org.example.carpooling.models.User;
 import org.example.carpooling.models.dto.ProfileDto;
 import org.example.carpooling.models.dto.RegisterDto;
 import org.example.carpooling.models.dto.UserDto;
-import org.example.carpooling.models.User;
-import org.example.carpooling.models.enums.UserStatus;
-import org.example.carpooling.services.contracts.UserService;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -31,15 +29,15 @@ public class UserMapper {
         return user;
     }
 
-    public User mapUpdates(UserDto userUpdates, User existingUser) {
-        existingUser.setUsername(userUpdates.getUsername());
-        existingUser.setPassword(userUpdates.getPassword());
-        existingUser.setFirstName(userUpdates.getFirstName());
-        existingUser.setLastName(userUpdates.getLastName());
-        existingUser.setEmail(userUpdates.getEmail());
-        existingUser.setPhoneNumber(userUpdates.getPhoneNumber());
-        return existingUser;
-    }
+//    public User mapUpdates(UserDto userUpdates, User existingUser) {
+//        existingUser.setUsername(userUpdates.getUsername());
+//        existingUser.setPassword(userUpdates.getPassword());
+//        existingUser.setFirstName(userUpdates.getFirstName());
+//        existingUser.setLastName(userUpdates.getLastName());
+//        existingUser.setEmail(userUpdates.getEmail());
+//        existingUser.setPhoneNumber(userUpdates.getPhoneNumber());
+//        return existingUser;
+//    }
 
     public User fromDto(RegisterDto registerDto) {
         User user = new User();
@@ -49,7 +47,6 @@ public class UserMapper {
         user.setLastName(registerDto.getLastName());
         user.setEmail(registerDto.getEmail());
         user.setPhoneNumber(registerDto.getPhoneNumber());
-//        user.setUserStatus(UserStatus.PENDING);
         return user;
     }
 
