@@ -32,11 +32,12 @@ public class Travel {
     @Column(name = "travel_status")
     @JsonIgnore
     private TravelStatus travelStatus;
-
     @Column(name = "distance_travel")
     private int distanceTravel;
     @Column(name = "duration_travel")
     private int durationTravel;
+    @Column(name = "travel_comment")
+    private String travelComment;
 
 
 //TODO implement the comment logic probably OneToMany
@@ -123,5 +124,12 @@ public class Travel {
 
     public void setDurationTravel(int durationTravel) {
         this.durationTravel = durationTravel;
+    }
+    public String getTravelComment() {
+        return travelComment;
+    }
+
+    public void setTravelComment(String travelComment) {
+        this.travelComment = travelComment;
     }
 }
