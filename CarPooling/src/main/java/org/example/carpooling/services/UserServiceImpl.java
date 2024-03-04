@@ -1,7 +1,7 @@
 package org.example.carpooling.services;
 
 import org.example.carpooling.exceptions.*;
-//import org.example.carpooling.models.ImageData;
+import org.example.carpooling.models.ImageData;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.models.UserFilterOptions;
@@ -252,9 +252,10 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-//    @Override
-//    public void updatePhoto(ImageData imageData, User user) {
-//    }
+    @Override
+    public ImageData saveImage(ImageData imageData, User user) {
+       return userRepository.saveImage(imageData);
+    }
 
     @Override
     public long getUserCount() {

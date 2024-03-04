@@ -1,5 +1,6 @@
 package org.example.carpooling.repositories.contracts;
 
+import org.example.carpooling.models.ImageData;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserFilterOptions;
 
@@ -30,6 +31,8 @@ public interface UserRepository {
     User blockUser(User user);
 
     User unblockUser(User user);
+
+    ImageData saveImage(ImageData imageData);
 
     long getUserCount();
 }

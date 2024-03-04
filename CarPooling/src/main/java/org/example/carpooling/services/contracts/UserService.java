@@ -1,6 +1,7 @@
 package org.example.carpooling.services.contracts;
 
 //import org.example.carpooling.models.ImageData;
+import org.example.carpooling.models.ImageData;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserFilterOptions;
 
@@ -36,5 +37,5 @@ public interface UserService {
 
     long getUserCount();
 
- //   void updatePhoto(ImageData imageData, User user);
+   ImageData saveImage (ImageData imageData, User user);
 }

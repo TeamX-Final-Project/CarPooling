@@ -7,7 +7,9 @@ import jakarta.validation.Valid;
 import org.example.carpooling.exceptions.*;
 import org.example.carpooling.helpers.AuthenticationHelper;
 import org.example.carpooling.helpers.UserMapper;
-//import org.example.carpooling.models.ImageData;
+import org.example.carpooling.models.ImageData;
+import org.example.carpooling.models.ImageData;
+import org.example.carpooling.models.dto.ProfilePicture;
 import org.example.carpooling.models.dto.UserDto;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserFilterOptions;
@@ -15,6 +17,7 @@ import org.example.carpooling.services.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -163,7 +166,7 @@ public class UserRestController {
         }
     }
 
-    @PutMapping("/makeAdmin:{id}")
+    @PutMapping("{id}/admin")
     public User makeUserAdmin(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
             User userModifier = authenticationHelper.tryGetUser(headers);
@@ -177,7 +180,7 @@ public class UserRestController {
         }
     }
 
-    @PutMapping("/unmakeAdmin:{id}")
+    @PutMapping("{id}/admin/delete")
     public User unmakeUserAdmin(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
             User userModifier = authenticationHelper.tryGetUser(headers);
@@ -189,7 +192,7 @@ public class UserRestController {
         }
     }
 
-    @PutMapping("/blockUser:{id}")
+    @PutMapping("/{id}/block")
     public User blockUser(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
             User userModifier = authenticationHelper.tryGetUser(headers);
@@ -201,7 +204,7 @@ public class UserRestController {
         }
     }
 
-    @PutMapping("/unblockUser:{id}")
+    @PutMapping("/{id}/unblock")
     public User unblockUser(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
             User userModifier = authenticationHelper.tryGetUser(headers);
@@ -212,27 +215,28 @@ public class UserRestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
-//    @PostMapping("updateImage")
-//    public String updateImage(@RequestParam("avatar") MultipartFile file, HttpSession session) {
-//        try {
-//            ImageData imageData = new ImageData();
-//            User user = authenticationHelper.tryGetCurrentUser(session);
-//            String url = cloudinaryUploader(file);
-//            imageData.setImage(url);
-//            imageData.setUserId(user);
-//            userService.updatePhoto(imageData, user);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return "redirect:/user";
-//    }
-//    private String cloudinaryUploader(MultipartFile file) throws IOException {
-//        Map upload = cloudinary.uploader()
-//                .upload(file.getBytes()
-//                        , ObjectUtils.asMap("resource_type", "auto"));
-//        String url = (String) upload.get("url");
-//
-//        return url;
-//    }
+//    @PostMapping(value = "/updateImage", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/image")
+//    public String updateImage(@RequestParam ProfilePicture picture, HttpHeaders headers) {
+    public String updateImage(@RequestParam("avatar") MultipartFile file, @RequestHeader HttpHeaders headers) {
+        try {
 
+            User user = authenticationHelper.tryGetUser(headers);
+            String url = cloudinaryUploader(file);
+            ImageData imageData = new ImageData();
+            imageData.setImage(url);
+            imageData.setUser(user);
+            userService.saveImage(imageData, user);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return "redirect:/user";
+    }
+    private String cloudinaryUploader(MultipartFile file) throws IOException {
+        Map upload = cloudinary.uploader()
+                .upload(file.getBytes()
+                        , ObjectUtils.asMap("resource_type", "auto"));
+
+        return (String) upload.get("url");
+    }
 }
