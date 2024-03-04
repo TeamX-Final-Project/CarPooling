@@ -36,7 +36,7 @@ public class Travel {
     private int distanceTravel;
     @Column(name = "duration_travel")
     private int durationTravel;
-    @Column(name = "travel_comment")
+    @Column(name = "comment_travel")
     private String travelComment;
 
 

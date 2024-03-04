@@ -1,3 +1,8 @@
+drop database if exists carpoolingx;
+
+create database carpoolingx;
+use carpoolingx;
+
 create table cities
 (
     id   int auto_increment
@@ -5,11 +10,11 @@ create table cities
     name varchar(50) not null
 );
 
-create table travel_status
+create table user_status
 (
-    id            int auto_increment
+    id    int auto_increment
         primary key,
-    travel_status int not null
+    value int not null
 );
 
 create table users
@@ -79,21 +84,18 @@ create table notification
 
 create table travels
 (
-    travel_id        int auto_increment
+    travel_id       int auto_increment
         primary key,
-    start_point      int        not null,
-    end_point        int        not null,
-    departure_time   timestamp  not null,
-    free_spots       int        not null,
-    is_deleted       tinyint(1) not null,
-    user_id          int        not null,
-    travel_status_id int        not null,
-    constraint travels_cities_id_fk
-        foreign key (start_point) references cities (id),
-    constraint travels_cities_id_fk2
-        foreign key (end_point) references cities (id),
-    constraint travels_travel_status_id_fk
-        foreign key (travel_status_id) references travel_status (id),
+    start_point     varchar(20) not null,
+    end_point       varchar(20) not null,
+    departure_time  timestamp   not null,
+    free_spots      int         not null,
+    is_deleted      tinyint(1)  not null,
+    user_id         int         not null,
+    travel_status   varchar(20) not null,
+    distance_travel int         not null,
+    duration_travel int         not null,
+    comment_travel  varchar(2000) null,
     constraint travels_users_user_id_fk
         foreign key (user_id) references users (user_id)
 );
