@@ -3,6 +3,7 @@ drop database if exists carpoolingx;
 create database carpoolingx;
 use carpoolingx;
 
+
 create table cities
 (
     id   int auto_increment
@@ -64,10 +65,10 @@ create table comments_text
 
 create table image_data
 (
-    id      int         not null
+    id      int auto_increment
         primary key,
-    image   varchar(50) null,
-    user_id int         not null,
+    image   varchar(100) null,
+    user_id int          not null,
     constraint image_data_users_user_id_fk
         foreign key (user_id) references users (user_id)
 );
@@ -86,15 +87,15 @@ create table travels
 (
     travel_id       int auto_increment
         primary key,
-    start_point     varchar(20) not null,
-    end_point       varchar(20) not null,
-    departure_time  timestamp   not null,
-    free_spots      int         not null,
-    is_deleted      tinyint(1)  not null,
-    user_id         int         not null,
-    travel_status   varchar(20) not null,
-    distance_travel int         not null,
-    duration_travel int         not null,
+    start_point     varchar(20)   not null,
+    end_point       varchar(20)   not null,
+    departure_time  timestamp     not null,
+    free_spots      int           not null,
+    is_deleted      tinyint(1)    not null,
+    user_id         int           not null,
+    travel_status   varchar(20)   not null,
+    distance_travel int           not null,
+    duration_travel int           not null,
     comment_travel  varchar(2000) null,
     constraint travels_users_user_id_fk
         foreign key (user_id) references users (user_id)
