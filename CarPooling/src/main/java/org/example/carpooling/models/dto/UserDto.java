@@ -2,7 +2,6 @@ package org.example.carpooling.models.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import org.checkerframework.common.aliasing.qual.Unique;
 
 import java.util.Objects;
 
@@ -14,17 +13,13 @@ public class UserDto {
     private static final String PASSWORD_REQUIREMENTS_MESSAGE = "Password should be minimum 8 symbols, contain capital " +
             "letter and special symbol";
 
-
-
-
     @NotNull(message = NAME_CAN_T_BE_EMPTY_MESSAGE)
     @Size(min = 2, max = 20, message = NAME_SHOULD_BE_BETWEEN_2_AND_20_SYMBOLS_MESSAGE)
     private String firstName;
+
     @NotNull(message = NAME_CAN_T_BE_EMPTY_MESSAGE)
     @Size(min = 2, max = 20, message = NAME_SHOULD_BE_BETWEEN_2_AND_20_SYMBOLS_MESSAGE)
     private String lastName;
-
-    //ToDo double check how to use @Unique annotation
 
     @NotNull(message = NAME_CAN_T_BE_EMPTY_MESSAGE)
     private String email;
@@ -71,16 +66,13 @@ public class UserDto {
         return phoneNumber;
     }
 
-
     public String getFirstName() {
         return firstName;
     }
 
-
     public String getLastName() {
         return lastName;
     }
-
 
     public String getEmail() {
         return email;
@@ -101,9 +93,11 @@ public class UserDto {
     public String getPassword() {
         return password;
     }
+
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }

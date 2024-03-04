@@ -2,11 +2,10 @@ package org.example.carpooling.repositories;
 
 
 import org.example.carpooling.exceptions.EntityAlreadyAdminException;
-
 import org.example.carpooling.exceptions.EntityNotFoundException;
+import org.example.carpooling.models.ImageData;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserFilterOptions;
-import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.repositories.contracts.UserRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -237,5 +236,15 @@ public class UserRepositoryImpl implements UserRepository {
 
             return resultList.get(0);
         }
+    }
+
+    @Override
+    public ImageData saveImage(ImageData imageData) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.persist(imageData);
+            session.getTransaction().commit();
+        }
+        return imageData;
     }
 }
