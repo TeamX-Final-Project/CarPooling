@@ -99,7 +99,7 @@ public class TravelServiceImpl implements TravelService {
         travel.setDurationTravel(durationTravel[1]);
     }
     private static void checkIsUserActive(User creator) {
-        if (!creator.getUserStatus().equals(UserStatus.ACTIVE)){
+        if (!UserStatus.ACTIVE.equals(creator.getUserStatus())){
             throw new OperationNotAllowedException(YOU_ARE_NOT_ALLOWED_TO_CREATE_A_TRAVEL_ERROR);
         }
     }
