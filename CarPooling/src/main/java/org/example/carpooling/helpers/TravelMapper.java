@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TravelMapper {
-    private TravelService travelService;
+    private final TravelService travelService;
 
     @Autowired
     public TravelMapper(TravelService travelService) {
@@ -33,6 +33,6 @@ public class TravelMapper {
         travel.setDepartureTime(travelDto.getDepartureTime());
         travel.setFreeSpots(travelDto.getFreeSpots());
         travel.setTravelStatus(travelDto.getTravelStatus());
+        travel.setTravelComment(travelDto.getTravelComment());
     }
-
 }

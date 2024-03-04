@@ -21,6 +21,8 @@ public class TravelDto {
     @NotNull(message = "Travel status can't be empty")
     private TravelStatus travelStatus;
 
+    private String travelComment;
+
     public TravelDto() {
     }
 
@@ -62,6 +64,14 @@ public class TravelDto {
 
     public void setTravelStatus(TravelStatus travelStatus) {
         this.travelStatus = travelStatus;
+    }
+
+    public String getTravelComment() {
+        return travelComment;
+    }
+
+    public void setTravelComment(String travelComment) {
+        this.travelComment = travelComment;
     }
 
 }
