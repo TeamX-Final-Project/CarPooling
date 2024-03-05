@@ -2,15 +2,16 @@ package org.example.carpooling.services;
 
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.OperationNotAllowedException;
-import org.example.carpooling.models.DistanceTravelImpl;
-import org.example.carpooling.models.Travel;
-import org.example.carpooling.models.TravelFilterOptions;
+import org.example.carpooling.helpers.TravelMapper;
+import org.example.carpooling.models.*;
+import org.example.carpooling.models.dto.TravelDto;
 import org.example.carpooling.models.enums.TravelStatus;
-import org.example.carpooling.models.User;
 import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.repositories.contracts.TravelRepository;
 import org.example.carpooling.services.contracts.TravelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,8 +28,23 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
-    public List<Travel> getAllTravels(TravelFilterOptions travelFilterOptions) {
-        return travelRepository.getAllTravels(travelFilterOptions);
+    public List<TravelDto> getAllTravels(TravelFilterOptions travelFilterOptions) {
+        Pageable pageable = PageRequest.of(travelFilterOptions.getPage(),
+                travelFilterOptions.getSize(),
+                Sort.Direction.fromString(travelFilterOptions.getOrderBy()),
+                travelFilterOptions.getSortBy());
+        Specification<Travel> specification = Specification.where(TravelSpecifications.
+                hasKeyword(travelFilterOptions.getKeyword(), travelFilterOptions.getSortBy()));
+        Page<Travel> travelPage = travelRepository.findAll(specification, pageable);
+        return travelPage.getContent().stream().map(this::convertToDto).toList();
+    }
+    private TravelDto convertToDto(Travel travel) {
+        TravelDto travelDTO = new TravelDto();
+        travelDTO.setStartPoint(travel.getStartPoint());
+        travelDTO.setEndPoint(travel.getEndPoint());
+        travelDTO.setDepartureTime(travel.getDepartureTime());
+        travelDTO.setFreeSpots(travel.getFreeSpots());
+        return travelDTO;
     }
 
     @Override
@@ -49,8 +65,6 @@ public class TravelServiceImpl implements TravelService {
     }
 
 
-
-
     @Override
     public Travel update(User userModifier, Travel travelToUpdate) {
         //TODO double check the getByID since once you take the travelToUpdate here
@@ -62,13 +76,13 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
-    public Travel delete(int id, User userModifier) {
+    public Travel deleteTravelById(int id, User userModifier) {
         //TODO double check the getByID since once you take the travelToDelete here
         // then again is used getById in checkModifyPermission
         Travel travelToDelete = getById(id);
         checkModifyPermission(userModifier, travelToDelete);
         travelToDelete.setDeleted(true);
-        return travelRepository.delete(travelToDelete);
+        return travelRepository.deleteTravelById(travelToDelete);
     }
 
     @Override
@@ -90,6 +104,7 @@ public class TravelServiceImpl implements TravelService {
             throw new AuthorizationException(YOU_ARE_NOT_THE_CREATOR_OF_THE_TRAVEL_ERROR);
         }
     }
+
     private static void calculateTravelInformation(Travel travel) {
         String startPoint = travel.getStartPoint();
         String endPoint = travel.getEndPoint();
@@ -98,8 +113,9 @@ public class TravelServiceImpl implements TravelService {
         travel.setDistanceTravel(distanceTravel[0]);
         travel.setDurationTravel(durationTravel[1]);
     }
+
     private static void checkIsUserActive(User creator) {
-        if (!UserStatus.ACTIVE.equals(creator.getUserStatus())){
+        if (!UserStatus.ACTIVE.equals(creator.getUserStatus())) {
             throw new OperationNotAllowedException(YOU_ARE_NOT_ALLOWED_TO_CREATE_A_TRAVEL_ERROR);
         }
     }

@@ -14,8 +14,10 @@ import org.example.carpooling.models.User;
 import org.example.carpooling.models.dto.TravelDto;
 import org.example.carpooling.services.contracts.TravelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -24,8 +26,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/travels")
 public class TravelRestController {
-
-
+    public static final String PAGE_NUMBER = "0";
+    public static final String SIZE_PAGE = "10";
     private final AuthenticationHelper authenticationHelper;
     private final TravelService travelService;
     private final TravelMapper travelMapper;
@@ -38,19 +40,20 @@ public class TravelRestController {
     }
 
     @GetMapping
-    public List<Travel> getAllTravels(@RequestParam(required = false) String startPoint,
-                                      @RequestParam(required = false) String endPoint,
-                                      @RequestParam(required = false) String createdBy,
-                                      @RequestParam(required = false) String sortBy,
-                                      @RequestParam(required = false) String orderBy) {
+    public ResponseEntity<List<TravelDto>> getAllTravels(@RequestParam(defaultValue = PAGE_NUMBER) int page,
+                                                @RequestParam(defaultValue = SIZE_PAGE) int size,
+                                                @RequestParam(required = false) String keyword,
+                                                @RequestParam(required = false) String sortBy,
+                                                @RequestParam(defaultValue = "ASC") String orderBy) {
         try {
             TravelFilterOptions travelFilterOptions = new TravelFilterOptions(
-                    startPoint,
-                    endPoint,
-                    createdBy,
+                    page,
+                    size,
+                    keyword,
                     sortBy,
                     orderBy);
-            return travelService.getAllTravels(travelFilterOptions);
+            List<TravelDto> travelPage = travelService.getAllTravels(travelFilterOptions);
+            return ResponseEntity.ok(travelPage);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
@@ -78,7 +81,7 @@ public class TravelRestController {
             return travelService.create(newTravel, creator);
         } catch (AuthorizationException | BlockedUserException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-        } catch (OperationNotAllowedException e){
+        } catch (OperationNotAllowedException e) {
             throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED, e.getMessage());
         }
     }
@@ -99,11 +102,11 @@ public class TravelRestController {
     }
 
     @PutMapping("/delete:{id}")
-    public Travel deleteTravel(@RequestHeader HttpHeaders headers,
-                               @PathVariable int id) {
+    public Travel deleteTravelById(@RequestHeader HttpHeaders headers,
+                                   @PathVariable int id) {
         try {
             User userModifier = authenticationHelper.tryGetUser(headers);
-            return travelService.delete(id, userModifier);
+            return travelService.deleteTravelById(id, userModifier);
         } catch (AuthorizationException | BlockedUserException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (EntityNotFoundException e) {
