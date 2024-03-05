@@ -22,16 +22,6 @@ public interface UserRepository {
 
     User update(User user);
 
-    User delete(User user);
-
-    User makeUserAdmin(int id);
-
-    User unmakeUserAdmin(int id);
-
-    User blockUser(User user);
-
-    User unblockUser(User user);
-
     ImageData saveImage(ImageData imageData);
 
     long getUserCount();

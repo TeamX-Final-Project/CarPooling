@@ -1,17 +1,35 @@
 package org.example.carpooling.models.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 
 public class UserDto {
-    private static final String NAME_CAN_T_BE_EMPTY_MESSAGE = "Name can't be empty";
+    public static final String NAME_CAN_T_BE_EMPTY_MESSAGE = "Name can't be empty";
     private static final String NUMBER_CAN_T_BE_EMPTY_MESSAGE = "Phone number can't be empty";
     private static final String NUMBER_SHOULD_BE_10_DIGITS_MESSAGE = "Phone number should be 10 digits";
-    private static final String NAME_SHOULD_BE_BETWEEN_2_AND_20_SYMBOLS_MESSAGE = "Name should be between 2 and 20 symbols";
+    public static final String NAME_SHOULD_BE_BETWEEN_2_AND_20_SYMBOLS_MESSAGE = "Name should be between 2 and 20 symbols";
     private static final String PASSWORD_REQUIREMENTS_MESSAGE = "Password should be minimum 8 symbols, contain capital " +
             "letter and special symbol";
+    public static final String EMAIL_CAN_T_BE_EMPTY_MESSAGE = "E-mail can't be empty";
+    public static final String PASSWORD_CAN_T_BE_EMPTY_MESSAGE = "Password can't be empty";
+    public static final String EMAIL_IS_REQUIRED_MESSAGE = "E-mail is required";
+    public static final String NAME_IS_REQUIRED_MESSAGE = "Username is required";
+
+
+    @NotNull(message = NAME_IS_REQUIRED_MESSAGE)
+    @NotEmpty(message = NAME_CAN_T_BE_EMPTY_MESSAGE)
+    private String username;
+
+    @NotNull(message = EMAIL_IS_REQUIRED_MESSAGE)
+    @NotEmpty(message = EMAIL_CAN_T_BE_EMPTY_MESSAGE)
+    private String email;
+
+    @NotNull(message = NUMBER_CAN_T_BE_EMPTY_MESSAGE)
+    @Size(min = 10, message = NUMBER_SHOULD_BE_10_DIGITS_MESSAGE)
+    private String phoneNumber;
 
     @NotNull(message = NAME_CAN_T_BE_EMPTY_MESSAGE)
     @Size(min = 2, max = 20, message = NAME_SHOULD_BE_BETWEEN_2_AND_20_SYMBOLS_MESSAGE)
@@ -21,22 +39,13 @@ public class UserDto {
     @Size(min = 2, max = 20, message = NAME_SHOULD_BE_BETWEEN_2_AND_20_SYMBOLS_MESSAGE)
     private String lastName;
 
-    @NotNull(message = NAME_CAN_T_BE_EMPTY_MESSAGE)
-    private String email;
-
-    @NotNull(message = NUMBER_CAN_T_BE_EMPTY_MESSAGE)
-    @Size(min = 10, message = NUMBER_SHOULD_BE_10_DIGITS_MESSAGE)
-    private String phoneNumber;
-
-    @NotNull(message = NAME_CAN_T_BE_EMPTY_MESSAGE)
-    private String username;
 
     @Size(min = 8, message = PASSWORD_REQUIREMENTS_MESSAGE)
-    @NotNull(message = NAME_CAN_T_BE_EMPTY_MESSAGE)
+    @NotNull(message = PASSWORD_CAN_T_BE_EMPTY_MESSAGE)
     private String password;
 
     @Size(min = 8, message = PASSWORD_REQUIREMENTS_MESSAGE)
-    @NotNull(message = NAME_CAN_T_BE_EMPTY_MESSAGE)
+    @NotNull(message = PASSWORD_CAN_T_BE_EMPTY_MESSAGE)
     private String passwordConfirm;
 
 //    public UserDto() {

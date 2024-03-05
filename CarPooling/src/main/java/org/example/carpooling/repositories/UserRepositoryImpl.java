@@ -1,7 +1,6 @@
 package org.example.carpooling.repositories;
 
 
-import org.example.carpooling.exceptions.EntityAlreadyAdminException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.models.ImageData;
 import org.example.carpooling.models.User;
@@ -56,10 +55,11 @@ public class UserRepositoryImpl implements UserRepository {
             queryString.append(generateOrderBy(filterOptions));
             Query<User> query = session.createQuery(queryString.toString(), User.class);
             query.setProperties(params);
-            return query.list();
-            //TODO how to implement exception if the result of the query doesn't find user with the requested information
-        } catch (EntityNotFoundException e) {
-            throw new EntityNotFoundException(USER_CONSTANT);
+            List<User> result = query.list();
+            if (result.isEmpty()) {
+                throw new EntityNotFoundException(USER_CONSTANT);
+            }
+            return result;
         }
     }
 
@@ -126,75 +126,36 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User update(User user) {
+        User updatedUser;
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.merge(user);
+            updatedUser = session.merge(user);
             session.getTransaction().commit();
         }
-        return user;
+        return updatedUser;
     }
 
     @Override
-    public User delete(User user) {
-//        //todo Pet: business logic should be in service layer; repo is for the communication with database; same for other methods here
-//        if (userToDelete.isDeleted()) {
-//            throw new EntityDeletedException("User", "username", userToDelete.getUsername());
-//        }
-//        userToDelete.setDeleted(true);
+    public ImageData saveImage(ImageData imageData) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.merge(user);
+            session.persist(imageData);
             session.getTransaction().commit();
         }
-        return user;
+        return imageData;
     }
 
     @Override
-    public User makeUserAdmin(int id) {
-        User userToMakeAdmin = getByUserId(id);
-        if (userToMakeAdmin.isAdmin()) {
-            throw new EntityAlreadyAdminException("User", "username", userToMakeAdmin.getUsername());
-        }
-        userToMakeAdmin.setAdmin(true);
+    public long getUserCount() {
         try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            session.merge(userToMakeAdmin);
-            session.getTransaction().commit();
-        }
-        return userToMakeAdmin;
-    }
+            String hql = "SELECT COUNT(*) FROM User where userStatus=1";
 
-    @Override
-    public User unmakeUserAdmin(int id) {
-        User userToMakeAdmin = getByUserId(id);
-        //todo Pet: make code consistent with other logic : if already not admin -> exception; same for other methods block/unblock
-        userToMakeAdmin.setAdmin(false);
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            session.merge(userToMakeAdmin);
-            session.getTransaction().commit();
-        }
-        return userToMakeAdmin;
-    }
+            Query<Long> query = session.createQuery(hql, Long.class);
 
-    @Override
-    public User blockUser(User userToBlock) {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            session.merge(userToBlock);
-            session.getTransaction().commit();
-        }
-        return userToBlock;
-    }
+            List<Long> resultList = query.list();
 
-    @Override
-    public User unblockUser(User userToUnblock) {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            session.merge(userToUnblock);
-            session.getTransaction().commit();
+            return resultList.get(0);
         }
-        return userToUnblock;
     }
 
     private String generateOrderBy(UserFilterOptions filterOptions) {
@@ -223,28 +184,5 @@ public class UserRepositoryImpl implements UserRepository {
             orderBy = String.format("%s desc", orderBy);
         }
         return orderBy;
-    }
-
-    @Override
-    public long getUserCount() {
-        try (Session session = sessionFactory.openSession()) {
-            String hql = "SELECT COUNT(*) FROM User where userStatus=1";
-
-            Query<Long> query = session.createQuery(hql, Long.class);
-
-            List<Long> resultList = query.list();
-
-            return resultList.get(0);
-        }
-    }
-
-    @Override
-    public ImageData saveImage(ImageData imageData) {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            session.persist(imageData);
-            session.getTransaction().commit();
-        }
-        return imageData;
     }
 }
