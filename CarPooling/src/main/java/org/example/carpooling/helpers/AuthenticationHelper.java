@@ -2,6 +2,7 @@ package org.example.carpooling.helpers;
 
 
 import jakarta.servlet.http.HttpSession;
+import org.example.carpooling.exceptions.AuthenticationException;
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.models.User;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthenticationHelper {
 
+    //Todo Pet: rename class to Authentication service and relocate in service package;
     private static final String AUTHORIZATION_HEADER_NAME = "Authorization";
     private static final String INVALID_AUTHENTICATION_ERROR = "Invalid authentication";
 
@@ -25,10 +27,10 @@ public class AuthenticationHelper {
     }
 
     public User tryGetUser(HttpHeaders headers) {
-        if (!headers.containsKey(AUTHORIZATION_HEADER_NAME)) {
+        String userInfo = headers.getFirst(AUTHORIZATION_HEADER_NAME);
+        if (userInfo == null) {
             throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
         }
-        String userInfo = headers.getFirst(AUTHORIZATION_HEADER_NAME);
         String username = getUsername(userInfo);
         String password = getPassword(userInfo);
         return verifyAuthentication(username, password);
@@ -36,54 +38,30 @@ public class AuthenticationHelper {
 
     public User tryAuthenticateUser(LoginDto loginDto) {
         try {
-            User user = userService.getByUsernameAuthentication(loginDto.getUsername());
+            User user = userService.getByUsername(loginDto.getUsername());
             if (!user.getPassword().equals(loginDto.getPassword())) {
-                //TODO need to be authentication exception
-                throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
+                throw new AuthenticationException(INVALID_AUTHENTICATION_ERROR);
             }
             return user;
         } catch (EntityNotFoundException e) {
-            //TODO need to be authentication exception
-            throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
-        }
-    }
-
-    //todo Pet: this and next method look pretty similar;
-    public User tryGetUserFromSession(HttpSession session) {
-        try {
-            return userService.getByUsernameAuthentication((String) session.getAttribute("currentUser"));
-        } catch (EntityNotFoundException e) {
-            throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
+            throw new AuthenticationException(INVALID_AUTHENTICATION_ERROR);
         }
     }
 
     public User tryGetCurrentUser(HttpSession session) {
-        String currentUsername = (String) session.getAttribute("currentUser");
-        if (currentUsername == null) {
-            throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
-        }
-        return userService.getByUsernameAuthentication(currentUsername);
-    }
-
-    public String getUsername(String userInfo) {
-        int firstSpace = userInfo.indexOf(" ");
-        if (firstSpace == -1) {
-            throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
-        }
-        return userInfo.substring(0, firstSpace);
-    }
-
-    private String getPassword(String userInfo) {
-        int firstSpace = userInfo.indexOf(" ");
-        if (firstSpace == -1) {
-            throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
-        }
-        return userInfo.substring(firstSpace + 1);
-    }
-
-    public User verifyAuthentication(String username, String password) {
         try {
-            User user = userService.getByUsernameAuthentication(username);
+            String currentUsername = (String) session.getAttribute("currentUser");
+            if (currentUsername == null) {
+                throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
+            }
+            return userService.getByUsername(currentUsername);
+        }  catch (EntityNotFoundException e) {
+            throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
+        }
+    }
+    private User verifyAuthentication(String username, String password) {
+        try {
+            User user = userService.getByUsername(username);
             if (!user.getPassword().equals(password)) {
                 throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
             }
@@ -91,5 +69,21 @@ public class AuthenticationHelper {
         } catch (EntityNotFoundException e) {
             throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
         }
+    }
+
+    private String getUsername(String userInfo) {
+        int firstSpace = getFirstSpaceIndex(userInfo);
+        return userInfo.substring(0, firstSpace);
+    }
+    private String getPassword(String userInfo) {
+        int firstSpace = getFirstSpaceIndex(userInfo);
+        return userInfo.substring(firstSpace + 1);
+    }
+    private int getFirstSpaceIndex(String userInfo) {
+        int firstSpace = userInfo.indexOf(" ");
+        if (firstSpace == -1) {
+            throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
+        }
+        return firstSpace;
     }
 }

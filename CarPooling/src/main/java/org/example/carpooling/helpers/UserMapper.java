@@ -3,11 +3,14 @@ package org.example.carpooling.helpers;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.dto.ProfileDto;
 import org.example.carpooling.models.dto.RegisterDto;
+import org.example.carpooling.models.dto.SimpleUserDto;
 import org.example.carpooling.models.dto.UserDto;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
+
+    //Todo Pet:  mappers in new package
 
     public UserMapper() {
     }
@@ -17,6 +20,8 @@ public class UserMapper {
         user.setUserId(id);
         return user;
     }
+
+
 
     public User fromDto(UserDto userDto) {
         User user = new User();
@@ -28,8 +33,28 @@ public class UserMapper {
         user.setPassword(userDto.getPassword());
         return user;
     }
+    public UserDto toDto(User user) {
+        UserDto dto = new UserDto();
+        dto.setFirstName(user.getFirstName());
+        dto.setLastName(user.getLastName());
+        dto.setEmail(user.getEmail());
+        dto.setUsername(user.getUsername());
+        dto.setPhoneNumber(user.getPhoneNumber());
+        dto.setPassword(user.getPassword());
+        return dto;
+    }
+    public SimpleUserDto toSimpleDto(User user) {
+        SimpleUserDto dto = new SimpleUserDto();
+        dto.setId(user.getUserId());
+        dto.setFirstName(user.getFirstName());
+        dto.setLastName(user.getLastName());
+        dto.setUsername(user.getUsername());
+        dto.setStatus(user.getUserStatus());
+        dto.setAdmin(user.isAdmin());
+        return dto;
+    }
 
-//    public User mapUpdates(UserDto userUpdates, User existingUser) {
+//    public User toDto(UserDto userUpdates, User existingUser) {
 //        existingUser.setUsername(userUpdates.getUsername());
 //        existingUser.setPassword(userUpdates.getPassword());
 //        existingUser.setFirstName(userUpdates.getFirstName());

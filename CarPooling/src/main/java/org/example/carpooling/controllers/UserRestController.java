@@ -9,6 +9,7 @@ import org.example.carpooling.helpers.UserMapper;
 import org.example.carpooling.models.ImageData;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserFilterOptions;
+import org.example.carpooling.models.dto.SimpleUserDto;
 import org.example.carpooling.models.dto.UserDto;
 import org.example.carpooling.services.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,19 +27,18 @@ import java.util.Map;
 @RequestMapping("/api/users")
 public class UserRestController {
 
-    private static final String ERROR_MESSAGE = "You are not authorized to receive this information";
+    private static final String ERROR_MESSAGE = "You are not authorized";
     private final UserService userService;
     private final AuthenticationHelper authenticationHelper;
     private final UserMapper userMapper;
-    private final Cloudinary cloudinary;
+
 
     @Autowired
     public UserRestController(UserService userService, AuthenticationHelper authenticationHelper,
-                              UserMapper userMapper, Cloudinary cloudinary) {
+                              UserMapper userMapper) {
         this.userService = userService;
         this.authenticationHelper = authenticationHelper;
         this.userMapper = userMapper;
-        this.cloudinary = cloudinary;
     }
 
     @GetMapping
@@ -70,12 +70,11 @@ public class UserRestController {
 
     @GetMapping("/{id}")
     public User getUserById(@RequestHeader HttpHeaders headers, @PathVariable int id) {
+
+        //todo Pet:  return Dto without password
         try {
-            User user = authenticationHelper.tryGetUser(headers);
-            //todo Pet: make access check
-            //todo Pet:  (anonymous user) not logged in user should NOT be abel to see any user private data
-            //todo Pet: only admin can access other user data ;
-            return userService.getById(id);
+            User currentUser = authenticationHelper.tryGetUser(headers);
+            return userService.getUserById(id, currentUser);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -83,31 +82,31 @@ public class UserRestController {
         }
     }
 
-    @GetMapping("/email:{email}")
-    public User getUserByEmail(@RequestHeader HttpHeaders headers, @PathVariable String email) {
-        try {
-            User user = authenticationHelper.tryGetUser(headers);
-            return userService.getByEmail(email, user);
-            //TODO check if need to catch authorization exception
-        } catch (AuthorizationException e) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-        } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-    }
+//    @GetMapping("/email:{email}")
+//    public User getUserByEmail(@RequestHeader HttpHeaders headers, @PathVariable String email) {
+//        try {
+//            User user = authenticationHelper.tryGetUser(headers);
+//            return userService.getByEmail(email, user);
+//            //TODO check if need to catch authorization exception
+//        } catch (AuthorizationException e) {
+//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+//        } catch (EntityNotFoundException e) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+//        }
+//    }
 
-    @GetMapping("/username:{username}")
-    public User getUserByUsername(@RequestHeader HttpHeaders headers, @PathVariable String username) {
-        try {
-            User user = authenticationHelper.tryGetUser(headers);
-            return userService.getByUsername(username, user);
-
-        } catch (AuthorizationException e) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-        } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-    }
+//    @GetMapping("/username:{username}")
+//    public User getUserByUsername(@RequestHeader HttpHeaders headers, @PathVariable String username) {
+//        try {
+//            User user = authenticationHelper.tryGetUser(headers);
+//            return userService.getByUsername(username, user);
+//
+//        } catch (AuthorizationException e) {
+//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+//        } catch (EntityNotFoundException e) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+//        }
+//    }
 
 //    @GetMapping("/firstName:{firstName}")
 //    public User getUserByFirstName(@RequestHeader HttpHeaders headers, @PathVariable String firstName) {
@@ -121,9 +120,9 @@ public class UserRestController {
 //        }
 //    }
 
-
+    //Todo Pet: login endpoint and validation for email @ and .
     @PostMapping
-    public User create(@Valid @RequestBody UserDto userDto) {
+    public User register(@Valid @RequestBody UserDto userDto) {
         try {
             User user = userMapper.fromDto(userDto);
             return userService.create(user);
@@ -133,14 +132,15 @@ public class UserRestController {
     }
 
     @PutMapping("/{id}")
-    public User update(@RequestHeader HttpHeaders headers, @PathVariable int id, @Valid @RequestBody UserDto userDto) {
+    public UserDto update(@RequestHeader HttpHeaders headers, @PathVariable int id, @Valid @RequestBody UserDto userDto) {
         try {
-            User userModifier = authenticationHelper.tryGetUser(headers);
-            if (userModifier.getUserId() != id) {
+            User currentUser = authenticationHelper.tryGetUser(headers);
+            if (currentUser.getUserId() != id) {
                 throw new OperationNotAllowedException("Update is not allowed");
             }
             User userUpdates = userMapper.fromDto(id, userDto);
-            return userService.update(userUpdates);
+            User updatedUser = userService.update(userUpdates);
+            return userMapper.toDto(updatedUser);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (OperationNotAllowedException e) {
@@ -151,10 +151,10 @@ public class UserRestController {
     }
 
     @DeleteMapping("/{id}")
-    public User delete(@RequestHeader HttpHeaders headers, @PathVariable int id) {
+    public void delete(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
-            User userModifier = authenticationHelper.tryGetUser(headers);
-            return userService.delete(id, userModifier);
+            User currentUser = authenticationHelper.tryGetUser(headers);
+            userService.delete(id, currentUser);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -163,24 +163,26 @@ public class UserRestController {
     }
 
     @PutMapping("{id}/admin")
-    public User makeUserAdmin(@RequestHeader HttpHeaders headers, @PathVariable int id) {
+    public SimpleUserDto makeUserAdmin(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
-            User userModifier = authenticationHelper.tryGetUser(headers);
-            return userService.makeUserAdmin(id, userModifier);
+            User currentUser = authenticationHelper.tryGetUser(headers);
+            User userToMakeAdmin = userService.makeUserAdmin(id, currentUser);
+            return userMapper.toSimpleDto(userToMakeAdmin);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        } catch (EntityAlreadyAdminException e) {
+        } catch (EntityAttributeAlreadySetException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }
 
+    //todo Pet: finish simple Dto for admin and block and getAllusers
     @PutMapping("{id}/admin/delete")
     public User unmakeUserAdmin(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
-            User userModifier = authenticationHelper.tryGetUser(headers);
-            return userService.unmakeUserAdmin(id, userModifier);
+            User currentUser = authenticationHelper.tryGetUser(headers);
+            return userService.unmakeUserAdmin(id, currentUser);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -191,8 +193,8 @@ public class UserRestController {
     @PutMapping("/{id}/block")
     public User blockUser(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
-            User userModifier = authenticationHelper.tryGetUser(headers);
-            return userService.blockUser(id, userModifier);
+            User currentUser = authenticationHelper.tryGetUser(headers);
+            return userService.blockUser(id, currentUser);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -203,8 +205,8 @@ public class UserRestController {
     @PutMapping("/{id}/unblock")
     public User unblockUser(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
-            User userModifier = authenticationHelper.tryGetUser(headers);
-            return userService.unblockUser(id, userModifier);
+            User currentUser = authenticationHelper.tryGetUser(headers);
+            return userService.unblockUser(id, currentUser);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -212,29 +214,26 @@ public class UserRestController {
         }
     }
 
-    //    @PostMapping(value = "/updateImage", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @PostMapping(value = "/image")
-//    public String updateImage(@RequestParam ProfilePicture picture, HttpHeaders headers) {
-    public String updateImage(@RequestParam("avatar") MultipartFile file, @RequestHeader HttpHeaders headers) {
+    @PostMapping(value = "/{id}/image")
+
+    public String updateImage(@RequestParam("avatar") MultipartFile file,
+                              @RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
-
             User user = authenticationHelper.tryGetUser(headers);
-            String url = cloudinaryUploader(file);
-            ImageData imageData = new ImageData();
-            imageData.setImage(url);
-            imageData.setUser(user);
-            userService.saveImage(imageData, user);
+            if(user.getUserId()==id){
+                throw new AuthorizationException(ERROR_MESSAGE);
+            }
+            ImageData image = userService.saveImage(file, user);
+            return image.getImage();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
+        }catch (AuthorizationException e){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
-        return "redirect:/user";
     }
 
-    private String cloudinaryUploader(MultipartFile file) throws IOException {
-        Map upload = cloudinary.uploader()
-                .upload(file.getBytes()
-                        , ObjectUtils.asMap("resource_type", "auto"));
+    //todo Pet: get method for image
 
-        return (String) upload.get("url");
-    }
+//    @GetMapping("/{id}/image")
+//    public
 }
