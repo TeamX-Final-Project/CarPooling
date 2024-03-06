@@ -62,8 +62,7 @@ public class TravelRestController {
     @GetMapping("/{id}")
     public Travel getTravelById(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
-            //TODO wait for the User class implementation for the logic to authenticate the user before searching for travel by id
-            User user = authenticationHelper.tryGetUser(headers);
+//            User user = authenticationHelper.tryGetUser(headers);
             return travelService.getById(id);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
@@ -75,7 +74,6 @@ public class TravelRestController {
     @PostMapping
     public Travel createTravel(@RequestHeader HttpHeaders headers, @Valid @RequestBody TravelDto travelDto) {
         try {
-            //TODO wait for the User class implementation for the logic to authenticate the user before creating a new travel
             User creator = authenticationHelper.tryGetUser(headers);
             Travel newTravel = travelMapper.fromDto(travelDto);
             return travelService.create(newTravel, creator);

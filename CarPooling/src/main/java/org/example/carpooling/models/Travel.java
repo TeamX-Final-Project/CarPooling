@@ -13,7 +13,7 @@ public class Travel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "travel_id")
     @JsonIgnore
-    private int travelId;
+    private long travelId;
     @Column(name = "start_point")
     private String startPoint;
     @Column(name = "end_point")
@@ -46,7 +46,7 @@ public class Travel {
     public Travel() {
     }
 
-    public int getTravelId() {
+    public long getTravelId() {
         return travelId;
     }
 

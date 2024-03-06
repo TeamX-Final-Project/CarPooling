@@ -25,6 +25,5 @@ public interface TravelRepository extends JpaRepository<Travel, Long> {
     Travel deleteTravelById(Travel travelToDelete);
 
     Travel cancel(Travel travelToCancel);
-
-    long getTravelsCount();
+    long count();
 }
