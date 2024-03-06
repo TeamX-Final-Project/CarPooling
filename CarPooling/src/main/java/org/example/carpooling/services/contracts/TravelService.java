@@ -3,12 +3,13 @@ package org.example.carpooling.services.contracts;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.User;
+import org.example.carpooling.models.dto.TravelDto;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface TravelService {
-    //ToDo implement filterOptions as parameter of the method
-    List<Travel> getAllTravels(TravelFilterOptions travelFilterOptions);
+    List<TravelDto> getAllTravels(TravelFilterOptions travelFilterOptions);
 
     Travel getById(int id);
 
@@ -16,7 +17,7 @@ public interface TravelService {
 
     Travel update(User userModifier, Travel travelToUpdate);
 
-    Travel delete(int id, User userModifier);
+    Travel deleteTravelById(int id, User userModifier);
 
     Travel cancel(int id, User userModifier);
 

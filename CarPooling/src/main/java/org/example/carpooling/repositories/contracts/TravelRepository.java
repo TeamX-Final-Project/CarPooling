@@ -2,13 +2,19 @@ package org.example.carpooling.repositories.contracts;
 
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
-public interface TravelRepository {
+@Repository
+public interface TravelRepository extends JpaRepository<Travel, Long> {
 
     //ToDo implement filterOptions as parameter of the method
-    List<Travel> getAllTravels(TravelFilterOptions travelFilterOptions);
+    Page<Travel> findAll(Specification<Travel> specification, Pageable pageable);
 
     Travel getById(int id);
 
@@ -16,7 +22,7 @@ public interface TravelRepository {
 
     Travel update(Travel travelToUpdate);
 
-    Travel delete(Travel travelToDelete);
+    Travel deleteTravelById(Travel travelToDelete);
 
     Travel cancel(Travel travelToCancel);
 
