@@ -33,6 +33,11 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+
+    compileOnly 'org.projectlombok:lombok:1.18.28'
+    annotationProcessor 'org.projectlombok:lombok:1.18.28'
+
 }
 
 tasks.named('test') {
