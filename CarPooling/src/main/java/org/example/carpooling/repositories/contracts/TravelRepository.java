@@ -1,11 +1,13 @@
 package org.example.carpooling.repositories.contracts;
 
+import org.example.carpooling.models.Candidates;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -25,5 +27,7 @@ public interface TravelRepository extends JpaRepository<Travel, Long> {
     Travel deleteTravelById(Travel travelToDelete);
 
     Travel cancel(Travel travelToCancel);
+
+    Candidates applyTravel(Candidates candidate, Travel travelToApply);
     long count();
 }

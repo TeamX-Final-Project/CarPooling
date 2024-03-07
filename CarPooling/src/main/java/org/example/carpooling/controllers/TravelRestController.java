@@ -7,12 +7,14 @@ import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.exceptions.OperationNotAllowedException;
 import org.example.carpooling.helpers.AuthenticationHelper;
 import org.example.carpooling.helpers.TravelMapper;
+import org.example.carpooling.models.Candidates;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.User;
 
 import org.example.carpooling.models.dto.TravelDto;
 import org.example.carpooling.services.contracts.TravelService;
+import org.example.carpooling.services.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
@@ -29,22 +31,28 @@ public class TravelRestController {
     public static final String PAGE_NUMBER = "0";
     public static final String SIZE_PAGE = "10";
     private final AuthenticationHelper authenticationHelper;
+
+    private final UserService userService;
     private final TravelService travelService;
     private final TravelMapper travelMapper;
 
     @Autowired
-    public TravelRestController(TravelService travelService, TravelMapper travelMapper, AuthenticationHelper authenticationHelper) {
+    public TravelRestController(TravelService travelService,
+                                TravelMapper travelMapper,
+                                AuthenticationHelper authenticationHelper,
+                                UserService userService) {
         this.travelService = travelService;
         this.travelMapper = travelMapper;
         this.authenticationHelper = authenticationHelper;
+        this.userService = userService;
     }
 
     @GetMapping
     public ResponseEntity<List<TravelDto>> getAllTravels(@RequestParam(defaultValue = PAGE_NUMBER) int page,
-                                                @RequestParam(defaultValue = SIZE_PAGE) int size,
-                                                @RequestParam(required = false) String keyword,
-                                                @RequestParam(required = false) String sortBy,
-                                                @RequestParam(defaultValue = "ASC") String orderBy) {
+                                                         @RequestParam(defaultValue = SIZE_PAGE) int size,
+                                                         @RequestParam(required = false) String keyword,
+                                                         @RequestParam(required = false) String sortBy,
+                                                         @RequestParam(defaultValue = "ASC") String orderBy) {
         try {
             TravelFilterOptions travelFilterOptions = new TravelFilterOptions(
                     page,
@@ -117,6 +125,18 @@ public class TravelRestController {
         try {
             User userModifier = authenticationHelper.tryGetUser(headers);
             return travelService.cancel(id, userModifier);
+        } catch (AuthorizationException | OperationNotAllowedException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
+
+    @PostMapping("/apply:{id}")
+    public Candidates applyTravel(@RequestHeader HttpHeaders headers, @PathVariable int id){
+        try {
+            User userToApply = authenticationHelper.tryGetUser(headers);
+            return travelService.applyTravel(id, userToApply);
         } catch (AuthorizationException | BlockedUserException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (EntityNotFoundException e) {

@@ -5,6 +5,7 @@ import org.example.carpooling.exceptions.OperationNotAllowedException;
 import org.example.carpooling.helpers.TravelMapper;
 import org.example.carpooling.models.*;
 import org.example.carpooling.models.dto.TravelDto;
+import org.example.carpooling.models.enums.CandidateStatus;
 import org.example.carpooling.models.enums.TravelStatus;
 import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.repositories.contracts.TravelRepository;
@@ -19,7 +20,8 @@ import java.util.List;
 @Service
 public class TravelServiceImpl implements TravelService {
     public static final String YOU_ARE_NOT_THE_CREATOR_OF_THE_TRAVEL_ERROR = "You are not the creator of the travel";
-    public static final String YOU_ARE_NOT_ALLOWED_TO_CREATE_A_TRAVEL_ERROR = "You are not allowed to create a post";
+    public static final String YOU_ARE_NOT_ALLOWED_TO_CREATE_A_TRAVEL_ERROR = "You are not allowed to create a travel";
+    public static final String YOU_ARE_NOT_ALLOWED_TO_APPLY_FOR_TRAVEL_ERROR = "You are not allowed to apply for this travel";
     private final TravelRepository travelRepository;
 
     @Autowired
@@ -38,6 +40,7 @@ public class TravelServiceImpl implements TravelService {
         Page<Travel> travelPage = travelRepository.findAll(specification, pageable);
         return travelPage.getContent().stream().map(this::convertToDto).toList();
     }
+
     private TravelDto convertToDto(Travel travel) {
         TravelDto travelDTO = new TravelDto();
         travelDTO.setStartPoint(travel.getStartPoint());
@@ -94,14 +97,34 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
+    public Candidates applyTravel(int id, User userToApply) {
+        Travel travelToApply = getById(id);
+        checkApplyPermission(userToApply, travelToApply);
+        checkTravelStatus(travelToApply);
+        Candidates candidate = new Candidates();
+        candidate.setStatus(CandidateStatus.FOR_APPROVAL);
+        candidate.setTravelId(id);
+        candidate.setUserId(userToApply.getUserId());
+        return travelRepository.applyTravel(candidate, travelToApply);
+    }
+
+
+    @Override
     public long getTravelsCount() {
         return 0;
     }
 
-    private void checkModifyPermission(User userModifier, Travel travelToUpdate) {
+    private void checkModifyPermission(User userModifier, Travel travel) {
 
-        if (userModifier.getUserId() != travelToUpdate.getUserId().getUserId()) {
+        if (userModifier.getUserId() != travel.getUserId().getUserId()) {
             throw new AuthorizationException(YOU_ARE_NOT_THE_CREATOR_OF_THE_TRAVEL_ERROR);
+        }
+    }
+
+    private void checkApplyPermission(User user, Travel travel) {
+
+        if (user.getUserId() != travel.getUserId().getUserId()) {
+            throw new AuthorizationException(YOU_ARE_NOT_ALLOWED_TO_APPLY_FOR_TRAVEL_ERROR);
         }
     }
 
@@ -117,6 +140,12 @@ public class TravelServiceImpl implements TravelService {
     private static void checkIsUserActive(User creator) {
         if (!UserStatus.ACTIVE.equals(creator.getUserStatus())) {
             throw new OperationNotAllowedException(YOU_ARE_NOT_ALLOWED_TO_CREATE_A_TRAVEL_ERROR);
+        }
+    }
+
+    private static void checkTravelStatus(Travel travelToApply) {
+        if (!TravelStatus.AVAILABLE.equals(travelToApply.getTravelStatus())) {
+            throw new OperationNotAllowedException(YOU_ARE_NOT_ALLOWED_TO_APPLY_FOR_TRAVEL_ERROR);
         }
     }
 

@@ -1,6 +1,7 @@
 package org.example.carpooling.repositories;
 
 import org.example.carpooling.exceptions.EntityNotFoundException;
+import org.example.carpooling.models.Candidates;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.hibernate.Session;
@@ -28,15 +29,6 @@ public class TravelRepositoryImpl {
             List<String> filters = new ArrayList<>();
             Map<String, Object> params = new HashMap<>();
             StringBuilder queryString = new StringBuilder(" from Travel ");
-
-//            travelFilterOptions.getStartPoint().ifPresent(value -> {
-//                filters.add(" startPoint like :startPoint");
-//                params.put("startPoint", String.format("%%%s%%", value));
-//            });
-//            travelFilterOptions.getEndPoint().ifPresent(value -> {
-//                filters.add(" endPoint like :endPoint");
-//                params.put("endPoint", String.format("%%%s%%", value));
-//            });
 
             if (!filters.isEmpty()) {
                 queryString.append("where").append(String.join(" and ", filters));
@@ -103,10 +95,16 @@ public class TravelRepositoryImpl {
         return travelToCancel;
     }
 
-
-    public long getTravelsCount() {
-        return 0;
+    public Candidates applyTravel(Candidates candidate, Travel travelToApply){
+        try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.merge(candidate);
+//            session.merge(travelToApply);
+            session.getTransaction().commit();
+        }
+        return candidate;
     }
+
 
     private String generateOrderBy(TravelFilterOptions travelFilterOptions) {
         if (travelFilterOptions.getSortBy().isEmpty()) {
@@ -136,6 +134,4 @@ public class TravelRepositoryImpl {
         }
         return orderBy;
     }
-
-
 }

@@ -40,6 +40,8 @@ public class Travel {
     private String travelComment;
 
 
+
+
 //TODO implement the comment logic probably OneToMany
     // since one travel can have many comments for pets,luggage,smoking,etc...
 

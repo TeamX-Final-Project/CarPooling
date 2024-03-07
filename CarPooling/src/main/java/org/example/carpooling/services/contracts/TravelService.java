@@ -1,5 +1,6 @@
 package org.example.carpooling.services.contracts;
 
+import org.example.carpooling.models.Candidates;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.User;
@@ -20,6 +21,8 @@ public interface TravelService {
     Travel deleteTravelById(int id, User userModifier);
 
     Travel cancel(int id, User userModifier);
+
+    Candidates applyTravel(int id, User userToApply);
 
     long getTravelsCount();
 }
