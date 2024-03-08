@@ -3,17 +3,19 @@ package org.example.carpooling.repositories;
 import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
+import org.example.carpooling.repositories.contracts.TravelRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Repository
-public class TravelRepositoryImpl {
+public class TravelRepositoryImpl implements TravelRepository {
 
     private final SessionFactory sessionFactory;
 
@@ -22,21 +24,21 @@ public class TravelRepositoryImpl {
     }
 
     //TODO fix this method to work for travels
-
-    public List<Travel> findAll(TravelFilterOptions travelFilterOptions) {
+    @Override
+    public List<Travel> getAllTravels(TravelFilterOptions travelFilterOptions) {
         try (Session session = sessionFactory.openSession()) {
             List<String> filters = new ArrayList<>();
             Map<String, Object> params = new HashMap<>();
             StringBuilder queryString = new StringBuilder(" from Travel ");
 
-//            travelFilterOptions.getStartPoint().ifPresent(value -> {
-//                filters.add(" startPoint like :startPoint");
-//                params.put("startPoint", String.format("%%%s%%", value));
-//            });
-//            travelFilterOptions.getEndPoint().ifPresent(value -> {
-//                filters.add(" endPoint like :endPoint");
-//                params.put("endPoint", String.format("%%%s%%", value));
-//            });
+            travelFilterOptions.getStartPoint().ifPresent(value -> {
+                filters.add(" startPoint like :startPoint");
+                params.put("startPoint", String.format("%%%s%%", value));
+            });
+            travelFilterOptions.getEndPoint().ifPresent(value -> {
+                filters.add(" endPoint like :endPoint");
+                params.put("endPoint", String.format("%%%s%%", value));
+            });
 
             if (!filters.isEmpty()) {
                 queryString.append("where").append(String.join(" and ", filters));
@@ -51,7 +53,7 @@ public class TravelRepositoryImpl {
         }
     }
 
-
+    @Override
     public Travel getById(int id) {
         try (Session session = sessionFactory.openSession()) {
             Travel travel = session.get(Travel.class, id);
@@ -63,7 +65,7 @@ public class TravelRepositoryImpl {
 
     }
 
-
+    @Override
     public Travel create(Travel travel) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
@@ -73,7 +75,7 @@ public class TravelRepositoryImpl {
         return travel;
     }
 
-
+    @Override
     public Travel update(Travel travelToUpdate) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
@@ -83,8 +85,8 @@ public class TravelRepositoryImpl {
         return travelToUpdate;
     }
 
-
-    public Travel deleteTravelById(Travel travelToDelete) {
+    @Override
+    public Travel delete(Travel travelToDelete) {
         try(Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.merge(travelToDelete);
@@ -93,7 +95,7 @@ public class TravelRepositoryImpl {
         return travelToDelete;
     }
 
-
+    @Override
     public Travel cancel(Travel travelToCancel) {
         try(Session session = sessionFactory.openSession()) {
             session.beginTransaction();
@@ -103,7 +105,7 @@ public class TravelRepositoryImpl {
         return travelToCancel;
     }
 
-
+    @Override
     public long getTravelsCount() {
         return 0;
     }
@@ -114,7 +116,7 @@ public class TravelRepositoryImpl {
         }
 
         String orderBy;
-        switch (travelFilterOptions.getSortBy()) {
+        switch (travelFilterOptions.getSortBy().get()) {
             case "title":
                 orderBy = "title";
                 break;
@@ -130,12 +132,10 @@ public class TravelRepositoryImpl {
 
         orderBy = String.format(" order by %s", orderBy);
 
-        if (travelFilterOptions.getOrderBy().isEmpty()
-                && travelFilterOptions.getOrderBy().equalsIgnoreCase("desc")) {
+        if (travelFilterOptions.getOrderBy().isPresent()
+                && travelFilterOptions.getOrderBy().get().equalsIgnoreCase("desc")) {
             orderBy = String.format("%s desc", orderBy);
         }
         return orderBy;
     }
-
-
 }

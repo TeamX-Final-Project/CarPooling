@@ -20,6 +20,7 @@ public class TravelDto {
     private int freeSpots;
     @NotNull(message = "Travel status can't be empty")
     private TravelStatus travelStatus;
+
     private String travelComment;
 
     public TravelDto() {

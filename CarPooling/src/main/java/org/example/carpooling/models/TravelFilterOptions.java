@@ -3,43 +3,43 @@ package org.example.carpooling.models;
 import java.util.Optional;
 
 public class TravelFilterOptions {
-    private final int page;
-    private final int size;
-    private final String keyword;
-    private final String sortBy;
-    private final String orderBy;
+
+    private final Optional<String> startPoint;
+    private final Optional<String> endPoint;
+    private final Optional<String> createdBy;
+    private final Optional<String> sortBy;
+    private final Optional<String> orderBy;
 
     public TravelFilterOptions(
-            Integer page,
-            Integer size,
-            String keyword,
-            String sortBy,
-            String orderBy) {
-        this.page = page;
-        this.size = size;
-        this.keyword = keyword;
-        this.sortBy = sortBy;
-        this.orderBy = orderBy;
-
+                               String startPoint,
+                               String endPoint,
+                               String createdBy,
+                               String sortBy,
+                               String orderBy) {
+        this.startPoint = Optional.ofNullable(startPoint);
+        this.endPoint = Optional.ofNullable(endPoint);
+        this.createdBy = Optional.ofNullable(createdBy);
+        this.sortBy = Optional.ofNullable(sortBy);
+        this.orderBy = Optional.ofNullable(orderBy);
     }
 
-    public int getPage() {
-        return page;
+    public Optional<String> getStartPoint() {
+        return startPoint;
     }
 
-    public int getSize() {
-        return size;
+    public Optional<String> getEndPoint() {
+        return endPoint;
     }
 
-    public String getKeyword() {
-        return keyword;
+    public Optional<String> getCreatedBy() {
+        return createdBy;
     }
 
-    public String getSortBy() {
+    public Optional<String> getSortBy() {
         return sortBy;
     }
 
-    public String getOrderBy() {
+    public Optional<String> getOrderBy() {
         return orderBy;
     }
 }
