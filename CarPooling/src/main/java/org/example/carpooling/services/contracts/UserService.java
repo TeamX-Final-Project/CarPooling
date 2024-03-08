@@ -13,7 +13,6 @@ public interface UserService {
 
     List<User> getAllUsers(UserFilterOptions filterOptions);
 
-
     User getUserById(int id, User currentUser);
 
     User getByUsername(String username);
