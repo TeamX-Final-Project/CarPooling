@@ -132,18 +132,11 @@ public class TravelRestController {
         }
     }
 
-    @PostMapping("/apply:{id}")
-    public Candidates applyTravel(@RequestHeader HttpHeaders headers, @PathVariable int id){
-        try {
-            User userToApply = authenticationHelper.tryGetUser(headers);
-            return travelService.applyTravel(id, userToApply);
-        } catch (AuthorizationException | BlockedUserException e) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-        } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-    }
 
-    //TODO apply/approve methods for travels
+
+//    @PutMapping("/approve:{id}")
+//    public Candidates approveTravel(@RequestHeader HttpHeaders headers, @PathVariable int id){
+//
+//    }
 }
 

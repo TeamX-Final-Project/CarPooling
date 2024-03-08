@@ -21,7 +21,6 @@ import java.util.List;
 public class TravelServiceImpl implements TravelService {
     public static final String YOU_ARE_NOT_THE_CREATOR_OF_THE_TRAVEL_ERROR = "You are not the creator of the travel";
     public static final String YOU_ARE_NOT_ALLOWED_TO_CREATE_A_TRAVEL_ERROR = "You are not allowed to create a travel";
-    public static final String YOU_ARE_NOT_ALLOWED_TO_APPLY_FOR_TRAVEL_ERROR = "You are not allowed to apply for this travel";
     private final TravelRepository travelRepository;
 
     @Autowired
@@ -51,9 +50,9 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
-    public Travel getById(int id) {
+    public Travel getById(long id) {
         //TODO create the logic for the authorization to search travel by ID
-        return travelRepository.getById(id);
+        return travelRepository.findById(id);
     }
 
     @Override
@@ -64,7 +63,7 @@ public class TravelServiceImpl implements TravelService {
 
         calculateTravelInformation(travel);
 //        travel.setTravelStatus(travel.getTravelStatus());
-        return travelRepository.create(travel);
+        return travelRepository.save(travel);
     }
 
 
@@ -75,7 +74,7 @@ public class TravelServiceImpl implements TravelService {
 //        Travel travel = getById(travelToUpdate.getTravelId());
         calculateTravelInformation(travelToUpdate);
         checkModifyPermission(userModifier, travelToUpdate);
-        return travelRepository.update(travelToUpdate);
+        return travelRepository.save(travelToUpdate);
     }
 
     @Override
@@ -85,7 +84,7 @@ public class TravelServiceImpl implements TravelService {
         Travel travelToDelete = getById(id);
         checkModifyPermission(userModifier, travelToDelete);
         travelToDelete.setDeleted(true);
-        return travelRepository.deleteTravelById(travelToDelete);
+        return travelRepository.save(travelToDelete);
     }
 
     @Override
@@ -93,20 +92,10 @@ public class TravelServiceImpl implements TravelService {
         Travel travelToCancel = getById(id);
         checkModifyPermission(userModifier, travelToCancel);
         travelToCancel.setTravelStatus(TravelStatus.CANCELED);
-        return travelRepository.cancel(travelToCancel);
+        return travelRepository.save(travelToCancel);
     }
 
-    @Override
-    public Candidates applyTravel(int id, User userToApply) {
-        Travel travelToApply = getById(id);
-        checkApplyPermission(userToApply, travelToApply);
-        checkTravelStatus(travelToApply);
-        Candidates candidate = new Candidates();
-        candidate.setStatus(CandidateStatus.FOR_APPROVAL);
-        candidate.setTravelId(id);
-        candidate.setUserId(userToApply.getUserId());
-        return travelRepository.applyTravel(candidate, travelToApply);
-    }
+
 
 
     @Override
@@ -121,12 +110,7 @@ public class TravelServiceImpl implements TravelService {
         }
     }
 
-    private void checkApplyPermission(User user, Travel travel) {
 
-        if (user.getUserId() != travel.getUserId().getUserId()) {
-            throw new AuthorizationException(YOU_ARE_NOT_ALLOWED_TO_APPLY_FOR_TRAVEL_ERROR);
-        }
-    }
 
     private static void calculateTravelInformation(Travel travel) {
         String startPoint = travel.getStartPoint();
@@ -143,11 +127,7 @@ public class TravelServiceImpl implements TravelService {
         }
     }
 
-    private static void checkTravelStatus(Travel travelToApply) {
-        if (!TravelStatus.AVAILABLE.equals(travelToApply.getTravelStatus())) {
-            throw new OperationNotAllowedException(YOU_ARE_NOT_ALLOWED_TO_APPLY_FOR_TRAVEL_ERROR);
-        }
-    }
+
 
 
 }
