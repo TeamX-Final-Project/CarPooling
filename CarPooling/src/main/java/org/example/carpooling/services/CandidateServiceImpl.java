@@ -20,6 +20,7 @@ public class CandidateServiceImpl implements CandidateService {
     public static final String YOU_ARE_THE_CREATOR_OF_THE_TRAVEL = "You are not allowed to apply for this travel since you created the travel";
 
     public static final String YOU_ARE_NOT_ALLOWED_TO_APPROVE_FOR_TRAVEL_ERROR = "You are not allowed to approve for this travel";
+    public static final String YOU_CAN_T_APPLY_TO_THE_SAME_TRAVEL_TWICE_ERROR = "You can't apply to the same travel twice";
 
 
     private final CandidateRepository candidateRepository;
@@ -46,20 +47,28 @@ public class CandidateServiceImpl implements CandidateService {
         candidate.setStatus(CandidateStatus.FOR_APPROVAL);
         candidate.setTravelId(id);
         candidate.setUserId(userToApply.getUserId());
+//        Candidates existentCandidate = candidateRepository.findById(candidate.getId());
+//        checkIfCandidateAlreadyApplied(userToApply, candidate, travelToApply);
         return candidateRepository.save(candidate);
     }
 
     @Override
     public Candidates approveTravel(long id, User userToConfirmApprove, Candidates userToApprove) {
         Travel travelToApprove = travelService.getById(id);
+        int currentFreeSpots = travelToApprove.getFreeSpots();
         checkApprovePermission(userToConfirmApprove, travelToApprove);
         checkTravelStatusApprove(travelToApprove);
+        travelToApprove.setFreeSpots(--currentFreeSpots);
+        if (currentFreeSpots == 0) {
+            travelToApprove.setTravelStatus(TravelStatus.FULL);
+        }
         userToApprove.setStatus(CandidateStatus.APPROVED);
+
 
         return candidateRepository.save(userToApprove);
     }
-//TODO double check this part when applying for travel the logic need to be reworked
-// so you can't apply for the same travel twice
+
+
     private void checkApplyPermission(User user, Travel travel) {
 
         if (user.getUserId() == travel.getUserId().getUserId()) {
@@ -70,6 +79,15 @@ public class CandidateServiceImpl implements CandidateService {
     private static void checkTravelStatusApply(Travel travelToApply) {
         if (!TravelStatus.AVAILABLE.equals(travelToApply.getTravelStatus())) {
             throw new OperationNotAllowedException(YOU_ARE_NOT_ALLOWED_TO_APPLY_FOR_TRAVEL_ERROR);
+        }
+    }
+    //TODO double check this part when applying for travel the logic need to be reworked
+    // so you can't apply for the same travel twice
+    private static void checkIfCandidateAlreadyApplied(User userToApply,
+                                                       Candidates candidate,
+                                                       Travel travelToApply) {
+        if (candidate.getTravelId() == travelToApply.getTravelId()) {
+            throw new OperationNotAllowedException(YOU_CAN_T_APPLY_TO_THE_SAME_TRAVEL_TWICE_ERROR);
         }
     }
 
