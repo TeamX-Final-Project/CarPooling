@@ -2,15 +2,17 @@ package org.example.carpooling.services;
 
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.OperationNotAllowedException;
-import org.example.carpooling.models.DistanceTravelImpl;
-import org.example.carpooling.models.Travel;
-import org.example.carpooling.models.TravelFilterOptions;
+import org.example.carpooling.helpers.TravelMapper;
+import org.example.carpooling.models.*;
+import org.example.carpooling.models.dto.TravelDto;
+import org.example.carpooling.models.enums.CandidateStatus;
 import org.example.carpooling.models.enums.TravelStatus;
-import org.example.carpooling.models.User;
 import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.repositories.contracts.TravelRepository;
 import org.example.carpooling.services.contracts.TravelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +20,7 @@ import java.util.List;
 @Service
 public class TravelServiceImpl implements TravelService {
     public static final String YOU_ARE_NOT_THE_CREATOR_OF_THE_TRAVEL_ERROR = "You are not the creator of the travel";
-    public static final String YOU_ARE_NOT_ALLOWED_TO_CREATE_A_TRAVEL_ERROR = "You are not allowed to create a post";
+    public static final String YOU_ARE_NOT_ALLOWED_TO_CREATE_A_TRAVEL_ERROR = "You are not allowed to create a travel";
     private final TravelRepository travelRepository;
 
     @Autowired
@@ -27,14 +29,30 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
-    public List<Travel> getAllTravels(TravelFilterOptions travelFilterOptions) {
-        return travelRepository.getAllTravels(travelFilterOptions);
+    public List<TravelDto> getAllTravels(TravelFilterOptions travelFilterOptions) {
+        Pageable pageable = PageRequest.of(travelFilterOptions.getPage(),
+                travelFilterOptions.getSize(),
+                Sort.Direction.fromString(travelFilterOptions.getOrderBy()),
+                travelFilterOptions.getSortBy());
+        Specification<Travel> specification = Specification.where(TravelSpecifications.
+                hasKeyword(travelFilterOptions.getKeyword(), travelFilterOptions.getSortBy()));
+        Page<Travel> travelPage = travelRepository.findAll(specification, pageable);
+        return travelPage.getContent().stream().map(this::convertToDto).toList();
+    }
+
+    private TravelDto convertToDto(Travel travel) {
+        TravelDto travelDTO = new TravelDto();
+        travelDTO.setStartPoint(travel.getStartPoint());
+        travelDTO.setEndPoint(travel.getEndPoint());
+        travelDTO.setDepartureTime(travel.getDepartureTime());
+        travelDTO.setFreeSpots(travel.getFreeSpots());
+        return travelDTO;
     }
 
     @Override
-    public Travel getById(int id) {
+    public Travel getById(long id) {
         //TODO create the logic for the authorization to search travel by ID
-        return travelRepository.getById(id);
+        return travelRepository.findById(id);
     }
 
     @Override
@@ -45,10 +63,8 @@ public class TravelServiceImpl implements TravelService {
 
         calculateTravelInformation(travel);
 //        travel.setTravelStatus(travel.getTravelStatus());
-        return travelRepository.create(travel);
+        return travelRepository.save(travel);
     }
-
-
 
 
     @Override
@@ -58,17 +74,17 @@ public class TravelServiceImpl implements TravelService {
 //        Travel travel = getById(travelToUpdate.getTravelId());
         calculateTravelInformation(travelToUpdate);
         checkModifyPermission(userModifier, travelToUpdate);
-        return travelRepository.update(travelToUpdate);
+        return travelRepository.save(travelToUpdate);
     }
 
     @Override
-    public Travel delete(int id, User userModifier) {
+    public Travel deleteTravelById(int id, User userModifier) {
         //TODO double check the getByID since once you take the travelToDelete here
         // then again is used getById in checkModifyPermission
         Travel travelToDelete = getById(id);
         checkModifyPermission(userModifier, travelToDelete);
         travelToDelete.setDeleted(true);
-        return travelRepository.delete(travelToDelete);
+        return travelRepository.save(travelToDelete);
     }
 
     @Override
@@ -76,20 +92,26 @@ public class TravelServiceImpl implements TravelService {
         Travel travelToCancel = getById(id);
         checkModifyPermission(userModifier, travelToCancel);
         travelToCancel.setTravelStatus(TravelStatus.CANCELED);
-        return travelRepository.cancel(travelToCancel);
+        return travelRepository.save(travelToCancel);
     }
+
+
+
 
     @Override
     public long getTravelsCount() {
         return 0;
     }
 
-    private void checkModifyPermission(User userModifier, Travel travelToUpdate) {
+    private void checkModifyPermission(User userModifier, Travel travel) {
 
-        if (userModifier.getUserId() != travelToUpdate.getUserId().getUserId()) {
+        if (userModifier.getUserId() != travel.getUserId().getUserId()) {
             throw new AuthorizationException(YOU_ARE_NOT_THE_CREATOR_OF_THE_TRAVEL_ERROR);
         }
     }
+
+
+
     private static void calculateTravelInformation(Travel travel) {
         String startPoint = travel.getStartPoint();
         String endPoint = travel.getEndPoint();
@@ -98,11 +120,14 @@ public class TravelServiceImpl implements TravelService {
         travel.setDistanceTravel(distanceTravel[0]);
         travel.setDurationTravel(durationTravel[1]);
     }
+
     private static void checkIsUserActive(User creator) {
-        if (!UserStatus.ACTIVE.equals(creator.getUserStatus())){
+        if (!UserStatus.ACTIVE.equals(creator.getUserStatus())) {
             throw new OperationNotAllowedException(YOU_ARE_NOT_ALLOWED_TO_CREATE_A_TRAVEL_ERROR);
         }
     }
+
+
 
 
 }
