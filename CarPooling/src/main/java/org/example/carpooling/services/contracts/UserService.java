@@ -1,6 +1,8 @@
 package org.example.carpooling.services.contracts;
 
 //import org.example.carpooling.models.ImageData;
+
+import org.example.carpooling.exceptions.SendMailException;
 import org.example.carpooling.models.ImageData;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserFilterOptions;
@@ -17,7 +19,7 @@ public interface UserService {
 
     User getByUsername(String username);
 
-    User create(User user);
+    User create(User user) throws SendMailException;
 
     User update(User user);
 
@@ -33,6 +35,8 @@ public interface UserService {
 
     long getUserCount();
 
-   ImageData saveImage (MultipartFile file, User user) throws IOException;
+    ImageData saveImage(MultipartFile file, User user) throws IOException;
+
+    void verify(int id, int securityCode);
 
 }

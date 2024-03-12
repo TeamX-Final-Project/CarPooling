@@ -1,7 +1,5 @@
 package org.example.carpooling.controllers;
 
-import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
 import jakarta.validation.Valid;
 import org.example.carpooling.exceptions.*;
 import org.example.carpooling.helpers.AuthenticationHelper;
@@ -21,7 +19,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
@@ -69,8 +66,7 @@ public class UserRestController {
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@RequestHeader HttpHeaders headers, @PathVariable int id) {
-
+    public User getUserById(@RequestHeader HttpHeaders headers, @PathVariable int id){
         //todo Pet:  return Dto without password
         try {
             User currentUser = authenticationHelper.tryGetUser(headers);
@@ -128,6 +124,8 @@ public class UserRestController {
             return userService.create(user);
         } catch (EntityDuplicateException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+        } catch (SendMailException e) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
         }
     }
 
@@ -215,7 +213,6 @@ public class UserRestController {
     }
 
     @PostMapping(value = "/{id}/image")
-
     public String updateImage(@RequestParam("avatar") MultipartFile file,
                               @RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
@@ -231,6 +228,19 @@ public class UserRestController {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
     }
+
+    @GetMapping("/{id}/verify")
+    public String verify(@PathVariable int id, @RequestParam int securityCode) {
+       try {
+           userService.verify(id, securityCode);
+           return HttpStatus.OK.name();
+       } catch (OperationNotAllowedException | EntityNotFoundException e) {
+           throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED);
+       }
+    }
+
+
+
 
     //todo Pet: get method for image
 

@@ -112,3 +112,13 @@ create table candidates
     constraint candidates_users_user_id_fk
         foreign key (user_id) references users (user_id)
 );
+
+create table user_security_code
+(
+    user_id       bigint not null,
+    security_code bigint not null,
+    id            bigint auto_increment
+        primary key,
+    constraint security_code_users_user_id_fk
+        foreign key (user_id) references users (user_id)
+);

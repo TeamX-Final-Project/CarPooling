@@ -6,9 +6,11 @@ import org.example.carpooling.exceptions.*;
 import org.example.carpooling.helpers.ValidationHelper;
 import org.example.carpooling.models.ImageData;
 import org.example.carpooling.models.User;
-import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.models.UserFilterOptions;
+import org.example.carpooling.models.UserSecurityCode;
+import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.repositories.contracts.UserRepository;
+import org.example.carpooling.services.contracts.UserSecurityCodeService;
 import org.example.carpooling.services.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,14 +23,21 @@ import java.util.Map;
 @Service
 public class UserServiceImpl implements UserService {
     private static final String ERROR_MESSAGE = "You are not authorized";
+    public static final String ACTIVATING_USER_IS_NOT_PERMITTED = "Activating user is not permitted";
 
     private final UserRepository userRepository;
+    private final UserSecurityCodeService userSecurityCodeService;
     private final Cloudinary cloudinary;
 
+    private final MailService mailService;
+
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, Cloudinary cloudinary) {
+    public UserServiceImpl(UserRepository userRepository,
+                           UserSecurityCodeService userSecurityCodeService, Cloudinary cloudinary, MailService mailService) {
         this.userRepository = userRepository;
+        this.userSecurityCodeService = userSecurityCodeService;
         this.cloudinary = cloudinary;
+        this.mailService = mailService;
     }
 
     @Override
@@ -37,7 +46,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(int id, User currentUser){
+    public User getUserById(int id, User currentUser) {
         validateIsAdminOrOwner(id, currentUser);
         return getById(id);
     }
@@ -71,12 +80,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User create(User user) {
+    public User create(User user) throws SendMailException {
         validateUserInfo(user);
-        //todo send validation for email. and activate user endpoint
         user.setUserStatus(UserStatus.PENDING);
-        return userRepository.create(user);
+        userRepository.create(user);
+        UserSecurityCode securityCode = userSecurityCodeService.create(user);
+        mailService.sendConformationEmail(user, securityCode.getSecurityCode());
+        return user;
     }
+
 
     @Override
     public User update(User updatedUser) {
@@ -224,6 +236,18 @@ public class UserServiceImpl implements UserService {
         imageData.setImage(url);
         imageData.setUser(user);
         return userRepository.saveImage(imageData);
+    }
+
+    @Override
+    public void verify(int id, int securityCode) {
+        User user = getById(id);
+        UserSecurityCode userSecurityCode = userSecurityCodeService.getCodeByUserId(id);
+        if (securityCode != userSecurityCode.getSecurityCode()) {
+            throw new OperationNotAllowedException(ACTIVATING_USER_IS_NOT_PERMITTED);
+        }
+        user.setUserStatus(UserStatus.ACTIVE);
+        userSecurityCodeService.delete(userSecurityCode);
+        userRepository.update(user);
     }
 
     private String uploadFile(MultipartFile file) throws IOException {
