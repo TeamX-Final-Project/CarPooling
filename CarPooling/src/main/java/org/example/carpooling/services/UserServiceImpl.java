@@ -83,10 +83,10 @@ public class UserServiceImpl implements UserService {
     public User create(User user) throws SendMailException {
         validateUserInfo(user);
         user.setUserStatus(UserStatus.PENDING);
-        userRepository.create(user);
+        User createdUser = userRepository.create(user);
         UserSecurityCode securityCode = userSecurityCodeService.create(user);
         mailService.sendConformationEmail(user, securityCode.getSecurityCode());
-        return user;
+        return createdUser;
     }
 
 
