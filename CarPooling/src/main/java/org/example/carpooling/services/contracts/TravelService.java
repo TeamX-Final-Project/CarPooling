@@ -22,7 +22,5 @@ public interface TravelService {
 
     Travel cancel(int id, User userModifier);
 
-//    Candidates applyTravel(int id, User userToApply);
-
     long getTravelsCount();
 }
