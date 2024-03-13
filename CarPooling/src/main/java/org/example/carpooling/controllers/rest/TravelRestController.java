@@ -70,8 +70,8 @@ public class TravelRestController {
     @GetMapping("/{id}")
     public Travel getTravelById(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
-//            User user = authenticationHelper.tryGetUser(headers);
-            return travelService.getById(id);
+            User user = authenticationHelper.tryGetUser(headers);
+            return travelService.getById(id);//,user);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (AuthorizationException e) {

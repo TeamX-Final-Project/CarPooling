@@ -40,7 +40,7 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public Candidates applyTravel(long id, User userToApply) {
-        Travel travelToApply = travelService.getById(id);
+        Travel travelToApply = travelService.getById(id);//, userToApply);
         checkApplyPermission(userToApply, travelToApply);
         checkTravelStatusApply(travelToApply);
         Candidates candidate = new Candidates();
@@ -63,8 +63,6 @@ public class CandidateServiceImpl implements CandidateService {
             travelToApprove.setTravelStatus(TravelStatus.FULL);
         }
         userToApprove.setStatus(CandidateStatus.APPROVED);
-
-
         return candidateRepository.save(userToApprove);
     }
 
