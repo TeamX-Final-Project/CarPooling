@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Travel</title>
+</head>
+<body>
+<div class="col-md-8 col-xl-6 mx-auto">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+            <div class="card rounded">
+                <div class="card-header">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <div class="ms-2 text-center">
+                                <strong>
+                                    <p th:text="${travel.getStartPoint()}">Start Point</p>
+                                </strong>
+
+                                <div class="tx-22 text-muted">
+                                    <img th:src="'https://icons.veryicon.com/png/o/miscellaneous/8atour/people-23.png'"
+                                         alt="Creator Icon" width="20" height="20">
+                                    <span th:text="${travel.getUserId().username}">Created By</span>
+                                </div>
+                                <div class="tx-22 text-muted">
+                                    <p th:text="${#dates.format(travel.getDepartureTime(), 'dd-MM-yyyy HH:mm')}">Departure Time</p>
+                                </div>
+                                <div class="tx-22 text-muted">
+                                    <p th:text="${travel.getFreeSpots()}">Free spots</p>
+                                </div>
+                            </div>
+                            <div th:if="${isAuthenticated==true
+                            && (session.currentUser eq post.getAuthor().getUsername()
+                             || (session.isAdmin != null && session.isAdmin))}">
+                                <div>
+
+                                    <form th:action="@{/posts/{id}/update(id=${post.getId()})}"
+                                          method="post">
+                                        <input type="submit" value="  Edit  "/>
+                                    </form>
+
+                                    <form th:action="@{/posts/{id}/delete(id=${post.id})}"
+                                          method="get">
+                                        <input type="submit" value="  Remove  "/>
+                                    </form>
+
+                                    <form th:action="@{/posts/{id}/delete(id=${post.id})}"
+                                          method="get">
+                                        <input type="submit" value="  Apply  "/>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+</body>
+</html>

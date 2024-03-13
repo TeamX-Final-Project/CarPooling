@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeMvcController {
     @GetMapping
     public String showHomePage(Model Model){
-
         return "index";
     }
 }

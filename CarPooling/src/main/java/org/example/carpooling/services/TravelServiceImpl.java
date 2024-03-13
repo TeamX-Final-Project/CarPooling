@@ -1,6 +1,7 @@
 package org.example.carpooling.services;
 
 import org.example.carpooling.exceptions.AuthorizationException;
+import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.exceptions.OperationNotAllowedException;
 import org.example.carpooling.helpers.TravelMapper;
 import org.example.carpooling.models.*;
@@ -10,6 +11,7 @@ import org.example.carpooling.models.enums.TravelStatus;
 import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.repositories.contracts.TravelRepository;
 import org.example.carpooling.services.contracts.TravelService;
+import org.example.carpooling.services.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
@@ -21,10 +23,13 @@ import java.util.List;
 public class TravelServiceImpl implements TravelService {
     public static final String YOU_ARE_NOT_THE_CREATOR_OF_THE_TRAVEL_ERROR = "You are not the creator of the travel";
     public static final String YOU_ARE_NOT_ALLOWED_TO_CREATE_A_TRAVEL_ERROR = "You are not allowed to create a travel";
+    public static final String TRAVEL = "Travel";
+    public static final String YOUR_STATUS_IS_NOT_ACTIVE_TO_REQUEST_THIS_INFORMATION_ERROR = "Your status is not active to request this information";
+
     private final TravelRepository travelRepository;
 
     @Autowired
-    public TravelServiceImpl(TravelRepository travelRepository) {
+    public TravelServiceImpl(UserService userService, TravelRepository travelRepository) {
         this.travelRepository = travelRepository;
     }
 
@@ -50,28 +55,30 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
-    public Travel getById(long id) {
-        //TODO create the logic for the authorization to search travel by ID
-        return travelRepository.findById(id);
+    public Travel getById(long id){//, User user) {
+        //TODO create the logic for the authorization to search travel by ID but need to finish the MVC controller
+        // for Authentication and User then uncomment this code
+//        if (!UserStatus.ACTIVE.equals(user.getUserStatus())){
+//            throw new AuthorizationException(YOUR_STATUS_IS_NOT_ACTIVE_TO_REQUEST_THIS_INFORMATION_ERROR);
+//        }
+        Travel travel = travelRepository.findById(id);
+        if (travel == null){
+            throw new EntityNotFoundException(TRAVEL, id);
+        }
+        return travel;
     }
 
     @Override
     public Travel create(Travel travel, User creator) {
-        //        TODO create the logic for the authorization and check if the user is blocked before creating new travel
         travel.setUserId(creator);
         checkIsUserActive(creator);
-
         calculateTravelInformation(travel);
-//        travel.setTravelStatus(travel.getTravelStatus());
         return travelRepository.save(travel);
     }
 
 
     @Override
     public Travel update(User userModifier, Travel travelToUpdate) {
-        //TODO double check the getByID since once you take the travelToUpdate here
-        // then again is used getById in checkModifyPermission and one more time in the travelMapper.fromDTO
-//        Travel travel = getById(travelToUpdate.getTravelId());
         calculateTravelInformation(travelToUpdate);
         checkModifyPermission(userModifier, travelToUpdate);
         return travelRepository.save(travelToUpdate);
@@ -79,8 +86,6 @@ public class TravelServiceImpl implements TravelService {
 
     @Override
     public Travel deleteTravelById(int id, User userModifier) {
-        //TODO double check the getByID since once you take the travelToDelete here
-        // then again is used getById in checkModifyPermission
         Travel travelToDelete = getById(id);
         checkModifyPermission(userModifier, travelToDelete);
         travelToDelete.setDeleted(true);
@@ -95,9 +100,6 @@ public class TravelServiceImpl implements TravelService {
         return travelRepository.save(travelToCancel);
     }
 
-
-
-
     @Override
     public long getTravelsCount() {
         return 0;
@@ -109,8 +111,6 @@ public class TravelServiceImpl implements TravelService {
             throw new AuthorizationException(YOU_ARE_NOT_THE_CREATOR_OF_THE_TRAVEL_ERROR);
         }
     }
-
-
 
     private static void calculateTravelInformation(Travel travel) {
         String startPoint = travel.getStartPoint();
@@ -126,9 +126,5 @@ public class TravelServiceImpl implements TravelService {
             throw new OperationNotAllowedException(YOU_ARE_NOT_ALLOWED_TO_CREATE_A_TRAVEL_ERROR);
         }
     }
-
-
-
-
 }
 
