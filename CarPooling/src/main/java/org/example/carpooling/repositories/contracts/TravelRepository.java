@@ -15,19 +15,7 @@ import java.util.List;
 @Repository
 public interface TravelRepository extends JpaRepository<Travel, Long> {
 
-    //ToDo implement filterOptions as parameter of the method
     Page<Travel> findAll(Specification<Travel> specification, Pageable pageable);
 
     Travel findById(long id);
-
-//    Travel create(Travel travel);
-//
-//    Travel update(Travel travelToUpdate);
-//
-//    Travel deleteTravelById(Travel travelToDelete);
-//
-//    Travel cancel(Travel travelToCancel);
-//
-//    Candidates applyTravel(Candidates candidate, Travel travelToApply);
-//    long count();
 }
