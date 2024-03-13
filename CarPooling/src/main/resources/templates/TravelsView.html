@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>All Travels</title>
-    <link href="../static/css/style.scss" th:href="@{/css/style.scss}" rel="stylesheet"/>
+    <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
 
 <body>
@@ -14,16 +14,20 @@
     <h2 th:text="#{travels.title}">"All Travels"</h2>
 
     <div class="table">
+        <div class="header">
     <div class="header-cell" th:text="#{travels.startPoint}">Starting Point</div>
     <div class="header-cell" th:text="#{travels.endPoint}">Ending Point</div>
     <div class="header-cell" th:text="#{travels.departureTime}">Departure Time</div>
+    <div class="header-cell" th:text="#{travels.freeSpots}">Free Spots</div>
     <div class="header-cell" th:text="#{travels.button}">Button</div>
-        <div class="row" th:each="travel: ${travels}">
+        </div>
+        <div class="rowGroup" th:each="travel : ${travels}">
             <div class="cell" th:text="${travel.startPoint}">Starting Point</div>
             <div class="cell" th:text="${travel.endPoint}">Ending Point</div>
             <div class="cell" th:text="${travel.departureTime}">Departure Time</div>
+            <div class="cell" th:text="${travel.freeSpots}">FreeSpots</div>
+            <div class="ui-button" th:text="#{travels.button.apply}">Apply</div>
         </div>
-
     </div>
 </div>
 </body>

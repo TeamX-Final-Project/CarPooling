@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error Page</title>
+    <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+</head>
+<body>
+<div class="text-body">
+    <h2 class="label-error" th:text="${statusCode}">Http Status Code</h2>
+    <h3 class="form-error" th:text="${error}">Error Message</h3>
+</div>
+</body>
+</html>
