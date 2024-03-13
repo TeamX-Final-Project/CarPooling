@@ -19,12 +19,15 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserRestController {
 
     private static final String ERROR_MESSAGE = "You are not authorized";
+    public static final String USER_ID_MISMATCH = "User id mismatch";
+    public static final String UPDATE_IS_NOT_ALLOWED = "Update is not allowed";
     private final UserService userService;
     private final AuthenticationHelper authenticationHelper;
     private final UserMapper userMapper;
@@ -39,12 +42,12 @@ public class UserRestController {
     }
 
     @GetMapping
-    public List<User> getAllUsers(@RequestHeader HttpHeaders headers,
-                                  @RequestParam(required = false) String phoneNumber,
-                                  @RequestParam(required = false) String email,
-                                  @RequestParam(required = false) String username,
-                                  @RequestParam(required = false) String sortBy,
-                                  @RequestParam(required = false) String sortOrder) {
+    public List<UserDto> getAllUsers(@RequestHeader HttpHeaders headers,
+                                     @RequestParam(required = false) String phoneNumber,
+                                     @RequestParam(required = false) String email,
+                                     @RequestParam(required = false) String username,
+                                     @RequestParam(required = false) String sortBy,
+                                     @RequestParam(required = false) String sortOrder) {
 //        try {
 //            UserFilterOptions filterOptions = new UserFilterOptions(phoneNumber, email, username, sortBy, sortOrder);
 //            return userService.getAllUsers(filterOptions);
@@ -52,12 +55,13 @@ public class UserRestController {
 //            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 //        }
         try {
-            User user = authenticationHelper.tryGetUser(headers);
-            if (!user.isAdmin()) {
+            User currentUser = authenticationHelper.tryGetUser(headers);
+            if (!currentUser.isAdmin()) {
                 throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, ERROR_MESSAGE);
             } else {
                 UserFilterOptions filterOptions = new UserFilterOptions(phoneNumber, email, username, sortBy, sortOrder);
-                return userService.getAllUsers(filterOptions);
+                List<User> users = userService.getAllUsers(filterOptions);
+                return users.stream().map(userMapper::toAnonymizedDto).collect(Collectors.toList());
             }
 //                       return userService.getAllUsers(filterOptions);
         } catch (AuthorizationException e) {
@@ -66,11 +70,11 @@ public class UserRestController {
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@RequestHeader HttpHeaders headers, @PathVariable int id){
-        //todo Pet:  return Dto without password
+    public UserDto getUserById(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
             User currentUser = authenticationHelper.tryGetUser(headers);
-            return userService.getUserById(id, currentUser);
+            User userToGet = userService.getUserById(id, currentUser);
+            return userMapper.toAnonymizedDto(userToGet);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -83,7 +87,6 @@ public class UserRestController {
 //        try {
 //            User user = authenticationHelper.tryGetUser(headers);
 //            return userService.getByEmail(email, user);
-//            //TODO check if need to catch authorization exception
 //        } catch (AuthorizationException e) {
 //            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
 //        } catch (EntityNotFoundException e) {
@@ -116,12 +119,12 @@ public class UserRestController {
 //        }
 //    }
 
-    //Todo Pet: login endpoint and validation for email @ and .
     @PostMapping
-    public User register(@Valid @RequestBody UserDto userDto) {
+    public UserDto register(@Valid @RequestBody UserDto userDto) {
         try {
             User user = userMapper.fromDto(userDto);
-            return userService.create(user);
+            User registeredUser = userService.create(user);
+            return userMapper.toAnonymizedDto(registeredUser);
         } catch (EntityDuplicateException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         } catch (SendMailException e) {
@@ -132,11 +135,14 @@ public class UserRestController {
     @PutMapping("/{id}")
     public UserDto update(@RequestHeader HttpHeaders headers, @PathVariable int id, @Valid @RequestBody UserDto userDto) {
         try {
+            if (userDto.getId() != id) {
+                throw new OperationNotAllowedException(USER_ID_MISMATCH);
+            }
             User currentUser = authenticationHelper.tryGetUser(headers);
             if (currentUser.getUserId() != id) {
-                throw new OperationNotAllowedException("Update is not allowed");
+                throw new OperationNotAllowedException(UPDATE_IS_NOT_ALLOWED);
             }
-            User userUpdates = userMapper.fromDto(id, userDto);
+            User userUpdates = userMapper.fromDto(userDto);
             User updatedUser = userService.update(userUpdates);
             return userMapper.toDto(updatedUser);
         } catch (AuthorizationException e) {
@@ -175,12 +181,12 @@ public class UserRestController {
         }
     }
 
-    //todo Pet: finish simple Dto for admin and block and getAllusers
     @PutMapping("{id}/admin/delete")
-    public User unmakeUserAdmin(@RequestHeader HttpHeaders headers, @PathVariable int id) {
+    public SimpleUserDto unmakeUserAdmin(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
             User currentUser = authenticationHelper.tryGetUser(headers);
-            return userService.unmakeUserAdmin(id, currentUser);
+            User userToUnmakeAdmin = userService.unmakeUserAdmin(id, currentUser);
+            return userMapper.toSimpleDto(userToUnmakeAdmin);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -189,10 +195,11 @@ public class UserRestController {
     }
 
     @PutMapping("/{id}/block")
-    public User blockUser(@RequestHeader HttpHeaders headers, @PathVariable int id) {
+    public SimpleUserDto blockUser(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
             User currentUser = authenticationHelper.tryGetUser(headers);
-            return userService.blockUser(id, currentUser);
+            User userToBlock = userService.blockUser(id, currentUser);
+            return userMapper.toSimpleDto(userToBlock);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (EntityNotFoundException e) {
@@ -201,14 +208,24 @@ public class UserRestController {
     }
 
     @PutMapping("/{id}/unblock")
-    public User unblockUser(@RequestHeader HttpHeaders headers, @PathVariable int id) {
+    public SimpleUserDto unblockUser(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
             User currentUser = authenticationHelper.tryGetUser(headers);
-            return userService.unblockUser(id, currentUser);
+            User userToUnblock = userService.unblockUser(id, currentUser);
+            return userMapper.toSimpleDto(userToUnblock);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
+    @GetMapping("/{id}/verify")
+    public String verify(@PathVariable int id, @RequestParam int securityCode) {
+        try {
+            userService.verify(id, securityCode);
+            return HttpStatus.OK.name();
+        } catch (OperationNotAllowedException | EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED);
         }
     }
 
@@ -216,34 +233,26 @@ public class UserRestController {
     public String updateImage(@RequestParam("avatar") MultipartFile file,
                               @RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
-            User user = authenticationHelper.tryGetUser(headers);
-            if(user.getUserId()==id){
+            User currentUser = authenticationHelper.tryGetUser(headers);
+            if (currentUser.getUserId() == id) {
                 throw new AuthorizationException(ERROR_MESSAGE);
             }
-            ImageData image = userService.saveImage(file, user);
+            ImageData image = userService.saveImage(file, currentUser);
             return image.getImage();
         } catch (IOException e) {
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
-        }catch (AuthorizationException e){
+        } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
     }
 
-    @GetMapping("/{id}/verify")
-    public String verify(@PathVariable int id, @RequestParam int securityCode) {
-       try {
-           userService.verify(id, securityCode);
-           return HttpStatus.OK.name();
-       } catch (OperationNotAllowedException | EntityNotFoundException e) {
-           throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED);
-       }
-    }
-
-
-
-
-    //todo Pet: get method for image
-
 //    @GetMapping("/{id}/image")
-//    public
+//    public String getImage (@PathVariable long id, @RequestHeader HttpHeaders headers){
+//        try {
+//            User currentUser = authenticationHelper.tryGetUser(headers);
+//            if(currentUser.getUserId() == id) {
+//                t
+//            }
+//        }
+//    }
 }

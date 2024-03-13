@@ -59,15 +59,6 @@ public class User {
 
     public User(long userId, String firstName, String lastName, String email, String username, String phoneNumber,
                 String password, UserStatus userStatus, boolean isAdmin) {
-//        setId(id);
-//        setFirstName(firstName);
-//        setLastName(lastName);
-//        setEmail(email);
-//        setUsername(username);
-//        setPassword(password);
-//        setBlocked(isBlocked);
-//        setBlocked(isDeleted);
-//        setAdmin(isAdmin);
 
         this.userId = userId;
         this.firstName = firstName;
