@@ -43,7 +43,7 @@ public class MailService {
     private String projectUrl;
 
 
-    public String sendConformationEmail(User receiver, int userSecurityCode) throws SendMailException {
+    public String sendConformationEmail(User receiver, long userSecurityCode) throws SendMailException {
         Mail mail = buildMailTemplate(receiver, userSecurityCode);
 
         SendGrid sg = new SendGrid(sendgridApiKey);
@@ -62,7 +62,7 @@ public class MailService {
         }
     }
 
-    private Mail buildMailTemplate(User receiver, int userSecurityCode) {
+    private Mail buildMailTemplate(User receiver, long userSecurityCode) {
         Email from = new Email(mailFrom);
         Email to = new Email(receiver.getEmail());
         Mail mail = new Mail();

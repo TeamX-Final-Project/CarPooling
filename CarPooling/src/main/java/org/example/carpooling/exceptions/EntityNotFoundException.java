@@ -5,7 +5,7 @@ public class EntityNotFoundException extends RuntimeException {
         super(message);
     }
 
-    public EntityNotFoundException(String type, int id) {
+    public EntityNotFoundException(String type, long id) {
         this(type, "id", String.valueOf(id));
     }
 
@@ -13,6 +13,6 @@ public class EntityNotFoundException extends RuntimeException {
         super(String.format("%s with %s %s not found", type, attribute, value));
     }
 
-    public EntityNotFoundException(String user, String id, int userIdToDelete) {
+    public EntityNotFoundException(String type, String attribute, long id) {
     }
 }
