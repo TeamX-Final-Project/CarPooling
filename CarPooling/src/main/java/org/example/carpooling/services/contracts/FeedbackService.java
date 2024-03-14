@@ -8,7 +8,7 @@ import java.util.List;
 public interface FeedbackService {
     Feedback getById(Long id);
 
-    List<Feedback> findAllToUser(User user);
 
-    List<Feedback> findAllFromUser(User user);
+
+    Feedback create(Feedback feedback);
 }

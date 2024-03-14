@@ -26,12 +26,12 @@ public class Feedback {
     private Travel travel;
 
     @OneToOne
-    @JoinColumn(name = "from_user_id")
-    private User fromUser;
+    @JoinColumn(name = "giver_id")
+    private User giver;
 
     @ManyToOne
-    @JoinColumn(name = "to_user_id")
-    private User toUser;
+    @JoinColumn(name = "receiver_id")
+    private User receiver;
 
     public Feedback() {
     }

@@ -53,17 +53,17 @@ create table feedbacks
     id                       bigint auto_increment
         primary key,
     rating                   int     null,
-    from_user_id             bigint     null,
-    to_user_id               bigint     null,
+    giver_id             bigint     null,
+    receiver_id               bigint     null,
     from_driver_to_passenger tinyint null,
     comment                  varchar(1000) not null,
     travel_id                bigint           not null,
     constraint feedbacks_travels_travel_id_fk
         foreign key (travel_id) references travels (travel_id),
     constraint feedbacks_users_user_id_fk
-        foreign key (from_user_id) references users (user_id),
+        foreign key (giver_id) references users (user_id),
     constraint feedbacks_users_user_id_fk2
-        foreign key (to_user_id) references users (user_id)
+        foreign key (receiver_id) references users (user_id)
 );
 create table image_data
 (
