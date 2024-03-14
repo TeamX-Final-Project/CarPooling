@@ -30,19 +30,50 @@
                                 </div>
                             </div>
                             <div th:if="${isAuthenticated==true
+
+                            && (session.currentUser eq travel.getUserId().getUsername()
+                             || (session.isAdmin != null && session.isAdmin))}">
+                                <div>
+
+                                    <form th:action="@{/travels/{id}/update(id=${travel.getTravelId()})}"
+
                             && (session.currentUser eq post.getAuthor().getUsername()
                              || (session.isAdmin != null && session.isAdmin))}">
                                 <div>
 
                                     <form th:action="@{/posts/{id}/update(id=${post.getId()})}"
+
                                           method="post">
                                         <input type="submit" value="  Edit  "/>
                                     </form>
 
+
+                                    <form th:action="@{/travels/{id}/delete(id=${travel.getTravelId()})}"
+
                                     <form th:action="@{/posts/{id}/delete(id=${post.id})}"
+
                                           method="get">
                                         <input type="submit" value="  Remove  "/>
                                     </form>
+
+
+                                    <form th:action="@{/candidates/{id}/(id=${travel.getTravelId()})}"
+                                          method="get">
+                                        <input type="submit" value="  Apply  "/>
+                                    </form>
+                                    <form th:action="@{/candidates/approve:{userId}/travel:{travelId}/(userId=${session.currentUser})}"
+                                          method="get">
+                                        <input type="submit" value="  Approve  "/>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
                                     <form th:action="@{/posts/{id}/delete(id=${post.id})}"
                                           method="get">
@@ -54,6 +85,7 @@
                         </div>
 
                     </div>
+
 
 
 </body>

@@ -1,5 +1,9 @@
 package org.example.carpooling.controllers.mvc;
 
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+=======
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.models.TravelFilterOptions;
@@ -25,6 +29,18 @@ public class TravelMvcController {
     @Autowired
     public TravelMvcController(TravelService travelService) {
         this.travelService = travelService;
+    }
+
+    @ModelAttribute("isAuthenticated")
+    public boolean populateIsAuthenticated(HttpSession session) {
+
+        return session.getAttribute("currentUser") != null;
+    }
+
+    @ModelAttribute("requestURI")
+    public String getRequestURI(HttpServletRequest request) {
+
+        return request.getRequestURI();
     }
 
     @GetMapping
