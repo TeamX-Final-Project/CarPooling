@@ -12,7 +12,7 @@ public class ImageData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     @JsonIgnore
-    private int imageId;
+    private long imageId;
 
     @OneToOne
     @JoinColumn(name = "user_id")
@@ -22,11 +22,11 @@ public class ImageData {
     private String image;
 
 
-    public int getImageId() {
+    public long getImageId() {
         return imageId;
     }
 
-    public void setImageId(int imageId) {
+    public void setImageId(long imageId) {
         this.imageId = imageId;
     }
 

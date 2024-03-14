@@ -46,12 +46,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(int id, User currentUser) {
+    public User getUserById(long id, User currentUser) {
         validateIsAdminOrOwner(id, currentUser);
         return getById(id);
     }
 
-    private User getById(int id) {
+    private User getById(long id) {
         return userRepository.getByUserId(id);
     }
 
@@ -83,10 +83,10 @@ public class UserServiceImpl implements UserService {
     public User create(User user) throws SendMailException {
         validateUserInfo(user);
         user.setUserStatus(UserStatus.PENDING);
-        userRepository.create(user);
+        User createdUser = userRepository.create(user);
         UserSecurityCode securityCode = userSecurityCodeService.create(user);
         mailService.sendConformationEmail(user, securityCode.getSecurityCode());
-        return user;
+        return createdUser;
     }
 
 
@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(int userId, User currentUser) {
+    public void delete(long userId, User currentUser) {
         //todo what to do with deleted uncompleted travels
         validateIsAdminOrOwner(userId, currentUser);
         User userToDelete = getById(userId);
@@ -113,7 +113,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User makeUserAdmin(int id, User currentUser) {
+    public User makeUserAdmin(long id, User currentUser) {
         validateIsAdmin(currentUser);
         User userToUpdate = getById(id);
         if (userToUpdate.isAdmin()) {
@@ -124,7 +124,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User unmakeUserAdmin(int id, User currentUser) {
+    public User unmakeUserAdmin(long id, User currentUser) {
         validateIsAdmin(currentUser);
         User userToUpdate = getById(id);
         if (!userToUpdate.isAdmin()) {
@@ -135,7 +135,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User blockUser(int id, User currentUser) {
+    public User blockUser(long id, User currentUser) {
         //todo Pet: what to do with blocked travels
         validateIsAdmin(currentUser);
         User userToBlock = getById(id);
@@ -147,7 +147,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User unblockUser(int id, User currentUser) {
+    public User unblockUser(long id, User currentUser) {
         validateIsAdmin(currentUser);
         User userToUnblock = getById(id);
         if (UserStatus.BLOCKED != userToUnblock.getUserStatus()) {
@@ -157,7 +157,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.update(userToUnblock);
     }
 
-    private void validateIsAdminOrOwner(int id, User currentUser) {
+    private void validateIsAdminOrOwner(long id, User currentUser) {
         if (!currentUser.isAdmin() && currentUser.getUserId() != id) {
             throw new AuthorizationException(ERROR_MESSAGE);
         }
@@ -169,7 +169,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private void validateIsOwner(int id, User currentUser) {
+    private void validateIsOwner(long id, User currentUser) {
         if (currentUser.getUserId() != id) {
             throw new AuthorizationException(ERROR_MESSAGE);
         }
@@ -239,7 +239,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void verify(int id, int securityCode) {
+    public void verify(long id, long securityCode) {
         User user = getById(id);
         UserSecurityCode userSecurityCode = userSecurityCodeService.getCodeByUserId(id);
         if (securityCode != userSecurityCode.getSecurityCode()) {

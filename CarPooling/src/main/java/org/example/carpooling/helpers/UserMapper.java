@@ -9,22 +9,17 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
+    public static final String ANONYMIZE = "Anonymize";
 
     //Todo Pet:  mappers in new package
 
     public UserMapper() {
     }
 
-    public User fromDto(int id, UserDto userDto) {
-        User user = fromDto(userDto);
-        user.setUserId(id);
-        return user;
-    }
-
-
 
     public User fromDto(UserDto userDto) {
         User user = new User();
+        user.setUserId(userDto.getId());
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
@@ -35,12 +30,20 @@ public class UserMapper {
     }
     public UserDto toDto(User user) {
         UserDto dto = new UserDto();
+        dto.setId(user.getUserId());
         dto.setFirstName(user.getFirstName());
         dto.setLastName(user.getLastName());
         dto.setEmail(user.getEmail());
         dto.setUsername(user.getUsername());
         dto.setPhoneNumber(user.getPhoneNumber());
         dto.setPassword(user.getPassword());
+        return dto;
+    }
+
+    public UserDto toAnonymizedDto(User user) {
+        UserDto dto = toDto(user);
+        dto.setPassword(ANONYMIZE);
+        dto.setPasswordConfirm(ANONYMIZE);
         return dto;
     }
     public SimpleUserDto toSimpleDto(User user) {
@@ -53,16 +56,6 @@ public class UserMapper {
         dto.setAdmin(user.isAdmin());
         return dto;
     }
-
-//    public User toDto(UserDto userUpdates, User existingUser) {
-//        existingUser.setUsername(userUpdates.getUsername());
-//        existingUser.setPassword(userUpdates.getPassword());
-//        existingUser.setFirstName(userUpdates.getFirstName());
-//        existingUser.setLastName(userUpdates.getLastName());
-//        existingUser.setEmail(userUpdates.getEmail());
-//        existingUser.setPhoneNumber(userUpdates.getPhoneNumber());
-//        return existingUser;
-//    }
 
     public User fromDto(RegisterDto registerDto) {
         User user = new User();

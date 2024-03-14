@@ -18,7 +18,7 @@ public class UserSecurityCodeServiceImpl implements UserSecurityCodeService {
     }
 
     @Override
-    public UserSecurityCode getCodeByUserId(int userId) {
+    public UserSecurityCode getCodeByUserId(long userId) {
         return userSecurityCodeRepository.getCodeByUserId(userId);
     }
 

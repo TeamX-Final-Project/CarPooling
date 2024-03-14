@@ -4,7 +4,7 @@ import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserSecurityCode;
 
 public interface UserSecurityCodeService {
-    UserSecurityCode getCodeByUserId(int userId);
+    UserSecurityCode getCodeByUserId(long userId);
 
     void delete(UserSecurityCode userSecurityCode);
 

@@ -15,7 +15,7 @@ public interface UserService {
 
     List<User> getAllUsers(UserFilterOptions filterOptions);
 
-    User getUserById(int id, User currentUser);
+    User getUserById(long id, User currentUser);
 
     User getByUsername(String username);
 
@@ -23,20 +23,20 @@ public interface UserService {
 
     User update(User user);
 
-    void delete(int id, User userModifier);
+    void delete(long id, User userModifier);
 
-    User makeUserAdmin(int id, User userModifier);
+    User makeUserAdmin(long id, User userModifier);
 
-    User unmakeUserAdmin(int id, User userModifier);
+    User unmakeUserAdmin(long id, User userModifier);
 
-    User blockUser(int id, User userModifier);
+    User blockUser(long id, User userModifier);
 
-    User unblockUser(int id, User userModifier);
+    User unblockUser(long id, User userModifier);
 
     long getUserCount();
 
     ImageData saveImage(MultipartFile file, User user) throws IOException;
 
-    void verify(int id, int securityCode);
+    void verify(long id, long securityCode);
 
 }
