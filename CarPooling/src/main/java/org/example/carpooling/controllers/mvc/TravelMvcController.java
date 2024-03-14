@@ -3,7 +3,6 @@ package org.example.carpooling.controllers.mvc;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-=======
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.models.TravelFilterOptions;
