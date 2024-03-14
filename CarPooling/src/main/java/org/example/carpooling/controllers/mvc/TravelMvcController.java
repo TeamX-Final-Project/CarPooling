@@ -1,7 +1,9 @@
 package org.example.carpooling.controllers.mvc;
 
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+=======
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.models.TravelFilterOptions;
@@ -50,7 +52,7 @@ public class TravelMvcController {
     }
 
     @GetMapping("/{id}")
-    public String showSingleTravel(Model model, @PathVariable long id) {
+    public String showSingleTravel(Model model, @PathVariable long id){
         try {
             model.addAttribute("travel", travelService.getById(id));
             return "TravelView";

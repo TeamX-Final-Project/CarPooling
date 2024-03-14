@@ -30,19 +30,32 @@
                                 </div>
                             </div>
                             <div th:if="${isAuthenticated==true
+
                             && (session.currentUser eq travel.getUserId().getUsername()
                              || (session.isAdmin != null && session.isAdmin))}">
                                 <div>
 
                                     <form th:action="@{/travels/{id}/update(id=${travel.getTravelId()})}"
+
+                            && (session.currentUser eq post.getAuthor().getUsername()
+                             || (session.isAdmin != null && session.isAdmin))}">
+                                <div>
+
+                                    <form th:action="@{/posts/{id}/update(id=${post.getId()})}"
+
                                           method="post">
                                         <input type="submit" value="  Edit  "/>
                                     </form>
 
+
                                     <form th:action="@{/travels/{id}/delete(id=${travel.getTravelId()})}"
+
+                                    <form th:action="@{/posts/{id}/delete(id=${post.id})}"
+
                                           method="get">
                                         <input type="submit" value="  Remove  "/>
                                     </form>
+
 
                                     <form th:action="@{/candidates/{id}/(id=${travel.getTravelId()})}"
                                           method="get">
@@ -61,5 +74,19 @@
         </div>
     </div>
 </div>
+
+                                    <form th:action="@{/posts/{id}/delete(id=${post.id})}"
+                                          method="get">
+                                        <input type="submit" value="  Apply  "/>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
 </body>
 </html>
