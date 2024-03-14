@@ -34,5 +34,4 @@ public class UserSecurityCodeServiceImpl implements UserSecurityCodeService {
         userSecurityCode.setSecurityCode(new Random().nextInt());
         return userSecurityCodeRepository.save(userSecurityCode);
     }
-
 }

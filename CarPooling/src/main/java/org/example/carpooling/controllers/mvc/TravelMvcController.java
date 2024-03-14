@@ -1,5 +1,7 @@
 package org.example.carpooling.controllers.mvc;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.models.TravelFilterOptions;
@@ -27,6 +29,18 @@ public class TravelMvcController {
         this.travelService = travelService;
     }
 
+    @ModelAttribute("isAuthenticated")
+    public boolean populateIsAuthenticated(HttpSession session) {
+
+        return session.getAttribute("currentUser") != null;
+    }
+
+    @ModelAttribute("requestURI")
+    public String getRequestURI(HttpServletRequest request) {
+
+        return request.getRequestURI();
+    }
+
     @GetMapping
     public String showAllTravels(
             @ModelAttribute("travelFilterOptions") TravelFilterOptions travelFilterOptions,
@@ -36,7 +50,7 @@ public class TravelMvcController {
     }
 
     @GetMapping("/{id}")
-    public String showSingleTravel(Model model, @PathVariable long id){
+    public String showSingleTravel(Model model, @PathVariable long id) {
         try {
             model.addAttribute("travel", travelService.getById(id));
             return "TravelView";

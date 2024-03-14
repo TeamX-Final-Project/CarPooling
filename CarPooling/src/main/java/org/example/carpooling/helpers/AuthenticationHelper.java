@@ -59,7 +59,7 @@ public class AuthenticationHelper {
             throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
         }
     }
-    private User verifyAuthentication(String username, String password) {
+    public User verifyAuthentication(String username, String password) {
         try {
             User user = userService.getByUsername(username);
             if (!user.getPassword().equals(password)) {

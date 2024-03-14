@@ -30,31 +30,36 @@
                                 </div>
                             </div>
                             <div th:if="${isAuthenticated==true
-                            && (session.currentUser eq post.getAuthor().getUsername()
+                            && (session.currentUser eq travel.getUserId().getUsername()
                              || (session.isAdmin != null && session.isAdmin))}">
                                 <div>
 
-                                    <form th:action="@{/posts/{id}/update(id=${post.getId()})}"
+                                    <form th:action="@{/travels/{id}/update(id=${travel.getTravelId()})}"
                                           method="post">
                                         <input type="submit" value="  Edit  "/>
                                     </form>
 
-                                    <form th:action="@{/posts/{id}/delete(id=${post.id})}"
+                                    <form th:action="@{/travels/{id}/delete(id=${travel.getTravelId()})}"
                                           method="get">
                                         <input type="submit" value="  Remove  "/>
                                     </form>
 
-                                    <form th:action="@{/posts/{id}/delete(id=${post.id})}"
+                                    <form th:action="@{/candidates/{id}/(id=${travel.getTravelId()})}"
                                           method="get">
                                         <input type="submit" value="  Apply  "/>
                                     </form>
-
+                                    <form th:action="@{/candidates/approve:{userId}/travel:{travelId}/(userId=${session.currentUser})}"
+                                          method="get">
+                                        <input type="submit" value="  Approve  "/>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
-
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -9,5 +9,4 @@ public interface CandidateRepository extends JpaRepository<Candidates, Long> {
 
     Candidates findById(long id);
 
-
 }
