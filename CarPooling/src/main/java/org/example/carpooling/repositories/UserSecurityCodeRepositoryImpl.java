@@ -35,7 +35,7 @@ public class UserSecurityCodeRepositoryImpl implements UserSecurityCodeRepositor
     }
 
     @Override
-    public UserSecurityCode getCodeByUserId(int userId) {
+    public UserSecurityCode getCodeByUserId(long userId) {
         try (Session session = sessionFactory.openSession()) {
             Query<UserSecurityCode> query = session.createQuery
                     ("from UserSecurityCode where userId = :userId", UserSecurityCode.class);

@@ -20,7 +20,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     @JsonIgnore
-    private int userId;
+    private long userId;
 
     @NotNull(message = CAN_T_BE_EMPTY)
     @Column(name = "first_name")
@@ -57,17 +57,8 @@ public class User {
     public User() {
     }
 
-    public User(int userId, String firstName, String lastName, String email, String username, String phoneNumber,
+    public User(long userId, String firstName, String lastName, String email, String username, String phoneNumber,
                 String password, UserStatus userStatus, boolean isAdmin) {
-//        setId(id);
-//        setFirstName(firstName);
-//        setLastName(lastName);
-//        setEmail(email);
-//        setUsername(username);
-//        setPassword(password);
-//        setBlocked(isBlocked);
-//        setBlocked(isDeleted);
-//        setAdmin(isAdmin);
 
         this.userId = userId;
         this.firstName = firstName;
@@ -80,11 +71,11 @@ public class User {
         this.isAdmin = isAdmin;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int id) {
+    public void setUserId(long id) {
         this.userId = id;
     }
 

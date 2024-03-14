@@ -10,7 +10,7 @@ public interface UserRepository {
 
     List<User> getAllUsers(UserFilterOptions filterOptions);
 
-    User getByUserId(int UserId);
+    User getByUserId(long UserId);
 
     User getByPhoneNumber(String phoneNumber);
 

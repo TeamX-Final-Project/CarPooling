@@ -18,6 +18,7 @@ public class UserDto {
     public static final String EMAIL_IS_REQUIRED_MESSAGE = "E-mail is required";
     public static final String NAME_IS_REQUIRED_MESSAGE = "Username is required";
 
+    private long id;
 
     @NotNull(message = NAME_IS_REQUIRED_MESSAGE)
     @NotEmpty(message = NAME_CAN_T_BE_EMPTY_MESSAGE)
@@ -48,20 +49,13 @@ public class UserDto {
     @NotNull(message = PASSWORD_CAN_T_BE_EMPTY_MESSAGE)
     private String passwordConfirm;
 
-//    public UserDto() {
-//    }
-//
-//    public UserDto(String firstName, String lastName, String email,
-//                   String username, String phoneNumber,String password) {
-//        setFirstName(firstName);
-//        setLastName(lastName);
-//        setEmail(email);
-//        setUsername(username);
-//        setPhoneNumber(phoneNumber);
-//        setPassword(password);
-//
-//    }
+    public long getId() {
+        return id;
+    }
 
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getPasswordConfirm() {
         return passwordConfirm;

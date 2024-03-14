@@ -9,7 +9,7 @@ import static org.example.carpooling.models.dto.UserDto.*;
 
 public class SimpleUserDto {
 
-    private int id;
+    private long id;
 
     @NotNull(message = NAME_IS_REQUIRED_MESSAGE)
     @NotEmpty(message = NAME_CAN_T_BE_EMPTY_MESSAGE)
@@ -27,11 +27,11 @@ public class SimpleUserDto {
     private UserStatus status;
     private boolean isAdmin;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
