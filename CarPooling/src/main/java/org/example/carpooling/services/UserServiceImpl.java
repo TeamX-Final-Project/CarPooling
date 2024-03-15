@@ -50,8 +50,8 @@ public class UserServiceImpl implements UserService {
         validateIsAdminOrOwner(id, currentUser);
         return getById(id);
     }
-
-    private User getById(long id) {
+    @Override
+    public User getById(long id) {
         return userRepository.getByUserId(id);
     }
 

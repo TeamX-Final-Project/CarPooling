@@ -13,10 +13,12 @@ public class Candidates {
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private CandidateStatus status;
-    @Column(name = "travel_id")
-    private long travelId;
-    @Column(name = "user_id")
-    private long userId;
+    @ManyToOne
+    @JoinColumn(name = "travel_id")
+    private Travel travel;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 
     public Candidates() {
@@ -31,20 +33,20 @@ public class Candidates {
         this.id = id;
     }
 
-    public long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public long getTravelId() {
-        return travelId;
+    public Travel getTravel() {
+        return travel;
     }
 
-    public void setTravelId(long travelId) {
-        this.travelId = travelId;
+    public void setTravel(Travel travel) {
+        this.travel = travel;
     }
 
     public CandidateStatus getStatus() {

@@ -17,6 +17,8 @@ public interface UserService {
 
     User getUserById(long id, User currentUser);
 
+    User getById(long id);
+
     User getByUsername(String username);
 
     User create(User user) throws SendMailException;

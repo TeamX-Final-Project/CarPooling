@@ -35,7 +35,7 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public Candidates findById(long id) {
-        return candidateRepository.findById(id);
+        return candidateRepository.findById(id).orElseThrow();
     }
 
     @Override
@@ -44,9 +44,9 @@ public class CandidateServiceImpl implements CandidateService {
         checkApplyPermission(userToApply, travelToApply);
         checkTravelStatusApply(travelToApply);
         Candidates candidate = new Candidates();
-        candidate.setStatus(CandidateStatus.FOR_APPROVAL);
-        candidate.setTravelId(id);
-        candidate.setUserId(userToApply.getUserId());
+        candidate.setStatus(CandidateStatus.ACCEPTED);
+        candidate.setId(id);
+        candidate.setId(userToApply.getUserId());
 //        Candidates existentCandidate = candidateRepository.findById(candidate.getId());
 //        checkIfCandidateAlreadyApplied(userToApply, candidate, travelToApply);
         return candidateRepository.save(candidate);
@@ -62,7 +62,7 @@ public class CandidateServiceImpl implements CandidateService {
         if (currentFreeSpots == 0) {
             travelToApprove.setTravelStatus(TravelStatus.FULL);
         }
-        userToApprove.setStatus(CandidateStatus.APPROVED);
+        userToApprove.setStatus(CandidateStatus.ACCEPTED);
         return candidateRepository.save(userToApprove);
     }
 
@@ -84,7 +84,7 @@ public class CandidateServiceImpl implements CandidateService {
     private static void checkIfCandidateAlreadyApplied(User userToApply,
                                                        Candidates candidate,
                                                        Travel travelToApply) {
-        if (candidate.getTravelId() == travelToApply.getTravelId()) {
+        if (candidate.getTravel().getTravelId() == travelToApply.getTravelId()) {
             throw new OperationNotAllowedException(YOU_CAN_T_APPLY_TO_THE_SAME_TRAVEL_TWICE_ERROR);
         }
     }
