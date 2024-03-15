@@ -20,10 +20,8 @@ import java.io.IOException;
 
 public class MailService {
     private static final Logger logger = LoggerFactory.getLogger(MailService.class);
-
     private static final String SEND_MAIL_EXCEPTION_MESSAGE = "Failed to send mail.";
     public static final String SENDGRID_SEND_ENDPOINT = "mail/send";
-
     public static final String VERIFY_LINK = "%sapi/users/%d/verify?securityCode=%d";
     public static final String TEMPLATE_VAR_FIRST_NAME = "first_name";
     public static final String EMAIL_SUBJECT = "CarpoolX verify account";
@@ -42,39 +40,49 @@ public class MailService {
     @Value("${project.url}")
     private String projectUrl;
 
+//    private final SendGrid sendGrid = new SendGrid(sendgridApiKey);
 
-    public String sendConformationEmail(User receiver, long userSecurityCode) throws SendMailException {
-        Mail mail = buildMailTemplate(receiver, userSecurityCode);
 
-        SendGrid sg = new SendGrid(sendgridApiKey);
-        Request request = new Request();
+    public void sendConformationEmail(User receiver, long userSecurityCode) throws SendMailException {
+        SendGrid sendGrid = new SendGrid(sendgridApiKey);
         try {
-            request.setMethod(Method.POST);
-            request.setEndpoint(SENDGRID_SEND_ENDPOINT);
-            request.setBody(mail.build());
-            Response response = sg.api(request);
+            Request request = createRequest(receiver, userSecurityCode);
+            Response response = sendGrid.api(request);
             logger.info(String.format("Sent mail response with status code: %d and body %s",
                     response.getStatusCode(), response.getBody()));
-            return response.getBody();
         } catch (IOException ex) {
             logger.error("Sent mail error:{}", ex.getMessage());
             throw new SendMailException(SEND_MAIL_EXCEPTION_MESSAGE);
         }
     }
 
+    private  Request createRequest(User receiver, long userSecurityCode) throws IOException {
+        Mail mail = buildMailTemplate(receiver, userSecurityCode);
+        Request request = new Request();
+        request.setMethod(Method.POST);
+        request.setEndpoint(SENDGRID_SEND_ENDPOINT);
+        request.setBody(mail.build());
+        return request;
+    }
+
     private Mail buildMailTemplate(User receiver, long userSecurityCode) {
         Email from = new Email(mailFrom);
         Email to = new Email(receiver.getEmail());
         Mail mail = new Mail();
-        Personalization personalization = new Personalization();
-        personalization.addTo(to);
         mail.setFrom(from);
         mail.setSubject(EMAIL_SUBJECT);
+        mail.setTemplateId(templateId);
+        Personalization personalization = createPersonalization(receiver, userSecurityCode, to);
+        mail.addPersonalization(personalization);
+        return mail;
+    }
+
+    private Personalization createPersonalization(User receiver, long userSecurityCode, Email to) {
+        Personalization personalization = new Personalization();
+        personalization.addTo(to);
         personalization.addDynamicTemplateData(TEMPLATE_VAR_FIRST_NAME, receiver.getFirstName());
         personalization.addDynamicTemplateData
                 (TEMPLATE_VAR_LINK, String.format(VERIFY_LINK, projectUrl, receiver.getUserId(), userSecurityCode));
-        mail.addPersonalization(personalization);
-        mail.setTemplateId(templateId);
-        return mail;
+        return personalization;
     }
 }

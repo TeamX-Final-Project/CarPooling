@@ -1,4 +1,4 @@
-package org.example.carpooling.helpers;
+package org.example.carpooling.services;
 
 
 import jakarta.servlet.http.HttpSession;
@@ -13,16 +13,15 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AuthenticationHelper {
+public class AuthenticationService {
 
-    //Todo Pet: rename class to Authentication service and relocate in service package;
     private static final String AUTHORIZATION_HEADER_NAME = "Authorization";
     private static final String INVALID_AUTHENTICATION_ERROR = "Invalid authentication";
 
     private final UserService userService;
 
     @Autowired
-    public AuthenticationHelper(UserService userService) {
+    public AuthenticationService(UserService userService) {
         this.userService = userService;
     }
 
