@@ -1,4 +1,4 @@
-package org.example.carpooling.helpers;
+package org.example.carpooling.mappers;
 
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.dto.ProfileDto;
@@ -11,11 +11,8 @@ import org.springframework.stereotype.Component;
 public class UserMapper {
     public static final String ANONYMIZE = "Anonymize";
 
-    //Todo Pet:  mappers in new package
-
     public UserMapper() {
     }
-
 
     public User fromDto(UserDto userDto) {
         User user = new User();
@@ -28,6 +25,7 @@ public class UserMapper {
         user.setPassword(userDto.getPassword());
         return user;
     }
+
     public UserDto toDto(User user) {
         UserDto dto = new UserDto();
         dto.setId(user.getUserId());
@@ -46,6 +44,7 @@ public class UserMapper {
         dto.setPasswordConfirm(ANONYMIZE);
         return dto;
     }
+
     public SimpleUserDto toSimpleDto(User user) {
         SimpleUserDto dto = new SimpleUserDto();
         dto.setId(user.getUserId());
