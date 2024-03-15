@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Travel</title>
@@ -23,38 +23,62 @@
                                     <span th:text="${travel.getUserId().username}">Created By</span>
                                 </div>
                                 <div class="tx-22 text-muted">
-                                    <p th:text="${#dates.format(travel.getDepartureTime(), 'dd-MM-yyyy HH:mm')}">Departure Time</p>
+                                    <p th:text="${#dates.format(travel.getDepartureTime(), 'dd-MM-yyyy HH:mm')}">
+                                        Departure Time</p>
                                 </div>
                                 <div class="tx-22 text-muted">
                                     <p th:text="${travel.getFreeSpots()}">Free spots</p>
                                 </div>
                             </div>
                             <div th:if="${isAuthenticated==true
-                            && (session.currentUser eq post.getAuthor().getUsername()
+                            && (session.currentUser eq travel.getUserId().getUsername()
                              || (session.isAdmin != null && session.isAdmin))}">
                                 <div>
 
-                                    <form th:action="@{/posts/{id}/update(id=${post.getId()})}"
-                                          method="post">
-                                        <input type="submit" value="  Edit  "/>
-                                    </form>
+                                    <form th:action="@{/travels/{id}/update(id=${travel.getTravelId()})}">
+                                    <div th:if="${isAuthenticated==true
+                                          && (session.currentUser eq post.getAuthor().getUsername()
+                                          || (session.isAdmin !=null && session.isAdmin))}">"
+                                    </div>
+                                        </form>
+                                        <div>
 
-                                    <form th:action="@{/posts/{id}/delete(id=${post.id})}"
-                                          method="get">
-                                        <input type="submit" value="  Remove  "/>
-                                    </form>
+                                            <form th:action="@{/posts/{id}/update(id=${post.getId()})}"
 
-                                    <form th:action="@{/posts/{id}/delete(id=${post.id})}"
-                                          method="get">
-                                        <input type="submit" value="  Apply  "/>
-                                    </form>
+                                                  method="post">
+                                                <input type="submit" value="  Edit  "/>
+                                            </form>
 
+
+                                            <form th:action="@{/travels/{id}/delete(id=${travel.getTravelId()})}">
+
+                                            </form>
+
+                                            <form th:action="@{/posts/{id}/delete(id=${travel.getTravelId()})}"
+
+                                                  method="get">
+                                                <input type="submit" value="  Remove  "/>
+                                            </form>
+
+
+                                            <form th:action="@{/candidates/{id}/(id=${travel.getTravelId()})}"
+                                                  method="get">
+                                                <input type="submit" value="  Apply  "/>
+                                            </form>
+                                            <form th:action="@{/candidates/approve:{userId}/travel:{travelId}/(userId=${session.currentUser})}"
+                                                  method="get">
+                                                <input type="submit" value="  Approve  "/>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>
