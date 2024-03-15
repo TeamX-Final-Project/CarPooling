@@ -31,7 +31,7 @@ public class Helpers {
         user.setEmail("ivan@ivan.com");
         user.setPhoneNumber("0888888884");
         user.setPassword("Password10$");
-        user.setUserStatus(UserStatus.ACTIVE);
+//        user.setUserStatus(UserStatus.ACTIVE);
     }
 
 

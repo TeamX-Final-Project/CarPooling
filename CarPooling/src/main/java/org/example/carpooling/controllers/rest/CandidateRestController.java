@@ -3,7 +3,7 @@ package org.example.carpooling.controllers.rest;
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.BlockedUserException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
-import org.example.carpooling.helpers.AuthenticationHelper;
+import org.example.carpooling.services.AuthenticationService;
 import org.example.carpooling.models.Candidates;
 import org.example.carpooling.models.User;
 import org.example.carpooling.services.contracts.CandidateService;
@@ -18,16 +18,16 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("api/candidates")
 public class CandidateRestController {
 
-    private final AuthenticationHelper authenticationHelper;
+    private final AuthenticationService authenticationService;
 
     private final CandidateService candidateService;
 
     private final UserService userService;
 
     @Autowired
-    public CandidateRestController(AuthenticationHelper authenticationHelper, CandidateService candidateService,
+    public CandidateRestController(AuthenticationService authenticationService, CandidateService candidateService,
                                    UserService userService) {
-        this.authenticationHelper = authenticationHelper;
+        this.authenticationService = authenticationService;
         this.candidateService = candidateService;
         this.userService = userService;
     }
@@ -35,7 +35,7 @@ public class CandidateRestController {
     @PostMapping("/apply:{id}")
     public Candidates applyTravel(@RequestHeader HttpHeaders headers, @PathVariable long id) {
         try {
-            User userToApply = authenticationHelper.tryGetUser(headers);
+            User userToApply = authenticationService.tryGetUser(headers);
             return candidateService.applyTravel(id, userToApply);
         } catch (AuthorizationException | BlockedUserException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
@@ -49,7 +49,7 @@ public class CandidateRestController {
                                     @PathVariable long userId,
                                     @PathVariable long travelId) {
         try {
-            User userToConfirmApprove = authenticationHelper.tryGetUser(headers);
+            User userToConfirmApprove = authenticationService.tryGetUser(headers);
             Candidates userToApprove = candidateService.findById(userId);
             return candidateService.approveTravel(travelId, userToConfirmApprove, userToApprove);
         } catch (AuthorizationException | BlockedUserException e) {

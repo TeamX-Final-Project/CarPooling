@@ -6,6 +6,7 @@ import org.example.carpooling.exceptions.SendMailException;
 import org.example.carpooling.models.ImageData;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserFilterOptions;
+import org.example.carpooling.models.enums.UserStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -27,18 +28,16 @@ public interface UserService {
 
     void delete(long id, User userModifier);
 
-    User makeUserAdmin(long id, User userModifier);
-
-    User unmakeUserAdmin(long id, User userModifier);
-
-    User blockUser(long id, User userModifier);
-
-    User unblockUser(long id, User userModifier);
+    User changeUserAdminValue(long id, User currentUser, boolean isAdmin);
 
     long getUserCount();
+
+    User updateUserStatus(long id, User currentUser, UserStatus userStatus);
 
     ImageData saveImage(MultipartFile file, User user) throws IOException;
 
     void verify(long id, long securityCode);
+
+
 
 }

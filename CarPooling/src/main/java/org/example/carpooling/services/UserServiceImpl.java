@@ -24,6 +24,7 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
     private static final String ERROR_MESSAGE = "You are not authorized";
     public static final String ACTIVATING_USER_IS_NOT_PERMITTED = "Activating user is not permitted";
+    public static final String URL = "url";
 
     private final UserRepository userRepository;
     private final UserSecurityCodeService userSecurityCodeService;
@@ -113,48 +114,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User makeUserAdmin(long id, User currentUser) {
+    public User changeUserAdminValue(long id, User currentUser, boolean isAdmin) {
         validateIsAdmin(currentUser);
         User userToUpdate = getById(id);
-        if (userToUpdate.isAdmin()) {
+        if (isAdmin==userToUpdate.isAdmin()) {
             throw new EntityAttributeAlreadySetException("User", "admin", String.valueOf(userToUpdate.isAdmin()));
         }
-        userToUpdate.setAdmin(true);
+        userToUpdate.setAdmin(isAdmin);
         return userRepository.update(userToUpdate);
     }
 
     @Override
-    public User unmakeUserAdmin(long id, User currentUser) {
-        validateIsAdmin(currentUser);
-        User userToUpdate = getById(id);
-        if (!userToUpdate.isAdmin()) {
-            throw new EntityAttributeAlreadySetException("User", "admin", String.valueOf(userToUpdate.isAdmin()));
-        }
-        userToUpdate.setAdmin(false);
-        return userRepository.update(userToUpdate);
-    }
-
-    @Override
-    public User blockUser(long id, User currentUser) {
+    public User updateUserStatus(long id, User currentUser, UserStatus userStatus) {
         //todo Pet: what to do with blocked travels
         validateIsAdmin(currentUser);
-        User userToBlock = getById(id);
-        if (UserStatus.BLOCKED == userToBlock.getUserStatus()) {
-            throw new EntityAttributeAlreadySetException("User", "status", userToBlock.getUserStatus().name());
+        User userToUpdate = getById(id);
+        if (userStatus == userToUpdate.getUserStatus()) {
+            throw new EntityAttributeAlreadySetException("User", "status", userToUpdate.getUserStatus().name());
         }
-        userToBlock.setUserStatus(UserStatus.BLOCKED);
-        return userRepository.update(userToBlock);
-    }
-
-    @Override
-    public User unblockUser(long id, User currentUser) {
-        validateIsAdmin(currentUser);
-        User userToUnblock = getById(id);
-        if (UserStatus.BLOCKED != userToUnblock.getUserStatus()) {
-            throw new EntityAttributeAlreadySetException("User", "status", userToUnblock.getUserStatus().name());
-        }
-        userToUnblock.setUserStatus(UserStatus.ACTIVE);
-        return userRepository.update(userToUnblock);
+        userToUpdate.setUserStatus(userStatus);
+        return userRepository.update(userToUpdate);
     }
 
     private void validateIsAdminOrOwner(long id, User currentUser) {
@@ -168,7 +147,7 @@ public class UserServiceImpl implements UserService {
             throw new AuthorizationException(ERROR_MESSAGE);
         }
     }
-
+    //todo Pet: delete if this method is unused
     private void validateIsOwner(long id, User currentUser) {
         if (currentUser.getUserId() != id) {
             throw new AuthorizationException(ERROR_MESSAGE);
@@ -230,7 +209,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ImageData saveImage(MultipartFile file, User user) throws IOException {
-        //todo validate file content
         String url = uploadFile(file);
         ImageData imageData = new ImageData();
         imageData.setImage(url);
@@ -251,11 +229,11 @@ public class UserServiceImpl implements UserService {
     }
 
     private String uploadFile(MultipartFile file) throws IOException {
-        Map upload = cloudinary.uploader()
+        Map uploadResponse = cloudinary.uploader()
                 .upload(file.getBytes()
                         , ObjectUtils.asMap("resource_type", "auto"));
 
-        return (String) upload.get("url");
+        return (String) uploadResponse.get(URL);
     }
 
     @Override

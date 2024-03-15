@@ -1,6 +1,6 @@
 package org.example.carpooling.helpers;
 
-import org.example.carpooling.exceptions.ValidatePasswordException;
+import org.example.carpooling.exceptions.InvalidPasswordException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,7 +16,7 @@ public class ValidationHelper {
     public static void validatePassword(final String password) {
         Matcher matcher = pattern.matcher(password);
         if (!matcher.matches()) {
-            throw new ValidatePasswordException(INVALID_PASSWORD);
+            throw new InvalidPasswordException(INVALID_PASSWORD);
         }
     }
 }
