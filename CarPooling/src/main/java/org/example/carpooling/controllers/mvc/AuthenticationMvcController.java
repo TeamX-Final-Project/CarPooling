@@ -6,12 +6,12 @@ import jakarta.validation.Valid;
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.EntityDuplicateException;
 import org.example.carpooling.exceptions.SendMailException;
-import org.example.carpooling.helpers.AuthenticationHelper;
-import org.example.carpooling.helpers.UserMapper;
+import org.example.carpooling.mappers.UserMapper;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.dto.LoginDto;
 import org.example.carpooling.models.dto.RegisterDto;
 import org.example.carpooling.models.enums.UserStatus;
+import org.example.carpooling.services.AuthenticationService;
 import org.example.carpooling.services.contracts.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,14 +26,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AuthenticationMvcController {
     public static final String PASSWORD_CONFIRM_NEED_TO_MATCH_WITH_PASSWORD_ERROR = "Password confirm need to match with password";
     private final UserService userService;
-    private final AuthenticationHelper authenticationHelper;
+    private final AuthenticationService authenticationService;
     private final UserMapper userMapper;
 
     public AuthenticationMvcController(UserService userService,
-                                       AuthenticationHelper authenticationHelper,
+                                       AuthenticationService authenticationService,
                                        UserMapper userMapper) {
         this.userService = userService;
-        this.authenticationHelper = authenticationHelper;
+        this.authenticationService = authenticationService;
         this.userMapper = userMapper;
     }
     @ModelAttribute("isAuthenticated")
@@ -59,7 +59,7 @@ public class AuthenticationMvcController {
         }
 
         try {
-           User user = authenticationHelper.verifyAuthentication(loginDto.getUsername(), loginDto.getPassword());
+           User user = authenticationService.verifyAuthentication(loginDto.getUsername(), loginDto.getPassword());
             if (UserStatus.DELETED.equals(user.getUserStatus()) || UserStatus.BLOCKED.equals(user.getUserStatus())){
                 return "redirect:/";
             } else {
