@@ -31,7 +31,6 @@
                                 </div>
                             </div>
                             <div th:if="${isAuthenticated==true
-
                             && (session.currentUser eq travel.getUserId().getUsername()
                              || (session.isAdmin != null && session.isAdmin))}">
                                 <div>
