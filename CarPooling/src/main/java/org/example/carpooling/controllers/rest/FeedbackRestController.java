@@ -5,12 +5,12 @@ import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.EntityDuplicateException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.exceptions.TravelException;
-import org.example.carpooling.helpers.AuthenticationHelper;
 import org.example.carpooling.helpers.FeedbackMapper;
 import org.example.carpooling.models.Feedback;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.dto.FeedbackDto;
+import org.example.carpooling.services.AuthenticationService;
 import org.example.carpooling.services.contracts.FeedbackService;
 import org.example.carpooling.services.contracts.TravelService;
 import org.example.carpooling.services.contracts.UserService;
@@ -24,18 +24,18 @@ import org.springframework.web.server.ResponseStatusException;
 public class FeedbackRestController {
 
     private final FeedbackService feedbackService;
-    private final AuthenticationHelper authenticationHelper;
+    private final AuthenticationService authenticationService;
     private final UserService userService;
     private final TravelService travelService;
     private final FeedbackMapper feedbackMapper;
 
     public FeedbackRestController(FeedbackService feedbackService,
-                                  AuthenticationHelper authenticationHelper,
+                                  AuthenticationService authenticationService,
                                   UserService userService,
                                   TravelService travelService,
                                   FeedbackMapper feedbackMapper) {
         this.feedbackService = feedbackService;
-        this.authenticationHelper = authenticationHelper;
+        this.authenticationService = authenticationService;
         this.userService = userService;
         this.travelService = travelService;
         this.feedbackMapper = feedbackMapper;
@@ -61,7 +61,7 @@ public class FeedbackRestController {
             @PathVariable Long userId,
             @Valid @RequestBody FeedbackDto feedbackDto){
         try {
-            User giver = authenticationHelper.tryGetUser(headers);
+            User giver = authenticationService.tryGetUser(headers);
             User receiver = userService.getById(userId);
             Travel travel = travelService.getById(travelId);
             Feedback feedback = feedbackMapper.fromFeedbackDto (feedbackDto,giver,receiver,travel);

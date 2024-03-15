@@ -44,9 +44,9 @@ public class CandidateServiceImpl implements CandidateService {
         checkApplyPermission(userToApply, travelToApply);
         checkTravelStatusApply(travelToApply);
         Candidates candidate = new Candidates();
-        candidate.setStatus(CandidateStatus.ACCEPTED);
-        candidate.setId(id);
-        candidate.setId(userToApply.getUserId());
+        candidate.setStatus(CandidateStatus.PENDING);
+        candidate.setUser(userToApply);
+        candidate.setTravel(travelToApply);
 //        Candidates existentCandidate = candidateRepository.findById(candidate.getId());
 //        checkIfCandidateAlreadyApplied(userToApply, candidate, travelToApply);
         return candidateRepository.save(candidate);
