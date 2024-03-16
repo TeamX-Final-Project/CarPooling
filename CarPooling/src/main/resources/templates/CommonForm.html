@@ -1,253 +1,253 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="head(title)">
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head th:fragment="head(title)">-->
 
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+<!--    <meta charset="utf-8"/>-->
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>-->
+<!--    &lt;!&ndash; Mobile Metas &ndash;&gt;-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>-->
 
-    <link rel="shortcut icon" href="../static/images/favicon.png" type="image/x-icon">
-    <title>CarpoolingX</title>
+<!--    <link rel="shortcut icon" href="../static/images/favicon.png" type="image/x-icon">-->
+<!--    <title>CarpoolingX</title>-->
 
-    <!-- slider stylesheet -->
-    <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css"/>
-    <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
-    <!-- font awesome style -->
-    <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
-    <!-- fonts style -->
-    <link href="https://fonts.googleapis.com/css?family=Dosis:500|Poppins:400,600,700&display=swap"
-          rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"/>
-    <!-- responsive style -->
-    <link href="../static/css/responsive.css" th:href="@{/css/responsive.css}" rel="stylesheet"/>
-</head>
-<body>
-<div th:fragment="navigation" class="hero_area">
-    <!-- header section strats -->
-    <header class="header_section ">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg custom_nav-container">
-                <a class="navbar-brand" href="index.html">
-            <span>
-              CarpoolingX
-            </span>
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span></span>
-                </button>
-                <div class="collapse navbar-collapse ml-auto  " id="navbarSupportedContent">
-                    <ul class="navbar-nav  ">
-                        <li class="nav-item ">
-                            <a class="nav-link" href="index.html">Home </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about.html">About </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="why.html">Why Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="blog.html">Blog</a>
-                        </li>
-                    </ul>
-                    <div class="user_option ">
-                        <a href="" class="">
-                            Login / signUp
-                        </a>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </header>
-</div>
-<!-- end header section -->
+<!--    &lt;!&ndash; slider stylesheet &ndash;&gt;-->
+<!--    <link rel="stylesheet" type="text/css"-->
+<!--          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css"/>-->
+<!--    &lt;!&ndash; bootstrap core css &ndash;&gt;-->
+<!--    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>-->
+<!--    &lt;!&ndash; font awesome style &ndash;&gt;-->
+<!--    <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>-->
+<!--    &lt;!&ndash; fonts style &ndash;&gt;-->
+<!--    <link href="https://fonts.googleapis.com/css?family=Dosis:500|Poppins:400,600,700&display=swap"-->
+<!--          rel="stylesheet">-->
+<!--    &lt;!&ndash; Custom styles for this template &ndash;&gt;-->
+<!--    <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"/>-->
+<!--    &lt;!&ndash; responsive style &ndash;&gt;-->
+<!--    <link href="../static/css/responsive.css" th:href="@{/css/responsive.css}" rel="stylesheet"/>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div th:fragment="navigation" class="hero_area">-->
+<!--    &lt;!&ndash; header section strats &ndash;&gt;-->
+<!--    <header class="header_section ">-->
+<!--        <div class="container">-->
+<!--            <nav class="navbar navbar-expand-lg custom_nav-container">-->
+<!--                <a class="navbar-brand" href="index.html">-->
+<!--            <span>-->
+<!--              CarpoolingX-->
+<!--            </span>-->
+<!--                </a>-->
+<!--                <button class="navbar-toggler" type="button" data-toggle="collapse"-->
+<!--                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"-->
+<!--                        aria-expanded="false" aria-label="Toggle navigation">-->
+<!--                    <span></span>-->
+<!--                </button>-->
+<!--                <div class="collapse navbar-collapse ml-auto  " id="navbarSupportedContent">-->
+<!--                    <ul class="navbar-nav  ">-->
+<!--                        <li class="nav-item ">-->
+<!--                            <a class="nav-link" href="index.html">Home </a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link" href="about.html">About </a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link" href="why.html">Why Us</a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link" href="blog.html">Blog</a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                    <div class="user_option ">-->
+<!--                        <a href="" class="">-->
+<!--                            Login / signUp-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </nav>-->
+<!--        </div>-->
+<!--    </header>-->
+<!--</div>-->
+<!--&lt;!&ndash; end header section &ndash;&gt;-->
 
-<!-- slider section -->
-<section th:fragment="slider" class=" slider_section position-relative">
-    <div class="box">
-        <div id="carouselExampleControls" class="carousel slide " data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="detail-box">
-                                    <h1>
-                                        Welcome To CarpoolingX
-                                    </h1>
-                                    <p class="col-lg-11 px-0">
-                                        Book, Create, Explore travels all over the world!!!
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="img-box">
-                                    <img src="/images/slider-img.png" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item ">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="detail-box">
-                                    <h1>
-                                        Welcome To CarpoolingX
-                                    </h1>
-                                    <p class="col-lg-11 px-0">
-                                        Book, Create, Explore travels all over the world!!!
-                                    </p>
-                                    <a href="">
-                                        Read More
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="img-box">
-                                    <img src="/images/slider-img.png" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item ">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="detail-box">
-                                    <h1>
-                                        Welcome To CarpoolingX
-                                    </h1>
-                                    <p class="col-lg-11 px-0">
-                                        Book, Create, Explore travels all over the world!!!
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="img-box">
-                                    <img src="/images/slider-img.png" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="carousel-btn-box">
-                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
-                       data-slide="prev">
-                        <i class="fa fa-angle-left" aria-hidden="true"></i>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleControls" role="button"
-                       data-slide="next">
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- end slider section -->
+<!--&lt;!&ndash; slider section &ndash;&gt;-->
+<!--<section th:fragment="slider" class=" slider_section position-relative">-->
+<!--    <div class="box">-->
+<!--        <div id="carouselExampleControls" class="carousel slide " data-ride="carousel">-->
+<!--            <div class="carousel-inner">-->
+<!--                <div class="carousel-item active">-->
+<!--                    <div class="container">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-6">-->
+<!--                                <div class="detail-box">-->
+<!--                                    <h1>-->
+<!--                                        Welcome To CarpoolingX-->
+<!--                                    </h1>-->
+<!--                                    <p class="col-lg-11 px-0">-->
+<!--                                        Book, Create, Explore travels all over the world!!!-->
+<!--                                    </p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-6">-->
+<!--                                <div class="img-box">-->
+<!--                                    <img src="/images/slider-img.png" alt="">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="carousel-item ">-->
+<!--                    <div class="container">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-6">-->
+<!--                                <div class="detail-box">-->
+<!--                                    <h1>-->
+<!--                                        Welcome To CarpoolingX-->
+<!--                                    </h1>-->
+<!--                                    <p class="col-lg-11 px-0">-->
+<!--                                        Book, Create, Explore travels all over the world!!!-->
+<!--                                    </p>-->
+<!--                                    <a href="">-->
+<!--                                        Read More-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-6">-->
+<!--                                <div class="img-box">-->
+<!--                                    <img src="/images/slider-img.png" alt="">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="carousel-item ">-->
+<!--                    <div class="container">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-6">-->
+<!--                                <div class="detail-box">-->
+<!--                                    <h1>-->
+<!--                                        Welcome To CarpoolingX-->
+<!--                                    </h1>-->
+<!--                                    <p class="col-lg-11 px-0">-->
+<!--                                        Book, Create, Explore travels all over the world!!!-->
+<!--                                    </p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-6">-->
+<!--                                <div class="img-box">-->
+<!--                                    <img src="/images/slider-img.png" alt="">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="container">-->
+<!--                <div class="carousel-btn-box">-->
+<!--                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button"-->
+<!--                       data-slide="prev">-->
+<!--                        <i class="fa fa-angle-left" aria-hidden="true"></i>-->
+<!--                        <span class="sr-only">Previous</span>-->
+<!--                    </a>-->
+<!--                    <a class="carousel-control-next" href="#carouselExampleControls" role="button"-->
+<!--                       data-slide="next">-->
+<!--                        <i class="fa fa-angle-right" aria-hidden="true"></i>-->
+<!--                        <span class="sr-only">Next</span>-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+<!--&lt;!&ndash; end slider section &ndash;&gt;-->
 
-<!-- info section -->
-<section th:fragment="info" class="info_section ">
+<!--&lt;!&ndash; info section &ndash;&gt;-->
+<!--<section th:fragment="info" class="info_section ">-->
 
-    <div class="container">
-        <div class="info_top ">
-            <div class="row ">
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="info_detail">
-                        <a href="index.html">
-                            <h4>
-                                CarpoolingX
-                            </h4>
-                        </a>
-                        <p>
-                            Book, Create, Explore travels all over the world!!!
-                        </p>
-                        <div class="social_box">
-                            <a href="">
-                                <i class="fa fa-facebook" aria-hidden="true"></i>
-                            </a>
-                            <a href="">
-                                <i class="fa fa-twitter" aria-hidden="true"></i>
-                            </a>
-                            <a href="">
-                                <i class="fa fa-linkedin" aria-hidden="true"></i>
-                            </a>
-                            <a href="">
-                                <i class="fa fa-instagram" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 mx-auto">
-                    <h4>
-                        Contact us
-                    </h4>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit
-                    </p>
-                    <div class="contact_nav">
-                        <a href="">
-                            <i class="fa fa-map-marker" aria-hidden="true"></i>
-                            <span>
-                  Location
-                </span>
-                        </a>
-                        <a href="">
-                            <i class="fa fa-phone" aria-hidden="true"></i>
-                            <span>
-                  Call : +01 123455678990
-                </span>
-                        </a>
-                        <a href="">
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
-                            <span>
-                  Email : demo@gmail.com
-                </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="info_form">
-                        <h4>
-                            SIGN UP TO OUR NEWSLETTER
-                        </h4>
-                        <form action="">
-                            <label>
-                                <input type="text" placeholder="Enter Your Email"/>
-                            </label>
-                            <button type="submit">
-                                Subscribe
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- end info_section -->
+<!--    <div class="container">-->
+<!--        <div class="info_top ">-->
+<!--            <div class="row ">-->
+<!--                <div class="col-sm-6 col-md-4 col-lg-3">-->
+<!--                    <div class="info_detail">-->
+<!--                        <a href="index.html">-->
+<!--                            <h4>-->
+<!--                                CarpoolingX-->
+<!--                            </h4>-->
+<!--                        </a>-->
+<!--                        <p>-->
+<!--                            Book, Create, Explore travels all over the world!!!-->
+<!--                        </p>-->
+<!--                        <div class="social_box">-->
+<!--                            <a href="">-->
+<!--                                <i class="fa fa-facebook" aria-hidden="true"></i>-->
+<!--                            </a>-->
+<!--                            <a href="">-->
+<!--                                <i class="fa fa-twitter" aria-hidden="true"></i>-->
+<!--                            </a>-->
+<!--                            <a href="">-->
+<!--                                <i class="fa fa-linkedin" aria-hidden="true"></i>-->
+<!--                            </a>-->
+<!--                            <a href="">-->
+<!--                                <i class="fa fa-instagram" aria-hidden="true"></i>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-sm-6 col-md-4 col-lg-3 mx-auto">-->
+<!--                    <h4>-->
+<!--                        Contact us-->
+<!--                    </h4>-->
+<!--                    <p>-->
+<!--                        Lorem ipsum dolor sit amet consectetur adipisicing elit-->
+<!--                    </p>-->
+<!--                    <div class="contact_nav">-->
+<!--                        <a href="">-->
+<!--                            <i class="fa fa-map-marker" aria-hidden="true"></i>-->
+<!--                            <span>-->
+<!--                  Location-->
+<!--                </span>-->
+<!--                        </a>-->
+<!--                        <a href="">-->
+<!--                            <i class="fa fa-phone" aria-hidden="true"></i>-->
+<!--                            <span>-->
+<!--                  Call : +01 123455678990-->
+<!--                </span>-->
+<!--                        </a>-->
+<!--                        <a href="">-->
+<!--                            <i class="fa fa-envelope" aria-hidden="true"></i>-->
+<!--                            <span>-->
+<!--                  Email : demo@gmail.com-->
+<!--                </span>-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-4">-->
+<!--                    <div class="info_form">-->
+<!--                        <h4>-->
+<!--                            SIGN UP TO OUR NEWSLETTER-->
+<!--                        </h4>-->
+<!--                        <form action="">-->
+<!--                            <label>-->
+<!--                                <input type="text" placeholder="Enter Your Email"/>-->
+<!--                            </label>-->
+<!--                            <button type="submit">-->
+<!--                                Subscribe-->
+<!--                            </button>-->
+<!--                        </form>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+<!--&lt;!&ndash; end info_section &ndash;&gt;-->
 
-<!-- footer section -->
-<footer th:fragment="footer" class="footer_section">
-    <div class="container">
-        <p>
-            &copy; <span id="displayYear"></span> Copyright &copy; CarpoolingX
-        </p>
-    </div>
-</footer>
-<!-- footer section -->
-</body>
-</html>
+<!--&lt;!&ndash; footer section &ndash;&gt;-->
+<!--<footer th:fragment="footer" class="footer_section">-->
+<!--    <div class="container">-->
+<!--        <p>-->
+<!--            &copy; <span id="displayYear"></span> Copyright &copy; CarpoolingX-->
+<!--        </p>-->
+<!--    </div>-->
+<!--</footer>-->
+<!--&lt;!&ndash; footer section &ndash;&gt;-->
+<!--</body>-->
+<!--</html>-->
