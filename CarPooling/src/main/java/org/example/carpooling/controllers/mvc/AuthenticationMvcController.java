@@ -36,8 +36,9 @@ public class AuthenticationMvcController {
         this.authenticationService = authenticationService;
         this.userMapper = userMapper;
     }
+
     @ModelAttribute("isAuthenticated")
-    public boolean populateIsAuthenticated(HttpSession session){
+    public boolean populateIsAuthenticated(HttpSession session) {
 
         return session.getAttribute("currentUser") != null;
     }
@@ -59,8 +60,8 @@ public class AuthenticationMvcController {
         }
 
         try {
-           User user = authenticationService.verifyAuthentication(loginDto.getUsername(), loginDto.getPassword());
-            if (UserStatus.DELETED.equals(user.getUserStatus()) || UserStatus.BLOCKED.equals(user.getUserStatus())){
+            User user = authenticationService.verifyAuthentication(loginDto.getUsername(), loginDto.getPassword());
+            if (UserStatus.DELETED.equals(user.getUserStatus()) || UserStatus.BLOCKED.equals(user.getUserStatus())) {
                 return "redirect:/";
             } else {
                 session.setAttribute("currentUser", user.getUsername());
@@ -99,7 +100,7 @@ public class AuthenticationMvcController {
         if (bindingResult.hasErrors()) {
             return "RegisterView";
         }
-        if(!registerDto.getPassword().equals(registerDto.getPasswordConfirm())){
+        if (!registerDto.getPassword().equals(registerDto.getPasswordConfirm())) {
             bindingResult.rejectValue("password",
                     "password_error",
                     PASSWORD_CONFIRM_NEED_TO_MATCH_WITH_PASSWORD_ERROR);
@@ -110,15 +111,13 @@ public class AuthenticationMvcController {
             User user = userMapper.fromDto(registerDto);
             userService.create(user);
             return "redirect:/auth/login";
-        } catch (EntityDuplicateException | SendMailException e){
+        } catch (EntityDuplicateException | SendMailException e) {
             bindingResult.rejectValue("username",
                     "username_error",
                     e.getMessage());
             return "RegisterView";
         }
     }
-
-
 
 
 }

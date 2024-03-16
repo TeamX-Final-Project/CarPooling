@@ -1,11 +1,13 @@
 package org.example.carpooling.controllers.rest;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.example.carpooling.controllers.rest.contracts.FeedbackRestController;
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.EntityDuplicateException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.exceptions.TravelException;
-import org.example.carpooling.helpers.FeedbackMapper;
+import org.example.carpooling.mappers.FeedbackMapper;
 import org.example.carpooling.models.Feedback;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.User;
@@ -19,9 +21,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+@Tag(name = "Feedback", description = "Feedback REST controller")
+@RestController
 @RequestMapping("/api/feedbacks")
 
-public class FeedbackRestController {
+public class FeedbackRestControllerImpl implements FeedbackRestController {
 
     private final FeedbackService feedbackService;
     private final AuthenticationService authenticationService;
@@ -29,7 +33,7 @@ public class FeedbackRestController {
     private final TravelService travelService;
     private final FeedbackMapper feedbackMapper;
 
-    public FeedbackRestController(FeedbackService feedbackService,
+    public FeedbackRestControllerImpl(FeedbackService feedbackService,
                                   AuthenticationService authenticationService,
                                   UserService userService,
                                   TravelService travelService,
@@ -41,6 +45,7 @@ public class FeedbackRestController {
         this.feedbackMapper = feedbackMapper;
     }
 
+    @Override
     @GetMapping("/{id}")
     public Feedback getById(@PathVariable long id) {
 
@@ -54,6 +59,7 @@ public class FeedbackRestController {
     }
 
     //todo - must change the methods in userService(getById must be public and override)
+    @Override
     @PostMapping("/travel/{travelId}/user/{userId}")
     public Feedback create(
             @RequestHeader HttpHeaders headers,

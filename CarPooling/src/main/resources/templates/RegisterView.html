@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<form th:replace="~{UserForm.html::head('Register')}"></form>
+<body>
+<form th:replace="~{UserForm.html::navigation}"></form>
+<form th:replace="~{UserForm.html::header}"></form>
+<div class="body-content">
+
+</div>
+<div class="body-content">
+    <h2>Register</h2>
+    <form action="#" th:action="@{/auth/register}" th:object="${register}" method="post">
+        <label th:text="#{user.firstName}">FirstName</label>
+        <br/>
+        <input type="text" th:field="*{firstName}"/>
+        <br/>
+        <label class="label-error" th:errors="*{firstName}">First name error placeholder</label>
+        <br/><br/>
+        <label th:text="#{user.lastName}">LastName</label>
+        <br/>
+        <input type="text" th:field="*{lastName}"/>
+        <br/>
+        <label class="label-error" th:errors="*{lastName}">Last Name error placeholder</label>
+        <br/><br/>
+        <label th:text="#{user.email}">Email</label>
+        <br/>
+        <input type="text" th:field="*{email}"/>
+        <br/>
+        <label class="label-error" th:errors="*{email}">Email error placeholder</label>
+        <br/><br/>
+        <label th:text="#{user.username}">Username</label>
+        <br/>
+        <input type="text" th:field="*{username}"/>
+        <br/>
+        <label class="label-error" th:errors="*{username}">Username error placeholder</label>
+        <br/><br/>
+        <label th:text="#{user.phoneNumber}">Phone number</label>
+        <br/>
+        <input type="text" th:field="*{phoneNumber}"/>
+        <br/>
+        <label class="label-error" th:errors="*{phoneNumber}">Phone number error placeholder</label>
+        <br/><br/>
+        <label th:text="#{user.password}">Password</label>
+        <br/>
+        <input type="password" th:field="*{password}"/>
+        <br/>
+        <label class="label-error" th:errors="*{password}">Password error placeholder</label>
+        <br/><br/>
+        <label th:text="#{user.password.confirm}">Confirm Password</label>
+        <br/>
+        <input type="password" th:field="*{passwordConfirm}"/>
+        <br/>
+        <label class="label-error" th:errors="*{passwordConfirm}">Confirm password error placeholder</label>
+        <br/><br/>
+
+        <input type="submit" value="Register" />
+    </form>
+</div>
+<footer th:fragment="footer" class="border-top">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="#">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="small text-center text-muted fst-italic">Copyright &copy; CarpoolingX - 2024</div>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

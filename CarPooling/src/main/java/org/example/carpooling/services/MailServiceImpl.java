@@ -9,6 +9,7 @@ import com.sendgrid.helpers.mail.objects.Email;
 import com.sendgrid.helpers.mail.objects.Personalization;
 import org.example.carpooling.exceptions.SendMailException;
 import org.example.carpooling.models.User;
+import org.example.carpooling.services.contracts.MailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,8 +19,8 @@ import java.io.IOException;
 
 @Service
 
-public class MailService {
-    private static final Logger logger = LoggerFactory.getLogger(MailService.class);
+public class MailServiceImpl implements MailService {
+    private static final Logger logger = LoggerFactory.getLogger(MailServiceImpl.class);
     private static final String SEND_MAIL_EXCEPTION_MESSAGE = "Failed to send mail.";
     public static final String SENDGRID_SEND_ENDPOINT = "mail/send";
     public static final String VERIFY_LINK = "%sapi/users/%d/verify?securityCode=%d";
@@ -40,9 +41,8 @@ public class MailService {
     @Value("${project.url}")
     private String projectUrl;
 
-//    private final SendGrid sendGrid = new SendGrid(sendgridApiKey);
 
-
+    @Override
     public void sendConformationEmail(User receiver, long userSecurityCode) throws SendMailException {
         SendGrid sendGrid = new SendGrid(sendgridApiKey);
         try {

@@ -1,4 +1,4 @@
-package org.example.carpooling.helpers;
+package org.example.carpooling.mappers;
 
 import org.example.carpooling.models.Feedback;
 import org.example.carpooling.models.Travel;

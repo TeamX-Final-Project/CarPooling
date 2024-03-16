@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<form th:replace="~{UserForm.html::head('Login')}"></form>
+<body>
+<form th:replace="~{UserForm.html::navigation}"></form>
+<form th:replace="~{UserForm.html::header}"></form>
+<div class="body-content">
+
+</div>
+<div class="body-content">
+    <h2>Login</h2>
+    <form action="#" th:action="@{/auth/login}" th:object="${login}" method="post">
+        <label th:text="#{user.username}">Username</label>
+        <br/>
+        <input type="text" th:field="*{username}"/>
+        <br/>
+        <label class="label-error" th:errors="*{username}">Username error placeholder</label>
+        <br/><br/>
+        <label th:text="#{user.password}">Password</label>
+        <br/>
+        <input type="password" th:field="*{password}"/>
+        <br/>
+        <label class="label-error" th:errors="*{password}">Password error placeholder</label>
+        <br/><br/>
+        <input type="submit" value="Login" />
+    </form>
+</div>
+</body>
+</html>

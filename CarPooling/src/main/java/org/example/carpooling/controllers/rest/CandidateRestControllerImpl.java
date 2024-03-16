@@ -1,5 +1,6 @@
 package org.example.carpooling.controllers.rest;
 
+import org.example.carpooling.controllers.rest.contracts.CandidateRestController;
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.BlockedUserException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
@@ -16,7 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("api/candidates")
-public class CandidateRestController {
+public class CandidateRestControllerImpl implements CandidateRestController {
 
     private final AuthenticationService authenticationService;
 
@@ -25,13 +26,14 @@ public class CandidateRestController {
     private final UserService userService;
 
     @Autowired
-    public CandidateRestController(AuthenticationService authenticationService, CandidateService candidateService,
-                                   UserService userService) {
+    public CandidateRestControllerImpl(AuthenticationService authenticationService, CandidateService candidateService,
+                                       UserService userService) {
         this.authenticationService = authenticationService;
         this.candidateService = candidateService;
         this.userService = userService;
     }
 
+    @Override
     @PostMapping("/apply:{id}")
     public Candidates applyTravel(@RequestHeader HttpHeaders headers, @PathVariable long id) {
         try {
@@ -44,6 +46,7 @@ public class CandidateRestController {
         }
     }
 
+    @Override
     @PostMapping("/approve:{userId}/travel:{travelId}")
     public Candidates approveTravel(@RequestHeader HttpHeaders headers,
                                     @PathVariable long userId,
