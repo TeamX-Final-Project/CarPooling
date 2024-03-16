@@ -69,6 +69,7 @@ public class AuthenticationMvcController {
                 session.setAttribute("firstName", user.getFirstName());
                 session.setAttribute("lastName", user.getLastName());
                 session.setAttribute("email", user.getEmail());
+                session.setAttribute("phoneNumber", user.getPhoneNumber());
                 session.setAttribute("isAdmin", user.isAdmin());
                 session.setAttribute("isBlocked", user.getUserStatus());
                 session.setAttribute("isDeleted", user.getUserStatus());
@@ -118,6 +119,4 @@ public class AuthenticationMvcController {
             return "RegisterView";
         }
     }
-
-
 }

@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(long id, User currentUser) {
-        validateIsAdminOrOwner(id, currentUser);
+       validateIsAdminOrOwner(id, currentUser);
         return getById(id);
     }
     @Override

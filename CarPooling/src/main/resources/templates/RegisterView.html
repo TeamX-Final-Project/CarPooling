@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<form th:replace="~{UserForm.html::head('Register')}"></form>
+<form th:replace="~{CommonForm.html::head('Register')}"></form>
 <body>
-<form th:replace="~{UserForm.html::navigation}"></form>
-<form th:replace="~{UserForm.html::header}"></form>
+<form th:replace="~{CommonForm.html::header}"></form>
+<form th:replace="~{CommonForm.html::slider}"></form>
+
 <div class="body-content">
 
 </div>
@@ -90,6 +91,7 @@
             </div>
         </div>
     </div>
+    <form th:replace="~{CommonForm.html::footer}"></form>
 </footer>
 </body>
 </html>
