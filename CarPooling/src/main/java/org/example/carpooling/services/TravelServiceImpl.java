@@ -53,7 +53,8 @@ public class TravelServiceImpl implements TravelService {
         travelDTO.setEndPoint(travel.getEndPoint());
         travelDTO.setDepartureTime(travel.getDepartureTime());
         travelDTO.setFreeSpots(travel.getFreeSpots());
-        travelDTO.setUserId(travel.getUserId().getUserId());
+        travelDTO.setUserId(travel.getUserId());
+        travelDTO.setCreator(travel.getUserId().getUsername());
         travelDTO.setTravelStatus(travel.getTravelStatus());
         travelDTO.setTravelComment(travel.getTravelComment());
         return travelDTO;

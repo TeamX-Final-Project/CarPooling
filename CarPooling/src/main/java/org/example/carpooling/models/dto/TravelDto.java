@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.example.carpooling.models.User;
 import org.example.carpooling.models.enums.TravelStatus;
 
 import java.sql.Timestamp;
@@ -14,7 +15,6 @@ public class TravelDto {
 
     @JsonIgnore
     private long travelId;
-
     @NotNull(message = "Start point can't be empty")
     private String startPoint;
     @NotNull(message = "End point can't be empty")
@@ -24,7 +24,10 @@ public class TravelDto {
     @NotNull(message = "Free spots can't be empty")
     private int freeSpots;
     @JsonIgnore
-    private long userId;
+    private User userId;
+
+    @JsonIgnore
+    private String creator;
     @NotNull(message = "Travel status can't be empty")
     private TravelStatus travelStatus;
     private String travelComment;
@@ -71,12 +74,20 @@ public class TravelDto {
         this.freeSpots = freeSpots;
     }
 
-    public long getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 
     public TravelStatus getTravelStatus() {

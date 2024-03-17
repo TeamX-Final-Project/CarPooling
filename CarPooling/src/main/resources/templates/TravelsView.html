@@ -19,13 +19,16 @@
 
     <div class="table">
         <div class="header">
+            <div class="header-cell" th:text="#{travels.driver}">Driver(Rating)</div>
             <div class="header-cell" th:text="#{travels.startPoint}">Starting Point</div>
             <div class="header-cell" th:text="#{travels.endPoint}">Ending Point</div>
             <div class="header-cell" th:text="#{travels.departureTime}">Departure Time</div>
             <div class="header-cell" th:text="#{travels.freeSpots}">Free Spots</div>
-            <div class="header-cell" th:text="#{travels.button}">Button</div>
+            <div class="header-cell" th:text="#{travels.button}">Actions</div>
         </div>
-        <div class="rowGroup" th:if="${isAuthenticated && !(session.userId eq travel.userId)}" th:each="travel : ${travels}">
+        <div class="rowGroup" th:if="${isAuthenticated == true && (session.currentUser != travel.getCreator())}"
+             th:each="travel : ${travels}">
+            <div class="cell" th:text="${travel.creator}">Driver(Rating)</div>
             <div class="cell" th:text="${travel.startPoint}">Starting Point</div>
             <div class="cell" th:text="${travel.endPoint}">Ending Point</div>
             <div class="cell" th:text="${travel.departureTime}">Departure Time</div>
@@ -35,6 +38,7 @@
     </div>
     <div class="table-borderless">
         <div class="rowGroup">
+            <div class="cell"> Page:</div>
             <div class="cell align-content-lg-center">
                 <a th:if="${currentPage>1}" th:href="@{'/travels?page=' + ${currentPage - 2}}"><<</a>
 
@@ -47,7 +51,7 @@
             </div>
             <div class="cell align-content-lg-center">
                 <a th:href="@{'/travels?page=' + ${currentPage}}">>></a>
-<!--                <span th:unless="${currentPage == totalPages}"></span>-->
+                <!--                <span th:unless="${currentPage == totalPages}"></span>-->
             </div>
         </div>
     </div>
