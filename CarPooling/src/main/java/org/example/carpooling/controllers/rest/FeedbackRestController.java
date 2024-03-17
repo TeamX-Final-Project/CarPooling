@@ -53,7 +53,6 @@ public class FeedbackRestController {
         }
     }
 
-    //todo - must change the methods in userService(getById must be public and override)
     @PostMapping("/travel/{travelId}/user/{userId}")
     public Feedback create(
             @RequestHeader HttpHeaders headers,

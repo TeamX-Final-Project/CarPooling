@@ -31,6 +31,9 @@ public class FeedbackServiceImpl implements FeedbackService {
         return feedbackRepository.findById(id).orElseThrow();
     }
 
+    public List<Feedback> getByReceiver(User user) {
+        return feedbackRepository.findAllByReceiver(user);
+    }
 
     @Override
     public void create(Feedback feedback){
