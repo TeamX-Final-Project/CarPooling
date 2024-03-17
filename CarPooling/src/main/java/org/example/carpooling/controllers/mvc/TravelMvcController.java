@@ -47,8 +47,8 @@ public class TravelMvcController {
     @GetMapping()
     public String showAllTravels(@RequestParam(defaultValue = "0", name = "page") int page,
                                  @RequestParam(defaultValue = "10", name = "size") int size,
-                                 @RequestParam(defaultValue = "", name = "keyword") String keyword,
-                                 @RequestParam(defaultValue = "startPoint", name = "sortBy") String sortBy,
+                                 @RequestParam(defaultValue = "", required = false, name = "keyword") String keyword,
+                                 @RequestParam(defaultValue = "startPoint", required = false, name = "sortBy") String sortBy,
                                  @RequestParam(defaultValue = "ASC", name = "orderBy") String orderBy,
                                  HttpSession session, Model model) {
 //        User currentUser = (User) session.getAttribute("currentUser");
@@ -57,11 +57,12 @@ public class TravelMvcController {
 //        }
         TravelFilterOptions travelFilterOptions = new TravelFilterOptions(page, size, keyword, sortBy, orderBy);
 
-        List<TravelDto> travelDtos = travelService.getAllTravels(travelFilterOptions);
+        Page<TravelDto> travelDtos = travelService.getAllTravels(travelFilterOptions);
 
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", travelDtos.size() / 10 + 2);
-        model.addAttribute("totalItems", travelDtos.size());
+
+        model.addAttribute("totalPages", travelDtos.getTotalPages());
+        model.addAttribute("currentPage", page + 1);
+        model.addAttribute("totalItems", travelDtos.getTotalElements());
         model.addAttribute("travels", travelDtos);
         return "TravelsView";
     }
