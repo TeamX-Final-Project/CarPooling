@@ -4,5 +4,6 @@ public enum TravelStatus {
     AVAILABLE,
     FULL,
     CANCELED,
-    COMPLETED
+    COMPLETED,
+    DELETED
 }

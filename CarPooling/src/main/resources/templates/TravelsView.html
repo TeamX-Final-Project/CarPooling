@@ -35,21 +35,22 @@
     </div>
     <div class="table-borderless">
         <div class="rowGroup">
-            <div class="cell" th:if="${totalPages>1}">
+            <div class="cell" th:if="${totalPages>=1}">
                 Total Rows: [[${totalItems}]]
             </div>
             <div class="cell">
-                <a th:if="${currentPage <= totalPages && currentPage!=0}" th:href="@{'/travels?page=' + ${currentPage - 1}}"><<</a>
+                <a th:if="${currentPage>1}" th:href="@{'/travels?page=' + ${currentPage - 2}}"><<</a>
+
             </div>
             <div class="cell">
-                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-                    <a th:if="${currentPage != i}" th:href="@{'/travels?page=' + ${i}}">[[${i}]]</a>
-                    <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+                <span>
+<!--                    <a th:if="${currentPage != i}" th:href="@{'/travels?page=' + ${i}}">[[${i}]]</a>-->
+                    <span th:if="${currentPage>0}">[[${currentPage}]]</span>
                 </span>
             </div>
             <div class="cell">
-                <a th:if="${currentPage < totalPages}" th:href="@{'/travels?page=' + ${currentPage + 1}}">>></a>
-                <span th:unless="${currentPage == totalPages}"></span>
+                <a th:href="@{'/travels?page=' + ${currentPage}}">>></a>
+<!--                <span th:unless="${currentPage == totalPages}"></span>-->
             </div>
         </div>
     </div>

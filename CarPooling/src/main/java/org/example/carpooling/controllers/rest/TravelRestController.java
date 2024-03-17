@@ -15,6 +15,9 @@ import org.example.carpooling.models.dto.TravelDto;
 import org.example.carpooling.services.contracts.TravelService;
 import org.example.carpooling.services.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +49,7 @@ public class TravelRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TravelDto>> getAllTravels(@RequestParam(defaultValue = PAGE_NUMBER) int page,
+    public ResponseEntity<Page<TravelDto>> getAllTravels(@RequestParam(defaultValue = PAGE_NUMBER) int page,
                                                          @RequestParam(defaultValue = SIZE_PAGE) int size,
                                                          @RequestParam(required = false) String keyword,
                                                          @RequestParam(required = false) String sortBy,
@@ -58,7 +61,8 @@ public class TravelRestController {
                     keyword,
                     sortBy,
                     orderBy);
-            List<TravelDto> travelPage = travelService.getAllTravels(travelFilterOptions);
+
+            Page<TravelDto> travelPage = travelService.getAllTravels(travelFilterOptions);
             return ResponseEntity.ok(travelPage);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
