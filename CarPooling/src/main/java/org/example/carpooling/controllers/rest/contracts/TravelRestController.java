@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.example.carpooling.controllers.rest.TravelRestControllerImpl;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.dto.TravelDto;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public interface TravelRestController {
             @ApiResponse(responseCode = "200", description = "successful operation")
     })
     @GetMapping
-    ResponseEntity<List<TravelDto>> getAllTravels(@RequestParam(defaultValue = TravelRestControllerImpl.PAGE_NUMBER) int page,
+    ResponseEntity<Page<TravelDto>> getAllTravels(@RequestParam(defaultValue = TravelRestControllerImpl.PAGE_NUMBER) int page,
                                                   @RequestParam(defaultValue = TravelRestControllerImpl.SIZE_PAGE) int size,
                                                   @RequestParam(required = false) String keyword,
                                                   @RequestParam(required = false) String sortBy,

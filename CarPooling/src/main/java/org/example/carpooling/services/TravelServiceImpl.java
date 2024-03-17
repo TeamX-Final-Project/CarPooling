@@ -48,10 +48,14 @@ public class TravelServiceImpl implements TravelService {
 
     private TravelDto convertToDto(Travel travel) {
         TravelDto travelDTO = new TravelDto();
+        travelDTO.setTravelId(travel.getTravelId());
         travelDTO.setStartPoint(travel.getStartPoint());
         travelDTO.setEndPoint(travel.getEndPoint());
         travelDTO.setDepartureTime(travel.getDepartureTime());
         travelDTO.setFreeSpots(travel.getFreeSpots());
+        travelDTO.setUserId(travel.getUserId().getUserId());
+        travelDTO.setTravelStatus(travel.getTravelStatus());
+        travelDTO.setTravelComment(travel.getTravelComment());
         return travelDTO;
     }
 

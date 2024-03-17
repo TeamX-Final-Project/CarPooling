@@ -1,5 +1,6 @@
 package org.example.carpooling.models.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -10,6 +11,10 @@ import java.util.Objects;
 
 public class TravelDto {
 
+
+    @JsonIgnore
+    private long travelId;
+
     @NotNull(message = "Start point can't be empty")
     private String startPoint;
     @NotNull(message = "End point can't be empty")
@@ -18,6 +23,8 @@ public class TravelDto {
     private Timestamp departureTime;
     @NotNull(message = "Free spots can't be empty")
     private int freeSpots;
+    @JsonIgnore
+    private long userId;
     @NotNull(message = "Travel status can't be empty")
     private TravelStatus travelStatus;
     private String travelComment;
@@ -25,6 +32,13 @@ public class TravelDto {
     public TravelDto() {
     }
 
+    public long getTravelId() {
+        return travelId;
+    }
+
+    public void setTravelId(long travelId) {
+        this.travelId = travelId;
+    }
 
     public String getStartPoint() {
         return startPoint;
@@ -55,6 +69,14 @@ public class TravelDto {
 
     public void setFreeSpots(int freeSpots) {
         this.freeSpots = freeSpots;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public TravelStatus getTravelStatus() {

@@ -25,7 +25,7 @@
             <div class="header-cell" th:text="#{travels.freeSpots}">Free Spots</div>
             <div class="header-cell" th:text="#{travels.button}">Button</div>
         </div>
-        <div class="rowGroup" th:each="travel : ${travels}">
+        <div class="rowGroup" th:if="${isAuthenticated && !(session.userId eq travel.userId)}" th:each="travel : ${travels}">
             <div class="cell" th:text="${travel.startPoint}">Starting Point</div>
             <div class="cell" th:text="${travel.endPoint}">Ending Point</div>
             <div class="cell" th:text="${travel.departureTime}">Departure Time</div>
@@ -35,20 +35,17 @@
     </div>
     <div class="table-borderless">
         <div class="rowGroup">
-            <div class="cell" th:if="${totalPages>=1}">
-                Total Rows: [[${totalItems}]]
-            </div>
-            <div class="cell">
+            <div class="cell align-content-lg-center">
                 <a th:if="${currentPage>1}" th:href="@{'/travels?page=' + ${currentPage - 2}}"><<</a>
 
             </div>
-            <div class="cell">
+            <div class="cell align-content-lg-center">
                 <span>
 <!--                    <a th:if="${currentPage != i}" th:href="@{'/travels?page=' + ${i}}">[[${i}]]</a>-->
                     <span th:if="${currentPage>0}">[[${currentPage}]]</span>
                 </span>
             </div>
-            <div class="cell">
+            <div class="cell align-content-lg-center">
                 <a th:href="@{'/travels?page=' + ${currentPage}}">>></a>
 <!--                <span th:unless="${currentPage == totalPages}"></span>-->
             </div>

@@ -39,12 +39,6 @@ public class Travel {
     @Column(name = "comment_travel")
     private String travelComment;
 
-
-
-
-//TODO implement the comment logic probably OneToMany
-    // since one travel can have many comments for pets,luggage,smoking,etc...
-
     public Travel() {
     }
 

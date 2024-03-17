@@ -51,10 +51,10 @@ public class TravelMvcController {
                                  @RequestParam(defaultValue = "startPoint", required = false, name = "sortBy") String sortBy,
                                  @RequestParam(defaultValue = "ASC", name = "orderBy") String orderBy,
                                  HttpSession session, Model model) {
-//        User currentUser = (User) session.getAttribute("currentUser");
-//        if (currentUser == null) {
-//            return "redirect:/auth/login";
-//        }
+
+        if (!populateIsAuthenticated(session)) {
+            return "redirect:/auth/login";
+        }
         TravelFilterOptions travelFilterOptions = new TravelFilterOptions(page, size, keyword, sortBy, orderBy);
 
         Page<TravelDto> travelDtos = travelService.getAllTravels(travelFilterOptions);
@@ -62,7 +62,7 @@ public class TravelMvcController {
 
         model.addAttribute("totalPages", travelDtos.getTotalPages());
         model.addAttribute("currentPage", page + 1);
-        model.addAttribute("totalItems", travelDtos.getTotalElements());
+        model.addAttribute("totalItems", travelDtos.getNumberOfElements());
         model.addAttribute("travels", travelDtos);
         return "TravelsView";
     }
