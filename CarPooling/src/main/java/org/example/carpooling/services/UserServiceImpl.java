@@ -10,6 +10,7 @@ import org.example.carpooling.models.UserFilterOptions;
 import org.example.carpooling.models.UserSecurityCode;
 import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.repositories.contracts.UserRepository;
+import org.example.carpooling.services.contracts.MailService;
 import org.example.carpooling.services.contracts.UserSecurityCodeService;
 import org.example.carpooling.services.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,32 +49,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(long id, User currentUser) {
-        validateIsAdminOrOwner(id, currentUser);
+       validateIsAdminOrOwner(id, currentUser);
         return getById(id);
     }
     @Override
     public User getById(long id) {
         return userRepository.getByUserId(id);
     }
-
-
-//    @Override
-//    public User getByPhoneNumber(String phoneNumber, User user) {
-//        checkAccessPermissionString(phoneNumber, user);
-//        return userRepository.getByPhoneNumber(phoneNumber);
-//    }
-//
-//    @Override
-//    public User getByEmail(String email, User user) {
-//        checkAccessPermissionString(email, user);
-//        return userRepository.getByEmail(email);
-//    }
-//
-//    @Override
-//    public User getByUsername(String username, User user) {
-//        checkAccessPermissionString(username, user);
-//        return userRepository.getByUsername(username);
-//    }
 
     @Override
     public User getByUsername(String username) {
@@ -134,6 +116,27 @@ public class UserServiceImpl implements UserService {
         }
         userToUpdate.setUserStatus(userStatus);
         return userRepository.update(userToUpdate);
+    }
+
+    @Override
+    public ImageData saveImage(MultipartFile file, User user) throws IOException {
+        String url = uploadFile(file);
+        ImageData imageData = new ImageData();
+        imageData.setImage(url);
+        imageData.setUser(user);
+        return userRepository.saveImage(imageData);
+    }
+
+    @Override
+    public void verify(long id, long securityCode) {
+        User user = getById(id);
+        UserSecurityCode userSecurityCode = userSecurityCodeService.getCodeByUserId(id);
+        if (securityCode != userSecurityCode.getSecurityCode()) {
+            throw new OperationNotAllowedException(ACTIVATING_USER_IS_NOT_PERMITTED);
+        }
+        user.setUserStatus(UserStatus.ACTIVE);
+        userSecurityCodeService.delete(userSecurityCode);
+        userRepository.update(user);
     }
 
     private void validateIsAdminOrOwner(long id, User currentUser) {
@@ -207,26 +210,6 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
-    public ImageData saveImage(MultipartFile file, User user) throws IOException {
-        String url = uploadFile(file);
-        ImageData imageData = new ImageData();
-        imageData.setImage(url);
-        imageData.setUser(user);
-        return userRepository.saveImage(imageData);
-    }
-
-    @Override
-    public void verify(long id, long securityCode) {
-        User user = getById(id);
-        UserSecurityCode userSecurityCode = userSecurityCodeService.getCodeByUserId(id);
-        if (securityCode != userSecurityCode.getSecurityCode()) {
-            throw new OperationNotAllowedException(ACTIVATING_USER_IS_NOT_PERMITTED);
-        }
-        user.setUserStatus(UserStatus.ACTIVE);
-        userSecurityCodeService.delete(userSecurityCode);
-        userRepository.update(user);
-    }
 
     private String uploadFile(MultipartFile file) throws IOException {
         Map uploadResponse = cloudinary.uploader()

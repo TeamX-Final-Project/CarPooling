@@ -1,17 +1,18 @@
 package org.example.carpooling.controllers.rest;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.example.carpooling.controllers.rest.contracts.TravelRestController;
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.BlockedUserException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.exceptions.OperationNotAllowedException;
-import org.example.carpooling.services.AuthenticationService;
 import org.example.carpooling.mappers.TravelMapper;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.User;
-
 import org.example.carpooling.models.dto.TravelDto;
+import org.example.carpooling.services.AuthenticationService;
 import org.example.carpooling.services.contracts.TravelService;
 import org.example.carpooling.services.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@Tag(name = "Travel", description = "Travel REST controller")
 @RestController
 @RequestMapping("/api/travels")
-public class TravelRestController {
+public class TravelRestControllerImpl implements TravelRestController {
     public static final String PAGE_NUMBER = "0";
     public static final String SIZE_PAGE = "10";
     private final AuthenticationService authenticationService;
@@ -38,16 +40,17 @@ public class TravelRestController {
     private final TravelMapper travelMapper;
 
     @Autowired
-    public TravelRestController(TravelService travelService,
-                                TravelMapper travelMapper,
-                                AuthenticationService authenticationService,
-                                UserService userService) {
+    public TravelRestControllerImpl(TravelService travelService,
+                                    TravelMapper travelMapper,
+                                    AuthenticationService authenticationService,
+                                    UserService userService) {
         this.travelService = travelService;
         this.travelMapper = travelMapper;
         this.authenticationService = authenticationService;
         this.userService = userService;
     }
 
+    @Override
     @GetMapping
     public ResponseEntity<Page<TravelDto>> getAllTravels(@RequestParam(defaultValue = PAGE_NUMBER) int page,
                                                          @RequestParam(defaultValue = SIZE_PAGE) int size,
@@ -68,7 +71,7 @@ public class TravelRestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
-
+    @Override
     @GetMapping("/{id}")
     public Travel getTravelById(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
@@ -80,7 +83,7 @@ public class TravelRestController {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
     }
-
+    @Override
     @PostMapping
     public Travel createTravel(@RequestHeader HttpHeaders headers, @Valid @RequestBody TravelDto travelDto) {
         try {
@@ -93,7 +96,7 @@ public class TravelRestController {
             throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED, e.getMessage());
         }
     }
-
+    @Override
     @PutMapping("/{id}")
     public Travel updateTravel(@RequestHeader HttpHeaders headers,
                                @PathVariable int id,
@@ -108,7 +111,7 @@ public class TravelRestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
-
+    @Override
     @PutMapping("/delete:{id}")
     public Travel deleteTravelById(@RequestHeader HttpHeaders headers,
                                    @PathVariable int id) {
@@ -121,7 +124,7 @@ public class TravelRestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
-
+    @Override
     @PutMapping("/cancel:{id}")
     public Travel cancelTravel(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
