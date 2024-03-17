@@ -24,7 +24,7 @@
             <div class="header-cell" th:text="#{travels.endPoint}">Ending Point</div>
             <div class="header-cell" th:text="#{travels.departureTime}">Departure Time</div>
             <div class="header-cell" th:text="#{travels.freeSpots}">Free Spots</div>
-            <div class="header-cell" th:text="#{travels.button}">Actions</div>
+            <div class="header-cell" th:text="#{travels.button.details}">Details</div>
         </div>
         <div class="rowGroup" th:if="${isAuthenticated == true && (session.currentUser != travel.getCreator())}"
              th:each="travel : ${travels}">
@@ -33,7 +33,8 @@
             <div class="cell" th:text="${travel.endPoint}">Ending Point</div>
             <div class="cell" th:text="${travel.departureTime}">Departure Time</div>
             <div class="cell" th:text="${travel.freeSpots}">FreeSpots</div>
-            <div class="ui-button" th:text="#{travels.button.apply}">Actions</div>
+            <a class="link-info" href="#" th:href="@{/travels/{id}(id=${travel.getTravelId()})}"
+                  th:text="#{travels.button.details}">Details</a>
         </div>
     </div>
     <div class="table-borderless">
