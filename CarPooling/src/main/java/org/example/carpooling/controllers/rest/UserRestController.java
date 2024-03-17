@@ -1,5 +1,6 @@
 package org.example.carpooling.controllers.rest;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.example.carpooling.exceptions.*;
 import org.example.carpooling.services.AuthenticationService;
@@ -22,6 +23,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+@Tag(name = "User", description = "User REST controller")
 @RestController
 @RequestMapping("/api/users")
 public class UserRestController {
@@ -82,43 +85,6 @@ public class UserRestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
-
-//    @GetMapping("/email:{email}")
-//    public User getUserByEmail(@RequestHeader HttpHeaders headers, @PathVariable String email) {
-//        try {
-//            User user = authenticationHelper.tryGetUser(headers);
-//            return userService.getByEmail(email, user);
-//        } catch (AuthorizationException e) {
-//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-//        } catch (EntityNotFoundException e) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-//        }
-//    }
-
-//    @GetMapping("/username:{username}")
-//    public User getUserByUsername(@RequestHeader HttpHeaders headers, @PathVariable String username) {
-//        try {
-//            User user = authenticationHelper.tryGetUser(headers);
-//            return userService.getByUsername(username, user);
-//
-//        } catch (AuthorizationException e) {
-//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-//        } catch (EntityNotFoundException e) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-//        }
-//    }
-
-//    @GetMapping("/firstName:{firstName}")
-//    public User getUserByFirstName(@RequestHeader HttpHeaders headers, @PathVariable String firstName) {
-//        try {
-//            User user = authenticationHelper.tryGetUser(headers);
-//            return userService.getByFirstName(firstName, user);
-//        } catch (AuthorizationException e) {
-//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-//        } catch (EntityNotFoundException e) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-//        }
-//    }
 
     @PostMapping
     public UserDto register(@Valid @RequestBody UserDto userDto) {

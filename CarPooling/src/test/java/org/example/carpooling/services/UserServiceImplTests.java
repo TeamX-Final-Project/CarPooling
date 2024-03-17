@@ -9,7 +9,9 @@ import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserSecurityCode;
 import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.repositories.contracts.UserRepository;
+import org.example.carpooling.services.contracts.MailService;
 import org.example.carpooling.services.contracts.UserSecurityCodeService;
+import org.example.carpooling.services.contracts.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -252,25 +254,25 @@ public class UserServiceImplTests {
         Mockito.when(mockUserRepository.getByUserId(userId)).thenReturn(userToMakeAdmin);
 
         //Act
-        userService.changeUserAdminValue(userId,currentAdminUser, true);
+        userService.changeUserAdminValue(userId, currentAdminUser, true);
 
         //Assert
         Mockito.verify(mockUserRepository, Mockito.times(1)).update(userToMakeAdmin);
     }
 
     @Test
-    public void changeUserAdminValue_should_throw_authorization_exception_when_user_is_not_admin(){
+    public void changeUserAdminValue_should_throw_authorization_exception_when_user_is_not_admin() {
         //Arrange
         User currentUser = Helpers.createMockUser();
         long userId = 5;
 
         //Act and Assert
         assertThrows(AuthorizationException.class,
-                ()-> userService.changeUserAdminValue(userId,currentUser,false));
+                () -> userService.changeUserAdminValue(userId, currentUser, false));
     }
 
     @Test
-    public void changeUserAdminValue_should_throw_entity_attribute_already_set_exception(){
+    public void changeUserAdminValue_should_throw_entity_attribute_already_set_exception() {
         //Arrange
         long userId = 5;
         User currentAdminUser = Helpers.createMockAdmin();
@@ -281,7 +283,7 @@ public class UserServiceImplTests {
 
         //Act and Assert
         assertThrows(EntityAttributeAlreadySetException.class,
-                ()->userService.changeUserAdminValue(userId,currentAdminUser,true));
+                () -> userService.changeUserAdminValue(userId, currentAdminUser, true));
     }
 
     @Test
@@ -297,14 +299,14 @@ public class UserServiceImplTests {
         Mockito.when(mockUserRepository.getByUserId(userId)).thenReturn(userToBlock);
 
         //Act
-        userService.updateUserStatus(userId,currentAdminUser, UserStatus.BLOCKED);
+        userService.updateUserStatus(userId, currentAdminUser, UserStatus.BLOCKED);
 
         //Assert
         Mockito.verify(mockUserRepository, Mockito.times(1)).update(userToBlock);
     }
 
     @Test
-    public void updateUserStatus_should_throw_entity_attribute_already_set_exception(){
+    public void updateUserStatus_should_throw_entity_attribute_already_set_exception() {
         //Arrange
         long userId = 5;
         User currentAdminUser = Helpers.createMockAdmin();
@@ -316,13 +318,13 @@ public class UserServiceImplTests {
 
         //Act and Assert
         assertThrows(EntityAttributeAlreadySetException.class,
-                ()->userService.updateUserStatus(userId,currentAdminUser,UserStatus.BLOCKED));
+                () -> userService.updateUserStatus(userId, currentAdminUser, UserStatus.BLOCKED));
     }
 
     @Test
     public void saveImage_should_succeed() throws IOException {
         //Arrange
-        MultipartFile file = new MockMultipartFile("name","".getBytes());
+        MultipartFile file = new MockMultipartFile("name", "".getBytes());
         User user = Helpers.createMockUser();
         Map uploadResponse = new HashMap<String, String>();
 
@@ -330,14 +332,14 @@ public class UserServiceImplTests {
         Mockito.when(mockUploader.upload(Mockito.any(), Mockito.anyMap())).thenReturn(uploadResponse);
 
         //Act
-        userService.saveImage(file,user);
+        userService.saveImage(file, user);
 
         //Assertion
         Mockito.verify(mockUserRepository, Mockito.times(1)).saveImage(Mockito.any());
     }
 
     @Test
-    public void verify_should_set_user_status_to_active(){
+    public void verify_should_set_user_status_to_active() {
         //Arrange
         long userId = 5;
         long securityCode = 543453453;

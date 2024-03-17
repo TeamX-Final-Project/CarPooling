@@ -5,9 +5,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
+import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.dto.TravelDto;
+import org.example.carpooling.services.AuthenticationService;
 import org.example.carpooling.services.contracts.TravelService;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +28,12 @@ import java.util.List;
 @RequestMapping("/travels")
 public class TravelMvcController {
     private final TravelService travelService;
+    private final AuthenticationService authenticationService;
 
     @Autowired
-    public TravelMvcController(TravelService travelService) {
+    public TravelMvcController(TravelService travelService, AuthenticationService authenticationService) {
         this.travelService = travelService;
+        this.authenticationService = authenticationService;
     }
 
     @ModelAttribute("isAuthenticated")
@@ -51,10 +55,10 @@ public class TravelMvcController {
                                  @RequestParam(defaultValue = "startPoint", required = false, name = "sortBy") String sortBy,
                                  @RequestParam(defaultValue = "ASC", name = "orderBy") String orderBy,
                                  HttpSession session, Model model) {
-//        User currentUser = (User) session.getAttribute("currentUser");
-//        if (currentUser == null) {
-//            return "redirect:/auth/login";
-//        }
+
+        if (!populateIsAuthenticated(session)) {
+            return "redirect:/auth/login";
+        }
         TravelFilterOptions travelFilterOptions = new TravelFilterOptions(page, size, keyword, sortBy, orderBy);
 
         Page<TravelDto> travelDtos = travelService.getAllTravels(travelFilterOptions);
@@ -62,15 +66,18 @@ public class TravelMvcController {
 
         model.addAttribute("totalPages", travelDtos.getTotalPages());
         model.addAttribute("currentPage", page + 1);
-        model.addAttribute("totalItems", travelDtos.getTotalElements());
+        model.addAttribute("totalItems", travelDtos.getNumberOfElements());
         model.addAttribute("travels", travelDtos);
         return "TravelsView";
     }
 
     @GetMapping("/{id}")
-    public String showSingleTravel(Model model, @PathVariable long id) {
+    public String showSingleTravel(@PathVariable long id, Model model, HttpSession session) {
+        User user;
+        Travel travel = travelService.getById(id);
         try {
-            model.addAttribute("travel", travelService.getById(id));
+            user = authenticationService.tryGetCurrentUser(session);
+            model.addAttribute("travel", travel);
             return "TravelView";
         } catch (EntityNotFoundException e) {
             model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
