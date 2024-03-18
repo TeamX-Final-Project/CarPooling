@@ -25,12 +25,12 @@ public class TravelDto {
     private int freeSpots;
     @JsonIgnore
     private User userId;
-
     @JsonIgnore
     private String creator;
     @NotNull(message = "Travel status can't be empty")
     private TravelStatus travelStatus;
     private String travelComment;
+
 
     public TravelDto() {
     }

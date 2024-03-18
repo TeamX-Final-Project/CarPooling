@@ -1,26 +1,26 @@
-package org.example.carpooling.models;
+package org.example.carpooling.models.dto;
 
-import java.util.Optional;
+public class TravelFilterDto {
 
-public class TravelFilterOptions {
     private int page;
     private int size;
     private String keyword;
+    private String startPoint;
+    private String endPoint;
     private String sortBy;
     private String orderBy;
 
-    public TravelFilterOptions(
-            Integer page,
-            Integer size,
-            String keyword,
-            String sortBy,
-            String orderBy) {
+    public TravelFilterDto() {
+    }
+
+    public TravelFilterDto(int page, int size, String keyword, String startPoint, String endPoint, String sortBy, String orderBy) {
         this.page = page;
         this.size = size;
         this.keyword = keyword;
+        this.startPoint = startPoint;
+        this.endPoint = endPoint;
         this.sortBy = sortBy;
         this.orderBy = orderBy;
-
     }
 
     public int getPage() {
@@ -47,6 +47,22 @@ public class TravelFilterOptions {
         this.keyword = keyword;
     }
 
+    public String getStartPoint() {
+        return startPoint;
+    }
+
+    public void setStartPoint(String startPoint) {
+        this.startPoint = startPoint;
+    }
+
+    public String getEndPoint() {
+        return endPoint;
+    }
+
+    public void setEndPoint(String endPoint) {
+        this.endPoint = endPoint;
+    }
+
     public String getSortBy() {
         return sortBy;
     }
@@ -62,5 +78,4 @@ public class TravelFilterOptions {
     public void setOrderBy(String orderBy) {
         this.orderBy = orderBy;
     }
-
 }

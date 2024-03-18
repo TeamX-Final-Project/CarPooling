@@ -9,6 +9,7 @@ import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.dto.TravelDto;
+import org.example.carpooling.models.dto.TravelFilterDto;
 import org.example.carpooling.services.AuthenticationService;
 import org.example.carpooling.services.contracts.TravelService;
 import org.hibernate.Session;
@@ -48,18 +49,31 @@ public class TravelMvcController {
         return request.getRequestURI();
     }
 
-    @GetMapping()
+    @GetMapping
     public String showAllTravels(@RequestParam(defaultValue = "0", name = "page") int page,
                                  @RequestParam(defaultValue = "10", name = "size") int size,
                                  @RequestParam(defaultValue = "", required = false, name = "keyword") String keyword,
                                  @RequestParam(defaultValue = "startPoint", required = false, name = "sortBy") String sortBy,
-                                 @RequestParam(defaultValue = "ASC", name = "orderBy") String orderBy,
-                                 HttpSession session, Model model) {
+                                 @RequestParam(defaultValue = "asc", name = "orderBy") String orderBy,
+                                 @ModelAttribute("travelFilterOptions") TravelFilterDto travelFilterDto,
+                                 HttpSession session,
+                                 Model model) {
 
         if (!populateIsAuthenticated(session)) {
             return "redirect:/auth/login";
         }
-        TravelFilterOptions travelFilterOptions = new TravelFilterOptions(page, size, keyword, sortBy, orderBy);
+        travelFilterDto.setPage(page);
+        travelFilterDto.setSize(size);
+        travelFilterDto.setKeyword(keyword);
+        travelFilterDto.setSortBy(sortBy);
+        travelFilterDto.setOrderBy(orderBy);
+
+        TravelFilterOptions travelFilterOptions = new TravelFilterOptions(
+                travelFilterDto.getPage(),
+                travelFilterDto.getSize(),
+                travelFilterDto.getKeyword(),
+                travelFilterDto.getSortBy(),
+                travelFilterDto.getOrderBy());
 
         Page<TravelDto> travelDtos = travelService.getAllTravels(travelFilterOptions);
 
