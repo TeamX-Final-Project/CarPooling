@@ -37,9 +37,20 @@
                                                 <br/>
                                                 <label class="label-error" th:errors="*{endPoint}">EndPoint error placeholder</label>
                                                 <br/>
-                                                <label type="text" th:field="#{travels.departureTime}"></label>
+                                                <script th:inline="javascript">
+                                                    function formatDateTime() {
+                                                        // Get the input value
+                                                        var input = document.getElementById("departureTime").value;
+                                                        // Format the input value to match the expected format (yyyy-MM-ddTHH:mm)
+                                                        var formattedDateTime = input.replace("T", " ").concat(":00");
+
+                                                        // Set the formatted value back to the input field
+                                                        document.getElementById("departureTime").value = formattedDateTime;
+                                                    }
+                                                </script>
+                                                <label type="text" th:text="#{travels.departureTime}"></label>
                                                 <br/>
-                                                <input th:datetime-local="datetime-local" th:field="*{departureTime}">
+                                                <input type="datetime-local" id="departureTime" name="departureTime" th:field="*{departureTime}" />
                                                 <br/>
                                                 <label class="label-error" th:errors="*{departureTime}">Departure time error placeholder</label>
                                                 <br/>
@@ -69,7 +80,7 @@
                                                 <label class="label-error" th:errors="*{travelComment}">Comment error placeholder</label>
                                                 <br/>
                                                 <br/>
-                                                <button type="submit" value="create">Create</button>
+                                                <button type="submit" onclick="formatDateTime()" value="create">Create</button>
                                             </form>
                                         </div>
                                     </div>
