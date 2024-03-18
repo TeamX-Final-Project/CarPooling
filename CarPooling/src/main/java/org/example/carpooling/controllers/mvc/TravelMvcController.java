@@ -121,7 +121,7 @@ public class TravelMvcController {
         return "CreateTravel";
     }
     @PostMapping("/new")
-    public String createTravelView(@ModelAttribute("travel") TravelDto travelDto,
+    public String createTravelView(@Valid @ModelAttribute("travel") TravelDto travelDto,
                                    BindingResult bindingResult,
                                    Model model,
                                    HttpSession session){
