@@ -395,6 +395,34 @@ label {
     display: inline-block;
 }
 
+.book_section .book_form .btn-box {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.book_section .book_form .btn-box button {
+    display: inline-block;
+    padding: 8px 65px;
+    background-color: #ff7070;
+    border: 1px solid #ff7070;
+    color: #ffffff;
+    border-radius: 0;
+    margin-top: 15px;
+}
+
+.book_section .book_form .btn-box button:hover {
+    background-color: transparent;
+    color: #ff7070;
+}
+
+
+
+
+
 button {
     border-radius: 0;
 }
@@ -502,6 +530,8 @@ legend + * {
     outline-offset: -2px;
     -webkit-appearance: textfield;
 }
+
+
 
 /* rtl:raw:
 [type="tel"],
