@@ -3,12 +3,15 @@ package org.example.carpooling.controllers.mvc;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
+import org.example.carpooling.mappers.TravelMapper;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.dto.TravelDto;
+import org.example.carpooling.models.dto.TravelFilterDto;
 import org.example.carpooling.services.AuthenticationService;
 import org.example.carpooling.services.contracts.TravelService;
 import org.hibernate.Session;
@@ -19,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -30,10 +34,14 @@ public class TravelMvcController {
     private final TravelService travelService;
     private final AuthenticationService authenticationService;
 
+    private final TravelMapper travelMapper;
+
     @Autowired
-    public TravelMvcController(TravelService travelService, AuthenticationService authenticationService) {
+    public TravelMvcController(TravelService travelService, AuthenticationService authenticationService,
+                               TravelMapper travelMapper) {
         this.travelService = travelService;
         this.authenticationService = authenticationService;
+        this.travelMapper = travelMapper;
     }
 
     @ModelAttribute("isAuthenticated")
@@ -48,18 +56,31 @@ public class TravelMvcController {
         return request.getRequestURI();
     }
 
-    @GetMapping()
+    @GetMapping
     public String showAllTravels(@RequestParam(defaultValue = "0", name = "page") int page,
                                  @RequestParam(defaultValue = "10", name = "size") int size,
                                  @RequestParam(defaultValue = "", required = false, name = "keyword") String keyword,
                                  @RequestParam(defaultValue = "startPoint", required = false, name = "sortBy") String sortBy,
-                                 @RequestParam(defaultValue = "ASC", name = "orderBy") String orderBy,
-                                 HttpSession session, Model model) {
+                                 @RequestParam(defaultValue = "asc", name = "orderBy") String orderBy,
+                                 @ModelAttribute("travelFilterOptions") TravelFilterDto travelFilterDto,
+                                 HttpSession session,
+                                 Model model) {
 
         if (!populateIsAuthenticated(session)) {
             return "redirect:/auth/login";
         }
-        TravelFilterOptions travelFilterOptions = new TravelFilterOptions(page, size, keyword, sortBy, orderBy);
+        travelFilterDto.setPage(page);
+        travelFilterDto.setSize(size);
+        travelFilterDto.setKeyword(keyword);
+        travelFilterDto.setSortBy(sortBy);
+        travelFilterDto.setOrderBy(orderBy);
+
+        TravelFilterOptions travelFilterOptions = new TravelFilterOptions(
+                travelFilterDto.getPage(),
+                travelFilterDto.getSize(),
+                travelFilterDto.getKeyword(),
+                travelFilterDto.getSortBy(),
+                travelFilterDto.getOrderBy());
 
         Page<TravelDto> travelDtos = travelService.getAllTravels(travelFilterOptions);
 
@@ -88,6 +109,41 @@ public class TravelMvcController {
             model.addAttribute("error", e.getMessage());
             return "ErrorView";
         }
-
+    }
+    @GetMapping("/new")
+    public String createTravelView(Model model, HttpSession session){
+        try {
+            authenticationService.tryGetCurrentUser(session);
+        } catch (AuthorizationException e){
+            return "redirect:/auth/login";
+        }
+        model.addAttribute("travel", new TravelDto());
+        return "CreateTravel";
+    }
+    @PostMapping("/new")
+    public String createTravelView(@ModelAttribute("travel") TravelDto travelDto,
+                                   BindingResult bindingResult,
+                                   Model model,
+                                   HttpSession session){
+        User user;
+        try {
+            user = authenticationService.tryGetCurrentUser(session);
+        } catch (AuthorizationException e){
+            return "redirect:/auth/login";
+        }
+        if (bindingResult.hasErrors()){
+            return "CreateTravel";
+        }
+        try{
+            Travel travel = travelMapper.fromDto(travelDto);
+            travelService.create(travel,user);
+            return "TravelsView";
+        } catch (EntityNotFoundException e){
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "ErrorView";
+        } catch (AuthorizationException e){
+            return "redirect:/auth/login";
+        }
     }
 }

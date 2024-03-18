@@ -164,68 +164,148 @@
 
 
     <!-- book section -->
+<!--<form method="get" th:object="travelFilterOptions" th:action="@{/travels}" action="#">-->
+<!--    <input class="form-control" th:field="*{travelFilterOptions.getPage()}">-->
+<!--    <input class="form-control" th:field="*{travelFilterOptions.getSize()}">-->
+<!--    <section class="book_section ">-->
+<!--        <div class="container">-->
+<!--            <div class="col-md-11 col=lg-9 mx-auto px-0">-->
+<!--                <div class="book_form ">-->
+<!--                    <form>-->
+<!--                        <div class="form-row">-->
+<!--                            <div class="form-group col-md-6">-->
+<!--                                <div class="input-group ">-->
+<!--                                    <div class="input-group-prepend">-->
+<!--                                        <div class="input-group-text">-->
+<!--                                            <i class="fa fa-map-marker" aria-hidden="true"></i>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <input class="form-control" th:field="*{travelFilterOptions.getKeyword()}"-->
+<!--                                           placeholder="Pickup Location ">-->
+<!--                                    <input class="form-control" th:field="*{travelFilterOptions.getKeyword()}"-->
+<!--                                           placeholder="Drop Location ">-->
+<!--                                    <br/>-->
+<!--                                    <select th:field="*{travelFilterOptions.getSortBy()}">-->
+<!--                                        <option value="">SortBy</option>-->
+<!--                                        <option value="keyword">Pickup Location</option>-->
+<!--                                        <option value="keyword">Drop Location</option>-->
+<!--                                    </select>-->
+<!--                                    <select th:field="*{travelFilterOptions.getOrderBy()}">-->
+<!--                                        <option value="">OrderBy</option>-->
+<!--                                        <option value="keyword">Ascending</option>-->
+<!--                                        <option value="keyword">Descending</option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash;                            <div class="form-group col-md-6">&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                <div class="input-group ">&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                    <div class="input-group-prepend">&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                        <div class="input-group-text">&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                            <i class="fa fa-map-marker" aria-hidden="true"></i>&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                        </div>&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                    <input type="text" class="form-control" id="inputLocation"&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                           placeholder="Drop Location">&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--                            &lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash;                        <div class="form-row">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                            <div class="form-group col-md-6">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                <div class="input-group ">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                    <div class="input-group-prepend">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                        <div class="input-group-text">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                            <i class="fa fa-car" aria-hidden="true"></i>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                        </div>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                    <input type="text" class="form-control" method="get" th:object=""&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                           id="inputDestination"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                           placeholder="Car Type">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                            <div class="form-group col-md-6">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                <div class="input-group ">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                    <div class="input-group-prepend">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                        <div class="input-group-text">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                            <i class="fa fa-phone" aria-hidden="true"></i>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                        </div>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                    <input type="text" class="form-control" id="inputDestination"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                           placeholder="Phone Number">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        </div>&ndash;&gt;-->
 
-    <section class="book_section ">
-        <div class="container">
-            <div class="col-md-11 col=lg-9 mx-auto px-0">
-                <div class="book_form ">
-                    <form>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <div class="input-group ">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i class="fa fa-car" aria-hidden="true"></i>
-                                        </div>
-                                    </div>
-                                    <input type="text" class="form-control" id="inputDestination"
-                                           placeholder="Car Type">
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <div class="input-group ">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i class="fa fa-phone" aria-hidden="true"></i>
-                                        </div>
-                                    </div>
-                                    <input type="text" class="form-control" id="inputDestination"
-                                           placeholder="Phone Number">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <div class="input-group ">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                        </div>
-                                    </div>
-                                    <input type="text" class="form-control" id="inputDestination"
-                                           placeholder="Pickup Location ">
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <div class="input-group ">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                        </div>
-                                    </div>
-                                    <input type="text" class="form-control" id="inputLocation"
-                                           placeholder="Drop Location">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="btn-box">
-                            <button type="submit" class="">Book Now</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+<!--                        <div class="btn-box">-->
+<!--                            <button type="submit" class="">Book Now</button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+<!--</form>-->
+
+<!--    <section class="book_section ">-->
+<!--        <div class="container">-->
+<!--            <div class="col-md-11 col=lg-9 mx-auto px-0">-->
+<!--                <div class="book_form ">-->
+<!--                    <form>-->
+<!--                        <div class="form-row">-->
+<!--                            <div class="form-group col-md-6">-->
+<!--                                <div class="input-group ">-->
+<!--                                    <div class="input-group-prepend">-->
+<!--                                        <div class="input-group-text">-->
+<!--                                            <i class="fa fa-car" aria-hidden="true"></i>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <input type="text" class="form-control" id="inputDestination"-->
+<!--                                           placeholder="Car Type">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group col-md-6">-->
+<!--                                <div class="input-group ">-->
+<!--                                    <div class="input-group-prepend">-->
+<!--                                        <div class="input-group-text">-->
+<!--                                            <i class="fa fa-phone" aria-hidden="true"></i>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <input type="text" class="form-control" id="inputDestination"-->
+<!--                                           placeholder="Phone Number">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="form-row">-->
+<!--                            <div class="form-group col-md-6">-->
+<!--                                <div class="input-group ">-->
+<!--                                    <div class="input-group-prepend">-->
+<!--                                        <div class="input-group-text">-->
+<!--                                            <i class="fa fa-map-marker" aria-hidden="true"></i>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <input type="text" class="form-control" id="inputDestination"-->
+<!--                                           placeholder="Pickup Location ">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-group col-md-6">-->
+<!--                                <div class="input-group ">-->
+<!--                                    <div class="input-group-prepend">-->
+<!--                                        <div class="input-group-text">-->
+<!--                                            <i class="fa fa-map-marker" aria-hidden="true"></i>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <input type="text" class="form-control" id="inputLocation"-->
+<!--                                           placeholder="Drop Location">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="btn-box">-->
+<!--                            <button type="submit" class="">Book Now</button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
 
 
     <!-- end book section -->
