@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<form th:replace="~{CommonForm.html::head('New Travel')}">
+
+</form>
+<link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+<body>
+<div class="hero_area">
+    <form th:replace="~{CommonForm.html::header}"></form>
+    <form th:replace="~{CommonForm.html::slider}"></form>
+</div>
+<h1 th:align="center">Create Travel</h1>
+<br/>
+    <div class="col-md-8 col-xl-6 mx-auto">
+        <div class="row">
+            <div class="col-md-12 grid-margin">
+                <div class="card rounded">
+                    <div class="card-header">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center">
+                                <div class="ms-2 text-center">
+                                    <div class="table-borderless">
+                                        <div class="header-cell">
+                                            <form th:action="@{/travels/new}" th:object="${travel}" action="#"
+                                                  method="post">
+                                                <label th:text="#{travels.startPoint}">Starting point</label>
+                                                <br/>
+                                                <input type="text" th:field="*{startPoint}">
+                                                <br/>
+                                                <label th:text="#{travels.endPoint}"></label>
+                                                <br/>
+                                                <input type="text" th:field="*{endPoint}">
+                                                <br/>
+                                                <label th:text="#{travels.departureTime}"></label>
+                                                <br/>
+                                                <input type="text" th:field="*{departureTime}">
+                                                <br/>
+                                                <label th:text="#{travels.freeSpots}"></label>
+                                                <br/>
+                                                <input type="text" th:field="*{freeSpots}">
+                                                <br/>
+                                                <label th:text="#{travels.status}"></label>
+                                                <br/>
+                                                <input type="text" th:field="*{travelStatus}">
+                                                <br/>
+                                                <label th:text="#{travels.comment}"></label>
+                                                <br/>
+
+                                                <input type="text" th:field="*{travelComment}">
+                                                <br/>
+                                                <br/>
+                                                <button type="submit" value="create">Create</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
