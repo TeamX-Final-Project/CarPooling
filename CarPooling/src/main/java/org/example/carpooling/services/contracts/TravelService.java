@@ -10,7 +10,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface TravelService {
-    List<TravelDto> getAllTravels(TravelFilterOptions travelFilterOptions);
+    Page<TravelDto> getAllTravels(TravelFilterOptions travelFilterOptions);
 
     Travel getById(long id);//, User user);
 

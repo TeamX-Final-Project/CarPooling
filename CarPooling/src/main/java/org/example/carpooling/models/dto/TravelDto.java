@@ -1,8 +1,10 @@
 package org.example.carpooling.models.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.example.carpooling.models.User;
 import org.example.carpooling.models.enums.TravelStatus;
 
 import java.sql.Timestamp;
@@ -10,6 +12,9 @@ import java.util.Objects;
 
 public class TravelDto {
 
+
+    @JsonIgnore
+    private long travelId;
     @NotNull(message = "Start point can't be empty")
     private String startPoint;
     @NotNull(message = "End point can't be empty")
@@ -18,13 +23,25 @@ public class TravelDto {
     private Timestamp departureTime;
     @NotNull(message = "Free spots can't be empty")
     private int freeSpots;
+    @JsonIgnore
+    private User userId;
+    @JsonIgnore
+    private String creator;
     @NotNull(message = "Travel status can't be empty")
     private TravelStatus travelStatus;
     private String travelComment;
 
+
     public TravelDto() {
     }
 
+    public long getTravelId() {
+        return travelId;
+    }
+
+    public void setTravelId(long travelId) {
+        this.travelId = travelId;
+    }
 
     public String getStartPoint() {
         return startPoint;
@@ -55,6 +72,22 @@ public class TravelDto {
 
     public void setFreeSpots(int freeSpots) {
         this.freeSpots = freeSpots;
+    }
+
+    public User getUserId() {
+        return userId;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 
     public TravelStatus getTravelStatus() {

@@ -24,6 +24,7 @@
     <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"/>
     <!-- responsive style -->
     <link href="../static/css/responsive.css" th:href="@{/css/responsive.css}" rel="stylesheet"/>
+
 </head>
 <body>
     <!-- header section starts -->
@@ -172,30 +173,6 @@
                                     <div class="input-group ">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
-                                                <i class="fa fa-car" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-                                        <input type="text" class="form-control" id="inputDestination"
-                                               placeholder="Car Type">
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <div class="input-group ">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <i class="fa fa-phone" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-                                        <input type="text" class="form-control" id="inputDestination"
-                                               placeholder="Phone Number">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <div class="input-group ">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
                                                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                                             </div>
                                         </div>
@@ -215,6 +192,31 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <div class="input-group ">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-car" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" method="get" th:object="" id="inputDestination"
+                                               placeholder="Car Type">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="input-group ">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-phone" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" id="inputDestination"
+                                               placeholder="Phone Number">
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="btn-box">
                                 <button type="submit" class="">Book Now</button>
                             </div>

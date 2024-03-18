@@ -9,7 +9,81 @@
     <form th:replace="~{CommonForm.html::header}"></form>
     <form th:replace="~{CommonForm.html::slider}"></form>
 </div>
-<form th:replace="~{CommonForm.html::searchTravel}"></form>
+
+<form method="get" th:object="${travelFilterOptions}" th:action="@{/travels}" action="#">
+    <section class="book_section ">
+        <div class="container">
+            <div class="col-md-11 col=lg-9 mx-auto px-0">
+                <div class="book_form ">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <div class="input-group ">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <input class="form-control" th:field="*{startPoint}"
+                                           placeholder="Pickup Location ">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <div class="input-group ">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <input class="form-control" th:field="*{endPoint}"
+                                           placeholder="Drop Location ">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <div class="input-group ">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <img th:src="'https://icons.veryicon.com/png/o/system/alibaba-cloud-console-official-icon-library/sort-45.png'"
+                                                 alt="OrderBy Icon" width="20" height="20">
+                                        </div>
+                                    </div>
+                                    <select th:field="*{sortBy}">
+                                        <option value="">SortBy</option>
+                                        <option value="startPoint">Pickup Location</option>
+                                        <option value="endPoint">Drop Location</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <div class="input-group ">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <img th:src="'https://icons.veryicon.com/png/o/commerce-shopping/excellent-fresh-crm/order-54.png'"
+                                                 alt="OrderBy Icon" width="20" height="20">
+                                        </div>
+                                    </div>
+
+                                    <select th:field="*{orderBy}">
+                                        <option value="">OrderBy</option>
+                                        <option value="asc">Ascending</option>
+                                        <option value="desc">Descending</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="btn-box">
+                            <button type="submit" class="">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+
 
 <div class="body-content" th:if="${travels.isEmpty()}">
     <h2 th:text="#{travels.title.empty}">No Travels</h2>
@@ -19,37 +93,40 @@
 
     <div class="table">
         <div class="header">
+            <div class="header-cell" th:text="#{travels.driver}">Driver(Rating)</div>
             <div class="header-cell" th:text="#{travels.startPoint}">Starting Point</div>
             <div class="header-cell" th:text="#{travels.endPoint}">Ending Point</div>
             <div class="header-cell" th:text="#{travels.departureTime}">Departure Time</div>
             <div class="header-cell" th:text="#{travels.freeSpots}">Free Spots</div>
-            <div class="header-cell" th:text="#{travels.button}">Button</div>
+            <div class="header-cell" th:text="#{travels.button.details}">Details</div>
         </div>
-        <div class="rowGroup" th:each="travel : ${travels}">
+        <div class="rowGroup" th:if="${isAuthenticated == true && (session.currentUser != travel.getCreator())}"
+             th:each="travel : ${travels}">
+            <div class="cell" th:text="${travel.creator}">Driver(Rating)</div>
             <div class="cell" th:text="${travel.startPoint}">Starting Point</div>
             <div class="cell" th:text="${travel.endPoint}">Ending Point</div>
             <div class="cell" th:text="${travel.departureTime}">Departure Time</div>
             <div class="cell" th:text="${travel.freeSpots}">FreeSpots</div>
-            <div class="ui-button" th:text="#{travels.button.apply}">Actions</div>
+            <a class="link-info" href="#" th:href="@{/travels/{id}(id=${travel.getTravelId()})}"
+               th:text="#{travels.button.details}">Details</a>
         </div>
     </div>
     <div class="table-borderless">
         <div class="rowGroup">
-            <div class="cell" th:if="${totalPages>1}">
-                Total Rows: [[${totalItems}]]
+            <div class="cell"> Page:</div>
+            <div class="cell align-content-lg-center">
+                <a th:if="${currentPage>1}" th:href="@{'/travels?page=' + ${currentPage - 2}}"><<</a>
+
             </div>
-            <div class="cell">
-                <a th:if="${currentPage <= totalPages && currentPage!=0}" th:href="@{'/travels?page=' + ${currentPage - 1}}"><<</a>
-            </div>
-            <div class="cell">
-                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-                    <a th:if="${currentPage != i}" th:href="@{'/travels?page=' + ${i}}">[[${i}]]</a>
-                    <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+            <div class="cell align-content-lg-center">
+                <span>
+<!--                    <a th:if="${currentPage != i}" th:href="@{'/travels?page=' + ${i}}">[[${i}]]</a>-->
+                    <span th:if="${currentPage>0}">[[${currentPage}]]</span>
                 </span>
             </div>
-            <div class="cell">
-                <a th:if="${currentPage < totalPages}" th:href="@{'/travels?page=' + ${currentPage + 1}}">>></a>
-                <span th:unless="${currentPage == totalPages}"></span>
+            <div class="cell align-content-lg-center">
+                <a th:href="@{'/travels?page=' + ${currentPage}}">>></a>
+                <!--                <span th:unless="${currentPage == totalPages}"></span>-->
             </div>
         </div>
     </div>

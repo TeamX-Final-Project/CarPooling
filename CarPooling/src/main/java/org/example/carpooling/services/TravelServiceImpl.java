@@ -16,6 +16,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TravelServiceImpl implements TravelService {
@@ -32,7 +33,7 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
-    public List<TravelDto> getAllTravels(TravelFilterOptions travelFilterOptions) {
+    public Page<TravelDto> getAllTravels(TravelFilterOptions travelFilterOptions) {
         Pageable pageable = PageRequest.of(travelFilterOptions.getPage(),
                 travelFilterOptions.getSize(),
                 Sort.Direction.fromString(travelFilterOptions.getOrderBy()),
@@ -40,27 +41,34 @@ public class TravelServiceImpl implements TravelService {
         Specification<Travel> specification = Specification.where(TravelSpecifications.
                 hasKeyword(travelFilterOptions.getKeyword(), travelFilterOptions.getSortBy()));
         Page<Travel> travelPage = travelRepository.findAll(specification, pageable);
-        return travelPage.getContent().stream().map(this::convertToDto).toList();
+
+        return new PageImpl<>(travelPage.stream().filter(travel -> travel.getTravelStatus().equals(TravelStatus.AVAILABLE))
+                .map(this::convertToDto).toList());
     }
 
     private TravelDto convertToDto(Travel travel) {
         TravelDto travelDTO = new TravelDto();
+        travelDTO.setTravelId(travel.getTravelId());
         travelDTO.setStartPoint(travel.getStartPoint());
         travelDTO.setEndPoint(travel.getEndPoint());
         travelDTO.setDepartureTime(travel.getDepartureTime());
         travelDTO.setFreeSpots(travel.getFreeSpots());
+        travelDTO.setUserId(travel.getUserId());
+        travelDTO.setCreator(travel.getUserId().getUsername());
+        travelDTO.setTravelStatus(travel.getTravelStatus());
+        travelDTO.setTravelComment(travel.getTravelComment());
         return travelDTO;
     }
 
     @Override
-    public Travel getById(long id){//, User user) {
+    public Travel getById(long id) {//, User user) {
         //TODO create the logic for the authorization to search travel by ID but need to finish the MVC controller
         // for Authentication and User then uncomment this code
 //        if (!UserStatus.ACTIVE.equals(user.getUserStatus())){
 //            throw new AuthorizationException(YOUR_STATUS_IS_NOT_ACTIVE_TO_REQUEST_THIS_INFORMATION_ERROR);
 //        }
         Travel travel = travelRepository.findById(id);
-        if (travel == null){
+        if (travel == null) {
             throw new EntityNotFoundException(TRAVEL, id);
         }
         return travel;
@@ -87,6 +95,7 @@ public class TravelServiceImpl implements TravelService {
         Travel travelToDelete = getById(id);
         checkModifyPermission(userModifier, travelToDelete);
         travelToDelete.setDeleted(true);
+        travelToDelete.setTravelStatus(TravelStatus.DELETED);
         return travelRepository.save(travelToDelete);
     }
 
