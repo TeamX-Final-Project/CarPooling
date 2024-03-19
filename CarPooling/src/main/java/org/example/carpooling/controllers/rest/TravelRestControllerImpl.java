@@ -71,18 +71,20 @@ public class TravelRestControllerImpl implements TravelRestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
+
     @Override
     @GetMapping("/{id}")
     public Travel getTravelById(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
             User user = authenticationService.tryGetUser(headers);
-            return travelService.getById(id);//,user);
+            return travelService.getById(id, user);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
     }
+
     @Override
     @PostMapping
     public Travel createTravel(@RequestHeader HttpHeaders headers, @Valid @RequestBody TravelDto travelDto) {
@@ -96,6 +98,7 @@ public class TravelRestControllerImpl implements TravelRestController {
             throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED, e.getMessage());
         }
     }
+
     @Override
     @PutMapping("/{id}")
     public Travel updateTravel(@RequestHeader HttpHeaders headers,
@@ -103,7 +106,7 @@ public class TravelRestControllerImpl implements TravelRestController {
                                @Valid @RequestBody TravelDto travelDto) {
         try {
             User userModifier = authenticationService.tryGetUser(headers);
-            Travel travelToUpdate = travelMapper.fromDto(id, travelDto);
+            Travel travelToUpdate = travelMapper.fromDto(id, travelDto, userModifier);
             return travelService.update(userModifier, travelToUpdate);
         } catch (AuthorizationException | BlockedUserException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
@@ -111,6 +114,7 @@ public class TravelRestControllerImpl implements TravelRestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
+
     @Override
     @PutMapping("/delete:{id}")
     public Travel deleteTravelById(@RequestHeader HttpHeaders headers,
@@ -124,6 +128,7 @@ public class TravelRestControllerImpl implements TravelRestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
+
     @Override
     @PutMapping("/cancel:{id}")
     public Travel cancelTravel(@RequestHeader HttpHeaders headers, @PathVariable int id) {
@@ -136,7 +141,6 @@ public class TravelRestControllerImpl implements TravelRestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
-
 
 
 //    @PutMapping("/approve:{id}")

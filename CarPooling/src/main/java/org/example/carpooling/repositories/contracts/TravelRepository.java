@@ -16,17 +16,19 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Repository
 public interface TravelRepository extends JpaRepository<Travel, Long> {
 
-    Page<Travel> findAll(Specification<Travel> specification, Pageable pageable);
+    Page<Travel> findAll(Specification<Travel> specification, @Param("status") Pageable pageable);
 
     Travel findById(long id);
+
     List<Travel> findByUserIdAndTravelStatus(User user, TravelStatus status);
 
 
     @Query("select COUNT (t) from Travel t where t.userId = :user and t.travelStatus = :status")
-    int countCompletedTravelsAsDriver(@Param("user")User user, @Param("status")TravelStatus status);
+    int countCompletedTravelsAsDriver(@Param("user") User user, @Param("status") TravelStatus status);
 
     @Query("SELECT COUNT(t) FROM Travel t WHERE EXISTS (" +
             "SELECT 1 FROM Candidates c WHERE c.user = :user " +
@@ -37,10 +39,9 @@ public interface TravelRepository extends JpaRepository<Travel, Long> {
             @Param("candidateStatus") CandidateStatus candidateStatus,
             @Param("travelStatus") TravelStatus travelStatus
     );
+
     @Query("select COUNT (t) from Travel t where t.travelStatus= :travelStatus")
     int countCompletedTravels(@Param("travelStatus") TravelStatus travelStatus);
-
-
 
 
 }
