@@ -13,7 +13,7 @@ import java.util.List;
 public interface TravelService {
     Page<TravelDto> getAllTravels(TravelFilterOptions travelFilterOptions);
 
-    Travel getById(long id);//, User user);
+    Travel getById(long id, User user);
 
     Travel create(Travel travel, User creator);
 

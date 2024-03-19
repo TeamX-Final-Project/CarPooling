@@ -1,6 +1,8 @@
 package org.example.carpooling.models.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -8,6 +10,7 @@ import org.example.carpooling.models.User;
 import org.example.carpooling.models.enums.TravelStatus;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class TravelDto {
@@ -19,8 +22,9 @@ public class TravelDto {
     private String startPoint;
     @NotNull(message = "End point can't be empty")
     private String endPoint;
+
     @NotNull(message = "Departure time can't be empty")
-    private Timestamp departureTime;
+    private LocalDateTime departureTime;
     @NotNull(message = "Free spots can't be empty")
     private int freeSpots;
     @JsonIgnore
@@ -59,10 +63,10 @@ public class TravelDto {
         this.endPoint = endPoint;
     }
 
-    public Timestamp getDepartureTime() {
+    public LocalDateTime getDepartureTime() {
         return departureTime;
     }
-    public void setDepartureTime(Timestamp departureTime) {
+    public void setDepartureTime(LocalDateTime departureTime) {
         this.departureTime = departureTime;
     }
 

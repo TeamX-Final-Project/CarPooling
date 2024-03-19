@@ -67,7 +67,7 @@ public class FeedbackMvcController {
             model.addAttribute("feedback", new FeedbackDto());
             model.addAttribute("travelId", travelId);
             model.addAttribute("receiverUserId", receiverUserId);
-            model.addAttribute("travel", travelService.getById(travelId));
+            model.addAttribute("travel", travelService.getById(travelId, currentUser));
             model.addAttribute("receiver", userService.getById(receiverUserId));
             return "AddFeedback";
         } catch (AuthorizationException e) {
@@ -92,7 +92,7 @@ public class FeedbackMvcController {
             if (currentUser == null) {
                 return "redirect:/auth/login";
             }
-            Travel travel = travelService.getById(travelId);
+            Travel travel = travelService.getById(travelId, currentUser);
             User receiverUser = userService.getById(receiverUserId);
             model.addAttribute("travel", travel);
             model.addAttribute("receiver", receiverUser);

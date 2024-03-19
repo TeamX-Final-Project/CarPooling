@@ -63,12 +63,11 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
-    public Travel getById(long id) {//, User user) {
-        //TODO create the logic for the authorization to search travel by ID but need to finish the MVC controller
-        // for Authentication and User then uncomment this code
-//        if (!UserStatus.ACTIVE.equals(user.getUserStatus())){
-//            throw new AuthorizationException(YOUR_STATUS_IS_NOT_ACTIVE_TO_REQUEST_THIS_INFORMATION_ERROR);
-//        }
+    public Travel getById(long id, User user) {
+
+        if (!UserStatus.ACTIVE.equals(user.getUserStatus())){
+            throw new AuthorizationException(YOUR_STATUS_IS_NOT_ACTIVE_TO_REQUEST_THIS_INFORMATION_ERROR);
+        }
         Travel travel = travelRepository.findById(id);
         if (travel == null) {
             throw new EntityNotFoundException(TRAVEL, id);
@@ -94,7 +93,7 @@ public class TravelServiceImpl implements TravelService {
 
     @Override
     public Travel deleteTravelById(int id, User userModifier) {
-        Travel travelToDelete = getById(id);
+        Travel travelToDelete = getById(id, userModifier);
         checkModifyPermission(userModifier, travelToDelete);
         travelToDelete.setDeleted(true);
         travelToDelete.setTravelStatus(TravelStatus.DELETED);
@@ -103,7 +102,7 @@ public class TravelServiceImpl implements TravelService {
 
     @Override
     public Travel cancel(int id, User userModifier) {
-        Travel travelToCancel = getById(id);
+        Travel travelToCancel = getById(id, userModifier);
         checkModifyPermission(userModifier, travelToCancel);
         travelToCancel.setTravelStatus(TravelStatus.CANCELED);
         return travelRepository.save(travelToCancel);
