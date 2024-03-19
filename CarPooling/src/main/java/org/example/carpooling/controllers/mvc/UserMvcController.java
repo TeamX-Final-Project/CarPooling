@@ -10,6 +10,7 @@ import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserFilterOptions;
 import org.example.carpooling.models.dto.UserFilterDto;
+import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.services.AuthenticationService;
 import org.example.carpooling.services.contracts.FeedbackService;
 import org.example.carpooling.services.contracts.TravelService;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/users")
@@ -109,66 +111,68 @@ public class UserMvcController {
                 userFilterDto.getFirstName(),
                 userFilterDto.getUsername(), userFilterDto.getEmail(),
                 userFilterDto.getSortBy(), userFilterDto.getOrderBy());
-        model.addAttribute("users", userService.getAllUsers(userFilterOptions));
+        List<User> users = userService.getAllUsers(userFilterOptions);
+        model.addAttribute("users",
+                users.stream().map(userMapper::toSimpleDto).collect(Collectors.toList()));
         return "UsersView";
     }
-//    @PostMapping("/block:{id}")
-//    public String handleUserBlock(@PathVariable int id, @ModelAttribute("block") User user, Model model,
-//                                  HttpSession session) {
-//        User userModifier = authenticationService.tryGetCurrentUser(session);
-//        try {
-//            userService.updateUserStatus(id, userModifier);
-//            return "redirect:/users";
-//        } catch (AuthorizationException e) {
-//            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
-//            model.addAttribute("error", "Not authorized");
-//            return "ErrorView";
-//        }
-//    }
-//
-//    @PostMapping("/unblock:{id}")
-//    public String handleUserUnblock(@PathVariable int id, @ModelAttribute("unblock") User user, Model model,
-//                                    HttpSession session) {
-//        User userModifier = authenticationService.tryGetCurrentUser(session);
-//        try {
-//            userService.updateUserStatus(id, userModifier);
-//            return "redirect:/users";
-//        } catch (AuthorizationException e) {
-//            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
-//            model.addAttribute("error", "Not authorized");
-//            return "ErrorView";
-//        }
-//    }
-//
-//    @PostMapping("/makeAdmin:{id}")
-//    public String handleUserMakeAdmin(@PathVariable int id, @ModelAttribute("makeAdmin") User user, Model model,
-//                                      HttpSession session) {
-//        User userModifier = authenticationService.tryGetCurrentUser(session);
-//        try {
-//            userService.changeUserAdminValue(id, userModifier);
-//            return "redirect:/users";
-//        } catch (AuthorizationException e) {
-//            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
-//            model.addAttribute("error", "Not authorized");
-//            return "ErrorView";
-//        }
-//    }
-//
-//    @PostMapping("/unmakeAdmin:{id}")
-//    public String handleUserUnMakeAdmin(@PathVariable int id, @ModelAttribute("unmakeAdmin") User user, Model model,
-//                                        HttpSession session) {
-//        User userModifier = authenticationService.tryGetCurrentUser(session);
-//        try {
-//            userService.changeUserAdminValue(id, userModifier);
-//            return "redirect:/users";
-//        } catch (AuthorizationException e) {
-//            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
-//            model.addAttribute("error", "Not authorized");
-//            return "ErrorView";
-//        }
-//    }
+    @GetMapping("/block/{id}")
+    public String handleUserBlock(@PathVariable int id, @ModelAttribute("block") User user, Model model,
+                                  HttpSession session) {
+        User userModifier = authenticationService.tryGetCurrentUser(session);
+        try {
+            userService.updateUserStatus(id, userModifier, UserStatus.BLOCKED);
+            return "redirect:/users";
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", "Not authorized");
+            return "ErrorView";
+        }
+    }
 
-    @PostMapping("/delete:{id}")
+    @GetMapping("/unblock/{id}")
+    public String handleUserUnblock(@PathVariable int id, @ModelAttribute("unblock") User user, Model model,
+                                    HttpSession session) {
+        User userModifier = authenticationService.tryGetCurrentUser(session);
+        try {
+            userService.updateUserStatus(id, userModifier, UserStatus.ACTIVE);
+            return "redirect:/users";
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", "Not authorized");
+            return "ErrorView";
+        }
+    }
+
+    @GetMapping("/makeAdmin/{id}")
+    public String handleUserMakeAdmin(@PathVariable int id, @ModelAttribute("makeAdmin") User user, Model model,
+                                      HttpSession session) {
+        User userModifier = authenticationService.tryGetCurrentUser(session);
+        try {
+            userService.changeUserAdminValue(id, userModifier, true);
+            return "redirect:/users";
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", "Not authorized");
+            return "ErrorView";
+        }
+    }
+
+    @GetMapping("/unmakeAdmin/{id}")
+    public String handleUserUnMakeAdmin(@PathVariable int id, @ModelAttribute("unmakeAdmin") User user, Model model,
+                                        HttpSession session) {
+        User userModifier = authenticationService.tryGetCurrentUser(session);
+        try {
+            userService.changeUserAdminValue(id, userModifier, false);
+            return "redirect:/users";
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", "Not authorized");
+            return "ErrorView";
+        }
+    }
+
+    @GetMapping("/delete/{id}")
     public String handleUserDelete(@PathVariable int id, @ModelAttribute("delete") User user, Model model,
                                    HttpSession session) {
         User userModifier = authenticationService.tryGetCurrentUser(session);

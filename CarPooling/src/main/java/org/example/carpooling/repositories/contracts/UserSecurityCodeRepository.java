@@ -1,11 +1,9 @@
 package org.example.carpooling.repositories.contracts;
 
 import org.example.carpooling.models.UserSecurityCode;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserSecurityCodeRepository {
-    UserSecurityCode save(UserSecurityCode securityCode);
+public interface UserSecurityCodeRepository extends JpaRepository<UserSecurityCode, Long> {
 
-    UserSecurityCode getCodeByUserId(long userId);
-
-    void delete(UserSecurityCode userSecurityCode);
+    UserSecurityCode getByUserId(long userId);
 }
