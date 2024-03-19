@@ -102,7 +102,7 @@ public class TravelRestControllerImpl implements TravelRestController {
     @Override
     @PutMapping("/{id}")
     public Travel updateTravel(@RequestHeader HttpHeaders headers,
-                               @PathVariable int id,
+                               @PathVariable long id,
                                @Valid @RequestBody TravelDto travelDto) {
         try {
             User userModifier = authenticationService.tryGetUser(headers);
@@ -118,7 +118,7 @@ public class TravelRestControllerImpl implements TravelRestController {
     @Override
     @PutMapping("/delete:{id}")
     public Travel deleteTravelById(@RequestHeader HttpHeaders headers,
-                                   @PathVariable int id) {
+                                   @PathVariable long id) {
         try {
             User userModifier = authenticationService.tryGetUser(headers);
             return travelService.deleteTravelById(id, userModifier);
@@ -131,7 +131,7 @@ public class TravelRestControllerImpl implements TravelRestController {
 
     @Override
     @PutMapping("/cancel:{id}")
-    public Travel cancelTravel(@RequestHeader HttpHeaders headers, @PathVariable int id) {
+    public Travel cancelTravel(@RequestHeader HttpHeaders headers, @PathVariable long id) {
         try {
             User userModifier = authenticationService.tryGetUser(headers);
             return travelService.cancel(id, userModifier);

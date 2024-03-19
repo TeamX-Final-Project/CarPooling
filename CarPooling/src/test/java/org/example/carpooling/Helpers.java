@@ -1,6 +1,7 @@
 package org.example.carpooling;
 
 import org.example.carpooling.models.Travel;
+import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.enums.TravelStatus;
 import org.example.carpooling.models.enums.UserStatus;
@@ -28,6 +29,15 @@ public class Helpers {
         return user;
     }
 
+    public static User createMockUserActive() {
+        User user = new User();
+        user.setUserId(USER_ID);
+        setCommonUserData(user);
+        user.setAdmin(false);
+        user.setUserStatus(UserStatus.ACTIVE);
+        return user;
+    }
+
     private static void setCommonUserData(User user) {
         user.setFirstName("Ivan");
         user.setLastName("Ivanov");
@@ -42,8 +52,8 @@ public class Helpers {
         var mockUser = createMockUser();
         var mockTravel = new Travel();
         mockTravel.setTravelId(1);
-        mockTravel.setStartPoint("MockStartLocation");
-        mockTravel.setEndPoint("MockEndLocation");
+        mockTravel.setStartPoint("Sofia");
+        mockTravel.setEndPoint("Plovdiv");
         mockTravel.setDepartureTime(LocalDateTime.parse("2023-07-30T18:00"));
         mockTravel.setFreeSpots(4);
         mockTravel.setDeleted(false);
@@ -55,5 +65,8 @@ public class Helpers {
         return mockTravel;
     }
 
+    public static TravelFilterOptions createTravelFilterOptions(){
+        return new TravelFilterOptions(0,10,"Sofia","startPoint","asc");
+    }
     
 }
