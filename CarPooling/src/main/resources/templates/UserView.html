@@ -53,23 +53,23 @@
                                         <p class="text-muted text-sm mb-0">
                                             Rating:
                                             <br>
-                                            <span th:if="${userService.getAverageRatingForUser(user) == null}">
+                                            <span th:if="${feedbackService.getAverageRatingForUser(user) == null}">
                     Not Rated Yet
                 </span>
 
-                                            <span th:unless="${userService.getAverageRatingForUser(user) == null}">
-                        <span th:text="${userService.getAverageRatingForUser(user)}"></span>
+                                            <span th:unless="${feedbackService.getAverageRatingForUser(user) == null}">
+                        <span th:text="${feedbackService.getAverageRatingForUser(user)}"></span>
                     </span>
                                         <div class="mb-6">
-                                    <span th:if="${userService.getAverageRatingForUser(user) >= 3.00}"
+                                    <span th:if="${feedbackService.getAverageRatingForUser(user) >= 3.00}"
                                           th:each="star: ${#numbers.sequence(1, 5)}"
-                                          th:class="${userService.getAverageRatingForUser(user) > (star - 1) ? 'text-success' : 'text-gray-200'}">★</span>
-                                            <span th:if="${userService.getAverageRatingForUser(user) >= 2.00 &amp;&amp; userService.getAverageRatingForUser(user) < 3.00}"
+                                          th:class="${feedbackService.getAverageRatingForUser(user) > (star - 1) ? 'text-success' : 'text-gray-200'}">★</span>
+                                            <span th:if="${feedbackService.getAverageRatingForUser(user) >= 2.00 &amp;&amp; feedbackService.getAverageRatingForUser(user) < 3.00}"
                                                   th:each="star: ${#numbers.sequence(1, 5)}"
-                                                  th:class="${userService.getAverageRatingForUser(user) > (star - 1) ? 'text-warning' : 'text-gray-200'}">★</span>
-                                            <span th:if="${userService.getAverageRatingForUser(user) < 2.00}"
+                                                  th:class="${feedbackService.getAverageRatingForUser(user) > (star - 1) ? 'text-warning' : 'text-gray-200'}">★</span>
+                                            <span th:if="${feedbackService.getAverageRatingForUser(user) < 2.00}"
                                                   th:each="star: ${#numbers.sequence(1, 5)}"
-                                                  th:class="${userService.getAverageRatingForUser(user) > (star - 1) ? 'text-danger' : 'text-gray-200'}">★</span>
+                                                  th:class="${feedbackService.getAverageRatingForUser(user) > (star - 1) ? 'text-danger' : 'text-gray-200'}">★</span>
                                         </div>
                                         <div class="card-header bg-gray-500 py-8 border-0 text-left">
                                             <hr>
@@ -177,19 +177,19 @@
 <!--                                                                                                           th:text="${travel.driver.firstName + ' ' + travel.driver.lastName}"></a>-->
 <!--                                                                                                    </p>-->
 <!--                                                                                                    <p class="text-sm mb-0">-->
-                      <span th:if="${userService.getAverageRatingForUser(travel.getUserId()) == null}">
+                      <span th:if="${feedbackService.getAverageRatingForUser(travel.getUserId()) == null}">
                         Not Rated Yet
                       </span>
-                                                                                                        <span th:unless="${userService.getAverageRatingForUser(travel.driver) == null}">
-                          <span th:if="${userService.getAverageRatingForUser(travel.getUserId()) >= 3.00}"
+                                                                                                        <span th:unless="${feedbackService.getAverageRatingForUser(travel.driver) == null}">
+                          <span th:if="${feedbackService.getAverageRatingForUser(travel.getUserId()) >= 3.00}"
                                 th:each="star: ${#numbers.sequence(1, 5)}"
-                                th:class="${userService.getAverageRatingForUser(travel.getUserId()) > (star - 1) ? 'text-success' : 'text-gray-200'}">★</span>
-                          <span th:if="${userService.getAverageRatingForUser(travel.getUserId()) >= 2.00 &amp;&amp; userService.getAverageRatingForUser(travel.driver) < 3.00}"
+                                th:class="${feedbackService.getAverageRatingForUser(travel.getUserId()) > (star - 1) ? 'text-success' : 'text-gray-200'}">★</span>
+                          <span th:if="${feedbackService.getAverageRatingForUser(travel.getUserId()) >= 2.00 &amp;&amp; feedbackService.getAverageRatingForUser(travel.driver) < 3.00}"
                                 th:each="star: ${#numbers.sequence(1, 5)}"
-                                th:class="${userService.getAverageRatingForUser(travel.getUserId()) > (star - 1) ? 'text-warning' : 'text-gray-200'}">★</span>
-                          <span th:if="${userService.getAverageRatingForUser(travel.getUserId()) < 2.00}"
+                                th:class="${feedbackService.getAverageRatingForUser(travel.getUserId()) > (star - 1) ? 'text-warning' : 'text-gray-200'}">★</span>
+                          <span th:if="${feedbackService.getAverageRatingForUser(travel.getUserId()) < 2.00}"
                                 th:each="star: ${#numbers.sequence(1, 5)}"
-                                th:class="${userService.getAverageRatingForUser(travel.getUserId()) > (star - 1) ? 'text-danger' : 'text-gray-200'}">★</span>
+                                th:class="${feedbackService.getAverageRatingForUser(travel.getUserId()) > (star - 1) ? 'text-danger' : 'text-gray-200'}">★</span>
                       </span>
                                                                                                     </p>
                                                                                                 </div>

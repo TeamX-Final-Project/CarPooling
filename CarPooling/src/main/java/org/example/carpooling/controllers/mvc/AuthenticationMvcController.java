@@ -67,16 +67,18 @@ public class AuthenticationMvcController {
                 return "redirect:/";
             } else {
                 session.setAttribute("currentUser", user.getUsername());
+                session.setAttribute("profilePictureUrl", user.getProfilePictureUrl());
                 session.setAttribute("userId", user.getUserId());
                 session.setAttribute("firstName", user.getFirstName());
                 session.setAttribute("lastName", user.getLastName());
-                session.setAttribute("email", user.getEmail());
-                session.setAttribute("phoneNumber", user.getPhoneNumber());
+//                session.setAttribute("email", user.getEmail());
+//                session.setAttribute("phoneNumber", user.getPhoneNumber());
                 session.setAttribute("isAdmin", user.isAdmin());
                 session.setAttribute("isBlocked", user.getUserStatus());
                 session.setAttribute("isDeleted", user.getUserStatus());
+            return "redirect:/users/" + user.getUserId();
             }
-            return "redirect:/";
+
             //ToDo should be authentication exception
         } catch (AuthorizationException e) {
             bindingResult.rejectValue("username", "auth_error", e.getMessage());
