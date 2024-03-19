@@ -8,7 +8,9 @@ import jakarta.validation.constraints.NotNull;
 import org.checkerframework.common.aliasing.qual.Unique;
 import org.example.carpooling.models.enums.UserStatus;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -53,6 +55,12 @@ public class User {
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "user_status")
     private UserStatus userStatus;
+    @Column(name = "profile_picture_url")
+    private String profilePictureUrl =
+            "https://static.vecteezy.com/system/resources/previews/020/765/399/non_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg";
+
+    @OneToMany(mappedBy = "receiver", fetch = FetchType.EAGER)
+    private Set<Feedback> feedbackList;
 
     public User() {
     }
@@ -141,6 +149,21 @@ public class User {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+    public String getProfilePictureUrl() {
+        return profilePictureUrl;
+    }
+
+    public void setProfilePictureUrl(String profilePictureUrl) {
+        this.profilePictureUrl = profilePictureUrl;
+    }
+
+    public Set<Feedback> getFeedbackList() {
+        return feedbackList;
+    }
+
+    public void setFeedbackList(Set<Feedback> feedbackList) {
+        this.feedbackList = feedbackList;
     }
 
 

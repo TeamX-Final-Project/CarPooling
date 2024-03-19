@@ -23,6 +23,7 @@ public class UserMapper {
         user.setUsername(userDto.getUsername());
         user.setPhoneNumber(userDto.getPhoneNumber());
         user.setPassword(userDto.getPassword());
+        user.setProfilePictureUrl("url");
         return user;
     }
 
@@ -64,15 +65,10 @@ public class UserMapper {
         user.setLastName(registerDto.getLastName());
         user.setEmail(registerDto.getEmail());
         user.setPhoneNumber(registerDto.getPhoneNumber());
+        user.setProfilePictureUrl("url");
         return user;
     }
 
-    public User fromDto(ProfileDto profileDto, User user) {
-        user.setFirstName(profileDto.getFirstName());
-        user.setLastName(profileDto.getLastName());
-        user.setEmail(profileDto.getEmail());
-        user.setPassword(profileDto.getPassword());
-        user.setPhoneNumber(profileDto.getPhoneNumber());
-        return user;
-    }
+
+
 }

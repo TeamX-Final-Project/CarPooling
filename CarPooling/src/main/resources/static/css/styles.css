@@ -12465,3 +12465,7 @@ header.masthead .post-heading .meta a {
         font-size: 2.25rem;
     }
 }
+.my-custom-image {
+    width: 250px;
+    height: auto;
+}

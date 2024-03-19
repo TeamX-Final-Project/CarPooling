@@ -135,15 +135,15 @@ public class UserRepositoryImpl implements UserRepository {
         return updatedUser;
     }
 
-    @Override
-    public ImageData saveImage(ImageData imageData) {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            session.persist(imageData);
-            session.getTransaction().commit();
-        }
-        return imageData;
-    }
+//    @Override
+//    public ImageData saveImage(ImageData imageData) {
+//        try (Session session = sessionFactory.openSession()) {
+//            session.beginTransaction();
+//            session.persist(imageData);
+//            session.getTransaction().commit();
+//        }
+//        return imageData;
+//    }
 
     @Override
     public long getUserCount() {

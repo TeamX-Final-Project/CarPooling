@@ -30,11 +30,15 @@ public interface UserService {
 
     User changeUserAdminValue(long id, User currentUser, boolean isAdmin);
 
+    User addProfilePhoto(User user, String url);
+
+    Double getAverageRatingForUser(User user);
+
     long getUserCount();
 
     User updateUserStatus(long id, User currentUser, UserStatus userStatus);
 
-    ImageData saveImage(MultipartFile file, User user) throws IOException;
+
 
     void verify(long id, long securityCode);
 

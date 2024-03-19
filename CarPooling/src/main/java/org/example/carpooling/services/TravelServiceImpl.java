@@ -5,6 +5,7 @@ import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.exceptions.OperationNotAllowedException;
 import org.example.carpooling.models.*;
 import org.example.carpooling.models.dto.TravelDto;
+import org.example.carpooling.models.enums.CandidateStatus;
 import org.example.carpooling.models.enums.TravelStatus;
 import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.repositories.contracts.TravelRepository;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -107,10 +109,6 @@ public class TravelServiceImpl implements TravelService {
         return travelRepository.save(travelToCancel);
     }
 
-    @Override
-    public long getTravelsCount() {
-        return 0;
-    }
 
     private void checkModifyPermission(User userModifier, Travel travel) {
         if (!userModifier.isAdmin()) {
@@ -133,6 +131,25 @@ public class TravelServiceImpl implements TravelService {
         if (!UserStatus.ACTIVE.equals(creator.getUserStatus())) {
             throw new OperationNotAllowedException(YOU_ARE_NOT_ALLOWED_TO_CREATE_A_TRAVEL_ERROR);
         }
+    }
+    @Override
+    public int getCompletedTravelsAsDriverCount(User user) {
+        return travelRepository.countCompletedTravelsAsDriver(user, TravelStatus.COMPLETED);
+    }
+    @Override
+    public List<Travel> getOpenTravelsOfDriver(User user) {
+        return travelRepository.findByUserIdAndTravelStatus(user, TravelStatus.AVAILABLE)
+                .stream()
+                .sorted(Comparator.comparing(Travel::getDepartureTime))
+                .collect(Collectors.toList());
+    }
+    @Override
+    public int countCompletedTravels(){
+        return travelRepository.countCompletedTravels(TravelStatus.COMPLETED);
+    }
+    @Override
+    public int getCompletedTravelsAsPassengerCount(User user) {
+        return travelRepository.countCompletedTravelsAsPassenger(user, CandidateStatus.ACCEPTED,TravelStatus.COMPLETED);
     }
 }
 

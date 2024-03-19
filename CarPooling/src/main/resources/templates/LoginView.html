@@ -27,6 +27,10 @@
         <br/>
         <label class="label-error" th:errors="*{password}">Password error placeholder</label>
         <br/><br/>
+        <div class="load-more-btn text-center mb-3">
+            <a class="rbt-btn-link" href="RegisterView.html" th:href="@{/auth/register}">Don't have account? Sign up<i class="feather-arrow-right"></i></a>
+        </div>
+        <br>
         <input type="submit" value="Login" />
     </form>
 </div>

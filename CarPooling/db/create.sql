@@ -23,6 +23,9 @@ create table users
     phone_number varchar(20) not null,
     user_status  int         not null,
     is_admin     tinyint     not null,
+    profile_picture_url varchar(10000)       not null,
+
+
     constraint users_pk2
         unique (username),
     constraint users_pk3
@@ -65,15 +68,15 @@ create table feedbacks
     constraint feedbacks_users_user_id_fk2
         foreign key (receiver_id) references users (user_id)
 );
-create table image_data
-(
-    id      bigint auto_increment
-        primary key,
-    image   varchar(100) null,
-    user_id bigint       not null,
-    constraint image_data_users_user_id_fk
-        foreign key (user_id) references users (user_id)
-);
+# create table image_data
+# (
+#     id      bigint auto_increment
+#         primary key,
+#     image   varchar(100) null,
+#     user_id bigint          not null,
+#     constraint image_data_users_user_id_fk
+#         foreign key (user_id) references users (user_id)
+# );
 
 
 create table notification

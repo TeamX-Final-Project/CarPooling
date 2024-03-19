@@ -22,7 +22,6 @@ public interface UserRepository {
 
     User update(User user);
 
-    ImageData saveImage(ImageData imageData);
 
     long getUserCount();
 }

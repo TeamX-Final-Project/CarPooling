@@ -196,22 +196,22 @@ public class UserRestController {
         }
     }
 
-    @PostMapping(value = "/{id}/image")
-    public String updateImage(@RequestParam("avatar") MultipartFile file,
-                              @RequestHeader HttpHeaders headers, @PathVariable int id) {
-        try {
-            User currentUser = authenticationService.tryGetUser(headers);
-            if (currentUser.getUserId() == id) {
-                throw new AuthorizationException(ERROR_MESSAGE);
-            }
-            ImageData image = userService.saveImage(file, currentUser);
-            return image.getImage();
-        } catch (IOException e) {
-            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
-        } catch (AuthorizationException e) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-        }
-    }
+//    @PostMapping(value = "/{id}/image")
+//    public String updateImage(@RequestParam("avatar") MultipartFile file,
+//                              @RequestHeader HttpHeaders headers, @PathVariable int id) {
+//        try {
+//            User currentUser = authenticationService.tryGetUser(headers);
+//            if (currentUser.getUserId() == id) {
+//                throw new AuthorizationException(ERROR_MESSAGE);
+//            }
+//            ImageData image = userService.saveImage(file, currentUser);
+//            return image.getImage();
+//        } catch (IOException e) {
+//            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
+//        } catch (AuthorizationException e) {
+//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+//        }
+//    }
 //todo Pet:
 
 //    @GetMapping("/{id}/image")

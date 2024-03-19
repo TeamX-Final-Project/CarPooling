@@ -22,5 +22,12 @@ public interface TravelService {
 
     Travel cancel(int id, User userModifier);
 
-    long getTravelsCount();
+
+    int getCompletedTravelsAsDriverCount(User user);
+
+    List<Travel> getOpenTravelsOfDriver(User user);
+
+    int countCompletedTravels();
+
+    int getCompletedTravelsAsPassengerCount(User user);
 }

@@ -45,7 +45,6 @@ public class AuthenticationMvcController {
 
     @GetMapping("/login")
     public String showLoginPage(Model model) {
-
         model.addAttribute("login", new LoginDto());
         return "LoginView";
     }

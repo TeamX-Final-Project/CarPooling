@@ -1,44 +1,39 @@
 package org.example.carpooling.services;
 
-import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
 import org.example.carpooling.exceptions.*;
 import org.example.carpooling.helpers.ValidationHelper;
-import org.example.carpooling.models.ImageData;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserFilterOptions;
 import org.example.carpooling.models.UserSecurityCode;
 import org.example.carpooling.models.enums.UserStatus;
+import org.example.carpooling.repositories.contracts.FeedbackRepository;
 import org.example.carpooling.repositories.contracts.UserRepository;
 import org.example.carpooling.services.contracts.MailService;
 import org.example.carpooling.services.contracts.UserSecurityCodeService;
 import org.example.carpooling.services.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
     private static final String ERROR_MESSAGE = "You are not authorized";
     public static final String ACTIVATING_USER_IS_NOT_PERMITTED = "Activating user is not permitted";
-    public static final String URL = "url";
 
     private final UserRepository userRepository;
     private final UserSecurityCodeService userSecurityCodeService;
-    private final Cloudinary cloudinary;
+    private final FeedbackRepository feedbackRepository;
 
     private final MailService mailService;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
-                           UserSecurityCodeService userSecurityCodeService, Cloudinary cloudinary, MailService mailService) {
+                           UserSecurityCodeService userSecurityCodeService, FeedbackRepository feedbackRepository,
+                           MailService mailService) {
         this.userRepository = userRepository;
         this.userSecurityCodeService = userSecurityCodeService;
-        this.cloudinary = cloudinary;
+        this.feedbackRepository = feedbackRepository;
         this.mailService = mailService;
     }
 
@@ -118,14 +113,14 @@ public class UserServiceImpl implements UserService {
         return userRepository.update(userToUpdate);
     }
 
-    @Override
-    public ImageData saveImage(MultipartFile file, User user) throws IOException {
-        String url = uploadFile(file);
-        ImageData imageData = new ImageData();
-        imageData.setImage(url);
-        imageData.setUser(user);
-        return userRepository.saveImage(imageData);
-    }
+//    @Override
+//    public ImageData saveImage(MultipartFile file, User user) throws IOException {
+//        String url = uploadFile(file);
+//        ImageData imageData = new ImageData();
+//        imageData.setImage(url);
+//        imageData.setUser(user);
+//        return userRepository.saveImage(imageData);
+//    }
 
     @Override
     public void verify(long id, long securityCode) {
@@ -209,15 +204,24 @@ public class UserServiceImpl implements UserService {
             throw new EntityDuplicateException("User", "phone number", user.getPhoneNumber());
         }
     }
-
-
-    private String uploadFile(MultipartFile file) throws IOException {
-        Map uploadResponse = cloudinary.uploader()
-                .upload(file.getBytes()
-                        , ObjectUtils.asMap("resource_type", "auto"));
-
-        return (String) uploadResponse.get(URL);
+    @Override
+    public User addProfilePhoto(User user, String url) {
+        user.setProfilePictureUrl(url);
+        return userRepository.update(user);
     }
+
+@Override
+    public Double getAverageRatingForUser(User user) {
+        return feedbackRepository.getAverageRatingForReceiver(user);
+    }
+
+//    private String uploadFile(MultipartFile file) throws IOException {
+//        Map uploadResponse = cloudinary.uploader()
+//                .upload(file.getBytes()
+//                        , ObjectUtils.asMap("resource_type", "auto"));
+//
+//        return (String) uploadResponse.get(URL);
+//    }
 
     @Override
     public long getUserCount() {
