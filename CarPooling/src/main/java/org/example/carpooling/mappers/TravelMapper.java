@@ -1,6 +1,7 @@
 package org.example.carpooling.mappers;
 
 import org.example.carpooling.models.Travel;
+import org.example.carpooling.models.User;
 import org.example.carpooling.models.dto.TravelDto;
 import org.example.carpooling.services.contracts.TravelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,8 @@ public class TravelMapper {
         this.travelService = travelService;
     }
 
-    public Travel fromDto(int id, TravelDto travelDto) {
-        Travel travel = travelService.getById(id);
+    public Travel fromDto(int id, TravelDto travelDto, User userModifier) {
+        Travel travel = travelService.getById(id, userModifier);
         modifyTravel(travelDto, travel);
         return travel;
     }

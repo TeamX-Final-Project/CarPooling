@@ -40,7 +40,7 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public Candidates applyTravel(long id, User userToApply) {
-        Travel travelToApply = travelService.getById(id);//, userToApply);
+        Travel travelToApply = travelService.getById(id, userToApply);
         checkApplyPermission(userToApply, travelToApply);
         checkTravelStatusApply(travelToApply);
         Candidates candidate = new Candidates();
@@ -54,7 +54,7 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public Candidates approveTravel(long id, User userToConfirmApprove, Candidates userToApprove) {
-        Travel travelToApprove = travelService.getById(id);
+        Travel travelToApprove = travelService.getById(id, userToConfirmApprove);
         int currentFreeSpots = travelToApprove.getFreeSpots();
         checkApprovePermission(userToConfirmApprove, travelToApprove);
         checkTravelStatusApprove(travelToApprove);

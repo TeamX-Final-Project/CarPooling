@@ -40,7 +40,7 @@ public class AuthorizationHelper {
 
     public void checkIfTravelPassed(Long travelId, String errorMessage) {
         Travel travel = travelRepository.getById(travelId);
-        LocalDateTime departureTime = travel.getDepartureTime().toLocalDateTime();
+        LocalDateTime departureTime = travel.getDepartureTime();
         LocalDateTime currentTime = LocalDateTime.now();
 
         if (currentTime.isBefore(departureTime)) {

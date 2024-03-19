@@ -69,7 +69,7 @@ public class FeedbackRestControllerImpl implements FeedbackRestController {
         try {
             User giver = authenticationService.tryGetUser(headers);
             User receiver = userService.getById(userId);
-            Travel travel = travelService.getById(travelId);
+            Travel travel = travelService.getById(travelId, giver);
             Feedback feedback = feedbackMapper.fromFeedbackDto (feedbackDto,giver,receiver,travel);
             feedbackService.create(feedback);
             return feedback;
