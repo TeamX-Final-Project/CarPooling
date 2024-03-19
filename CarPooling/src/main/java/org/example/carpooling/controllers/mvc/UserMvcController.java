@@ -57,7 +57,7 @@ public class UserMvcController {
         try {
             User currentUser = authenticationService.tryGetCurrentUser(httpSession);
             model.addAttribute("currentUser",currentUser);
-            model.addAttribute("userService", userService);
+            model.addAttribute("feedbackService", feedbackService);
             User user = userService.getById(id);
 
             int completedTravelsAsDriverCount = travelService.getCompletedTravelsAsDriverCount(user);

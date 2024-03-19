@@ -12469,3 +12469,12 @@ header.masthead .post-heading .meta a {
     width: 250px;
     height: auto;
 }
+
+.table-container {
+    display: flex; /* Използваме flexbox за позициониране на таблиците */
+}
+
+.table1, .table2 {
+    border: 1px solid black; /* Граница за визуализация на таблиците */
+    margin-right: 200px;
+}
