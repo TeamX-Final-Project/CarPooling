@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<form th:replace="~{CommonForm.html::head('Register')}"></form>
+<link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+
+<body>
+<div class="hero_area">
+    <form th:replace="~{CommonForm.html::header}"></form>
+    <form th:replace="~{CommonForm.html::slider}"></form>
+</div>
+<div class="body-content">
+
+</div>
+<div class="body-content">
+    <div th:if="${users.isEmpty()}">
+        <h2 th:text="#{users.title.empty}">No Users</h2>
+    </div>
+    <div th:unless="${users.isEmpty()}">
+        <h2 th:text="#{users.title}">All Users</h2>
+    </div>
+
+
+    <div class="table">
+        <div class="header">
+            <div class="header-cell" th:text="#{user.username}">Username</div>
+            <div class="header-cell" th:text="#{user.firstName}">First Name</div>
+            <div class="header-cell" th:text="#{user.lastName}">Last Name</div>
+            <div class="header-cell" th:text="#{user.email}">Email</div>
+            <div th:if="${isAuthenticated && session.isAdmin}" class="header-cell" th:text="#{user.blocked}">Blocked
+            </div>
+            <div th:if="${isAuthenticated && session.isAdmin}" class="header-cell" th:text="#{user.deleted}">Deleted
+            </div>
+            <div th:if="${isAuthenticated && session.isAdmin}" class="header-cell" th:text="#{user.admin}">Admin</div>
+        </div>
+
+        <div class="rowGroup" th:each="user : ${users}">
+            <div class="cell">
+                <a class="link-info" href="#" th:href="@{/users/{id}(id=${user.id})}"
+                   th:text="${user.username}">Username</a>
+            </div>
+            <div class="cell" th:text="${user.firstName}">First Name</div>
+            <div class="cell" th:text="${user.lastName}">Last Name</div>
+            <div class="cell" th:text="${user.email}">Email</div>
+            <div th:if="${isAuthenticated && session.isAdmin}" class="cell" th:text="${user.blocked}">Blocked</div>
+            <div th:if="${isAuthenticated && session.isAdmin}" class="cell" th:text="${user.deleted}">Deleted</div>
+            <div th:if="${isAuthenticated && session.isAdmin}" class="cell" th:text="${user.admin}">Admin</div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

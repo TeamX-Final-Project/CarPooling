@@ -19,6 +19,7 @@ public class Travel {
     @Column(name = "end_point")
     private String endPoint;
     @Column(name = "departure_time")
+    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp departureTime;
     @Column(name = "free_spots")
     private int freeSpots;

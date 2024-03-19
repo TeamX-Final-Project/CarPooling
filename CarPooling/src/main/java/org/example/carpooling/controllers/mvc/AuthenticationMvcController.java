@@ -50,6 +50,9 @@ public class AuthenticationMvcController {
         return "LoginView";
     }
 
+
+
+
     @PostMapping("/login")
     public String handleLogin(@Valid @ModelAttribute("login") LoginDto loginDto,
                               BindingResult bindingResult,
