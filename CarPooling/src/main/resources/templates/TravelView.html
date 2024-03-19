@@ -62,8 +62,10 @@
                                         <div class="cell">
                                             <img th:src="'https://icons.veryicon.com/png/o/miscellaneous/test-10/duration-8.png'"
                                                  alt="Duration icon" width="20" height="20">
-                                                <div th:text="#{travels.duration}">Duration</div>
-                                            <div class="cell" th:text="${travel.getDurationTravel()} + ' minutes'">Duration</div>
+                                            <div th:text="#{travels.duration}">Duration</div>
+                                            <div class="cell" th:text="${travel.getDurationTravel()} + ' minutes'">
+                                                Duration
+                                            </div>
                                         </div>
 
                                         <script th:inline="javascript">
@@ -76,9 +78,9 @@
                                             }
 
                                             // Update text content using JavaScript after page load
-                                            window.addEventListener('DOMContentLoaded', function() {
+                                            window.addEventListener('DOMContentLoaded', function () {
                                                 var durationElements = document.querySelectorAll('.cell'); // Get all elements with class 'cell'
-                                                durationElements.forEach(function(element) {
+                                                durationElements.forEach(function (element) {
                                                     var minutes = parseInt(element.textContent); // Get the duration in minutes from text content
                                                     if (!isNaN(minutes)) {
                                                         // If the content is a valid number, convert it to hours:minutes format
@@ -90,63 +92,54 @@
                                         </script>
 
 
-<!--                                            <div th:text="${(travel.getDurationTravel())}">Duration</div>-->
-<!--                                        </div>-->
+                                        <!--                                            <div th:text="${(travel.getDurationTravel())}">Duration</div>-->
+                                        <!--                                        </div>-->
 
                                         <!--                                        <div class="cell">-->
-<!--                                            <img th:src="'https://icons.veryicon.com/png/o/miscellaneous/test-10/duration-8.png'"-->
-<!--                                                 alt="Duration icon" width="20" height="20">-->
-<!--                                            <div class="cell" th:text="#{travels.duration}">Duration</div>-->
-<!--                                            <div th:text="${formatDuration(travel.getDurationTravel())}">Duration</div>-->
-<!--                                        </div>-->
+                                        <!--                                            <img th:src="'https://icons.veryicon.com/png/o/miscellaneous/test-10/duration-8.png'"-->
+                                        <!--                                                 alt="Duration icon" width="20" height="20">-->
+                                        <!--                                            <div class="cell" th:text="#{travels.duration}">Duration</div>-->
+                                        <!--                                            <div th:text="${formatDuration(travel.getDurationTravel())}">Duration</div>-->
+                                        <!--                                        </div>-->
                                     </div>
                                 </div>
-                                    <div class="rowGroup">
+                                <div class="rowGroup">
                                     <div class="cell" th:text="#{travels.comment}">Comment:</div>
-                                        <div th:text="${travel.getTravelComment()}">Comment</div>
-                                    </div>
+                                    <div th:text="${travel.getTravelComment()}">Comment</div>
                                 </div>
+                            </div>
 
-                            <div th:if="${isAuthenticated==true
-                            && (session.currentUser eq travel.getUserId().getUsername()
-                             || (session.isAdmin != null && session.isAdmin))}">
+                            <div th:if="${isAuthenticated==true && (session.currentUser == travel.getUserId().userId)}">
                                 <div>
-
-                                    <form th:action="@{/travels/{id}/update(id=${travel.getTravelId()})}">
-                                        <div th:if="${isAuthenticated==true
-                                          && (session.currentUser == travel.getUserId().userId)
-                                          || (session.isAdmin !=null && session.isAdmin)}">
-                                        </div>
+                                    <form action="#" th:action="@{/travels/update/{id}(id=${travel.travelId})}"
+                                          th:object="${travelUpdate}"
+                                          method="post">
+                                        <input type="submit" value="  Edit  "/>
                                     </form>
-                                    <div>
+                                </div>
+                            </div>
 
-                                        <form th:action="@{/travels/{id}/update(id=${travel.getTravelId()})}"
-
-                                              method="post">
-                                            <input type="submit" value="  Edit  "/>
-                                        </form>
-
-
-                                        <form th:action="@{/travels/{id}/delete(id=${travel.getTravelId()})}">
-
-                                        </form>
-
-                                        <form th:action="@{/posts/{id}/delete(id=${travel.getTravelId()})}"
-
-                                              method="get">
-                                            <input type="submit" value="  Remove  "/>
-                                        </form>
+                            <div th:if="${isAuthenticated==true && (session.currentUser == travel.getUserId().userId
+                            || (session.isAdmin))}">
+                                <div>
+                                    <form action="#" th:action="@{/travels/delete/{id}(id=${travel.travelId})}"
+                                          th:object="${travelDelete}"
+                                          method="get">
+                                        <input type="submit" value="  Delete Travel "/>
+                                    </form>
+                                </div>
+                            </div>
 
 
-                                        <form th:action="@{/candidates/{id}/(id=${travel.getTravelId()})}"
-                                              method="get">
-                                            <input type="submit" value="  Apply  "/>
-                                        </form>
-                                        <form th:action="@{/candidates/approve:{userId}/travel:{travelId}/(userId=${session.currentUser})}"
-                                              method="get">
-                                            <input type="submit" value="  Approve  "/>
-                                        </form>
-                                    </div>
+
+                                    <form th:action="@{/candidates/{id}/(id=${travel.getTravelId()})}"
+                                          method="get">
+                                        <input type="submit" value="  Apply  "/>
+                                    </form>
+                                    <form th:action="@{/candidates/approve:{userId}/travel:{travelId}/(userId=${session.currentUser})}"
+                                          method="get">
+                                        <input type="submit" value="  Approve  "/>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -155,6 +148,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 <form th:replace="~{CommonForm.html::footer}"></form>
 </body>

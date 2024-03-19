@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<form th:replace="~{CommonForm.html::head('New Travel')}">
+<form th:replace="~{CommonForm.html::head('Update Travel')}">
 
 </form>
 <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
@@ -9,7 +9,7 @@
     <form th:replace="~{CommonForm.html::header}"></form>
     <form th:replace="~{CommonForm.html::slider}"></form>
 </div>
-<h1 th:align="center">Create Travel</h1>
+<h1 th:align="center">Update Travel</h1>
 <br/>
     <div class="col-md-8 col-xl-6 mx-auto">
         <div class="row">
@@ -23,7 +23,7 @@
                                         <div class="header-cell">
                                         </div>
                                         <div class="header-cell">
-                                            <form th:action="@{/travels/new}" th:object="${travel}" action="#"
+                                            <form th:action="@{/travels/new}" th:object="${travelUpdate}" action="#"
                                                   method="post">
                                                 <label th:text="#{travels.startPoint}">Starting point</label>
                                                 <br/>
@@ -80,7 +80,7 @@
                                                 <label class="label-error" th:errors="*{travelComment}">Comment error placeholder</label>
                                                 <br/>
                                                 <br/>
-                                                <button type="submit" onclick="formatDateTime()" value="create">Create</button>
+                                                <button type="submit" onclick="formatDateTime()" value="update">Update</button>
                                             </form>
                                         </div>
                                     </div>
