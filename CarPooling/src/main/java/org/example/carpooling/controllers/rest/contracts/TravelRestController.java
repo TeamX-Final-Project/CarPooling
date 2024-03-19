@@ -55,7 +55,7 @@ public interface TravelRestController {
     })
     @PutMapping("/{id}")
     Travel updateTravel(@RequestHeader HttpHeaders headers,
-                        @PathVariable int id,
+                        @PathVariable long id,
                         @Valid @RequestBody TravelDto travelDto);
 
     @Operation(
@@ -66,7 +66,7 @@ public interface TravelRestController {
     })
     @PutMapping("/delete:{id}")
     Travel deleteTravelById(@RequestHeader HttpHeaders headers,
-                            @PathVariable int id);
+                            @PathVariable long id);
 
     @Operation(
             summary = "Cancel travel by id",
@@ -75,5 +75,5 @@ public interface TravelRestController {
             @ApiResponse(responseCode = "200", description = "successful operation")
     })
     @PutMapping("/cancel:{id}")
-    Travel cancelTravel(@RequestHeader HttpHeaders headers, @PathVariable int id);
+    Travel cancelTravel(@RequestHeader HttpHeaders headers, @PathVariable long id);
 }

@@ -16,7 +16,7 @@ public class TravelMapper {
         this.travelService = travelService;
     }
 
-    public Travel fromDto(int id, TravelDto travelDto, User userModifier) {
+    public Travel fromDto(long id, TravelDto travelDto, User userModifier) {
         Travel travel = travelService.getById(id, userModifier);
         modifyTravel(travelDto, travel);
         return travel;

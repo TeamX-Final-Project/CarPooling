@@ -6,6 +6,7 @@ import org.example.carpooling.models.enums.TravelStatus;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "travels")
@@ -47,7 +48,7 @@ public class Travel {
         return travelId;
     }
 
-    public void setTravelId(int travelId) {
+    public void setTravelId(long travelId) {
         this.travelId = travelId;
     }
 
@@ -129,4 +130,19 @@ public class Travel {
     public void setTravelComment(String travelComment) {
         this.travelComment = travelComment;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Travel travel = (Travel) o;
+        return travelId == travel.travelId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(travelId);
+    }
 }
+

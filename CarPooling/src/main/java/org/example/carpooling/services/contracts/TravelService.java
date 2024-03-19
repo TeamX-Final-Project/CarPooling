@@ -18,9 +18,9 @@ public interface TravelService {
 
     Travel update(User userModifier, Travel travelToUpdate);
 
-    Travel deleteTravelById(int id, User userModifier);
+    Travel deleteTravelById(long id, User userModifier);
 
-    Travel cancel(int id, User userModifier);
+    Travel cancel(long id, User userModifier);
 
 
     int getCompletedTravelsAsDriverCount(User user);

@@ -92,7 +92,7 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
-    public Travel deleteTravelById(int id, User userModifier) {
+    public Travel deleteTravelById(long id, User userModifier) {
         Travel travelToDelete = getById(id, userModifier);
         checkModifyPermission(userModifier, travelToDelete);
         travelToDelete.setDeleted(true);
@@ -101,7 +101,7 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
-    public Travel cancel(int id, User userModifier) {
+    public Travel cancel(long id, User userModifier) {
         Travel travelToCancel = getById(id, userModifier);
         checkModifyPermission(userModifier, travelToCancel);
         travelToCancel.setTravelStatus(TravelStatus.CANCELED);
