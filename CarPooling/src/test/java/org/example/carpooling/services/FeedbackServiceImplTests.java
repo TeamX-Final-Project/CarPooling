@@ -9,22 +9,17 @@ import org.example.carpooling.models.Feedback;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.User;
 import org.example.carpooling.repositories.contracts.FeedbackRepository;
-import org.example.carpooling.repositories.contracts.TravelRepository;
-import org.example.carpooling.repositories.contracts.UserRepository;
-import org.example.carpooling.services.contracts.FeedbackService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static org.example.carpooling.helpers.AuthorizationHelper.FEEDBACK_ALREADY_GIVEN_ERROR;
-import static org.example.carpooling.services.FeedbackServiceImpl.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -38,9 +33,6 @@ public class FeedbackServiceImplTests {
 
     @Mock
     FeedbackRepository feedbackRepository;
-
-    @Mock
-    UserRepository userRepository;
 
     @Mock
     AuthorizationHelper authorizationHelper;

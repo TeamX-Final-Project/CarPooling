@@ -23,9 +23,17 @@ public class SimpleUserDto {
     @Size(min = 2, max = 20, message = NAME_SHOULD_BE_BETWEEN_2_AND_20_SYMBOLS_MESSAGE)
     private String lastName;
 
+    @NotNull(message = EMAIL_IS_REQUIRED_MESSAGE)
+    @NotEmpty(message = EMAIL_CAN_T_BE_EMPTY_MESSAGE)
+    private String email;
+
+    @NotNull(message = NUMBER_CAN_T_BE_EMPTY_MESSAGE)
+    @Size(min = 10, message = NUMBER_SHOULD_BE_10_DIGITS_MESSAGE)
+    private String phoneNumber;
 
     private UserStatus status;
     private boolean isAdmin;
+
 
     public long getId() {
         return id;
@@ -41,6 +49,22 @@ public class SimpleUserDto {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public UserStatus getStatus() {

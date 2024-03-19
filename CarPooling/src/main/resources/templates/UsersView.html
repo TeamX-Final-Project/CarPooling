@@ -8,13 +8,12 @@
     <form th:replace="~{CommonForm.html::header}"></form>
     <form th:replace="~{CommonForm.html::slider}"></form>
 </div>
-<div class="body-content">
 
-</div>
-<div class="body-content">
+<div class="body-content" th:if="${isAuthenticated && session.isAdmin}">
     <div th:if="${users.isEmpty()}">
         <h2 th:text="#{users.title.empty}">No Users</h2>
     </div>
+
     <div th:unless="${users.isEmpty()}">
         <h2 th:text="#{users.title}">All Users</h2>
     </div>
@@ -26,14 +25,16 @@
             <div class="header-cell" th:text="#{user.firstName}">First Name</div>
             <div class="header-cell" th:text="#{user.lastName}">Last Name</div>
             <div class="header-cell" th:text="#{user.email}">Email</div>
-            <div th:if="${isAuthenticated && session.isAdmin}" class="header-cell" th:text="#{user.blocked}">Blocked
-            </div>
-            <div th:if="${isAuthenticated && session.isAdmin}" class="header-cell" th:text="#{user.deleted}">Deleted
-            </div>
-            <div th:if="${isAuthenticated && session.isAdmin}" class="header-cell" th:text="#{user.admin}">Admin</div>
+            <div class="header-cell" th:text="#{user.phoneNumber}">Phone number</div>
+            <div class="header-cell" th:text="#{user.blocked}">Blocked</div>
+            <div class="header-cell" th:text="#{user.deleted}">Deleted</div>
+            <div class="header-cell" th:text="#{user.admin}">Admin</div>
         </div>
 
-        <div class="rowGroup" th:each="user : ${users}">
+        <div class="rowGroup" th:each="user : ${users}"
+             th:with="isBlockedOrDeleted=${user.status == T(org.example.carpooling.models.enums.UserStatus).BLOCKED ||
+             user.status == T(org.example.carpooling.models.enums.UserStatus).DELETED }"
+        >
             <div class="cell">
                 <a class="link-info" href="#" th:href="@{/users/{id}(id=${user.id})}"
                    th:text="${user.username}">Username</a>
@@ -41,9 +42,37 @@
             <div class="cell" th:text="${user.firstName}">First Name</div>
             <div class="cell" th:text="${user.lastName}">Last Name</div>
             <div class="cell" th:text="${user.email}">Email</div>
-            <div th:if="${isAuthenticated && session.isAdmin}" class="cell" th:text="${user.blocked}">Blocked</div>
-            <div th:if="${isAuthenticated && session.isAdmin}" class="cell" th:text="${user.deleted}">Deleted</div>
-            <div th:if="${isAuthenticated && session.isAdmin}" class="cell" th:text="${user.admin}">Admin</div>
+            <div class="cell" th:text="${user.phoneNumber}">Phone number</div>
+            <div class="cell" th:if="${user.status == T(org.example.carpooling.models.enums.UserStatus).BLOCKED}">
+                <a class="link-info" th:href="@{/users/unblock/{id}(id=${user.getId()})}"
+                   th:text="${user.getStatus()}"> </a>
+            </div>
+            <div class="cell" th:if="${user.status == T(org.example.carpooling.models.enums.UserStatus).ACTIVE}">
+                <a class="link-info" th:href="@{/users/block/{id}(id=${user.getId()})}" th:text="${user.status}"> </a>
+            </div>
+            <div class="cell" th:if="${user.status == T(org.example.carpooling.models.enums.UserStatus).PENDING
+            || user.status == T(org.example.carpooling.models.enums.UserStatus).DELETED}">
+                <a th:text="${user.status}"> </a>
+            </div>
+
+            <div class="cell" th:if="${user.status == T(org.example.carpooling.models.enums.UserStatus).DELETED}">
+                <a th:text='DELETED'> </a>
+            </div>
+            <div class="cell" th:if="${user.status != T(org.example.carpooling.models.enums.UserStatus).DELETED}">
+                <a class="link-info" th:href="@{/users/delete/{id}(id=${user.id})}"
+                   th:text='DELETE'> </a>
+            </div>
+
+            <div class="cell" th:if="${!isBlockedOrDeleted && user.isAdmin()  }">
+                <a class="link-info" th:href="@{/users/unmakeAdmin/{id}(id=${user.id})}" th:text='UNMAKE'> </a>
+            </div>
+            <div class="cell" th:if="${!isBlockedOrDeleted  && !user.isAdmin()}">
+                <a class="link-info" th:href="@{/users/makeAdmin/{id}(id=${user.id})}"
+                   th:text='MAKE'> </a>
+            </div>
+            <div class="cell" th:if="${isBlockedOrDeleted}">
+                <a th:text="${user.status}"> </a>
+            </div>
         </div>
     </div>
 </div>

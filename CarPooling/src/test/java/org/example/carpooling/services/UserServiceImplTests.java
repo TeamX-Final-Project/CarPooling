@@ -1,7 +1,6 @@
 package org.example.carpooling.services;
 
 
-import com.cloudinary.Uploader;
 import org.example.carpooling.Helpers;
 import org.example.carpooling.exceptions.*;
 import org.example.carpooling.helpers.ImageHelper;
@@ -102,7 +101,7 @@ public class UserServiceImplTests {
                 thenThrow(new EntityNotFoundException(""));
         Mockito.when(mockUserRepository.getByPhoneNumber(userToCreate.getPhoneNumber())).
                 thenThrow(new EntityNotFoundException(""));
-        Mockito.when(mockUserRepository.create(userToCreate)).thenReturn(createdUser);
+        Mockito.when(mockUserRepository.save(userToCreate)).thenReturn(createdUser);
         Mockito.when(mockUserSecurityCodeService.create(userToCreate)).thenReturn(new UserSecurityCode());
 
 
@@ -110,7 +109,7 @@ public class UserServiceImplTests {
         User result = userService.create(userToCreate);
 
         //Assert
-        Mockito.verify(mockUserRepository, Mockito.times(1)).create(userToCreate);
+        Mockito.verify(mockUserRepository, Mockito.times(1)).save(userToCreate);
         Assertions.assertEquals(createdUser, result);
     }
 
@@ -200,13 +199,13 @@ public class UserServiceImplTests {
                 thenThrow(new EntityNotFoundException(""));
         Mockito.when(mockUserRepository.getByPhoneNumber(userToUpdate.getPhoneNumber())).
                 thenThrow(new EntityNotFoundException(""));
-        Mockito.when(mockUserRepository.update(userToUpdate)).thenReturn(updatedUser);
+        Mockito.when(mockUserRepository.save(userToUpdate)).thenReturn(updatedUser);
 
         //Act
         User result = userService.update(userToUpdate);
 
         //Assert
-        Mockito.verify(mockUserRepository, Mockito.times(1)).update(userToUpdate);
+        Mockito.verify(mockUserRepository, Mockito.times(1)).save(userToUpdate);
     }
 
     @Test
@@ -235,7 +234,7 @@ public class UserServiceImplTests {
         userService.delete(userId, currentUser);
 
         //Assert
-        Mockito.verify(mockUserRepository, Mockito.times(1)).update(userToDelete);
+        Mockito.verify(mockUserRepository, Mockito.times(1)).save(userToDelete);
     }
 
     @Test
@@ -252,7 +251,7 @@ public class UserServiceImplTests {
         userService.changeUserAdminValue(userId, currentAdminUser, true);
 
         //Assert
-        Mockito.verify(mockUserRepository, Mockito.times(1)).update(userToMakeAdmin);
+        Mockito.verify(mockUserRepository, Mockito.times(1)).save(userToMakeAdmin);
     }
 
     @Test
@@ -297,7 +296,7 @@ public class UserServiceImplTests {
         userService.updateUserStatus(userId, currentAdminUser, UserStatus.BLOCKED);
 
         //Assert
-        Mockito.verify(mockUserRepository, Mockito.times(1)).update(userToBlock);
+        Mockito.verify(mockUserRepository, Mockito.times(1)).save(userToBlock);
     }
 
     @Test
@@ -328,7 +327,7 @@ public class UserServiceImplTests {
         userService.addProfilePhoto(user, file);
 
         //Assertion
-        Mockito.verify(mockUserRepository, Mockito.times(1)).update(Mockito.any());
+        Mockito.verify(mockUserRepository, Mockito.times(1)).save(Mockito.any());
     }
 
     @Test
@@ -349,6 +348,6 @@ public class UserServiceImplTests {
         userService.verify(userId, securityCode);
 
         //Assert
-        Mockito.verify(mockUserRepository, Mockito.times(1)).update(user);
+        Mockito.verify(mockUserRepository, Mockito.times(1)).save(user);
     }
 }
