@@ -137,7 +137,7 @@ public class UserRestController {
     public SimpleUserDto makeUserAdmin(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
             User currentUser = authenticationService.tryGetUser(headers);
-            User userToMakeAdmin = userService.changeUserAdminValue(id, currentUser,true);
+            User userToMakeAdmin = userService.changeUserAdminValue(id, currentUser, true);
             return userMapper.toSimpleDto(userToMakeAdmin);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
@@ -152,7 +152,7 @@ public class UserRestController {
     public SimpleUserDto unmakeUserAdmin(@RequestHeader HttpHeaders headers, @PathVariable int id) {
         try {
             User currentUser = authenticationService.tryGetUser(headers);
-            User userToUnmakeAdmin = userService.changeUserAdminValue(id, currentUser,false);
+            User userToUnmakeAdmin = userService.changeUserAdminValue(id, currentUser, false);
             return userMapper.toSimpleDto(userToUnmakeAdmin);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
@@ -186,6 +186,7 @@ public class UserRestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
+
     @GetMapping("/{id}/verify")
     public String verify(@PathVariable int id, @RequestParam int securityCode) {
         try {
@@ -196,31 +197,33 @@ public class UserRestController {
         }
     }
 
-//    @PostMapping(value = "/{id}/image")
-//    public String updateImage(@RequestParam("avatar") MultipartFile file,
-//                              @RequestHeader HttpHeaders headers, @PathVariable int id) {
-//        try {
-//            User currentUser = authenticationService.tryGetUser(headers);
-//            if (currentUser.getUserId() == id) {
-//                throw new AuthorizationException(ERROR_MESSAGE);
-//            }
-//            ImageData image = userService.saveImage(file, currentUser);
-//            return image.getImage();
-//        } catch (IOException e) {
-//            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
-//        } catch (AuthorizationException e) {
-//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-//        }
-//    }
-//todo Pet:
+    @PostMapping(value = "/{id}/image")
+    public String updateImage(@RequestParam("avatar") MultipartFile file,
+                              @RequestHeader HttpHeaders headers, @PathVariable int id) {
+        try {
+            User currentUser = authenticationService.tryGetUser(headers);
+            if (currentUser.getUserId() == id) {
+                throw new AuthorizationException(ERROR_MESSAGE);
+            }
+            User user = userService.addProfilePhoto(currentUser, file);
+            return user.getProfilePictureUrl();
+        } catch (IOException e) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+    }
 
-//    @GetMapping("/{id}/image")
-//    public String getImage (@PathVariable long id, @RequestHeader HttpHeaders headers){
-//        try {
-//            User currentUser = authenticationHelper.tryGetUser(headers);
-//            if(currentUser.getUserId() == id) {
-//                t
-//            }
-//        }
-//    }
+    @GetMapping("/{id}/image")
+    public String getImage(@PathVariable long id, @RequestHeader HttpHeaders headers) {
+        try {
+            authenticationService.tryGetUser(headers);
+            User user = userService.getById(id);
+            return user.getProfilePictureUrl();
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
 }
