@@ -35,32 +35,18 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
-    public Page<TravelDto> getAllTravels(TravelFilterOptions travelFilterOptions) {
+    public Page<Travel> getAllTravels(TravelFilterOptions travelFilterOptions) {
         Pageable pageable = PageRequest.of(travelFilterOptions.getPage(),
                 travelFilterOptions.getSize(),
                 Sort.Direction.fromString(travelFilterOptions.getOrderBy()),
                 travelFilterOptions.getSortBy());
         Specification<Travel> specification = Specification.where(TravelSpecifications.
                 hasKeyword(travelFilterOptions.getKeyword(), travelFilterOptions.getSortBy()));
-        Page<Travel> travelPage = travelRepository.findAll(specification, pageable);
 
-        return new PageImpl<>(travelPage.stream().filter(travel -> travel.getTravelStatus().equals(TravelStatus.AVAILABLE))
-                .map(this::convertToDto).toList());
+        return travelRepository.findAll(specification, pageable);
     }
 
-    private TravelDto convertToDto(Travel travel) {
-        TravelDto travelDTO = new TravelDto();
-        travelDTO.setTravelId(travel.getTravelId());
-        travelDTO.setStartPoint(travel.getStartPoint());
-        travelDTO.setEndPoint(travel.getEndPoint());
-        travelDTO.setDepartureTime(travel.getDepartureTime());
-        travelDTO.setFreeSpots(travel.getFreeSpots());
-        travelDTO.setUserId(travel.getUserId());
-        travelDTO.setCreator(travel.getUserId().getUsername());
-        travelDTO.setTravelStatus(travel.getTravelStatus());
-        travelDTO.setTravelComment(travel.getTravelComment());
-        return travelDTO;
-    }
+
 
     @Override
     public Travel getById(long id, User user) {

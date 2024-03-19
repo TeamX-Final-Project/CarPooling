@@ -8,8 +8,8 @@ import java.util.Objects;
 
 public class UserDto {
     public static final String NAME_CAN_T_BE_EMPTY_MESSAGE = "Name can't be empty";
-    private static final String NUMBER_CAN_T_BE_EMPTY_MESSAGE = "Phone number can't be empty";
-    private static final String NUMBER_SHOULD_BE_10_DIGITS_MESSAGE = "Phone number should be 10 digits";
+    static final String NUMBER_CAN_T_BE_EMPTY_MESSAGE = "Phone number can't be empty";
+    static final String NUMBER_SHOULD_BE_10_DIGITS_MESSAGE = "Phone number should be 10 digits";
     public static final String NAME_SHOULD_BE_BETWEEN_2_AND_20_SYMBOLS_MESSAGE = "Name should be between 2 and 20 symbols";
     private static final String PASSWORD_REQUIREMENTS_MESSAGE = "Password should be minimum 8 symbols, contain capital " +
             "letter and special symbol";
@@ -39,7 +39,6 @@ public class UserDto {
     @NotNull(message = NAME_CAN_T_BE_EMPTY_MESSAGE)
     @Size(min = 2, max = 20, message = NAME_SHOULD_BE_BETWEEN_2_AND_20_SYMBOLS_MESSAGE)
     private String lastName;
-
 
     @Size(min = 8, message = PASSWORD_REQUIREMENTS_MESSAGE)
     @NotNull(message = PASSWORD_CAN_T_BE_EMPTY_MESSAGE)

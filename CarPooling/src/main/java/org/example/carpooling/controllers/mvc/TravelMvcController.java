@@ -92,7 +92,7 @@ public class TravelMvcController {
                 travelFilterDto.getSortBy(),
                 travelFilterDto.getOrderBy());
 
-        Page<TravelDto> travelDtos = travelService.getAllTravels(travelFilterOptions);
+        Page<Travel> travelDtos = travelService.getAllTravels(travelFilterOptions);
 
 
         model.addAttribute("totalPages", travelDtos.getTotalPages());

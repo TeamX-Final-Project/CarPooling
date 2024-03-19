@@ -1,14 +1,13 @@
 package org.example.carpooling.repositories.contracts;
 
-import org.example.carpooling.models.ImageData;
 import org.example.carpooling.models.User;
-import org.example.carpooling.models.UserFilterOptions;
+import org.example.carpooling.models.enums.UserStatus;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+public interface UserRepository extends JpaRepository<User, Long> {
 
-public interface UserRepository {
-
-    List<User> getAllUsers(UserFilterOptions filterOptions);
+    //todo
+//    List<User> getAllUsers(UserFilterOptions filterOptions);
 
     User getByUserId(long UserId);
 
@@ -18,11 +17,7 @@ public interface UserRepository {
 
     User getByUsername(String username);
 
-    User create(User user);
+    int countAllUsersByUserStatus(UserStatus userStatus);
 
-    User update(User user);
-
-
-    long getUserCount();
 }
 

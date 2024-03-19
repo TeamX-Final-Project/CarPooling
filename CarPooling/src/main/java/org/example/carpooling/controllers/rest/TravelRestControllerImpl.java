@@ -12,6 +12,7 @@ import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.dto.TravelDto;
+import org.example.carpooling.models.enums.TravelStatus;
 import org.example.carpooling.services.AuthenticationService;
 import org.example.carpooling.services.contracts.TravelService;
 import org.example.carpooling.services.contracts.UserService;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Tag(name = "Travel", description = "Travel REST controller")
 @RestController
@@ -50,13 +52,14 @@ public class TravelRestControllerImpl implements TravelRestController {
         this.userService = userService;
     }
 
+
     @Override
     @GetMapping
-    public ResponseEntity<Page<TravelDto>> getAllTravels(@RequestParam(defaultValue = PAGE_NUMBER) int page,
-                                                         @RequestParam(defaultValue = SIZE_PAGE) int size,
-                                                         @RequestParam(required = false) String keyword,
-                                                         @RequestParam(required = false) String sortBy,
-                                                         @RequestParam(defaultValue = "ASC") String orderBy) {
+    public List<TravelDto> getAllTravels(@RequestParam(defaultValue = PAGE_NUMBER) int page,
+                                         @RequestParam(defaultValue = SIZE_PAGE) int size,
+                                         @RequestParam(required = false) String keyword,
+                                         @RequestParam(required = false) String sortBy,
+                                         @RequestParam(defaultValue = "ASC") String orderBy) {
         try {
             TravelFilterOptions travelFilterOptions = new TravelFilterOptions(
                     page,
@@ -65,8 +68,10 @@ public class TravelRestControllerImpl implements TravelRestController {
                     sortBy,
                     orderBy);
 
-            Page<TravelDto> travelPage = travelService.getAllTravels(travelFilterOptions);
-            return ResponseEntity.ok(travelPage);
+            return travelService.getAllTravels(travelFilterOptions).stream()
+                    .filter(travel -> travel.getTravelStatus().equals(TravelStatus.AVAILABLE))
+                    .map(travelMapper::convertToDto).toList();
+
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
