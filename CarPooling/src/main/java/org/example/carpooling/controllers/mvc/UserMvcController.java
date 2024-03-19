@@ -28,17 +28,15 @@ public class UserMvcController {
     private final TravelService travelService;
     private final UserMapper userMapper;
     private final AuthenticationService authenticationService;
-    private final ImageHelper imageHelper;
     private final FeedbackService feedbackService;
 
 
     @Autowired
-    public UserMvcController(UserService userService, TravelService travelService, UserMapper userMapper, AuthenticationService authenticationService, ImageHelper imageHelper, FeedbackService feedbackService) {
+    public UserMvcController(UserService userService, TravelService travelService, UserMapper userMapper, AuthenticationService authenticationService, FeedbackService feedbackService) {
         this.userService = userService;
         this.travelService = travelService;
         this.userMapper = userMapper;
         this.authenticationService = authenticationService;
-        this.imageHelper = imageHelper;
         this.feedbackService = feedbackService;
     }
 
@@ -91,8 +89,7 @@ public class UserMvcController {
     public String addProfilePhoto(@RequestParam("file") MultipartFile file, HttpSession httpSession) {
         try {
             User user = authenticationService.tryGetCurrentUser(httpSession);
-            String url = imageHelper.uploadImage(file);
-            userService.addProfilePhoto(user, url);
+            userService.addProfilePhoto(user, file);
             return "redirect:/users/update";
         } catch (AuthorizationException e) {
             return "redirect:/auth/login";
@@ -100,9 +97,4 @@ public class UserMvcController {
             return "ErrorView";
         }
     }
-
-
-
-
-
 }

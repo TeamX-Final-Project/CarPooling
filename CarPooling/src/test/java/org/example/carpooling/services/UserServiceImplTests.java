@@ -1,17 +1,16 @@
 package org.example.carpooling.services;
 
 
-import com.cloudinary.Cloudinary;
 import com.cloudinary.Uploader;
 import org.example.carpooling.Helpers;
 import org.example.carpooling.exceptions.*;
+import org.example.carpooling.helpers.ImageHelper;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserSecurityCode;
 import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.repositories.contracts.UserRepository;
 import org.example.carpooling.services.contracts.MailService;
 import org.example.carpooling.services.contracts.UserSecurityCodeService;
-import org.example.carpooling.services.contracts.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,8 +22,6 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -42,9 +39,7 @@ public class UserServiceImplTests {
     MailService mockMailService;
 
     @Mock
-    Cloudinary mockCloudinary;
-    @Mock
-    Uploader mockUploader;
+    ImageHelper mockImageHelper;
 
     @InjectMocks
     UserServiceImpl userService;
@@ -326,16 +321,14 @@ public class UserServiceImplTests {
         //Arrange
         MultipartFile file = new MockMultipartFile("name", "".getBytes());
         User user = Helpers.createMockUser();
-        Map uploadResponse = new HashMap<String, String>();
 
-        Mockito.when(mockCloudinary.uploader()).thenReturn(mockUploader);
-        Mockito.when(mockUploader.upload(Mockito.any(), Mockito.anyMap())).thenReturn(uploadResponse);
+        Mockito.when(mockImageHelper.uploadImage(file)).thenReturn(Mockito.any());
 
         //Act
-        userService.saveImage(file, user);
+        userService.addProfilePhoto(user, file);
 
         //Assertion
-        Mockito.verify(mockUserRepository, Mockito.times(1)).saveImage(Mockito.any());
+        Mockito.verify(mockUserRepository, Mockito.times(1)).update(Mockito.any());
     }
 
     @Test

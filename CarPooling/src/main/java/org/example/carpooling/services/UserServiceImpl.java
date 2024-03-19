@@ -1,6 +1,7 @@
 package org.example.carpooling.services;
 
 import org.example.carpooling.exceptions.*;
+import org.example.carpooling.helpers.ImageHelper;
 import org.example.carpooling.helpers.ValidationHelper;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserFilterOptions;
@@ -13,7 +14,9 @@ import org.example.carpooling.services.contracts.UserSecurityCodeService;
 import org.example.carpooling.services.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -23,17 +26,16 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserSecurityCodeService userSecurityCodeService;
-    private final FeedbackRepository feedbackRepository;
-
+    private final ImageHelper imageHelper;
     private final MailService mailService;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
-                           UserSecurityCodeService userSecurityCodeService, FeedbackRepository feedbackRepository,
+                           UserSecurityCodeService userSecurityCodeService, ImageHelper imageHelper,
                            MailService mailService) {
         this.userRepository = userRepository;
         this.userSecurityCodeService = userSecurityCodeService;
-        this.feedbackRepository = feedbackRepository;
+        this.imageHelper = imageHelper;
         this.mailService = mailService;
     }
 
@@ -113,14 +115,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.update(userToUpdate);
     }
 
-//    @Override
-//    public ImageData saveImage(MultipartFile file, User user) throws IOException {
-//        String url = uploadFile(file);
-//        ImageData imageData = new ImageData();
-//        imageData.setImage(url);
-//        imageData.setUser(user);
-//        return userRepository.saveImage(imageData);
-//    }
 
     @Override
     public void verify(long id, long securityCode) {
@@ -205,23 +199,11 @@ public class UserServiceImpl implements UserService {
         }
     }
     @Override
-    public User addProfilePhoto(User user, String url) {
+    public User addProfilePhoto(User user, MultipartFile file) throws IOException {
+        String url = imageHelper.uploadImage(file);
         user.setProfilePictureUrl(url);
         return userRepository.update(user);
     }
-
-@Override
-    public Double getAverageRatingForUser(User user) {
-        return feedbackRepository.getAverageRatingForReceiver(user);
-    }
-
-//    private String uploadFile(MultipartFile file) throws IOException {
-//        Map uploadResponse = cloudinary.uploader()
-//                .upload(file.getBytes()
-//                        , ObjectUtils.asMap("resource_type", "auto"));
-//
-//        return (String) uploadResponse.get(URL);
-//    }
 
     @Override
     public long getUserCount() {

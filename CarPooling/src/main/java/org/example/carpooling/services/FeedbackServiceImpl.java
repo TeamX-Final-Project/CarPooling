@@ -62,13 +62,16 @@ public class FeedbackServiceImpl implements FeedbackService {
         feedbackRepository.save(feedback);
     }
 
-
     @Override
     public void delete(User modifier, Feedback feedback) {
         authorizationHelper.checkSelfModifyPermissions(
                 modifier,
                 feedback.getGiver(),
                 DELETE_ONLY_GIVEN_FEEDBACKS_ERROR);
+    }
 
+    @Override
+    public Double getAverageRatingForUser(User user) {
+        return feedbackRepository.getAverageRatingForReceiver(user);
     }
 }
