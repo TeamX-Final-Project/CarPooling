@@ -22,11 +22,9 @@ public interface TravelRepository extends JpaRepository<Travel, Long> {
 
     Page<Travel> findAll(Specification<Travel> specification, @Param("status") Pageable pageable);
 
-
     Travel findById(long id);
 
     List<Travel> findByUserIdAndTravelStatus(User user, TravelStatus status);
-
 
 
     @Query("select COUNT (t) from Travel t where t.userId = :user and t.travelStatus = :status")

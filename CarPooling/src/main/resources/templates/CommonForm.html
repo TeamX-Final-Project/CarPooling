@@ -56,6 +56,15 @@
                         <li class="nav-item">
                             <a class="nav-link" href="blog.html">Blog</a>
                         </li>
+                        <li class="nav-item"><a href="#" th:unless="${isAuthenticated}"
+                                                th:href="@{/auth/register}" class="nav-link px-lg-3 py-3 py-lg-4"
+                                                th:text="#{navigation.register}">Register</a></li>
+                        <li class="nav-item"><a href="#" th:unless="${isAuthenticated}"
+                                                th:href="@{/auth/login}" class="nav-link px-lg-3 py-3 py-lg-4"
+                                                th:text="#{navigation.login}">Login</a></li>
+                        <li class="nav-item"><a href="#" th:if="${isAuthenticated}"
+                                                th:href="@{/auth/logout}" class="nav-link px-lg-3 py-3 py-lg-4"
+                                                th:text="#{navigation.logout}">Logout</a></li>
                     </ul>
                     <div class="user_option ">
                         <a href="" class="">
@@ -64,7 +73,7 @@
                     </div>
                     <li class="nav-item">
                         <div th:if="${isAuthenticated}">
-                            <img th:src="'https://icons.veryicon.com/png/o/miscellaneous/8atour/people-23.png'"
+                            <img th:src="${session.profilePictureUrl}"
                                  alt="Creator Icon"  width="50" height="50"/>
                             <h6 th:text="${session.currentUser}">Username</h6>
 

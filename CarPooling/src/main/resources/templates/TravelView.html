@@ -102,7 +102,7 @@
                                 <div class="rowGroup">
                                     <div th:text="#{travels.actions}">Actions</div>
                                     <div class="cell">
-                                        <div th:if="${isAuthenticated==true && (session.currentUser == travel.getUserId().userId)}">
+                                        <div th:if="${isAuthenticated==true && (session.userId == travel.getUserId().userId)}">
                                             <div>
                                                 <form action="#"
                                                       th:action="@{/travels/update/{id}(id=${travel.travelId})}"

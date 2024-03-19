@@ -11,130 +11,296 @@
 
     </form>
 
-        <section class="py-1">
-            <div class="table-container">
+    <table>
 
-                    <div class="col-lg-50 me-lg-center">
-                        <div class="card border-auto shadow mb-6 mb-lg-0">
-                            <div class="card-header bg-grey py- border-0 text-center">
-                                <a class="d-inline-block" href="#">
-                                    <img class="my-custom-image" th:src="${profilePictureUrl}" alt="profile pic"></a>
-                                <br>
-                                <br>
-                                <h4 th:text="${user.firstName + ' ' + user.lastName}"></h4>
-                                <hr>
-                                <div class ="card-body p-1">
-                                    <div class="d-flex align-items-left mb-2">
-                                        <div>
-                                            <p class="mb-1" th:text="${completedCountAsDriver + ' times a driver   '}"></p>
-                                        </div></div>
+        <div class="book_form">
+            <section class="py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-auto me-lg-auto">
+                            <div class="card border-0 shadow mb-6 mb-lg-4">
+                                <div class="card-header bg-gray-100 py-8 border-0 text-center">
+                                    <a class="d-line-block" href="#">
+                                        <img class="my-custom-image" th:src="${profilePictureUrl}" alt="profile pic">
+                                    </a>
+                                    <br>
+                                    <br>
 
+                                    <h4 th:text="${user.firstName + ' ' + user.lastName}"></h4>
+                                    <hr>
+                                    <div class="card-body p-1">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <!--                                        <div class="icon-rounded icon-rounded-sm bg-primary-light flex-shrink-0 me-2">-->
+                                            <!--                                            <svg class="svg-icon text-primary svg-icon-md">-->
+                                            <!--                                                <use xlink:href="#diploma-1"></use>-->
+                                            <!--                                            </svg>-->
+                                            <!--                                        </div>-->
+                                            <div>
+                                                <p class="mb-0"
+                                                   th:text="${completedCountAsDriver + ' times a driver'}"></p>
 
-                                     <div class="d-flex align-items-right mb-2">
-                                        <div>
-                                            <p class="mb-1" th:text="${completedCountAsPassenger + ' times a passenger'}"></p>
+                                            </div>
                                         </div>
-                                    </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <!--                                        <div class="icon-rounded icon-rounded-sm bg-primary-light flex-shrink-0 me-2">-->
+                                            <!--                                            <svg class="svg-icon text-primary svg-icon-md">-->
+                                            <!--                                                <use xlink:href="#checkmark-1"></use>-->
+                                            <!--                                            </svg>-->
+                                            <p class="mb-0"
+                                               th:text="${completedCountAsPassenger + ' times a passenger'}"></p>
+                                        </div>
 
-                                    <p class="text-muted text-sm mb-0">
-                                        Rating:
-                                        <br>
-                                        <span th:if="${feedbackService.getAverageRatingForUser(user) == null}">
-                    Not Rated Yet </span>
+                                        <p class="text-muted text-sm mb-0">
+                                            Rating:
+                                            <br>
+                                            <span th:if="${feedbackService.getAverageRatingForUser(user) == null}">
+                    Not Rated Yet
+                </span>
 
-                                        <span th:unless="${feedbackService.getAverageRatingForUser(user) == null}">
+                                            <span th:unless="${feedbackService.getAverageRatingForUser(user) == null}">
                         <span th:text="${feedbackService.getAverageRatingForUser(user)}"></span>
                     </span>
-                                    <div class="mb-6">
+                                        <div class="mb-6">
                                     <span th:if="${feedbackService.getAverageRatingForUser(user) >= 3.00}"
                                           th:each="star: ${#numbers.sequence(1, 5)}"
                                           th:class="${feedbackService.getAverageRatingForUser(user) > (star - 1) ? 'text-success' : 'text-gray-200'}">★</span>
-                                        <span th:if="${feedbackService.getAverageRatingForUser(user) >= 2.00 &amp;&amp; feedbackService.getAverageRatingForUser(user) < 3.00}"
-                                              th:each="star: ${#numbers.sequence(1, 5)}"
-                                              th:class="${feedbackService.getAverageRatingForUser(user) > (star - 1) ? 'text-warning' : 'text-gray-200'}">★</span>
-                                        <span th:if="${feedbackService.getAverageRatingForUser(user) < 2.00}"
-                                              th:each="star: ${#numbers.sequence(1, 5)}"
-                                              th:class="${feedbackService.getAverageRatingForUser(user) > (star - 1) ? 'text-danger' : 'text-gray-200'}">★</span>
+                                            <span th:if="${feedbackService.getAverageRatingForUser(user) >= 2.00 &amp;&amp; feedbackService.getAverageRatingForUser(user) < 3.00}"
+                                                  th:each="star: ${#numbers.sequence(1, 5)}"
+                                                  th:class="${feedbackService.getAverageRatingForUser(user) > (star - 1) ? 'text-warning' : 'text-gray-200'}">★</span>
+                                            <span th:if="${feedbackService.getAverageRatingForUser(user) < 2.00}"
+                                                  th:each="star: ${#numbers.sequence(1, 5)}"
+                                                  th:class="${feedbackService.getAverageRatingForUser(user) > (star - 1) ? 'text-danger' : 'text-gray-200'}">★</span>
+                                        </div>
+                                        <div class="card-header bg-gray-500 py-8 border-0 text-left">
+                                            <hr>
+                                            <ul class="card-text text-muted">
+                                                <li>
+                                                    <p th:text="${user.email}"></p>
+                                                </li>
+                                                <li>
+                                                    <p th:text="${user.phoneNumber}"></p>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div class="card-header bg-gray-500 py-8 border-0 text-left">
-                                        <hr>
-                                <ul class="card-text text-muted">
-                                    <li>
-                                        <p th:text="${user.email}"></p>
-                                    </li>
-                                    <li>
-                                        <p th:text="${user.phoneNumber}"></p>
-                                    </li>
-                                </ul>
+                                    <br></div>
+                                <!--                                        <div class="card-body p-4">-->
+                                <!--                                            <ul class="card-text text-muted text-center">-->
+                                <!--                                        &lt;!&ndash;                                                            <li th:if="${currentUser.equals(user) and !user.blocked}" class="d-flex align-items-center mb-3"><a class="btn btn-primary" th:href="@{'/users/' + ${currentUser.getId()} + '/update'}" th:text="#{profile.label.edit}">Edit Profile</a></li>&ndash;&gt;-->
+                                <!--                                                            <li th:if="${currentUser.equals(user) and !user.blocked}" class="d-flex align-items-center mb-3"><a class="btn btn-primary" th:href="@{/travels/my-bookings}" href="#" th:text="#{menu.label.passenger}">Passenger Portal</a></li>-->
+                                <!--                                                            <li th:if="${currentUser.equals(user) and !user.blocked}" class="d-flex align-items-center mb-3"><a class="btn btn-primary" th:href="@{/travels/my-listings}" href="#" th:text="#{menu.label.driver}">Driver Portal</a></li>-->
+                                <!--                                                            <li th:if="${currentUser.admin}" th:unless="${user.admin or user.blocked}" class="d-flex align-items-center mb-3"><a class="btn btn-danger" th:href="@{'/users/' + ${user.getId()} + '/promote/confirm'}" href="#" th:text="#{profile.label.promote}">Promote User</a></li>-->
+                                <!--                                                            <li th:if="${!currentUser.equals(user) and currentUser.isAdmin()}" th:unless="${user.isAdmin() or user.isBlocked()}" class="d-flex align-items-center mb-3"><a class="btn btn-danger" th:href="@{'/users/' + ${user.getId()} + '/block/confirm'}" href="#" th:text="#{profile.label.block}">Block User</a></li>--></d>
+
+                                <!--                                                            <li th:if="${currentUser.admin and user.blocked}" class="d-flex align-items-center mb-3"><a class="btn btn-success" th:href="@{'/users/' + ${user.getId()} + '/unblock/confirm'}" href="#" th:text="#{profile.label.unblock}">Unblock User</a></li>-->
                             </div>
                         </div>
-                            </div>
-<!--                <section class="table-right">-->
-<!--                                <span th:text="${user.getFirstName()}"></span>'s Rides</h4>-->
-<!--                            <div class="row">-->
-<!--                                &lt;!&ndash; place item&ndash;&gt;-->
-<!--                                <div class="container-fluid">-->
-<!--                                    <div th:if="${#lists.isEmpty(listings)}" class="d-flex justify-content-center align-items-center py-5">-->
-<!--                                        <p class="text-center">No Open Rides</p>-->
-<!--                                    </div>-->
-<!--                                    <div th:unless="${#lists.isEmpty(listings)}" class="swiper-container swiper-container-mx-negative home-slider-no-loop px-lg-5 pt-3">&lt;!&ndash; Slider main container&ndash;&gt;-->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </table>
+    <table>
 
-<!--                                        &lt;!&ndash; Additional required wrapper&ndash;&gt;-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                </section>-->
+        <div class="book_section">
+            <section class="py-7">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-auto me-lg-auto">
+                            <div class="card border-0 shadow mb-6 mb-lg-4">
+                                <div class="card-header bg-gray-100 py-8 border-0 text-center">
 
-                            <div class="card-body">
-                            <div class="container">
-                                <div class="text-center pb-lg-4">
-                                    <p class="subtitle text-sm text-primary">Feedbacks    </p>
-                                    <h5 class="mb-4">Ride Feedbacks </h5>
-                                </div>
-                            </div>
-                            <div class="container-fluid">
-                                <div th:if="${#lists.isEmpty(feedbacksReceived)}" class="d-flex justify-content-center align-items-center py-5">
-                                    <p class="text-center">No Feedbacks yet</p>
-                                </div>
-                                <!-- Slider main container-->
-                                <div  th:unless="${#lists.isEmpty(feedbacksReceived)}" class="swiper-container swiper-container-mx-negative home-slider-no-loop px-lg-5 pt-3">
-                                    <!-- Additional required wrapper-->
-                                    <div class="swiper-wrapper pb-5">
-                                        <!-- Slides-->
-                                        <div th:each="feedback : ${feedbacksReceived}" class="swiper-slide h-auto px-2">
-
-                                            <div class="swiper-slide h-auto px-2">
-                                                <div class="d-flex d-block d-sm-flex review">
-                                                    <div class="text-md-center flex-shrink-0 me-4 me-xl-5">
-                                                        <a th:href="@{/users/{userId}(userId=${feedback.giver.getUserId()})}">
-                                                            <img th:src="${feedback.giver.getProfilePictureUrl()}" class="my-custom-image rounded-circle"
-                                                                 alt="user">
-                                                            <div class="w-100">
-                                                            <div class="d-flex justify-content-between" th:text="${feedback.getGiver().getFirstName() + ' ' + feedback.getGiver().getLastName() }"></span>
+                                    <div class="container">
+                                        <div class="text-block">
+                                            <h4 class="mb-5"><span
+                                                    th:text="${user.getFirstName()}"></span>'s
+                                                Open Rides:
+                                            </h4>
+                                        </div>
+                                        <div class="row">
+                                            <!-- place item-->
+                                            <div class="container-fluid">
+                                                <div th:if="${#lists.isEmpty(listings)}"
+                                                     class="d-flex justify-content-center align-items-center py-5">
+                                                    <p class="text-center">No Open Rides</p>
+                                                </div>
+                                                <!-- Slider main container-->
+                                                <div th:unless="${#lists.isEmpty(listings)}"
+                                                     class="swiper-container swiper-container-mx-negative home-slider-no-loop px-lg-5 pt-3">
+                                                    <!-- Additional required wrapper-->
+                                                    <div class="swiper-wrapper pb-5">
+                                                        <!-- Slides-->
+                                                        <div th:each="travel : ${listings}"
+                                                             class="swiper-slide h-auto px-2">
+                                                            <div class="swiper-slide h-auto px-2">
+                                                                <!-- venue item-->
+                                                                <div class="w-100 h-100 hover-animate"
+                                                                     data-marker-id="59c0c8e33b1527bfe2abaf92">
+                                                                    <div class="card h-100 border-0 shadow">
+                                                                        <div class="card-img-overlay-bottom z-index-20">
+                                                                            <h4 class="text-white text-shadow">
+                                                                                <span th:text="${travel.origin.address}"></span>
+                                                                                <hr class="my-2">
+                                                                                <span th:text="${travel.destination.address}"></span>
+                                                                            </h4>
+                                                                            <p class="mb-2 text-xs">
+                                                                                <i
+                                                                                        class="fa fa-star text-warning"></i><i
+                                                                                    class="fa fa-star text-warning"></i><i
+                                                                                    class="fa fa-star text-warning"></i><i
+                                                                                    class="fa fa-star text-warning"></i><i
+                                                                                    class="fa fa-star text-gray-300"> </i>
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="card-img-overlay-top d-flex justify-content-between align-items-center">
+                                                                            <div th:unless="${travel.availableSpots == 1}"
+                                                                                 class="badge badge-transparent badge-pill px-3 py-2">
+                                                                                <span th:text="${travel.availableSpots}"></span>
+                                                                                <span>Available Seats</span>
+                                                                            </div>
+                                                                            <div th:if="${travel.availableSpots == 1}"
+                                                                                 class="badge badge-transparent badge-pill px-3 py-2">
+                        <span th:classappend="${travel.availableSpots == 1} ? 'text-danger' : ''">
+                          Last Spot
+                        </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--                                                                                                <div class="card-body">-->
+                                                                    <!--                                                                                                    <p class="text-sm text-muted mb-3">-->
+                                                                    <!--                                                                                                        <span th:text="${#temporals.format(travel.departureTime, 'dd MMMM yyyy, h:mm a')}"></span>-->
+                                                                    <!--                                                                                                    </p>-->
+                                                                    <!--                                                                                                    <p class="text-sm text-muted text-uppercase mb-1">-->
+                                                                    <!--                                                                                                        Driver:-->
+                                                                    <!--                                                                                                        <a th:href="@{/users/{id}(id=${travel.driver.id})}"-->
+                                                                    <!--                                                                                                           class="text-dark"-->
+                                                                    <!--                                                                                                           th:text="${travel.driver.firstName + ' ' + travel.driver.lastName}"></a>-->
+                                                                    <!--                                                                                                    </p>-->
+                                                                    <!--                                                                                                    <p class="text-sm mb-0">-->
+                                                                    <span th:if="${feedbackService.getAverageRatingForUser(travel.getUserId()) == null}">
+                        Not Rated Yet
+                      </span>
+                                                                    <span th:unless="${feedbackService.getAverageRatingForUser(travel.driver) == null}">
+                          <span th:if="${feedbackService.getAverageRatingForUser(travel.getUserId()) >= 3.00}"
+                                th:each="star: ${#numbers.sequence(1, 5)}"
+                                th:class="${feedbackService.getAverageRatingForUser(travel.getUserId()) > (star - 1) ? 'text-success' : 'text-gray-200'}">★</span>
+                          <span th:if="${feedbackService.getAverageRatingForUser(travel.getUserId()) >= 2.00 &amp;&amp; feedbackService.getAverageRatingForUser(travel.driver) < 3.00}"
+                                th:each="star: ${#numbers.sequence(1, 5)}"
+                                th:class="${feedbackService.getAverageRatingForUser(travel.getUserId()) > (star - 1) ? 'text-warning' : 'text-gray-200'}">★</span>
+                          <span th:if="${feedbackService.getAverageRatingForUser(travel.getUserId()) < 2.00}"
+                                th:each="star: ${#numbers.sequence(1, 5)}"
+                                th:class="${feedbackService.getAverageRatingForUser(travel.getUserId()) > (star - 1) ? 'text-danger' : 'text-gray-200'}">★</span>
+                      </span>
+                                                                    </p>
+                                                                </div>
                                                             </div>
-                                                        </a>
+                                                        </div>
                                                     </div>
-                                                    <div class="card-feedback-custom">
-                                                        <p>
-                                                            <span th:if="${feedback.rating >= 3.00}" th:each="star: ${#numbers.sequence(1, 5)}" th:class="${feedback.rating &gt; (star - 1) ? 'text-success' : 'text-gray-200'}">&#9733;</span>
-                                                            <span th:if="${feedback.rating >= 2.00 && feedback.rating < 3.00}" th:each="star: ${#numbers.sequence(1, 5)}" th:class="${feedback.rating &gt; (star - 1) ? 'text-warning' : 'text-gray-200'}">&#9733;</span>
-                                                            <span th:if="${feedback.rating < 2.00}" th:each="star: ${#numbers.sequence(1, 5)}" th:class="${feedback.rating &gt; (star - 1) ? 'text-danger' : 'text-gray-200'}">&#9733;</span>
-                                                        </p>
-<!--                                                        <div class="mb-2"><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i>-->
-<!--                                                        </div>-->
-                                                        <p class="text-muted text-sm" th:text="${feedback.comment}"></p>
+                                                </div>
+
+                                            </div>
+                                            <!--            If we need pagination-->
+                                            <div class="swiper-pagination"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <section class="py-6 bg-gray-100">
+                                <div class="container">
+                                    <div class="text-center pb-lg-4">
+                                        <p class="subtitle text-sm text-primary">
+                                            Feedbacks </p>
+                                        <h5 class="mb-4">Ride Feedbacks </h5>
+                                    </div>
+                                </div>
+                                <div class="container-fluid">
+                                    <div th:if="${#lists.isEmpty(feedbacksReceived)}"
+                                         class="d-flex justify-content-center align-items-center py-5">
+                                        <p class="text-center">No Feedbacks yet</p>
+                                    </div>
+                                    <!-- Slider main container-->
+                                    <div th:unless="${#lists.isEmpty(feedbacksReceived)}"
+                                         class="swiper-container swiper-container-mx-negative home-slider-no-loop px-lg-5 pt-3">
+                                        <!-- Additional required wrapper-->
+                                        <div class="swiper-wrapper pb-5">
+                                            <!-- Slides-->
+                                            <div th:each="feedback : ${feedbacksReceived}"
+                                                 class="swiper-slide h-auto px-2">
+
+                                                <div class="swiper-slide h-auto px-2">
+                                                    <div class="d-flex d-block d-sm-flex review">
+                                                        <div class="text-md-center flex-shrink-0 me-4 me-xl-5">
+                                                            <a th:href="@{/users/{userId}(userId=${feedback.giver.getId()})}">
+                                                                <img class="d-block avatar avatar-xl p-2 mb-2"
+                                                                     th:src="${feedback.giver.getProfilePictureUrl()}"
+                                                                     alt="profile pic">
+                                                                <span class="text-uppercase text-muted text-sm"
+                                                                      th:text="${feedback.getGiver().getFirstName() + ' ' + feedback.getGiver().getLastName() }"></span>
+                                                            </a>
+                                                        </div>
+                                                        <div class="card-feedback-custom">
+                                                            <p>
+                                                                    <span th:if="${feedback.rating >= 3.00}"
+                                                                          th:each="star: ${#numbers.sequence(1, 5)}"
+                                                                          th:class="${feedback.rating > (star - 1) ? 'text-success' : 'text-gray-200'}">★</span>
+                                                                <span th:if="${feedback.rating >= 2.00 &amp;&amp; feedback.rating < 3.00}"
+                                                                      th:each="star: ${#numbers.sequence(1, 5)}"
+                                                                      th:class="${feedback.rating > (star - 1) ? 'text-warning' : 'text-gray-200'}">★</span>
+                                                                <span th:if="${feedback.rating < 2.00}"
+                                                                      th:each="star: ${#numbers.sequence(1, 5)}"
+                                                                      th:class="${feedback.rating > (star - 1) ? 'text-danger' : 'text-gray-200'}">★</span>
+                                                            </p>
+                                                            <div class="mb-2"><i
+                                                                    class="fa fa-xs fa-star text-primary"></i><i
+                                                                    class="fa fa-xs fa-star text-primary"></i><i
+                                                                    class="fa fa-xs fa-star text-primary"></i><i
+                                                                    class="fa fa-xs fa-star text-primary"></i><i
+                                                                    class="fa fa-xs fa-star text-primary"></i>
+                                                            </div>
+                                                            <p class="text-muted text-sm"
+                                                               th:text="${feedback.comment}"></p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="swiper-pagination"></div>
                                     </div>
-                                    <div class="swiper-pagination"></div>
                                 </div>
-                            </div>
-                            </div>
-                        </section>
-                 </table>
+                            </section>
+                        </div>
                     </div>
+                </div>
+        </div>
+        <h4 th:if="${isAuthenticated && session.isAdmin}" th:text="#{user.admin.operations}">
+            Admin Operations/div>
+        </h4>
+        <form action="#" th:action="@{/users/block:{id}(id=${user.id})}" th:object="${block}" method="post">
+            <input th:if="${isAuthenticated && session.isAdmin}" type="submit" value="Block"/>
+        </form>
+        <form action="#" th:action="@{/users/unblock:{id}(id=${user.id})}" th:object="${unblock}" method="post">
+            <input th:if="${isAuthenticated && session.isAdmin}" type="submit" value="Unblock"/>
+        </form>
+        <form action="#" th:action="@{/users/makeAdmin:{id}(id=${user.id})}" th:object="${makeAdmin}" method="post">
+            <input th:if="${isAuthenticated && session.isAdmin}" type="submit" value="Make Admin"/>
+        </form>
+        <form action="#" th:action="@{/users/unmakeAdmin:{id}(id=${user.id})}" th:object="${unmakeAdmin}" method="post">
+            <input th:if="${isAuthenticated && session.isAdmin}" type="submit" value="Unmake Admin"/>
+        </form>
+        <form action="#" th:action="@{/users/delete:{id}(id=${user.id})}" th:object="${delete}" method="post">
+            <input th:if="${isAuthenticated && session.isAdmin}" type="submit" value="Delete"/>
+        </form>
 
+</div>
+</div>
+</table>
+</div>
+</div>
+</div>
+</section>
+</div>
+</table>
+</div>
 </body>
 </html>
