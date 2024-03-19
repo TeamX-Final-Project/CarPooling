@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<form th:replace="~{CommonForm.html::head('Register')}"></form>
+<link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+
+<body>
+<div class="hero_area">
+    <form th:replace="~{CommonForm.html::header}"></form>
+    <form th:replace="~{CommonForm.html::slider}"></form>
+</div>
+<div class="body-content">
+
+</div>
+<div class="body-content">
+    <h2>Profile</h2>
+    <form action="#" th:action="@{/profile}" th:object="${profile}" method="post">
+        <label th:text="#{user.firstName}">First Name</label>
+        <br/>
+        <input type="text" th:field="*{firstName}"/>
+        <br/>
+        <label class="label-error" th:errors="*{firstName}">First name error placeholder</label>
+        <br/>
+        <label th:text="#{user.lastName}">Last Name</label>
+        <br/>
+        <input type="text" th:field="*{lastName}"/>
+        <br/>
+        <label class="label-error" th:errors="*{lastName}">Last Name error placeholder</label>
+        <br/>
+        <label th:text="#{user.email}">Email</label>
+        <br/>
+        <input type="text" th:field="*{email}"/>
+        <br/>
+        <label class="label-error" th:errors="*{email}">Email error placeholder</label>
+        <br/>
+        <label th:text="#{user.phoneNumber}">Phone number</label>
+        <br/>
+        <input type="text" th:field="*{phoneNumber}"/>
+        <br/>
+        <label class="label-error" th:errors="*{phoneNumber}">Phone number error placeholder</label>
+        <br/>
+        <label th:text="#{user.password}">Password</label>
+        <br/>
+        <input type="password" th:field="*{password}"/>
+        <br/>
+        <label class="label-error" th:errors="*{password}">Password error placeholder</label>
+        <br/>
+        <input type="submit" value="Update" />
+    </form>
+    <br/>
+    <form action="#" th:action="@{/profileDelete}" th:object="${profileDelete}" method="get">
+        <input type="submit" value="Delete Account" />
+    </form>
+
+</div>
+</body>
+</html>

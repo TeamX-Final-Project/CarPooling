@@ -17,21 +17,21 @@ INSERT INTO carpoolingx.cities (id, name) VALUES (14, 'Yambol');
 INSERT INTO carpoolingx.cities (id, name) VALUES (15, 'Blagoevgrad');
 
 
-INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (1, 'v.stoyanov', 'Venci@123', 'Vencislav', 'Stoyanov', 'v.stoyanov@example.com', '0889745698', 'ACTIVE', 1);
-INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (2, 'p.krundev', 'Petar@123', 'Petar', 'Krundev', 'p.krundev@example.com', '0879456987', 'ACTIVE', 1);
-INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (3, 'd.kovachev', 'Dinko@123', 'Dinko', 'Kovachev', 'd.kovachev@example.com', '0987659873', 'ACTIVE', 1);
-INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (4, 'g.ivanov', 'Georgi@123', 'Georgi', 'Ivanov', 'g.ivanov@example.com', '0886589741', 'ACTIVE', 0);
-INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (5, 'm.petrova', 'Maria@123', 'Maria', 'Petrova', 'm.petrova@example.com', '0789459786', 'PENDING', 0);
-INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (6, 'p.marinov', 'Preslav@123', 'Preslav', 'Marinov', 'p.marinov@example.com', '0789659873', 'ACTIVE', 0);
-INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (7, 's.hristov', 'Stanislav@123', 'Stanislav', 'Hristov', 's.hristov@example.com', '0889653212', 'ACTIVE', 0);
-INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (8, 'r.dimitrova', 'Rosica@123', 'Rosica', 'Dimitrova', 'r.dimitrova@example.com', '0879456123', 'PENDING', 0);
-INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (9, 'd.tsanev', 'Dimitar@123', 'Dimitar', 'Tsanev', 'd.tsanev@example.com', '0883125478', 'ACTIVE', 0);
-INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (10, 'k.ivanova', 'Karina@123', 'Karina', 'Ivanova', 'k.ivanova@example.com', '0887945699', 'BLOCKED', 0);
-INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (11, 'p.uzunova', 'Polina@123', 'Polina', 'Uzunova', 'p.uzunova@example.com', '0886444778', 'BLOCKED', 0);
-INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (12, 'a.aleksandrov', 'Aleksandar@123', 'Aleksandar', 'Aleksandrov', 'a.aleksandrov@example.com', '0787441125', 'PENDING', 0);
-INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (13, 'n.nikolov', 'Nikola@123', 'Nikola', 'Nikolov', 'n.nikolov@example.com', '0889363632', 'ACTIVE', 0);
-INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (14, 'f.filipov', 'Filip@123', 'Filip', 'Filipov', 'f.filipov@example.com', '0889778589', 'ACTIVE', 0);
-INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (15, 'i.ivanov', 'Ivan@123', 'Ivan', 'Ivanov', 'i.ivanov@example.com', '0889663589', 'ACTIVE', 0);
+INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (1, 'v.stoyanov', 'Venci@123', 'Vencislav', 'Stoyanov', 'v.stoyanov@example.com', '0889745698', 1, 1);
+INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (2, 'p.krundev', 'Petar@123', 'Petar', 'Krundev', 'p.krundev@example.com', '0879456987', 1, 1);
+INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (3, 'd.kovachev', 'Dinko@123', 'Dinko', 'Kovachev', 'd.kovachev@example.com', '0987659873', 1, 1);
+INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (4, 'g.ivanov', 'Georgi@123', 'Georgi', 'Ivanov', 'g.ivanov@example.com', '0886589741', 1, 0);
+INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (5, 'm.petrova', 'Maria@123', 'Maria', 'Petrova', 'm.petrova@example.com', '0789459786', 0, 0);
+INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (6, 'p.marinov', 'Preslav@123', 'Preslav', 'Marinov', 'p.marinov@example.com', '0789659873', 1, 0);
+INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (7, 's.hristov', 'Stanislav@123', 'Stanislav', 'Hristov', 's.hristov@example.com', '0889653212', 1, 0);
+INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (8, 'r.dimitrova', 'Rosica@123', 'Rosica', 'Dimitrova', 'r.dimitrova@example.com', '0879456123', 0, 0);
+INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (9, 'd.tsanev', 'Dimitar@123', 'Dimitar', 'Tsanev', 'd.tsanev@example.com', '0883125478', 0, 0);
+INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (10, 'k.ivanova', 'Karina@123', 'Karina', 'Ivanova', 'k.ivanova@example.com', '0887945699', 2, 0);
+INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (11, 'p.uzunova', 'Polina@123', 'Polina', 'Uzunova', 'p.uzunova@example.com', '0886444778', 2, 0);
+INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (12, 'a.aleksandrov', 'Aleksandar@123', 'Aleksandar', 'Aleksandrov', 'a.aleksandrov@example.com', '0787441125', 0, 0);
+INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (13, 'n.nikolov', 'Nikola@123', 'Nikola', 'Nikolov', 'n.nikolov@example.com', '0889363632', 1, 0);
+INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (14, 'f.filipov', 'Filip@123', 'Filip', 'Filipov', 'f.filipov@example.com', '0889778589', 1, 0);
+INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin) VALUES (15, 'i.ivanov', 'Ivan@123', 'Ivan', 'Ivanov', 'i.ivanov@example.com', '0889663589', 1, 0);
 
 
 

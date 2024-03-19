@@ -61,6 +61,12 @@
                             Login / signUp
                         </a>
                     </div>
+                    <li class="nav-item">
+                        <div th:if="${isAuthenticated}">
+                            <img th:src="'https://icons.veryicon.com/png/o/miscellaneous/8atour/people-23.png'"
+                                 alt="Creator Icon"  width="50" height="50"/>
+                            <h6 th:text="${session.currentUser}">Username</h6>
+
                 </div>
             </nav>
         </div>
