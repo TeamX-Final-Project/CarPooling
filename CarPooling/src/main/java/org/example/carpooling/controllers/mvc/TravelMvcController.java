@@ -5,14 +5,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.example.carpooling.exceptions.AuthorizationException;
+import org.example.carpooling.exceptions.BlockedUserException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
+import org.example.carpooling.exceptions.OperationNotAllowedException;
 import org.example.carpooling.mappers.TravelMapper;
+import org.example.carpooling.models.Candidates;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.dto.TravelDto;
 import org.example.carpooling.models.dto.TravelFilterDto;
 import org.example.carpooling.services.AuthenticationService;
+import org.example.carpooling.services.contracts.CandidateService;
 import org.example.carpooling.services.contracts.TravelService;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +36,18 @@ import java.util.List;
 @RequestMapping("/travels")
 public class TravelMvcController {
     private final TravelService travelService;
+
+    private final CandidateService candidateService;
     private final AuthenticationService authenticationService;
 
     private final TravelMapper travelMapper;
 
     @Autowired
-    public TravelMvcController(TravelService travelService, AuthenticationService authenticationService,
+    public TravelMvcController(TravelService travelService, CandidateService candidateService,
+                               AuthenticationService authenticationService,
                                TravelMapper travelMapper) {
         this.travelService = travelService;
+        this.candidateService = candidateService;
         this.authenticationService = authenticationService;
         this.travelMapper = travelMapper;
     }
@@ -110,40 +118,153 @@ public class TravelMvcController {
             return "ErrorView";
         }
     }
+
     @GetMapping("/new")
-    public String createTravelView(Model model, HttpSession session){
+    public String createTravelView(Model model, HttpSession session) {
         try {
             authenticationService.tryGetCurrentUser(session);
-        } catch (AuthorizationException e){
+        } catch (AuthorizationException e) {
             return "redirect:/auth/login";
         }
         model.addAttribute("travel", new TravelDto());
         return "CreateTravel";
     }
+
     @PostMapping("/new")
     public String createTravelView(@Valid @ModelAttribute("travel") TravelDto travelDto,
                                    BindingResult bindingResult,
                                    Model model,
-                                   HttpSession session){
+                                   HttpSession session) {
         User user;
         try {
             user = authenticationService.tryGetCurrentUser(session);
-        } catch (AuthorizationException e){
+        } catch (AuthorizationException e) {
             return "redirect:/auth/login";
         }
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "CreateTravel";
         }
-        try{
+        try {
             Travel travel = travelMapper.fromDto(travelDto);
-            travelService.create(travel,user);
+            travelService.create(travel, user);
             return "TravelsView";
-        } catch (EntityNotFoundException e){
+        } catch (EntityNotFoundException e) {
             model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
             model.addAttribute("error", e.getMessage());
             return "ErrorView";
-        } catch (AuthorizationException e){
+        } catch (AuthorizationException e) {
             return "redirect:/auth/login";
+        }
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateTravel(@PathVariable int id, @Valid @ModelAttribute("travelUpdate") TravelDto travelDto,
+                               BindingResult bindingResult,
+                               Model model,
+                               HttpSession session) {
+        User user;
+        try {
+            user = authenticationService.tryGetCurrentUser(session);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/login";
+        }
+        if (bindingResult.hasErrors()) {
+            return "UpdateTravelView";
+        }
+        try {
+            Travel travel = travelMapper.fromDto(id, travelDto);
+            travelService.update(user, travel);
+            return "redirect:/travels/id";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "ErrorView";
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/login";
+        }
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteTravel(@PathVariable int id, @Valid @ModelAttribute("travelDelete") Travel travel,
+                               Model model,
+                               HttpSession session) {
+        User user;
+        try {
+            user = authenticationService.tryGetCurrentUser(session);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/login";
+        }
+        try {
+            travelService.deleteTravelById(id, user);
+            return "redirect:/travels";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "ErrorView";
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "redirect:/auth/login";
+        } catch (OperationNotAllowedException e) {
+            model.addAttribute("statusCode", HttpStatus.METHOD_NOT_ALLOWED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "ErrorView";
+        }
+    }
+
+    @PostMapping("/apply/{id}")
+    public String applyTravel(@PathVariable int id, @Valid @ModelAttribute("applyTravel") Travel travel,
+                               Model model,
+                               HttpSession session) {
+        User user;
+        try {
+            user = authenticationService.tryGetCurrentUser(session);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/login";
+        }
+        try {
+            candidateService.applyTravel(id,user);
+            return "redirect:/travels/id";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "ErrorView";
+        } catch (AuthorizationException  | BlockedUserException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "redirect:/auth/login";
+        } catch (OperationNotAllowedException e) {
+            model.addAttribute("statusCode", HttpStatus.METHOD_NOT_ALLOWED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "ErrorView";
+        }
+    }
+
+    @PostMapping("/approve/{id}")
+    public String approveTravel(@PathVariable int id, @Valid @ModelAttribute("applyTravel") Travel travel,
+                                Model model,
+                                HttpSession session){
+        User user;
+        try {
+            user = authenticationService.tryGetCurrentUser(session);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/login";
+        }
+        try {
+            candidateService.applyTravel(id,user);
+            return "redirect:/travels/id";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "ErrorView";
+        } catch (AuthorizationException  | BlockedUserException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "redirect:/auth/login";
+        } catch (OperationNotAllowedException e) {
+            model.addAttribute("statusCode", HttpStatus.METHOD_NOT_ALLOWED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "ErrorView";
         }
     }
 }

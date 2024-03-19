@@ -113,9 +113,10 @@ public class TravelServiceImpl implements TravelService {
     }
 
     private void checkModifyPermission(User userModifier, Travel travel) {
-
-        if (userModifier.getUserId() != travel.getUserId().getUserId()) {
-            throw new AuthorizationException(YOU_ARE_NOT_THE_CREATOR_OF_THE_TRAVEL_ERROR);
+        if (!userModifier.isAdmin()) {
+            if (userModifier.getUserId() != travel.getUserId().getUserId()) {
+                throw new AuthorizationException(YOU_ARE_NOT_THE_CREATOR_OF_THE_TRAVEL_ERROR);
+            }
         }
     }
 
