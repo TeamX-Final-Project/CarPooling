@@ -112,61 +112,61 @@ public class UserMvcController {
         model.addAttribute("users", userService.getAllUsers(userFilterOptions));
         return "UsersView";
     }
-    @PostMapping("/block:{id}")
-    public String handleUserBlock(@PathVariable int id, @ModelAttribute("block") User user, Model model,
-                                  HttpSession session) {
-        User userModifier = authenticationService.tryGetCurrentUser(session);
-        try {
-            userService.updateUserStatus(id, userModifier);
-            return "redirect:/users";
-        } catch (AuthorizationException e) {
-            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
-            model.addAttribute("error", "Not authorized");
-            return "ErrorView";
-        }
-    }
-
-    @PostMapping("/unblock:{id}")
-    public String handleUserUnblock(@PathVariable int id, @ModelAttribute("unblock") User user, Model model,
-                                    HttpSession session) {
-        User userModifier = authenticationService.tryGetCurrentUser(session);
-        try {
-            userService.updateUserStatus(id, userModifier);
-            return "redirect:/users";
-        } catch (AuthorizationException e) {
-            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
-            model.addAttribute("error", "Not authorized");
-            return "ErrorView";
-        }
-    }
-
-    @PostMapping("/makeAdmin:{id}")
-    public String handleUserMakeAdmin(@PathVariable int id, @ModelAttribute("makeAdmin") User user, Model model,
-                                      HttpSession session) {
-        User userModifier = authenticationService.tryGetCurrentUser(session);
-        try {
-            userService.changeUserAdminValue(id, userModifier);
-            return "redirect:/users";
-        } catch (AuthorizationException e) {
-            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
-            model.addAttribute("error", "Not authorized");
-            return "ErrorView";
-        }
-    }
-
-    @PostMapping("/unmakeAdmin:{id}")
-    public String handleUserUnMakeAdmin(@PathVariable int id, @ModelAttribute("unmakeAdmin") User user, Model model,
-                                        HttpSession session) {
-        User userModifier = authenticationService.tryGetCurrentUser(session);
-        try {
-            userService.changeUserAdminValue(id, userModifier);
-            return "redirect:/users";
-        } catch (AuthorizationException e) {
-            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
-            model.addAttribute("error", "Not authorized");
-            return "ErrorView";
-        }
-    }
+//    @PostMapping("/block:{id}")
+//    public String handleUserBlock(@PathVariable int id, @ModelAttribute("block") User user, Model model,
+//                                  HttpSession session) {
+//        User userModifier = authenticationService.tryGetCurrentUser(session);
+//        try {
+//            userService.updateUserStatus(id, userModifier);
+//            return "redirect:/users";
+//        } catch (AuthorizationException e) {
+//            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+//            model.addAttribute("error", "Not authorized");
+//            return "ErrorView";
+//        }
+//    }
+//
+//    @PostMapping("/unblock:{id}")
+//    public String handleUserUnblock(@PathVariable int id, @ModelAttribute("unblock") User user, Model model,
+//                                    HttpSession session) {
+//        User userModifier = authenticationService.tryGetCurrentUser(session);
+//        try {
+//            userService.updateUserStatus(id, userModifier);
+//            return "redirect:/users";
+//        } catch (AuthorizationException e) {
+//            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+//            model.addAttribute("error", "Not authorized");
+//            return "ErrorView";
+//        }
+//    }
+//
+//    @PostMapping("/makeAdmin:{id}")
+//    public String handleUserMakeAdmin(@PathVariable int id, @ModelAttribute("makeAdmin") User user, Model model,
+//                                      HttpSession session) {
+//        User userModifier = authenticationService.tryGetCurrentUser(session);
+//        try {
+//            userService.changeUserAdminValue(id, userModifier);
+//            return "redirect:/users";
+//        } catch (AuthorizationException e) {
+//            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+//            model.addAttribute("error", "Not authorized");
+//            return "ErrorView";
+//        }
+//    }
+//
+//    @PostMapping("/unmakeAdmin:{id}")
+//    public String handleUserUnMakeAdmin(@PathVariable int id, @ModelAttribute("unmakeAdmin") User user, Model model,
+//                                        HttpSession session) {
+//        User userModifier = authenticationService.tryGetCurrentUser(session);
+//        try {
+//            userService.changeUserAdminValue(id, userModifier);
+//            return "redirect:/users";
+//        } catch (AuthorizationException e) {
+//            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+//            model.addAttribute("error", "Not authorized");
+//            return "ErrorView";
+//        }
+//    }
 
     @PostMapping("/delete:{id}")
     public String handleUserDelete(@PathVariable int id, @ModelAttribute("delete") User user, Model model,

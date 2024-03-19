@@ -30,7 +30,7 @@ public interface TravelRestController {
                                                   @RequestParam(defaultValue = "ASC") String orderBy);
 
     @Operation(
-            summary = "Get travel by ip",
+            summary = "Get travel by id",
             description = "fetches all travel entities and their data from data source")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation")
