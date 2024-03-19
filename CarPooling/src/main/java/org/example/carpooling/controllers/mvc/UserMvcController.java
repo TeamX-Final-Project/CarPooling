@@ -3,7 +3,6 @@ package org.example.carpooling.controllers.mvc;
 import jakarta.servlet.http.HttpSession;
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
-import org.example.carpooling.helpers.ImageHelper;
 import org.example.carpooling.mappers.UserMapper;
 import org.example.carpooling.models.Feedback;
 import org.example.carpooling.models.Travel;
@@ -58,11 +57,12 @@ public class UserMvcController {
             return null;
         }
     }
+
     @GetMapping("/{id}")
     public String showUserProfile(@PathVariable Long id, Model model, HttpSession httpSession) {
         try {
             User currentUser = authenticationService.tryGetCurrentUser(httpSession);
-            model.addAttribute("currentUser",currentUser);
+            model.addAttribute("currentUser", currentUser);
             model.addAttribute("userService", userService);
             model.addAttribute("feedbackService", feedbackService);
             User user = userService.getById(id);
@@ -79,10 +79,10 @@ public class UserMvcController {
             model.addAttribute("completedCountAsPassenger", completedTravelsAsPassengerCount);
 
 
-            List<Feedback> feedbacksReceived= feedbackService.getByReceiver(user);
-            model.addAttribute("feedbacksReceived",feedbacksReceived);
+            List<Feedback> feedbacksReceived = feedbackService.getByReceiver(user);
+            model.addAttribute("feedbacksReceived", feedbacksReceived);
             List<Travel> listings = travelService.getOpenTravelsOfDriver(user);
-            model.addAttribute("listings",listings);
+            model.addAttribute("listings", listings);
 
             return "UserView";
         } catch (AuthorizationException e) {
@@ -92,6 +92,83 @@ public class UserMvcController {
             return "ErrorView";
         }
     }
+
+//    @GetMapping("/{id}/update")
+//    public String showEditUserPage(@PathVariable Long id, Model model, HttpSession session) {
+//        try {
+//            User currentUser = authenticationService.tryGetCurrentUser(session);
+//            model.addAttribute("currentUser", currentUser);
+//            User user = userService.getById(id);
+//            try {
+//                User modifier = authenticationService.tryGetCurrentUser(session);
+//                checkSelfModifyPermissions(modifier, user
+//                );
+//            } catch (EntityNotFoundException e) {
+//                model.addAttribute("error", e.getMessage());
+//                return "ErrorView";
+//            } catch (AuthorizationException e) {
+//                model.addAttribute("error", e.getMessage());
+//                return "redirect:/auth/login";
+//            }
+//            UserDto userDto = userMapper.toDtoEdit(user);
+//            model.addAttribute("userId", id);
+//            model.addAttribute("user", userDto);
+//            model.addAttribute("originalUser", user);
+//            String profilePictureUrl = user.getProfilePictureUrl();
+//            model.addAttribute("profilePictureUrl", profilePictureUrl);
+//            return "UpdateProfile";
+//        } catch (AuthorizationException e) {
+//            return "redirect:/auth/login";
+//        } catch (EntityNotFoundException e) {
+//            model.addAttribute("error", e.getMessage());
+//            return "ErrorView";
+//        }
+//    }
+//    @PostMapping("/{id}/update")
+//    public String updateUser(@PathVariable Long id,
+//                             @Valid @ModelAttribute("user") UserDto userDto,
+//                             BindingResult bindingResult,
+//                             @RequestParam("profilePicture") MultipartFile profilePicture,
+//                             Model model,
+//                             HttpSession session) {
+//        if (bindingResult.hasErrors()) {
+//            return "UpdateProfile";
+//        }
+//        User modifier;
+//        try {
+//            modifier = authenticationService.tryGetCurrentUser(session);
+//        } catch (AuthorizationException e) {
+//            return "redirect:/auth/login";
+//        }
+//        try {
+//            User userToUpdate = userMapper.fromDto(id, userDto);
+//            User existingUser = userService.getById(id);
+//            if (!profilePicture.isEmpty()) {
+//                String imageUrl = imageStorageService.uploadImage(profilePicture);
+//                userToUpdate.setProfilePictureUrl(imageUrl);
+//            }
+//            else {
+//                userToUpdate.setProfilePictureUrl(existingUser.getProfilePictureUrl());
+//            }
+//            userService.editUser(modifier, userToUpdate);
+//            model.addAttribute("updateSuccess", "Update successful");
+//
+//            return "UpdateProfile";
+//        } catch (EntityNotFoundException e) {
+//            model.addAttribute("error", e.getMessage());
+//            return "ErrorView";
+//        } catch (EntityDuplicateException e) {
+//            bindingResult.rejectValue("email", "duplicate_user", e.getMessage());
+//            return "UserUpdateView";
+//        } catch (AuthorizationException e) {
+//            model.addAttribute("error", e.getMessage());
+//            return "403";
+//        } catch (IOException e) {
+//            bindingResult.rejectValue("profilePicture", "image_upload_error", "Image upload failed.");
+//            return "UserUpdateView";
+//        }
+//    }
+
     @PostMapping("/picture")
     public String addProfilePhoto(@RequestParam("file") MultipartFile file, HttpSession httpSession) {
         try {
@@ -102,6 +179,12 @@ public class UserMvcController {
             return "redirect:/auth/login";
         } catch (IOException e) {
             return "ErrorView";
+        }
+    }
+
+    private void checkSelfModifyPermissions(User modifier, User user) {
+        if (!modifier.equals(user)) {
+            throw new AuthorizationException("A user can only edit and access his own travel information!");
         }
     }
 
@@ -116,6 +199,7 @@ public class UserMvcController {
                 users.stream().map(userMapper::toSimpleDto).collect(Collectors.toList()));
         return "UsersView";
     }
+
     @GetMapping("/block/{id}")
     public String handleUserBlock(@PathVariable int id, @ModelAttribute("block") User user, Model model,
                                   HttpSession session) {

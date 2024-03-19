@@ -48,6 +48,10 @@ public class UserDto {
     @NotNull(message = PASSWORD_CAN_T_BE_EMPTY_MESSAGE)
     private String passwordConfirm;
 
+
+    public UserDto() {
+    }
+
     public long getId() {
         return id;
     }
