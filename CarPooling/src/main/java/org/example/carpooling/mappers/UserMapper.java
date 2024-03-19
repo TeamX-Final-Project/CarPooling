@@ -69,6 +69,13 @@ public class UserMapper {
         return user;
     }
 
-
+public UserDto toDtoEdit(User user){
+        UserDto userDto = new UserDto();
+    userDto.setFirstName(user.getFirstName());
+    userDto.setLastName(user.getLastName());
+    userDto.setEmail(user.getEmail());
+    userDto.setPhoneNumber(user.getPhoneNumber());
+    return userDto;
+}
 
 }
