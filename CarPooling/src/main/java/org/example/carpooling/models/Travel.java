@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import org.example.carpooling.models.enums.TravelStatus;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "travels")
@@ -19,8 +20,7 @@ public class Travel {
     @Column(name = "end_point")
     private String endPoint;
     @Column(name = "departure_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp departureTime;
+    private LocalDateTime departureTime;
     @Column(name = "free_spots")
     private int freeSpots;
     @Column(name = "is_deleted")
@@ -67,11 +67,11 @@ public class Travel {
         this.endPoint = endPoint;
     }
 
-    public Timestamp getDepartureTime() {
+    public LocalDateTime getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(Timestamp departureTime) {
+    public void setDepartureTime(LocalDateTime departureTime) {
         this.departureTime = departureTime;
     }
 

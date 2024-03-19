@@ -100,14 +100,15 @@
             <div class="header-cell" th:text="#{travels.freeSpots}">Free Spots</div>
             <div class="header-cell" th:text="#{travels.button.details}">Details</div>
         </div>
-        <div class="rowGroup" th:if="${isAuthenticated == true && (session.currentUser != travel.getCreator())}"
+<!--         && (session.currentUser != travel.getCreator())-->
+        <div class="rowGroup" th:if="${isAuthenticated == true}"
              th:each="travel : ${travels}">
-            <div class="cell" th:text="${travel.creator}">Driver(Rating)</div>
+            <div class="cell" th:text="${travel.creator}">Driver</div>
             <div class="cell" th:text="${travel.startPoint}">Starting Point</div>
             <div class="cell" th:text="${travel.endPoint}">Ending Point</div>
             <div class="cell" th:text="${travel.departureTime}">Departure Time</div>
             <div class="cell" th:text="${travel.freeSpots}">FreeSpots</div>
-            <a class="link-info" href="#" th:href="@{/travels/{id}(id=${travel.getTravelId()})}"
+            <a class="link-info" href="#" th:href="@{/travels/{id}(id=${travel.travelId})}"
                th:text="#{travels.button.details}">Details</a>
         </div>
     </div>

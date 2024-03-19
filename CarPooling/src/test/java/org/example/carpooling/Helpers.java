@@ -1,7 +1,11 @@
 package org.example.carpooling;
 
+import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.User;
+import org.example.carpooling.models.enums.TravelStatus;
 import org.example.carpooling.models.enums.UserStatus;
+
+import java.time.LocalDateTime;
 
 public class Helpers {
 
@@ -34,5 +38,22 @@ public class Helpers {
 //        user.setUserStatus(UserStatus.ACTIVE);
     }
 
+    public static Travel createMockTravel() {
+        var mockUser = createMockUser();
+        var mockTravel = new Travel();
+        mockTravel.setTravelId(1);
+        mockTravel.setStartPoint("MockStartLocation");
+        mockTravel.setEndPoint("MockEndLocation");
+        mockTravel.setDepartureTime(LocalDateTime.parse("2023-07-30T18:00"));
+        mockTravel.setFreeSpots(4);
+        mockTravel.setDeleted(false);
+        mockTravel.setUserId(mockUser);
+        mockTravel.setTravelStatus(TravelStatus.AVAILABLE);
+        mockTravel.setDistanceTravel(222);
+        mockTravel.setDurationTravel(222);
+        mockTravel.setTravelComment("MockTravelComment");
+        return mockTravel;
+    }
 
+    
 }
