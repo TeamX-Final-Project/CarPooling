@@ -47,10 +47,14 @@
                         <a class="nav-link" href="index.html" th:href="@{/}">Home </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="CreateTravel.html" th:href="@{/travels/new}">Create Travel </a>
+                        <a class="nav-link"
+                           th:if="${isAuthenticated}"
+                           href="CreateTravel.html" th:href="@{/travels/new}">Create Travel </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="TravelsView.html" th:href="@{/travels}">Browse Travels</a>
+                        <a class="nav-link"
+                           th:if="${isAuthenticated}"
+                           href="TravelsView.html" th:href="@{/travels}">Browse Travels</a>
                     </li>
 
                     <li class="nav-item">
