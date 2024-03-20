@@ -124,17 +124,22 @@
                                                     <input type="submit" value="  Delete Travel "/>
                                                 </form>
                                             </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="cell">
-                                        <div th:if="${isAuthenticated==true && (session.userId != travel.getUserId().userId)}">
-                                            <form action="#"
-                                                  th:action="@{/candidates/apply/{id}(id=${travel.getTravelId()})}"
-                                                  method="post">
-                                                <input type="submit" value="  Apply  "/>
-                                            </form>
+                                            <div>
+                                                <form action="#"
+                                                      th:action="@{/travels/cancel/{id}(id=${travel.travelId})}"
+                                                      th:object="${travelCancel}"
+                                                      method="get">
+                                                    <input type="submit" value="  Cancel Travel "/>
+                                                </form>
+                                            </div>
+                                            <div>
+                                                <form action="#"
+                                                      th:action="@{/travels/complete/{id}(id=${travel.travelId})}"
+                                                      th:object="${travelCancel}"
+                                                      method="get">
+                                                    <input type="submit" value="  Cancel Travel "/>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="cell">

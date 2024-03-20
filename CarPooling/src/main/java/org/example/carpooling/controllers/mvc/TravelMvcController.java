@@ -13,6 +13,7 @@ import org.example.carpooling.models.Candidates;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.User;
+import org.example.carpooling.models.dto.SimpleTravelDto;
 import org.example.carpooling.models.dto.TravelDto;
 import org.example.carpooling.models.dto.TravelFilterDto;
 import org.example.carpooling.services.AuthenticationService;
@@ -21,6 +22,7 @@ import org.example.carpooling.services.contracts.TravelService;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -73,9 +75,10 @@ public class TravelMvcController {
                                  @RequestParam(defaultValue = "startPoint", required = false, name = "sortBy") String sortBy,
                                  @RequestParam(defaultValue = "asc", name = "orderBy") String orderBy,
                                  @ModelAttribute("travelFilterOptions") TravelFilterDto travelFilterDto,
+
                                  HttpSession session,
                                  Model model) {
-
+        User user = authenticationService.tryGetCurrentUser(session);
         if (!populateIsAuthenticated(session)) {
             return "redirect:/auth/login";
         }
@@ -94,11 +97,18 @@ public class TravelMvcController {
 
         Page<Travel> travelDtos = travelService.getAllTravels(travelFilterOptions);
 
+        List<SimpleTravelDto> simpleTravelDtoList = travelDtos.getContent().stream()
+                .map(travel -> travelMapper.convertToSimpleTravelDto(user,travel)).toList();
+        Page<SimpleTravelDto> simpleTravelDtos = new PageImpl<>(simpleTravelDtoList, travelDtos.getPageable(),
+                travelDtos.getTotalElements());
+
+
 
         model.addAttribute("totalPages", travelDtos.getTotalPages());
         model.addAttribute("currentPage", page + 1);
         model.addAttribute("totalItems", travelDtos.getNumberOfElements());
-        model.addAttribute("travels", travelDtos);
+        model.addAttribute("travels", simpleTravelDtos);
+//        model.addAttribute("currentUser", user);
         return "TravelsView";
     }
 
@@ -225,6 +235,34 @@ public class TravelMvcController {
         }
         try {
             travelService.deleteTravelById(id, user);
+            return "redirect:/travels";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "ErrorView";
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "redirect:/auth/login";
+        } catch (OperationNotAllowedException e) {
+            model.addAttribute("statusCode", HttpStatus.METHOD_NOT_ALLOWED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "ErrorView";
+        }
+    }
+
+    @GetMapping("/cancel/{id}")
+    public String cancelTravel(@PathVariable int id, @Valid @ModelAttribute("travelCancel") Travel travel,
+                               Model model,
+                               HttpSession session) {
+        User user;
+        try {
+            user = authenticationService.tryGetCurrentUser(session);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/login";
+        }
+        try {
+            travelService.cancel(id, user);
             return "redirect:/travels";
         } catch (EntityNotFoundException e) {
             model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
