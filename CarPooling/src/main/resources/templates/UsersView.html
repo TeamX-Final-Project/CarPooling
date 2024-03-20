@@ -10,6 +10,70 @@
 </div>
 
 <div class="body-content" th:if="${isAuthenticated && session.isAdmin}">
+    <form class="book_section" action="#" th:action="@{/users}" th:object="${userFilterOptions}" method="get">
+        <section>
+            <div class="container">
+                <div class="col-md-12 col=lg-9 mx-auto px-0">
+                    <div class="book_form ">
+                        <!--                            <form>-->
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <div class="input-group ">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <input class="form-control" th:field="*{keyword}"
+                                           placeholder="Username/Phone number/E-mail">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group col-md-6">
+                                <div class="input-group ">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <img th:src="'https://icons.veryicon.com/png/o/system/alibaba-cloud-console-official-icon-library/sort-45.png'"
+                                                 alt="OrderBy Icon" width="20" height="20">
+                                        </div>
+                                    </div>
+
+                                    <select th:field="*{sortBy}">
+                                        <option value="username">Username</option>
+                                        <option value="firstName">First name</option>
+                                        <option value="lastName">Last name</option>
+                                        <option value="email">E-mail</option>
+                                        <option value="phoneNumber">Phone number</option>
+                                        <option value="isAdmin">Admin</option>
+                                        <option value="userStatus">User status</option>
+                                    </select>
+                                </div>
+
+                                <div class="input-group ">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <img th:src="'https://icons.veryicon.com/png/o/commerce-shopping/excellent-fresh-crm/order-54.png'"
+                                                 alt="OrderBy Icon" width="20" height="20">
+                                        </div>
+                                    </div>
+                                    <select th:field="*{orderBy}">
+                                        <option value="asc">Ascending</option>
+                                        <option value="desc">Descending</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="btn-box">
+                            <button type="submit" class="">Search</button>
+                        </div>
+                        <!--                            </form>-->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
     <div th:if="${users.isEmpty()}">
         <h2 th:text="#{users.title.empty}">No Users</h2>
     </div>
@@ -26,7 +90,7 @@
             <div class="header-cell" th:text="#{user.lastName}">Last Name</div>
             <div class="header-cell" th:text="#{user.email}">Email</div>
             <div class="header-cell" th:text="#{user.phoneNumber}">Phone number</div>
-            <div class="header-cell" th:text="#{user.blocked}">Blocked</div>
+            <div class="header-cell" th:text="#{user.status}">Status</div>
             <div class="header-cell" th:text="#{user.deleted}">Deleted</div>
             <div class="header-cell" th:text="#{user.admin}">Admin</div>
         </div>
@@ -72,6 +136,44 @@
             </div>
             <div class="cell" th:if="${isBlockedOrDeleted}">
                 <a th:text="${user.status}"> </a>
+            </div>
+        </div>
+        <div class="table-borderless">
+            <div class="rowGroup">
+                <div class="cell"> Page:</div>
+                <div class="cell align-content-lg-center">
+                    <a th:if="${currentPage>0}"
+                       th:href="@{/users?page={page}&size={size}&keyword={keyword}&sortBy={sortBy}&orderBy={orderBy}
+                    (page=${currentPage-1},
+                    size=${previousFilterOptions.getSize()},
+                    keyword=${previousFilterOptions.getKeyword()},
+                    sortBy=${previousFilterOptions.getSortBy()},
+                    orderBy=${previousFilterOptions.getOrderBy()},
+                    )
+                    }">
+                        <<
+                    </a>
+
+                </div>
+                <div class="cell align-content-lg-center">
+                <span>
+                    <span th:if="${currentPage>=0}">[[${currentPage+1}]]</span>
+                </span>
+                </div>
+                <div class="cell align-content-lg-center">
+                    <a th:if="${currentPage + 1 < totalPages}"
+                       th:href="@{/users?page={page}&size={size}&keyword={keyword}&sortBy={sortBy}&orderBy={orderBy}
+                    (page=${currentPage+1},
+                    size=${previousFilterOptions.getSize()},
+                    keyword=${previousFilterOptions.getKeyword()},
+                    sortBy=${previousFilterOptions.getSortBy()},
+                    orderBy=${previousFilterOptions.getOrderBy()},
+                    )
+                    }">
+                        >>
+                    </a>
+
+                </div>
             </div>
         </div>
     </div>

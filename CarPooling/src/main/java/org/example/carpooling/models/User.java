@@ -66,7 +66,7 @@ public class User {
     }
 
     public User(long userId, String firstName, String lastName, String email, String username, String phoneNumber,
-                String password, UserStatus userStatus, boolean isAdmin) {
+                String password, UserStatus userStatus, String profilePictureUrl, boolean isAdmin) {
 
         this.userId = userId;
         this.firstName = firstName;
@@ -76,6 +76,7 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.userStatus = userStatus;
+        this.profilePictureUrl = profilePictureUrl;
         this.isAdmin = isAdmin;
     }
 
