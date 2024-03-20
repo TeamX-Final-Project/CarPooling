@@ -60,7 +60,7 @@ public class AuthenticationMvcController {
 
         try {
             User user = authenticationService.verifyAuthentication(loginDto.getUsername(), loginDto.getPassword());
-            if (UserStatus.DELETED.equals(user.getUserStatus()) || UserStatus.BLOCKED.equals(user.getUserStatus())) {
+            if (!UserStatus.ACTIVE.equals(user.getUserStatus())) {
                 return "redirect:/";
             } else {
                 session.setAttribute("currentUser", user.getUsername());

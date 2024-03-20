@@ -70,7 +70,6 @@ public class UserMapper {
         user.setLastName(registerDto.getLastName());
         user.setEmail(registerDto.getEmail());
         user.setPhoneNumber(registerDto.getPhoneNumber());
-        user.setProfilePictureUrl("url");
         return user;
     }
 

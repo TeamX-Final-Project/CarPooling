@@ -2,11 +2,9 @@ package org.example.carpooling.services;
 
 
 import jakarta.servlet.http.HttpSession;
-import org.example.carpooling.exceptions.AuthenticationException;
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.models.User;
-import org.example.carpooling.models.dto.LoginDto;
 import org.example.carpooling.services.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -33,18 +31,6 @@ public class AuthenticationService {
         String username = getUsername(userInfo);
         String password = getPassword(userInfo);
         return verifyAuthentication(username, password);
-    }
-
-    public User tryAuthenticateUser(LoginDto loginDto) {
-        try {
-            User user = userService.getByUsername(loginDto.getUsername());
-            if (!user.getPassword().equals(loginDto.getPassword())) {
-                throw new AuthenticationException(INVALID_AUTHENTICATION_ERROR);
-            }
-            return user;
-        } catch (EntityNotFoundException e) {
-            throw new AuthenticationException(INVALID_AUTHENTICATION_ERROR);
-        }
     }
 
     public User tryGetCurrentUser(HttpSession session) {
