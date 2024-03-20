@@ -29,13 +29,12 @@
 
 <body>
 <div class="hero_area">
-    <!-- header section strats -->
-    <header class="header_section ">
+    <header th:fragment="header" class="header_section">
         <div class="container">
             <nav class="navbar navbar-expand-lg custom_nav-container">
                 <a class="navbar-brand" th:href="@{/}">
             <span>
-              Carpooling X
+              CarpoolingX
             </span>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -46,29 +45,63 @@
                 <div class="collapse navbar-collapse ml-auto  " id="navbarSupportedContent">
                     <ul class="navbar-nav  ">
                         <li class="nav-item ">
-                            <a class="nav-link" th:href="@{/}">Home </a>
+                            <a class="nav-link" href="index.html" th:href="@{/}">Home </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.html">About </a>
+                            <a class="nav-link"
+                               th:if="${isAuthenticated}"
+                               href="CreateTravel.html" th:href="@{/travels/new}">Create Travel </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="why.html">Why Us</a>
+                            <a class="nav-link"
+                               th:if="${isAuthenticated}"
+                               href="TravelsView.html" th:href="@{/travels}">Browse Travels</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link" href="blog.html">Blog</a>
+                            <a class="nav-link" th:if="${session.isAdmin}" th:href="@{/users}">Users</a>
                         </li>
+                        <li class="user_option">
+                            <a class="nav-link user_option" href="#"
+                               th:unless="${isAuthenticated}"
+                               th:href="@{/auth/register}"
+                               th:text="#{navigation.register}">Register</a>
+                        </li>
+                        <li class="user_option">
+                            <a class="nav-link user_option"
+                               style="padding-left: 10px"
+                               href="#"
+                               th:unless="${isAuthenticated}"
+                               th:href="@{/auth/login}"
+
+                               th:text="#{navigation.login}"
+                            >Login</a>
+                        </li>
+                        <li class="user_option">
+                            <a class="nav-link user_option"
+                               href="#"
+                               th:if="${isAuthenticated}"
+                               th:href="@{/auth/logout}"
+                               th:text="#{navigation.logout}">Logout</a>
+                        </li>
+                        <li class="user_option">
+                            <img th:if="${isAuthenticated}" th:src="${session.profilePictureUrl}"
+                                 alt="Creator Icon" width="60" height="50" style="padding-left: 10px"/>
+                        </li>
+                        <li class="nav-item" style="padding-left: 10px">
+                            <a class="nav-link user_option" href="#"
+                               th:if="${isAuthenticated}"
+                               th:href="@{/users/{id}(id=${session.userId})}"
+                               th:text="${session.currentUser}">Username</a>
+                        </li>
+
                     </ul>
-                    <div class="user_option ">
-                        <a th:href="@{/auth/login}">
-                            <span data-text="Join Now">Join Now</span>
-                        </a>
-                    </div>
+
                 </div>
+
             </nav>
         </div>
     </header>
-    <!-- end header section -->
-
 
     <!-- slider section -->
     <section class=" slider_section position-relative">
