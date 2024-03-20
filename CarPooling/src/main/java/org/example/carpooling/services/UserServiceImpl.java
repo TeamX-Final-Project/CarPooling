@@ -116,7 +116,7 @@ public class UserServiceImpl implements UserService {
         if (userDtoUpdate.getPhoneNumber() != null) {
             updatedUser.setPhoneNumber(userDtoUpdate.getPhoneNumber());
         }
-        return userRepository.update(updatedUser);
+        return userRepository.save(updatedUser);
 
         }
 
@@ -250,9 +250,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User addProfilePhoto(User user, String url) {
+    public User addProfilePhoto(User user, MultipartFile file) throws IOException {
+        String url = imageHelper.uploadImage(file);
         user.setProfilePictureUrl(url);
-        return userRepository.addProfilePhoto(user);
         return userRepository.save(user);
     }
 

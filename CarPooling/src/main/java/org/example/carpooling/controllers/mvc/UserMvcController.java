@@ -8,11 +8,9 @@ import org.example.carpooling.models.Feedback;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.User;
-import org.example.carpooling.models.UserFilterOptions;
-import org.example.carpooling.models.dto.UserDto;
-import org.example.carpooling.models.dto.UserFilterDto;
 import org.example.carpooling.models.dto.FilterDto;
 import org.example.carpooling.models.dto.SimpleUserDto;
+import org.example.carpooling.models.dto.UserDto;
 import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.services.AuthenticationService;
 import org.example.carpooling.services.contracts.FeedbackService;
@@ -37,17 +35,18 @@ public class UserMvcController {
     private final UserMapper userMapper;
     private final AuthenticationService authenticationService;
     private final FeedbackService feedbackService;
-    private final ImageHelper imageHelper;
 
 
     @Autowired
-    public UserMvcController(UserService userService, TravelService travelService, UserMapper userMapper, AuthenticationService authenticationService, FeedbackService feedbackService, ImageHelper imageHelper) {
+    public UserMvcController(UserService userService, TravelService travelService,
+                             UserMapper userMapper, AuthenticationService authenticationService,
+                             FeedbackService feedbackService) {
         this.userService = userService;
         this.travelService = travelService;
         this.userMapper = userMapper;
         this.authenticationService = authenticationService;
         this.feedbackService = feedbackService;
-        this.imageHelper = imageHelper;
+
     }
 
     @ModelAttribute("isAuthenticated")
@@ -68,7 +67,7 @@ public class UserMvcController {
     public String showUserProfile(@PathVariable Long id, Model model, HttpSession httpSession) {
         try {
             User currentUser = authenticationService.tryGetCurrentUser(httpSession);
-            model.addAttribute("currentUser",currentUser);
+            model.addAttribute("currentUser", currentUser);
             model.addAttribute("userService", userService);
             model.addAttribute("feedbackService", feedbackService);
             User user = userService.getById(id);
@@ -107,7 +106,7 @@ public class UserMvcController {
             model.addAttribute("userToUpdate", currentUser);
             model.addAttribute("updateDto", userMapper.toDto(user));
 //            model.addAttribute("loggedIn", currentUser);
-            model.addAttribute("id",id);
+            model.addAttribute("id", id);
             String profilePictureUrl = user.getProfilePictureUrl();
 //            model.addAttribute("profilePicture", profilePictureUrl);
             return "UpdateProfile";
@@ -119,7 +118,7 @@ public class UserMvcController {
 
     @PostMapping("/{id}/update")
     public String updateProfile(@PathVariable Long id,
-            @ModelAttribute("updateDto") UserDto userDtoUpdate,
+                                @ModelAttribute("updateDto") UserDto userDtoUpdate,
                                 Model model, HttpSession httpSession) {
         try {
             User currentUser = authenticationService.tryGetCurrentUser(httpSession);
@@ -146,9 +145,8 @@ public class UserMvcController {
         try {
 
             User currentUser = authenticationService.tryGetCurrentUser(httpSession);
-          String url = imageHelper.uploadImage(file);
-            userService.addProfilePhoto(currentUser, url);
-            return "redirect:/users/"+userId+"/update";
+            userService.addProfilePhoto(currentUser, file);
+            return "redirect:/users/" + userId + "/update";
         } catch (AuthorizationException e) {
             return "redirect:/auth/login";
         } catch (IOException e) {
@@ -160,21 +158,21 @@ public class UserMvcController {
     @GetMapping
     public String showAllUsers(@ModelAttribute("userFilterOptions") FilterDto filterDto, Model model, HttpSession session) {
         try {
-        User userModifier = authenticationService.tryGetCurrentUser(session);
-        TravelFilterOptions filterOptions = new TravelFilterOptions(
-                filterDto.getPage(),
-                filterDto.getSize() == 0 ? 10 : filterDto.getSize(),
-                filterDto.getKeyword(),
-                filterDto.getSortBy() == null ? "username" : filterDto.getSortBy(),
-                filterDto.getOrderBy() == null ? "asc" : filterDto.getOrderBy());
-        Page<User> usersPage = userService.getAllUsers(filterOptions, userModifier);
-        List<SimpleUserDto> simpleUsers = usersPage.getContent().stream().map(userMapper::toSimpleDto).toList();
+            User userModifier = authenticationService.tryGetCurrentUser(session);
+            TravelFilterOptions filterOptions = new TravelFilterOptions(
+                    filterDto.getPage(),
+                    filterDto.getSize() == 0 ? 10 : filterDto.getSize(),
+                    filterDto.getKeyword(),
+                    filterDto.getSortBy() == null ? "username" : filterDto.getSortBy(),
+                    filterDto.getOrderBy() == null ? "asc" : filterDto.getOrderBy());
+            Page<User> usersPage = userService.getAllUsers(filterOptions, userModifier);
+            List<SimpleUserDto> simpleUsers = usersPage.getContent().stream().map(userMapper::toSimpleDto).toList();
 
-        model.addAttribute("totalPages", usersPage.getTotalPages());
-        model.addAttribute("currentPage", filterDto.getPage() + 1);
-        model.addAttribute("totalItems", usersPage.getNumberOfElements());
-        model.addAttribute("users", simpleUsers);
-        return "UsersView";
+            model.addAttribute("totalPages", usersPage.getTotalPages());
+            model.addAttribute("currentPage", filterDto.getPage() + 1);
+            model.addAttribute("totalItems", usersPage.getNumberOfElements());
+            model.addAttribute("users", simpleUsers);
+            return "UsersView";
         } catch (AuthorizationException e) {
             model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
             model.addAttribute("error", "Not authorized");

@@ -30,7 +30,7 @@ public interface UserService {
 
     User changeUserAdminValue(long id, User currentUser, boolean isAdmin);
 
-    User addProfilePhoto(User user, String url);
+    User addProfilePhoto(User user, MultipartFile file) throws IOException;
 
     long getUserCount();
 

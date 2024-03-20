@@ -26,8 +26,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     int countAllUsersByUserStatus(UserStatus userStatus);
 
 
-    User addProfilePhoto(User user);
 
-    long getUserCount();
 }
 
