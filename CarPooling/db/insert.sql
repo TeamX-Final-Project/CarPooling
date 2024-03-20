@@ -61,7 +61,7 @@ INSERT INTO carpoolingx.travels (travel_id, start_point, end_point, departure_ti
 INSERT INTO carpoolingx.travels (travel_id, start_point, end_point, departure_time, free_spots, is_deleted, user_id, travel_status, distance_travel, duration_travel, comment_travel) VALUES (28, 'Sofia', 'Ruse', '2020-07-30 21:00:00', 4, 0, 12, 'AVAILABLE', 0, 0, 'comment');
 
 
-INSERT INTO carpoolingx.feedbacks (id, rating, giver_id, receiver_id, from_driver_to_passenger, comment, travel_id) VALUES (1, 5, 2, 1, 0, 'Incredible trip! Highly recommend!', 1);
-INSERT INTO carpoolingx.feedbacks (id, rating, giver_id, receiver_id, from_driver_to_passenger, comment, travel_id) VALUES (2, 3, 3, 1, 0, 'Unforgettable trip!', 1);
-INSERT INTO carpoolingx.feedbacks (id, rating, giver_id, receiver_id, from_driver_to_passenger, comment, travel_id) VALUES (3, 4, 4, 1, 0, 'Exceptional adventure! Perfect getaway spot!', 1);
-INSERT INTO carpoolingx.feedbacks (id, rating, giver_id, receiver_id, from_driver_to_passenger, comment, travel_id) VALUES (4, 1, 5, 1, 0, 'Fantastic journey! Loved every moment!', 1);
+INSERT INTO carpoolingx.feedbacks (id, rating, giver_id, receiver_id, from_driver_to_passenger, comment, travel_id) VALUES (1, 5, 2, 1, 1, 'Incredible trip! Highly recommend!', 1);
+INSERT INTO carpoolingx.feedbacks (id, rating, giver_id, receiver_id, from_driver_to_passenger, comment, travel_id) VALUES (2, 4, 3, 1, 1, 'Unforgettable trip! Can\'t wait to go back!', 1);
+INSERT INTO carpoolingx.feedbacks (id, rating, giver_id, receiver_id, from_driver_to_passenger, comment, travel_id) VALUES (3, 4, 4, 1, 1, 'Exceptional adventure! Perfect getaway spot!', 1);
+INSERT INTO carpoolingx.feedbacks (id, rating, giver_id, receiver_id, from_driver_to_passenger, comment, travel_id) VALUES (4, 5, 5, 1, 1, 'Fantastic journey! Loved every moment!', 1);

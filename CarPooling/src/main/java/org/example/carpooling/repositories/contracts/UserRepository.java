@@ -25,5 +25,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     int countAllUsersByUserStatus(UserStatus userStatus);
 
+
+
 }
 

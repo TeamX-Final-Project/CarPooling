@@ -5,13 +5,16 @@ import org.example.carpooling.models.dto.ProfileDto;
 import org.example.carpooling.models.dto.RegisterDto;
 import org.example.carpooling.models.dto.SimpleUserDto;
 import org.example.carpooling.models.dto.UserDto;
+import org.example.carpooling.services.contracts.UserService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
     public static final String ANONYMIZE = "Anonymize";
+    private final UserService userService;
 
-    public UserMapper() {
+    public UserMapper(UserService userService) {
+        this.userService = userService;
     }
 
     public User fromDto(UserDto userDto) {
@@ -79,5 +82,18 @@ public UserDto toDtoEdit(User user){
     userDto.setPhoneNumber(user.getPhoneNumber());
     return userDto;
 }
-
+public User fromEditUserDto(Long id,UserDto userDto){
+      User user = new User();
+    User existing = userService.getById(id);
+    user.setUserId(id);
+    user.setUsername(existing.getUsername());
+    user.setPassword(existing.getPassword());
+    user.setFirstName(userDto.getFirstName());
+    user.setLastName(userDto.getLastName());
+    user.setEmail(userDto.getEmail());
+    user.setPhoneNumber(userDto.getPhoneNumber());
+    user.setFeedbackList(existing.getFeedbackList());
+    user.setAdmin(existing.isAdmin());
+    return user;
+}
 }

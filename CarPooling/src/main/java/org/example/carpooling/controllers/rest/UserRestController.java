@@ -193,34 +193,34 @@ public class UserRestController {
             throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED);
         }
     }
+//todo
+//    @PostMapping(value = "/{id}/image")
+//    public String updateImage(@RequestParam("avatar") MultipartFile file,
+//                              @RequestHeader HttpHeaders headers, @PathVariable int id) {
+//        try {
+//            User currentUser = authenticationService.tryGetUser(headers);
+//            if (currentUser.getUserId() == id) {
+//                throw new AuthorizationException(ERROR_MESSAGE);
+//            }
+//            User user = userService.addProfilePhoto(currentUser, file);
+//            return user.getProfilePictureUrl();
+//        } catch (IOException e) {
+//            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
+//        } catch (AuthorizationException e) {
+//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+//        }
+//    }
 
-    @PostMapping(value = "/{id}/image")
-    public String updateImage(@RequestParam("avatar") MultipartFile file,
-                              @RequestHeader HttpHeaders headers, @PathVariable int id) {
-        try {
-            User currentUser = authenticationService.tryGetUser(headers);
-            if (currentUser.getUserId() == id) {
-                throw new AuthorizationException(ERROR_MESSAGE);
-            }
-            User user = userService.addProfilePhoto(currentUser, file);
-            return user.getProfilePictureUrl();
-        } catch (IOException e) {
-            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
-        } catch (AuthorizationException e) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-        }
-    }
-
-    @GetMapping("/{id}/image")
-    public String getImage(@PathVariable long id, @RequestHeader HttpHeaders headers) {
-        try {
-            authenticationService.tryGetUser(headers);
-            User user = userService.getById(id);
-            return user.getProfilePictureUrl();
-        } catch (AuthorizationException e) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-        } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
-    }
+//    @GetMapping("/{id}/image")
+//    public String getImage(@PathVariable long id, @RequestHeader HttpHeaders headers) {
+//        try {
+//            authenticationService.tryGetUser(headers);
+//            User user = userService.getById(id);
+//            return user.getProfilePictureUrl();
+//        } catch (AuthorizationException e) {
+//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+//        } catch (EntityNotFoundException e) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+//        }
+//    }
 }

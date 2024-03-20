@@ -4,6 +4,8 @@ package org.example.carpooling.services.contracts;
 import org.example.carpooling.exceptions.SendMailException;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.User;
+import org.example.carpooling.models.UserFilterOptions;
+import org.example.carpooling.models.dto.UserDto;
 import org.example.carpooling.models.enums.UserStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,5 +41,5 @@ public interface UserService {
     void verify(long id, long securityCode);
 
 
-
+    User updateUser(User user, User updatedUser, UserDto userDto);
 }

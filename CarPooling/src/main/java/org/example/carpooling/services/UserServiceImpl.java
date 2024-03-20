@@ -6,6 +6,7 @@ import org.example.carpooling.helpers.ValidationHelper;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserSecurityCode;
+import org.example.carpooling.models.dto.UserDto;
 import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.repositories.contracts.UserRepository;
 import org.example.carpooling.repositories.contracts.UserRepositoryOld;
@@ -96,7 +97,28 @@ public class UserServiceImpl implements UserService {
         mailService.sendConformationEmail(user, securityCode.getSecurityCode());
         return createdUser;
     }
+//todo add email
+@Override
+    public User updateUser(User user, User updatedUser, UserDto userDtoUpdate) {
+        if (!(user.isAdmin()|| user.equals(updatedUser))) {
+            throw new AuthorizationException("You don't have permission.");
+        }
+        if (userDtoUpdate.getFirstName() != null) {
+            updatedUser.setFirstName(userDtoUpdate.getFirstName());
+        }
+        if (userDtoUpdate.getLastName() != null) {
+            updatedUser.setLastName(userDtoUpdate.getLastName());
+        }
+        if (userDtoUpdate.getPassword() != null &&
+                userDtoUpdate.getPassword().equals(userDtoUpdate.getPasswordConfirm())) {
+            updatedUser.setPassword(userDtoUpdate.getPassword());
+        }
+        if (userDtoUpdate.getPhoneNumber() != null) {
+            updatedUser.setPhoneNumber(userDtoUpdate.getPhoneNumber());
+        }
+        return userRepository.save(updatedUser);
 
+        }
 
     @Override
     public User update(User updatedUser) {
