@@ -43,7 +43,9 @@ public class TravelServiceImpl implements TravelService {
         Specification<Travel> specification = Specification.where(TravelSpecifications.
                 hasKeyword(travelFilterOptions.getKeyword(), travelFilterOptions.getSortBy()));
 
-        return travelRepository.findAll(specification, pageable);
+        return new PageImpl<>(travelRepository.findAll(specification, pageable)
+                .stream()
+                .filter(travel -> travel.getTravelStatus().equals(TravelStatus.AVAILABLE)).toList());
     }
 
 
