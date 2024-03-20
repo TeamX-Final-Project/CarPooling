@@ -53,7 +53,7 @@
                             <a class="nav-link" href="why.html">Why Us</a>
                         </li>
 
-                        <li class="nav-item">
+                        <li class="nav-item"  th:if="${isAdmin}">
                             <a class="nav-link" th:href="@{/users}">Users</a>
                         </li>
                         <li class="nav-item"><a href="#" th:unless="${isAuthenticated}"

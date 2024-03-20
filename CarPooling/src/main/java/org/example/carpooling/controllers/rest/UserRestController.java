@@ -3,16 +3,16 @@ package org.example.carpooling.controllers.rest;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.example.carpooling.exceptions.*;
+import org.example.carpooling.models.*;
 import org.example.carpooling.services.AuthenticationService;
 import org.example.carpooling.mappers.UserMapper;
-import org.example.carpooling.models.ImageData;
-import org.example.carpooling.models.User;
-import org.example.carpooling.models.UserFilterOptions;
 import org.example.carpooling.models.dto.SimpleUserDto;
 import org.example.carpooling.models.dto.UserDto;
 import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.services.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +21,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static org.example.carpooling.controllers.rest.TravelRestControllerImpl.PAGE_NUMBER;
+import static org.example.carpooling.controllers.rest.TravelRestControllerImpl.SIZE_PAGE;
 
 
 @Tag(name = "User", description = "User REST controller")
@@ -46,28 +48,23 @@ public class UserRestController {
     }
 
     @GetMapping
-    public List<UserDto> getAllUsers(@RequestHeader HttpHeaders headers,
-                                     @RequestParam(required = false) String phoneNumber,
-                                     @RequestParam(required = false) String email,
-                                     @RequestParam(required = false) String username,
-                                     @RequestParam(required = false) String sortBy,
-                                     @RequestParam(required = false) String sortOrder) {
-//        try {
-//            UserFilterOptions filterOptions = new UserFilterOptions(phoneNumber, email, username, sortBy, sortOrder);
-//            return userService.getAllUsers(filterOptions);
-//        } catch (EntityNotFoundException e){
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-//        }
+    public Page<UserDto> getAllUsers(@RequestHeader HttpHeaders headers,
+                                     @RequestParam(defaultValue = PAGE_NUMBER, required = false) int page,
+                                     @RequestParam(defaultValue = SIZE_PAGE, required = false) int size,
+                                     @RequestParam(required = false) String keyword,
+                                     @RequestParam(defaultValue = "username", required = false) String sortBy,
+                                     @RequestParam(defaultValue = "asc", required = false) String sortOrder) {
+
         try {
             User currentUser = authenticationService.tryGetUser(headers);
             if (!currentUser.isAdmin()) {
                 throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, ERROR_MESSAGE);
             } else {
-                UserFilterOptions filterOptions = new UserFilterOptions(phoneNumber, email, username, sortBy, sortOrder);
-                List<User> users = userService.getAllUsers(filterOptions);
-                return users.stream().map(userMapper::toAnonymizedDto).collect(Collectors.toList());
+                TravelFilterOptions filterOptions = new TravelFilterOptions(page, size, keyword, sortBy, sortOrder);
+                Page<User> users = userService.getAllUsers(filterOptions, currentUser);
+                List<UserDto> anonymizedUsers = users.getContent().stream().map(userMapper::toAnonymizedDto).toList();
+                return new PageImpl<>(anonymizedUsers, users.getPageable(), users.getTotalElements());
             }
-//                       return userService.getAllUsers(filterOptions);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
