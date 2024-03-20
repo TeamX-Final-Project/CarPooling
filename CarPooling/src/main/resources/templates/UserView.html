@@ -18,12 +18,12 @@
                 <div class="header-cell">
                     <div class="row">
 
-                        <div class="col-lg-10 me-lg-auto">
+                        <div class="col-lg-auto me-lg-auto">
                             <div class="card border-0 shadow mb-6 mb-lg-auto">
                                 <div class="card-header bg-grey-100 py-8 border-0 text-left">
-                                    <a class="d-line-block" href="#">
+                                    <a class="rbt-btn btn-xs bg-primary-opacity update" th:href="@{/users/{id}/update(id=${user.getUserId()})}" >
                                         <section class="header-cell">
-                                            <img class="my-custom-image" th:src="${profilePictureUrl}"
+                                            <img class="my-custom-image" th:src="${user.getProfilePictureUrl()}"
                                                  alt="profile pic">
                                     </a>
                                     <br>

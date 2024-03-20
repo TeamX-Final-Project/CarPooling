@@ -3,6 +3,7 @@ package org.example.carpooling.models.dto;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Objects;
 
@@ -50,7 +51,18 @@ public class UserDto {
     private String passwordConfirm;
 
 
+private String profilePhoto;
+
+
     public UserDto() {
+    }
+
+    public String getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
     }
 
     public long getId() {

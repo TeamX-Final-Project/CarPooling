@@ -2,7 +2,6 @@ package org.example.carpooling.repositories;
 
 
 import org.example.carpooling.exceptions.EntityNotFoundException;
-import org.example.carpooling.models.ImageData;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserFilterOptions;
 import org.example.carpooling.repositories.contracts.UserRepository;
@@ -135,15 +134,15 @@ public class UserRepositoryImpl implements UserRepository {
         return updatedUser;
     }
 
-//    @Override
-//    public ImageData saveImage(ImageData imageData) {
-//        try (Session session = sessionFactory.openSession()) {
-//            session.beginTransaction();
-//            session.persist(imageData);
-//            session.getTransaction().commit();
-//        }
-//        return imageData;
-//    }
+    @Override
+    public User addProfilePhoto(User user) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.merge(user);
+            session.getTransaction().commit();
+        }
+        return user;
+    }
 
     @Override
     public long getUserCount() {

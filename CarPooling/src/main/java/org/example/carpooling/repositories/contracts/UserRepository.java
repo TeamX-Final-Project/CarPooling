@@ -23,6 +23,8 @@ public interface UserRepository {
     User update(User user);
 
 
+    User addProfilePhoto(User user);
+
     long getUserCount();
 }
 

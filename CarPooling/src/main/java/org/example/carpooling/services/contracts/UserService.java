@@ -3,9 +3,9 @@ package org.example.carpooling.services.contracts;
 //import org.example.carpooling.models.ImageData;
 
 import org.example.carpooling.exceptions.SendMailException;
-import org.example.carpooling.models.ImageData;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserFilterOptions;
+import org.example.carpooling.models.dto.UserDto;
 import org.example.carpooling.models.enums.UserStatus;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,7 +30,7 @@ public interface UserService {
 
     User changeUserAdminValue(long id, User currentUser, boolean isAdmin);
 
-    User addProfilePhoto(User user, MultipartFile file) throws IOException;
+    User addProfilePhoto(User user, String url);
 
     long getUserCount();
 
@@ -41,5 +41,5 @@ public interface UserService {
     void verify(long id, long securityCode);
 
 
-
+    User updateUser(User user, User updatedUser, UserDto userDto);
 }

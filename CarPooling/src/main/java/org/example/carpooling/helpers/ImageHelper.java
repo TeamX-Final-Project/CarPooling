@@ -12,9 +12,9 @@ import java.util.Map;
 @Component
 
 public class ImageHelper {
-    private static final String CLOUD_NAME = "${cloud.name}";
-    private static final String API_KEY = "${cloud.api.key}";
-    private static final String API_SECRET = "${cloud.api.secret}";
+    private static final String CLOUD_NAME = "dtakr4rhb";
+    private static final String API_KEY = "549983154366957";
+    private static final String API_SECRET = "buRSRG2MASUZmSJpzBJTtfyjNh8";
 
 
     private final Cloudinary cloudinary;

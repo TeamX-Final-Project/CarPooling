@@ -1,9 +1,7 @@
 package org.example.carpooling.controllers.mvc;
 
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import org.example.carpooling.exceptions.AuthorizationException;
-import org.example.carpooling.exceptions.EntityDuplicateException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.helpers.ImageHelper;
 import org.example.carpooling.mappers.UserMapper;
@@ -11,8 +9,8 @@ import org.example.carpooling.models.Feedback;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.UserFilterOptions;
-import org.example.carpooling.models.dto.UserFilterDto;
 import org.example.carpooling.models.dto.UserDto;
+import org.example.carpooling.models.dto.UserFilterDto;
 import org.example.carpooling.services.AuthenticationService;
 import org.example.carpooling.services.contracts.FeedbackService;
 import org.example.carpooling.services.contracts.TravelService;
@@ -21,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,15 +33,17 @@ public class UserMvcController {
     private final UserMapper userMapper;
     private final AuthenticationService authenticationService;
     private final FeedbackService feedbackService;
+    private final ImageHelper imageHelper;
 
 
     @Autowired
-    public UserMvcController(UserService userService, TravelService travelService, UserMapper userMapper, AuthenticationService authenticationService, FeedbackService feedbackService) {
+    public UserMvcController(UserService userService, TravelService travelService, UserMapper userMapper, AuthenticationService authenticationService, FeedbackService feedbackService, ImageHelper imageHelper) {
         this.userService = userService;
         this.travelService = travelService;
         this.userMapper = userMapper;
         this.authenticationService = authenticationService;
         this.feedbackService = feedbackService;
+        this.imageHelper = imageHelper;
     }
 
     @ModelAttribute("isAuthenticated")
@@ -76,8 +75,8 @@ public class UserMvcController {
             model.addAttribute("user", user);
             model.addAttribute("id", id);
 
-            String profilePictureUrl = user.getProfilePictureUrl();
-            model.addAttribute("profilePictureUrl", profilePictureUrl);
+//            String profilePicture = user.getProfilePictureUrl();
+//            model.addAttribute("profilePicture", profilePicture);
             model.addAttribute("completedCountAsDriver", completedTravelsAsDriverCount);
             model.addAttribute("completedCountAsPassenger", completedTravelsAsPassengerCount);
 
@@ -96,88 +95,56 @@ public class UserMvcController {
         }
     }
 
-//    @GetMapping("/{id}/update")
-//    public String showEditUserPage(@PathVariable Long id, Model model, HttpSession session) {
-//        try {
-//            User currentUser = authenticationService.tryGetCurrentUser(session);
-//            model.addAttribute("currentUser", currentUser);
-//            User user = userService.getById(id);
-//            try {
-//                User modifier = authenticationService.tryGetCurrentUser(session);
-//                checkSelfModifyPermissions(modifier, user
-//                );
-//            } catch (EntityNotFoundException e) {
-//                model.addAttribute("error", e.getMessage());
-//                return "ErrorView";
-//            } catch (AuthorizationException e) {
-//                model.addAttribute("error", e.getMessage());
-//                return "redirect:/auth/login";
-//            }
-//            UserDto userDto = userMapper.toDtoEdit(user);
-//            model.addAttribute("userId", id);
-//            model.addAttribute("user", userDto);
-//            model.addAttribute("originalUser", user);
-//            String profilePictureUrl = user.getProfilePictureUrl();
-//            model.addAttribute("profilePictureUrl", profilePictureUrl);
-//            return "UpdateProfile";
-//        } catch (AuthorizationException e) {
-//            return "redirect:/auth/login";
-//        } catch (EntityNotFoundException e) {
-//            model.addAttribute("error", e.getMessage());
-//            return "ErrorView";
-//        }
-//    }
-//    @PostMapping("/{id}/update")
-//    public String updateUser(@PathVariable Long id,
-//                             @Valid @ModelAttribute("user") UserDto userDto,
-//                             BindingResult bindingResult,
-//                             @RequestParam("profilePicture") MultipartFile profilePicture,
-//                             Model model,
-//                             HttpSession session) {
-//        if (bindingResult.hasErrors()) {
-//            return "UpdateProfile";
-//        }
-//        User modifier;
-//        try {
-//            modifier = authenticationService.tryGetCurrentUser(session);
-//        } catch (AuthorizationException e) {
-//            return "redirect:/auth/login";
-//        }
-//        try {
-//            User userToUpdate = userMapper.fromDto(id, userDto);
-//            User existingUser = userService.getById(id);
-//            if (!profilePicture.isEmpty()) {
-//                String imageUrl = imageStorageService.uploadImage(profilePicture);
-//                userToUpdate.setProfilePictureUrl(imageUrl);
-//            }
-//            else {
-//                userToUpdate.setProfilePictureUrl(existingUser.getProfilePictureUrl());
-//            }
-//            userService.editUser(modifier, userToUpdate);
-//            model.addAttribute("updateSuccess", "Update successful");
-//
-//            return "UpdateProfile";
-//        } catch (EntityNotFoundException e) {
-//            model.addAttribute("error", e.getMessage());
-//            return "ErrorView";
-//        } catch (EntityDuplicateException e) {
-//            bindingResult.rejectValue("email", "duplicate_user", e.getMessage());
-//            return "UserUpdateView";
-//        } catch (AuthorizationException e) {
-//            model.addAttribute("error", e.getMessage());
-//            return "403";
-//        } catch (IOException e) {
-//            bindingResult.rejectValue("profilePicture", "image_upload_error", "Image upload failed.");
-//            return "UserUpdateView";
-//        }
-//    }
-
-    @PostMapping("/picture")
-    public String addProfilePhoto(@RequestParam("file") MultipartFile file, HttpSession httpSession) {
+    @GetMapping("/{id}/update")
+    public String showUpdateProfilePage(@PathVariable Long id, Model model, HttpSession httpSession) {
         try {
-            User user = authenticationService.tryGetCurrentUser(httpSession);
-            userService.addProfilePhoto(user, file);
-            return "redirect:/users/update";
+            User currentUser = authenticationService.tryGetCurrentUser(httpSession);
+            User user = userService.getById(id);
+            model.addAttribute("userToUpdate", currentUser);
+            model.addAttribute("updateDto", userMapper.toDto(user));
+//            model.addAttribute("loggedIn", currentUser);
+            model.addAttribute("id",id);
+            String profilePictureUrl = user.getProfilePictureUrl();
+//            model.addAttribute("profilePicture", profilePictureUrl);
+            return "UpdateProfile";
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/login";
+        }
+    }
+
+
+    @PostMapping("/{id}/update")
+    public String updateProfile(@PathVariable Long id,
+            @ModelAttribute("updateDto") UserDto userDtoUpdate,
+                                Model model, HttpSession httpSession) {
+        try {
+            User currentUser = authenticationService.tryGetCurrentUser(httpSession);
+            User user2 = userService.getById(id);
+            model.addAttribute("userToUpdate", currentUser);
+//            model.addAttribute("user", user2);
+//            model.addAttribute("loggedIn", user);
+            model.addAttribute("id", id);
+//            String url = imageHelper.uploadImage(profilePicture);
+//            user2.setProfilePictureUrl(url);
+            userService.updateUser(currentUser, user2, userDtoUpdate);
+            return "redirect:/users/{id}";
+        } catch (AuthorizationException exception) {
+            return "redirect:/auth/login";
+
+        }
+
+    }
+
+
+    @PostMapping("/{userId}/picture")
+    public String addProfilePhoto(@RequestParam("file") MultipartFile file,
+                                  @PathVariable int userId, HttpSession httpSession) {
+        try {
+
+            User currentUser = authenticationService.tryGetCurrentUser(httpSession);
+          String url = imageHelper.uploadImage(file);
+            userService.addProfilePhoto(currentUser, url);
+            return "redirect:/users/"+userId+"/update";
         } catch (AuthorizationException e) {
             return "redirect:/auth/login";
         } catch (IOException e) {
@@ -185,11 +152,6 @@ public class UserMvcController {
         }
     }
 
-    private void checkSelfModifyPermissions(User modifier, User user) {
-        if (!modifier.equals(user)) {
-            throw new AuthorizationException("A user can only edit and access his own travel information!");
-        }
-    }
 
     @GetMapping
     public String showAllUsers(@ModelAttribute("userFilterOptions") UserFilterDto userFilterDto, Model model) {
