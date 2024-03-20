@@ -4,7 +4,6 @@ import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.exceptions.OperationNotAllowedException;
 import org.example.carpooling.models.*;
-import org.example.carpooling.models.dto.TravelDto;
 import org.example.carpooling.models.enums.CandidateStatus;
 import org.example.carpooling.models.enums.TravelStatus;
 import org.example.carpooling.models.enums.UserStatus;
