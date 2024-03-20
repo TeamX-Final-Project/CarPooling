@@ -3,27 +3,20 @@ package org.example.carpooling.controllers.mvc;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.BlockedUserException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.exceptions.OperationNotAllowedException;
 import org.example.carpooling.mappers.TravelMapper;
 import org.example.carpooling.models.Candidates;
-import org.example.carpooling.models.Travel;
-import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.User;
-import org.example.carpooling.models.dto.TravelDto;
-import org.example.carpooling.models.dto.TravelFilterDto;
 import org.example.carpooling.services.AuthenticationService;
 import org.example.carpooling.services.contracts.CandidateService;
 import org.example.carpooling.services.contracts.TravelService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller

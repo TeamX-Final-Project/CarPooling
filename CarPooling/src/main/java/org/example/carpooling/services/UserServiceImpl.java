@@ -3,21 +3,24 @@ package org.example.carpooling.services;
 import org.example.carpooling.exceptions.*;
 import org.example.carpooling.helpers.ImageHelper;
 import org.example.carpooling.helpers.ValidationHelper;
+import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.User;
-import org.example.carpooling.models.UserFilterOptions;
 import org.example.carpooling.models.UserSecurityCode;
 import org.example.carpooling.models.enums.UserStatus;
-import org.example.carpooling.repositories.contracts.UserRepositoryOld;
 import org.example.carpooling.repositories.contracts.UserRepository;
+import org.example.carpooling.repositories.contracts.UserRepositoryOld;
 import org.example.carpooling.services.contracts.MailService;
 import org.example.carpooling.services.contracts.UserSecurityCodeService;
 import org.example.carpooling.services.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -31,9 +34,7 @@ public class UserServiceImpl implements UserService {
     private final MailService mailService;
 
     @Autowired
-    public UserServiceImpl(UserRepositoryOld userRepositoryOld, UserRepository userRepository,
-                           UserSecurityCodeService userSecurityCodeService, ImageHelper imageHelper,
-                           MailService mailService) {
+    public UserServiceImpl(UserRepositoryOld userRepositoryOld, UserRepository userRepository, UserSecurityCodeService userSecurityCodeService, ImageHelper imageHelper, MailService mailService) {
         this.userRepositoryOld = userRepositoryOld;
         this.userRepository = userRepository;
         this.userSecurityCodeService = userSecurityCodeService;
@@ -42,9 +43,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUsers(UserFilterOptions filterOptions) {
-        return userRepositoryOld.getAllUsers(filterOptions);
+    public Page<User> getAllUsers(TravelFilterOptions filterOptions, User currentUser) {
+        validateIsAdmin(currentUser);
+        Pageable pageable = PageRequest.of(filterOptions.getPage(), filterOptions.getSize(),
+                Sort.by(Sort.Direction.fromString(filterOptions.getOrderBy()), filterOptions.getSortBy()));
+        if (filterOptions.getKeyword() != null && !filterOptions.getKeyword().isEmpty()) {
+            return findAllByPhoneMailOrUsername(filterOptions.getKeyword(), pageable);
+        } else {
+            return findAll(pageable);
+        }
     }
+
+    private Page<User> findAllByPhoneMailOrUsername(String keyword, Pageable pageable) {
+        return userRepository.findAllByPhoneNumberContainingOrEmailContainingOrUsernameContaining(keyword, keyword, keyword, pageable);
+    }
+
+    private Page<User> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable);
+    }
+
 
     @Override
     public User getUserById(long id, User currentUser) {
@@ -54,12 +71,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getById(long id) {
-        return userRepository.getByUserId(id);
+        User user = userRepository.getByUserId(id);
+        if (user == null) {
+            throw new EntityNotFoundException("User", id);
+        }
+        return user;
     }
 
     @Override
     public User getByUsername(String username) {
-        return userRepository.getByUsername(username);
+        User user = userRepository.getByUsername(username);
+        if (user == null) {
+            throw new EntityNotFoundException("User", "username", username);
+        }
+        return user;
     }
 
     @Override
@@ -118,7 +143,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(userToUpdate);
     }
 
-
     @Override
     public void verify(long id, long securityCode) {
         User user = getById(id);
@@ -161,7 +185,7 @@ public class UserServiceImpl implements UserService {
     private void validateUniqueUsername(User user) {
         boolean duplicateUserExists = true;
         try {
-            User foundUser = userRepository.getByUsername(user.getUsername());
+            User foundUser = getByUsername(user.getUsername());
             if (foundUser.getUserId() == user.getUserId()) {
                 duplicateUserExists = false;
             }
@@ -176,7 +200,7 @@ public class UserServiceImpl implements UserService {
     private void validateUniqueEmail(User user) {
         boolean duplicateUserExists = true;
         try {
-            User foundUser = userRepository.getByEmail(user.getEmail());
+            User foundUser = getByEmail(user.getEmail());
             if (foundUser.getUserId() == user.getUserId()) {
                 duplicateUserExists = false;
             }
@@ -191,7 +215,7 @@ public class UserServiceImpl implements UserService {
     private void validateUniquePhoneNumber(User user) {
         boolean duplicateUserExists = true;
         try {
-            User foundUser = userRepository.getByPhoneNumber(user.getPhoneNumber());
+            User foundUser = getByPhoneNumber(user.getPhoneNumber());
             if (foundUser.getUserId() == user.getUserId()) {
                 duplicateUserExists = false;
             }
@@ -213,5 +237,23 @@ public class UserServiceImpl implements UserService {
     @Override
     public long getUserCount() {
         return userRepository.countAllUsersByUserStatus(UserStatus.ACTIVE);
+    }
+
+
+    private User getByPhoneNumber(String phoneNumber) {
+        User user = userRepository.getByPhoneNumber(phoneNumber);
+        if (user == null) {
+            throw new EntityNotFoundException("User", "phoneNumber", phoneNumber);
+        }
+        return user;
+    }
+
+
+    private User getByEmail(String email) {
+        User user = userRepository.getByEmail(email);
+        if (user == null) {
+            throw new EntityNotFoundException("User", "email", email);
+        }
+        return user;
     }
 }

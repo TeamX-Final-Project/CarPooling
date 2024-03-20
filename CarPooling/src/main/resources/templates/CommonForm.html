@@ -27,11 +27,11 @@
 
 </head>
 <body>
-    <!-- header section starts -->
-    <header th:fragment="header" class="header_section">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg custom_nav-container">
-                <a class="navbar-brand" th:href="@{/}">
+<!-- header section starts -->
+<header th:fragment="header" class="header_section">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+            <a class="navbar-brand" th:href="@{/}">
             <span>
               CarpoolingX
             </span>
@@ -53,358 +53,377 @@
                             <a class="nav-link" href="TravelsView.html" th:href="@{/travels}">Browse Travels</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/users}">Users</a>
-                        </li>
-                        <li class="nav-item"><a href="#" th:unless="${isAuthenticated}"
-                                                th:href="@{/auth/register}" class="nav-link px-lg-3 py-3 py-lg-4"
-                                                th:text="#{navigation.register}">Register</a></li>
-                        <li class="nav-item"><a href="#" th:unless="${isAuthenticated}"
-                                                th:href="@{/auth/login}" class="nav-link px-lg-3 py-3 py-lg-4"
-                                                th:text="#{navigation.login}">Login</a></li>
-                        <li class="nav-item"><a href="#" th:if="${isAuthenticated}"
-                                                th:href="@{/auth/logout}" class="nav-link px-lg-3 py-3 py-lg-4"
-                                                th:text="#{navigation.logout}">Logout</a></li>
-                    </ul>
-                    <div class="user_option ">
-                        <a href="" class="">
-                            Login / signUp
-                        </a>
-                    </div>
                     <li class="nav-item">
-                        <div th:if="${isAuthenticated}">
-                            <img th:src="${session.profilePictureUrl}"
-                                 alt="Creator Icon"  width="50" height="50"/>
-                            <h6 th:text="${session.currentUser}">Username</h6>
+                        <a class="nav-link" th:if="${session.isAdmin}" th:href="@{/users}">Users</a>
+                    </li>
+                    <li class="user_option">
+                        <a href="#" th:unless="${isAuthenticated}"
+                           th:href="@{/auth/register}" class="nav-link user_option"
+                           th:text="#{navigation.register}">Register</a>
+                    </li>
+                    <li class="user_option">
+                        <a href="#" th:unless="${isAuthenticated}"
+                           th:href="@{/auth/login}" class="nav-link user_option"
+                           th:text="#{navigation.login}">Login</a>
+                    </li>
+                    <li class="user_option">
+                        <a href="#" th:if="${isAuthenticated}"
+                           th:href="@{/auth/logout}" class="nav-link user_option"
+                           th:text="#{navigation.logout}">Logout</a>
+                    </li>
+                    <li class="user_option">
+                        <img th:src="${session.profilePictureUrl}"
+                             alt="Creator Icon" width="60" height="50" style="padding-left: 10px"/>
+                    </li>
+                    <li  class="nav-item" style="padding-left: 10px">
+                        <a class="nav-link user_option" href="#" th:if="${isAuthenticated}"
+                           th:href="@{/users/{id}(id=${session.userId})}"
+                           th:text="${session.currentUser}">Username</a>
+<!--                        <h6 class="nav-link" th:text="${session.currentUser}">Username</h6>-->
+                    </li>
+                    <!--                    <li th:if="${isAuthenticated}">-->
+                    <!--                        <div th:if="${isAuthenticated}">-->
+                    <!--                            <img th:src="${session.profilePictureUrl}"-->
+                    <!--                                 alt="Creator Icon" width="50" height="50"/>-->
+                    <!--                            <h6 th:text="${session.currentUser}">Username</h6>-->
 
-                </div>
-            </nav>
-        </div>
-    </header>
+                    <!--                        </div>-->
+                    <!--                    </li>-->
+                </ul>
+<!--                <div  th:if="${isAuthenticated}">-->
+<!--                    <img th:src="${session.profilePictureUrl}"-->
+<!--                         alt="Creator Icon" width="50" height="50"/>-->
+<!--                    <h6 th:text="${session.currentUser}">Username</h6>-->
+<!--                </div>-->
+            </div>
+
+        </nav>
+    </div>
+</header>
 
 
+<!-- end header section -->
 
-    <!-- end header section -->
-
-        <!-- slider section -->
-        <section th:fragment="slider" class=" slider_section position-relative">
-            <div class="box">
-                <div id="carouselExampleControls" class="carousel slide " data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="detail-box">
-                                            <h1>
-                                                Welcome To CarpoolingX
-                                            </h1>
-                                            <p class="col-lg-11 px-0">
-                                                Book, Create, Explore travels all over the world!!!
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="img-box">
-                                            <img src="/images/slider-img.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item ">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="detail-box">
-                                            <h1>
-                                                Welcome To CarpoolingX
-                                            </h1>
-                                            <p class="col-lg-11 px-0">
-                                                Book, Create, Explore travels all over the world!!!
-                                            </p>
-                                            <a href="">
-                                                Read More
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="img-box">
-                                            <img src="/images/slider-img.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item ">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="detail-box">
-                                            <h1>
-                                                Welcome To CarpoolingX
-                                            </h1>
-                                            <p class="col-lg-11 px-0">
-                                                Book, Create, Explore travels all over the world!!!
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="img-box">
-                                            <img src="/images/slider-img.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<!-- slider section -->
+<section th:fragment="slider" class=" slider_section position-relative">
+    <div class="box">
+        <div id="carouselExampleControls" class="carousel slide " data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
                     <div class="container">
-                        <div class="carousel-btn-box">
-                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
-                               data-slide="prev">
-                                <i class="fa fa-angle-left" aria-hidden="true"></i>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleControls" role="button"
-                               data-slide="next">
-                                <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                <span class="sr-only">Next</span>
-                            </a>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="detail-box">
+                                    <h1>
+                                        Welcome To CarpoolingX
+                                    </h1>
+                                    <p class="col-lg-11 px-0">
+                                        Book, Create, Explore travels all over the world!!!
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="img-box">
+                                    <img src="/images/slider-img.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item ">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="detail-box">
+                                    <h1>
+                                        Welcome To CarpoolingX
+                                    </h1>
+                                    <p class="col-lg-11 px-0">
+                                        Book, Create, Explore travels all over the world!!!
+                                    </p>
+                                    <a href="">
+                                        Read More
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="img-box">
+                                    <img src="/images/slider-img.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item ">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="detail-box">
+                                    <h1>
+                                        Welcome To CarpoolingX
+                                    </h1>
+                                    <p class="col-lg-11 px-0">
+                                        Book, Create, Explore travels all over the world!!!
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="img-box">
+                                    <img src="/images/slider-img.png" alt="">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    <!-- end slider section -->
-
-    <!-- search section -->
-    <div th:fragment="searchTravel">
-        <section class="book_section ">
             <div class="container">
-                <div class="col-md-11 col=lg-9 mx-auto px-0">
-                    <div class="book_form ">
-                        <form>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <div class="input-group ">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-                                        <input type="text" class="form-control" id="inputDestination"
-                                               placeholder="Pickup Location ">
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <div class="input-group ">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-                                        <input type="text" class="form-control" id="inputLocation"
-                                               placeholder="Drop Location">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <div class="input-group ">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <i class="fa fa-car" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-                                        <input type="text" class="form-control" method="get" th:object="" id="inputDestination"
-                                               placeholder="Car Type">
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <div class="input-group ">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <i class="fa fa-phone" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-                                        <input type="text" class="form-control" id="inputDestination"
-                                               placeholder="Phone Number">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="btn-box">
-                                <button type="submit" class="">Book Now</button>
-                            </div>
-                        </form>
-                    </div>
+                <div class="carousel-btn-box">
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+                       data-slide="prev">
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button"
+                       data-slide="next">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
             </div>
-        </section>
+        </div>
     </div>
+</section>
+<!-- end slider section -->
 
-    <!-- end search section -->
-
-    <!-- search section -->
-    <div th:fragment="searchUser">
-        <section class="book_section ">
-            <div class="container">
-                <div class="col-md-11 col=lg-9 mx-auto px-0">
-                    <div class="book_form ">
-                        <form>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <div class="input-group ">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <i class="fa fa-car" aria-hidden="true"></i>
-                                            </div>
+<!-- search section -->
+<div th:fragment="searchTravel">
+    <section class="book_section ">
+        <div class="container">
+            <div class="col-md-11 col=lg-9 mx-auto px-0">
+                <div class="book_form ">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <div class="input-group ">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
                                         </div>
-                                        <input type="text" class="form-control" id="inputDestination"
-                                               placeholder="Car Type">
                                     </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <div class="input-group ">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <i class="fa fa-phone" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-                                        <input type="text" class="form-control" id="inputDestination"
-                                               placeholder="Phone Number">
-                                    </div>
+                                    <input type="text" class="form-control" id="inputDestination"
+                                           placeholder="Pickup Location ">
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <div class="input-group ">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                            </div>
+                            <div class="form-group col-md-6">
+                                <div class="input-group ">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
                                         </div>
-                                        <input type="text" class="form-control" id="inputDestination"
-                                               placeholder="Pickup Location ">
                                     </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <div class="input-group ">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-                                        <input type="text" class="form-control" id="inputLocation"
-                                               placeholder="Drop Location">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="btn-box">
-                                <button type="submit" class="">Book Now</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-
-    <!-- end search section -->
-
-
-    <!-- info section -->
-    <div th:fragment="info">
-        <section class="info_section ">
-
-            <div class="container">
-                <div class="info_top ">
-                    <div class="row ">
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <div class="info_detail">
-                                <a href="index.html">
-                                    <h4>
-                                        CarpoolingX
-                                    </h4>
-                                </a>
-                                <p>
-                                    Book, Create, Explore travels all over the world!!!
-                                </p>
-                                <div class="social_box">
-                                    <a href="">
-                                        <i class="fa fa-facebook" aria-hidden="true"></i>
-                                    </a>
-                                    <a href="">
-                                        <i class="fa fa-twitter" aria-hidden="true"></i>
-                                    </a>
-                                    <a href="">
-                                        <i class="fa fa-linkedin" aria-hidden="true"></i>
-                                    </a>
-                                    <a href="">
-                                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                                    </a>
+                                    <input type="text" class="form-control" id="inputLocation"
+                                           placeholder="Drop Location">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3 mx-auto">
-                            <h4>
-                                Contact us
-                            </h4>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <div class="input-group ">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-car" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control" method="get" th:object=""
+                                           id="inputDestination"
+                                           placeholder="Car Type">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <div class="input-group ">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-phone" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control" id="inputDestination"
+                                           placeholder="Phone Number">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="btn-box">
+                            <button type="submit" class="">Book Now</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- end search section -->
+
+<!-- search section -->
+<div th:fragment="searchUser">
+    <section class="book_section ">
+        <div class="container">
+            <div class="col-md-11 col=lg-9 mx-auto px-0">
+                <div class="book_form ">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <div class="input-group ">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-car" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control" id="inputDestination"
+                                           placeholder="Car Type">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <div class="input-group ">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-phone" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control" id="inputDestination"
+                                           placeholder="Phone Number">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <div class="input-group ">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control" id="inputDestination"
+                                           placeholder="Pickup Location ">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <div class="input-group ">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control" id="inputLocation"
+                                           placeholder="Drop Location">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-box">
+                            <button type="submit" class="">Book Now</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<!-- end search section -->
+
+
+<!-- info section -->
+<div th:fragment="info">
+    <section class="info_section ">
+
+        <div class="container">
+            <div class="info_top ">
+                <div class="row ">
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="info_detail">
+                            <a href="index.html">
+                                <h4>
+                                    CarpoolingX
+                                </h4>
+                            </a>
                             <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit
+                                Book, Create, Explore travels all over the world!!!
                             </p>
-                            <div class="contact_nav">
+                            <div class="social_box">
                                 <a href="">
-                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                    <span>
+                                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3 mx-auto">
+                        <h4>
+                            Contact us
+                        </h4>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit
+                        </p>
+                        <div class="contact_nav">
+                            <a href="">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                <span>
                   Location
                 </span>
-                                </a>
-                                <a href="">
-                                    <i class="fa fa-phone" aria-hidden="true"></i>
-                                    <span>
+                            </a>
+                            <a href="">
+                                <i class="fa fa-phone" aria-hidden="true"></i>
+                                <span>
                   Call : +01 123455678990
                 </span>
-                                </a>
-                                <a href="">
-                                    <i class="fa fa-envelope" aria-hidden="true"></i>
-                                    <span>
+                            </a>
+                            <a href="">
+                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                                <span>
                   Email : demo@gmail.com
                 </span>
-                                </a>
-                            </div>
+                            </a>
                         </div>
-                        <div class="col-md-4">
-                            <div class="info_form">
-                                <h4>
-                                    SIGN UP TO OUR NEWSLETTER
-                                </h4>
-                                <form action="">
-                                    <label>
-                                        <input type="text" placeholder="Enter Your Email"/>
-                                    </label>
-                                    <button type="submit">
-                                        Subscribe
-                                    </button>
-                                </form>
-                            </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="info_form">
+                            <h4>
+                                SIGN UP TO OUR NEWSLETTER
+                            </h4>
+                            <form action="">
+                                <label>
+                                    <input type="text" placeholder="Enter Your Email"/>
+                                </label>
+                                <button type="submit">
+                                    Subscribe
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
-    <!-- end info_section -->
-
-    <!-- footer section -->
-    <footer th:fragment="footer" class="footer_section">
-        <div class="container">
-            <p>
-                &copy; <span id="displayYear"></span> Copyright &copy; CarpoolingX
-            </p>
         </div>
-    </footer>
+    </section>
+</div>
+<!-- end info_section -->
+
+<!-- footer section -->
+<footer th:fragment="footer" class="footer_section">
+    <div class="container">
+        <p>
+            &copy; <span id="displayYear"></span> Copyright &copy; CarpoolingX
+        </p>
+    </div>
+</footer>
 </div>
 <!-- footer section -->
 </body>

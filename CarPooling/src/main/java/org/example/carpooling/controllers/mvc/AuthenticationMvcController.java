@@ -66,10 +66,6 @@ public class AuthenticationMvcController {
                 session.setAttribute("currentUser", user.getUsername());
                 session.setAttribute("profilePictureUrl", user.getProfilePictureUrl());
                 session.setAttribute("userId", user.getUserId());
-                session.setAttribute("firstName", user.getFirstName());
-                session.setAttribute("lastName", user.getLastName());
-//                session.setAttribute("email", user.getEmail());
-//                session.setAttribute("phoneNumber", user.getPhoneNumber());
                 session.setAttribute("isAdmin", user.isAdmin());
                 session.setAttribute("isBlocked", user.getUserStatus());
                 session.setAttribute("isDeleted", user.getUserStatus());
@@ -87,6 +83,11 @@ public class AuthenticationMvcController {
     @GetMapping("/logout")
     public String handleLogout(HttpSession session) {
         session.removeAttribute("currentUser");
+        session.removeAttribute("profilePictureUrl");
+        session.removeAttribute("userId");
+        session.removeAttribute("isAdmin");
+        session.removeAttribute("isBlocked");
+        session.removeAttribute("isDeleted");
         return "redirect:/";
     }
 
