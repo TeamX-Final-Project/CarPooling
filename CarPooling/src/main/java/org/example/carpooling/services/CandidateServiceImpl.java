@@ -91,6 +91,17 @@ public class CandidateServiceImpl implements CandidateService {
         return candidateRepository.save(userToApprove);
     }
 
+    @Override
+    public Candidates rejectTravel(long id, User userToConfirmReject, Candidates userToReject) {
+        Travel travelToReject = travelService.getById(id, userToConfirmReject);
+
+        checkApprovePermission(userToConfirmReject, travelToReject);
+        checkTravelStatusApprove(travelToReject);
+
+        userToReject.setStatus(CandidateStatus.REJECTED);
+        return candidateRepository.save(userToReject);
+    }
+
 
     private void checkApplyPermission(User user, Travel travel) {
         if (user.getUserId() == travel.getUserId().getUserId()) {
