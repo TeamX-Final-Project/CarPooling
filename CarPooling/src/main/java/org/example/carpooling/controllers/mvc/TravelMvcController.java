@@ -96,46 +96,18 @@ public class TravelMvcController {
                 travelFilterDto.getOrderBy());
 
         Page<Travel> travelDtos = travelService.getAllTravels(travelFilterOptions);
-
         List<SimpleTravelDto> simpleTravelDtoList = travelDtos.getContent().stream()
                 .map(travel -> travelMapper.convertToSimpleTravelDto(user,travel)).toList();
         Page<SimpleTravelDto> simpleTravelDtos = new PageImpl<>(simpleTravelDtoList, travelDtos.getPageable(),
                 travelDtos.getTotalElements());
 
-
-
         model.addAttribute("totalPages", travelDtos.getTotalPages());
         model.addAttribute("currentPage", page + 1);
         model.addAttribute("totalItems", travelDtos.getNumberOfElements());
         model.addAttribute("travels", simpleTravelDtos);
-//        model.addAttribute("currentUser", user);
         return "TravelsView";
     }
 
-//    @GetMapping("/searchTravels")
-//    public String searchFilterTravels(@RequestParam(defaultValue = "0", name = "page") int page,
-//                                      @RequestParam(defaultValue = "10", name = "size") int size,
-//                                      @ModelAttribute("searchFilterTravels") TravelFilterDto travelFilterDto,
-//                                      Model model,
-//                                      BindingResult bindingResult,
-//                                      HttpSession session) {
-//        User user = authenticationService.tryGetCurrentUser(session);
-//        TravelFilterOptions travelFilterOptions = new TravelFilterOptions(page, size, travelFilterDto.getKeyword(),
-//                travelFilterDto.getSortBy(), travelFilterDto.getOrderBy());
-//        if (bindingResult.hasErrors()) {
-//            return "TravelsView";
-//        }
-////            Pageable travelsPage = PageRequest.of(page,size);
-//        Page<Travel> travels = travelService.getAllTravels(travelFilterOptions);
-//        model.addAttribute("searchFilterTravels", travelFilterDto);
-//        model.addAttribute("totalPages", travels.getTotalPages());
-//        model.addAttribute("currentPage", page + 1);
-//        model.addAttribute("totalItems", travels.getNumberOfElements());
-//        model.addAttribute("travels", travels);
-//        model.addAttribute("currentUser", user);
-//        return "TravelsView";
-//
-//    }
 
 
     @GetMapping("/{id}")
@@ -143,7 +115,9 @@ public class TravelMvcController {
         try {
             User user = authenticationService.tryGetCurrentUser(session);
             Travel travel = travelService.getById(id, user);
+//            List<Candidates> candidatesList = candidateService.checkPendingAndApprovedUsers(user,)
             model.addAttribute("travel", travel);
+//            model.addAttribute("appliedUsers", travel.get)
             return "TravelView";
         } catch (EntityNotFoundException e) {
             model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());

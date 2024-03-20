@@ -16,4 +16,6 @@ public interface CandidateService {
 
     Optional<Candidates> checkAppliedUsers(User userToApply, Travel travelToApply);
 
+//    Optional<Candidates> checkPendingAndApprovedUsers(User userToApply, Travel travelToApply);
+
 }

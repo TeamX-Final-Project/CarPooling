@@ -66,6 +66,13 @@ public class CandidateServiceImpl implements CandidateService {
         return appliedCandidates.stream().filter(candidate -> candidate.getUser().equals(userToApply)).findFirst();
     }
 
+//    @Override
+//    public Optional<Candidates> checkPendingAndApprovedUsers(User userToConfirmApprove, Travel travelToConfirm) {
+//        List<Candidates> pendingAndApprovedUsers = candidateRepository.findByTravelAndStatusNot(travelToConfirm,
+//                CandidateStatus.REJECTED);
+//        return pendingAndApprovedUsers.stream().filter(candidate -> candidate.getUser().equals(travelToConfirm.));
+//    }
+
     @Override
     public Candidates approveTravel(long id, User userToConfirmApprove, Candidates userToApprove) {
         Travel travelToApprove = travelService.getById(id, userToConfirmApprove);

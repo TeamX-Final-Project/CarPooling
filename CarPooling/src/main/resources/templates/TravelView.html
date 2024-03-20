@@ -90,8 +90,6 @@
                                             });
                                             /*]]>*/
                                         </script>
-
-
                                     </div>
                                 </div>
                                 <div class="row-cols-xl-auto">
@@ -100,7 +98,7 @@
                                     <div th:text="${travel.getTravelComment()}">Comment</div>
                                 </div>
                                 <div class="rowGroup">
-                                    <div th:text="#{travels.actions}">Actions</div>
+                                    <div th:text="#{travels.actions}">Travel Actions</div>
                                     <div class="cell">
                                         <div th:if="${isAuthenticated==true && (session.userId == travel.getUserId().userId)}">
                                             <div>
@@ -124,6 +122,11 @@
                                                     <input type="submit" value="  Delete Travel "/>
                                                 </form>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="cell">
+                                        <div th:if="${isAuthenticated==true && (session.currentUser == travel.getUserId().userId
+                            || (session.isAdmin))}">
                                             <div>
                                                 <form action="#"
                                                       th:action="@{/travels/cancel/{id}(id=${travel.travelId})}"
@@ -132,26 +135,21 @@
                                                     <input type="submit" value="  Cancel Travel "/>
                                                 </form>
                                             </div>
-                                            <div>
-                                                <form action="#"
-                                                      th:action="@{/travels/complete/{id}(id=${travel.travelId})}"
-                                                      th:object="${travelCancel}"
-                                                      method="get">
-                                                    <input type="submit" value="  Cancel Travel "/>
-                                                </form>
-                                            </div>
                                         </div>
                                     </div>
-                                    <div class="cell">
+                                </div>
+                            </div>
+                            <div class="rowGroup"
+                            th:each="user: ${users}">
+                                <div th:text="#{travels.applied.users}">Applied Users</div>
+                                <div class="cell">
 
-                                        <div th:if="${isAuthenticated==true && (session.userId == travel.getUserId().userId)}">
-                                            <form action="#" th:action="@{/candidates/approve/{userId}/travel/{travelId}
+                                    <div th:if="${isAuthenticated==true && (session.userId == travel.getUserId().userId)}">
+                                        <form action="#" th:action="@{/candidates/approve/{userId}/travel/{travelId}
                                             (userId=${session.userId}, travelId=${travel.travelId})}"
-
-                                                  method="post">
-                                                <input type="submit" value="  Approve  "/>
-                                            </form>
-                                        </div>
+                                              method="post">
+                                            <input type="submit" value="  Approve  "/>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
