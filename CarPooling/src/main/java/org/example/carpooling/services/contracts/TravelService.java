@@ -10,7 +10,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface TravelService {
-    Page<TravelDto> getAllTravels(TravelFilterOptions travelFilterOptions);
+    Page<Travel> getAllTravels(TravelFilterOptions travelFilterOptions);
 
     Travel getById(long id, User user);
 
@@ -18,9 +18,9 @@ public interface TravelService {
 
     Travel update(User userModifier, Travel travelToUpdate);
 
-    Travel deleteTravelById(int id, User userModifier);
+    Travel deleteTravelById(long id, User userModifier);
 
-    Travel cancel(int id, User userModifier);
+    Travel cancel(long id, User userModifier);
 
 
     int getCompletedTravelsAsDriverCount(User user);

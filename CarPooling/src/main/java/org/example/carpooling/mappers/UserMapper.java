@@ -55,6 +55,8 @@ public class UserMapper {
         dto.setFirstName(user.getFirstName());
         dto.setLastName(user.getLastName());
         dto.setUsername(user.getUsername());
+        dto.setEmail(user.getEmail());
+        dto.setPhoneNumber(user.getPhoneNumber());
         dto.setStatus(user.getUserStatus());
         dto.setAdmin(user.isAdmin());
         return dto;

@@ -16,7 +16,7 @@ public class TravelMapper {
         this.travelService = travelService;
     }
 
-    public Travel fromDto(int id, TravelDto travelDto, User userModifier) {
+    public Travel fromDto(long id, TravelDto travelDto, User userModifier) {
         Travel travel = travelService.getById(id, userModifier);
         modifyTravel(travelDto, travel);
         return travel;
@@ -35,5 +35,19 @@ public class TravelMapper {
         travel.setFreeSpots(travelDto.getFreeSpots());
         travel.setTravelStatus(travelDto.getTravelStatus());
         travel.setTravelComment(travelDto.getTravelComment());
+    }
+
+    public TravelDto convertToDto(Travel travel) {
+        TravelDto travelDTO = new TravelDto();
+        travelDTO.setTravelId(travel.getTravelId());
+        travelDTO.setStartPoint(travel.getStartPoint());
+        travelDTO.setEndPoint(travel.getEndPoint());
+        travelDTO.setDepartureTime(travel.getDepartureTime());
+        travelDTO.setFreeSpots(travel.getFreeSpots());
+        travelDTO.setUserId(travel.getUserId());
+        travelDTO.setCreator(travel.getUserId().getUsername());
+        travelDTO.setTravelStatus(travel.getTravelStatus());
+        travelDTO.setTravelComment(travel.getTravelComment());
+        return travelDTO;
     }
 }

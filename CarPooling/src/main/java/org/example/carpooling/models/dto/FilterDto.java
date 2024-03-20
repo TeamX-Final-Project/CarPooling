@@ -1,24 +1,22 @@
-package org.example.carpooling.models;
+package org.example.carpooling.models.dto;
 
-public class TravelFilterOptions {
+public class FilterDto {
+
     private int page;
     private int size;
     private String keyword;
     private String sortBy;
     private String orderBy;
 
-    public TravelFilterOptions(
-            Integer page,
-            Integer size,
-            String keyword,
-            String sortBy,
-            String orderBy) {
+    public FilterDto() {
+    }
+
+    public FilterDto(int page, int size, String keyword, String sortBy, String orderBy) {
         this.page = page;
         this.size = size;
         this.keyword = keyword;
         this.sortBy = sortBy;
         this.orderBy = orderBy;
-
     }
 
     public int getPage() {
@@ -60,5 +58,4 @@ public class TravelFilterOptions {
     public void setOrderBy(String orderBy) {
         this.orderBy = orderBy;
     }
-
 }

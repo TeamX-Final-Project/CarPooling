@@ -92,7 +92,7 @@ public class TravelMvcController {
                 travelFilterDto.getSortBy(),
                 travelFilterDto.getOrderBy());
 
-        Page<TravelDto> travelDtos = travelService.getAllTravels(travelFilterOptions);
+        Page<Travel> travelDtos = travelService.getAllTravels(travelFilterOptions);
 
 
         model.addAttribute("totalPages", travelDtos.getTotalPages());
@@ -101,6 +101,32 @@ public class TravelMvcController {
         model.addAttribute("travels", travelDtos);
         return "TravelsView";
     }
+
+//    @GetMapping("/searchTravels")
+//    public String searchFilterTravels(@RequestParam(defaultValue = "0", name = "page") int page,
+//                                      @RequestParam(defaultValue = "10", name = "size") int size,
+//                                      @ModelAttribute("searchFilterTravels") TravelFilterDto travelFilterDto,
+//                                      Model model,
+//                                      BindingResult bindingResult,
+//                                      HttpSession session) {
+//        User user = authenticationService.tryGetCurrentUser(session);
+//        TravelFilterOptions travelFilterOptions = new TravelFilterOptions(page, size, travelFilterDto.getKeyword(),
+//                travelFilterDto.getSortBy(), travelFilterDto.getOrderBy());
+//        if (bindingResult.hasErrors()) {
+//            return "TravelsView";
+//        }
+////            Pageable travelsPage = PageRequest.of(page,size);
+//        Page<Travel> travels = travelService.getAllTravels(travelFilterOptions);
+//        model.addAttribute("searchFilterTravels", travelFilterDto);
+//        model.addAttribute("totalPages", travels.getTotalPages());
+//        model.addAttribute("currentPage", page + 1);
+//        model.addAttribute("totalItems", travels.getNumberOfElements());
+//        model.addAttribute("travels", travels);
+//        model.addAttribute("currentUser", user);
+//        return "TravelsView";
+//
+//    }
+
 
     @GetMapping("/{id}")
     public String showSingleTravel(@PathVariable long id, Model model, HttpSession session) {

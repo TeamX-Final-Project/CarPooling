@@ -23,14 +23,14 @@ public interface TravelRestController {
             @ApiResponse(responseCode = "200", description = "successful operation")
     })
     @GetMapping
-    ResponseEntity<Page<TravelDto>> getAllTravels(@RequestParam(defaultValue = TravelRestControllerImpl.PAGE_NUMBER) int page,
+    List<TravelDto> getAllTravels(@RequestParam(defaultValue = TravelRestControllerImpl.PAGE_NUMBER) int page,
                                                   @RequestParam(defaultValue = TravelRestControllerImpl.SIZE_PAGE) int size,
                                                   @RequestParam(required = false) String keyword,
                                                   @RequestParam(required = false) String sortBy,
                                                   @RequestParam(defaultValue = "ASC") String orderBy);
 
     @Operation(
-            summary = "Get travel by ip",
+            summary = "Get travel by id",
             description = "fetches all travel entities and their data from data source")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation")
@@ -55,7 +55,7 @@ public interface TravelRestController {
     })
     @PutMapping("/{id}")
     Travel updateTravel(@RequestHeader HttpHeaders headers,
-                        @PathVariable int id,
+                        @PathVariable long id,
                         @Valid @RequestBody TravelDto travelDto);
 
     @Operation(
@@ -66,7 +66,7 @@ public interface TravelRestController {
     })
     @PutMapping("/delete:{id}")
     Travel deleteTravelById(@RequestHeader HttpHeaders headers,
-                            @PathVariable int id);
+                            @PathVariable long id);
 
     @Operation(
             summary = "Cancel travel by id",
@@ -75,5 +75,5 @@ public interface TravelRestController {
             @ApiResponse(responseCode = "200", description = "successful operation")
     })
     @PutMapping("/cancel:{id}")
-    Travel cancelTravel(@RequestHeader HttpHeaders headers, @PathVariable int id);
+    Travel cancelTravel(@RequestHeader HttpHeaders headers, @PathVariable long id);
 }
