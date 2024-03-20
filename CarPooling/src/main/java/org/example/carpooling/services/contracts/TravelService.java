@@ -22,7 +22,6 @@ public interface TravelService {
 
     Travel cancel(long id, User userModifier);
 
-
     int getCompletedTravelsAsDriverCount(User user);
 
     List<Travel> getOpenTravelsOfDriver(User user);

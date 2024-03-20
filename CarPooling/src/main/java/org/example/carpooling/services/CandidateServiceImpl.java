@@ -12,6 +12,9 @@ import org.example.carpooling.services.contracts.CandidateService;
 import org.example.carpooling.services.contracts.TravelService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class CandidateServiceImpl implements CandidateService {
 
@@ -43,14 +46,32 @@ public class CandidateServiceImpl implements CandidateService {
         Travel travelToApply = travelService.getById(id, userToApply);
         checkApplyPermission(userToApply, travelToApply);
         checkTravelStatusApply(travelToApply);
+        Optional<Candidates> existentCandidate = candidateRepository.findByUser(userToApply);
+        if (existentCandidate.isPresent()) {
+            throw new OperationNotAllowedException(YOU_CAN_T_APPLY_TO_THE_SAME_TRAVEL_TWICE_ERROR);
+        }
+
         Candidates candidate = new Candidates();
         candidate.setStatus(CandidateStatus.PENDING);
         candidate.setUser(userToApply);
         candidate.setTravel(travelToApply);
-//        Candidates existentCandidate = candidateRepository.findById(candidate.getId());
-//        checkIfCandidateAlreadyApplied(userToApply, candidate, travelToApply);
+
         return candidateRepository.save(candidate);
     }
+
+    @Override
+    public Optional<Candidates> checkAppliedUsers(User userToApply, Travel travelToApply) {
+        List<Candidates> appliedCandidates = candidateRepository.findByTravelAndStatusNot(travelToApply,
+                CandidateStatus.REJECTED);
+        return appliedCandidates.stream().filter(candidate -> candidate.getUser().equals(userToApply)).findFirst();
+    }
+
+//    @Override
+//    public Optional<Candidates> checkPendingAndApprovedUsers(User userToConfirmApprove, Travel travelToConfirm) {
+//        List<Candidates> pendingAndApprovedUsers = candidateRepository.findByTravelAndStatusNot(travelToConfirm,
+//                CandidateStatus.REJECTED);
+//        return pendingAndApprovedUsers.stream().filter(candidate -> candidate.getUser().equals(travelToConfirm.));
+//    }
 
     @Override
     public Candidates approveTravel(long id, User userToConfirmApprove, Candidates userToApprove) {
@@ -68,7 +89,6 @@ public class CandidateServiceImpl implements CandidateService {
 
 
     private void checkApplyPermission(User user, Travel travel) {
-
         if (user.getUserId() == travel.getUserId().getUserId()) {
             throw new AuthorizationException(YOU_ARE_THE_CREATOR_OF_THE_TRAVEL);
         }
@@ -81,13 +101,7 @@ public class CandidateServiceImpl implements CandidateService {
     }
     //TODO double check this part when applying for travel the logic need to be reworked
     // so you can't apply for the same travel twice
-    private static void checkIfCandidateAlreadyApplied(User userToApply,
-                                                       Candidates candidate,
-                                                       Travel travelToApply) {
-        if (candidate.getTravel().getTravelId() == travelToApply.getTravelId()) {
-            throw new OperationNotAllowedException(YOU_CAN_T_APPLY_TO_THE_SAME_TRAVEL_TWICE_ERROR);
-        }
-    }
+
 
     private static void checkTravelStatusApprove(Travel travelToApply) {
         if (!TravelStatus.AVAILABLE.equals(travelToApply.getTravelStatus())) {
