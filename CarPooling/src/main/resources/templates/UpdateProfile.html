@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <form th:replace="~{CommonForm.html::head('All Travels')}">
 
 
@@ -12,40 +13,41 @@
     </form>
     <section class="py-5">
         <div class="container">
-            <div class="header-cell">
-                <div class="row">
+            <div class="col-lg-auto me-lg-auto">
 
-                    <section class="header-cell">
-
+            <div class="cell">
 
 
-                    <div class="col-lg-auto me-lg-auto - ">
-                        <div class="card border-0 shadow mb-6 mb-lg-auto">
+
+
+
+
+
+                    <div class="card border-0 shadow mb-12 mb-lg-auto">
 
                             <div class="card-header bg-grey-100 py-8 border-0 text-center">
                             <h1 class="hero-heading mb-0 text-center">Personal info</h1>
                                     <p class="text-muted mb-5">Manage your Personal info here.</p>
                                     <section class="header-cell">
-                                    <div class="row" >
-                                        <div class="col-lg-7 mb-5 mb-lg-0">
-                                            <div class="text-block">
-                                                <div class="row mb-3">
-                                                    <div class="col-sm-9 align-items-center">
-                                                        <h5>Personal Details</h5>
 
-                                                <div class="rbt-tutor-information">
-                                                    <div class="rbt-tutor-information-left">
-                                                        <div class="thumbnail rbt-avatars size-lg position-relative">
-                                                            <img class="my-custom-image" th:src="${userToUpdate.getProfilePictureUrl()}" alt="User">
-                                                            <div class="rbt-edit-photo-inner">
-
-                                                                <div class="rbt-edit-photo-inner">
-                                                                    <form id="exampleDropzone" th:action="@{/users/{userId}/picture(userId=${userToUpdate.getUserId()})}"
-                                                                          method="post" enctype="multipart/form-data">
-                                                                        <input type="file" name="file">
-                                                                        <button class="rbt-edit-photo" title="Upload Photo"
-                                                                                type="submit" >Save picture</button>
-
+                                        <div class="row justify-content-center">
+                                            <div class="col-lg-7 mb-5 mb-lg-0">
+                                                <div class="text-block">
+                                                    <div class="row mb-3">
+                                                        <div class="col-sm-9 align-items-center">
+                                                            <h5>Personal Details</h5>
+                                                            <br>
+                                                            <div sec:authorize="isAuthenticated()">
+                                                                <div class="rbt-tutor-information">
+                                                                    <div class="rbt-tutor-information-center">
+                                                                        <div class="thumbnail rbt-avatars size-lg position-relative text-center">
+                                                                            <img class="my-custom-image" th:src="${userToUpdate.getProfilePictureUrl()}" alt="User">
+                                                                            <div class="rbt-edit-photo-inner">
+                                                                                <br>
+                                                                                <div class="rbt-edit-photo-inner">
+                                                                                    <form id="exampleDropzone" th:action="@{/users/{userId}/picture(userId=${userToUpdate.getUserId()})}" method="post" enctype="multipart/form-data">
+                                                                                        <input type="file" name="file">
+                                                                                        <button class="rbt-edit-photo" title="Upload Photo" type="submit">Save picture</button>
 
                                                                     </form>
                                                                 </div>
@@ -63,55 +65,61 @@
 
 
 
-                                                <form class="form-validate" th:action="@{/users/{id}/update(id=${userToUpdate.getUserId()})}"
-                                                      th:object="${updateDto}" method="post" enctype="multipart/form-data">
+                                                                <div class="container">
+                                                                    <div class="row justify-content-center">
+                                                                        <div class="col-md-8">
+                                                                            <form class="form-validate" th:action="@{/users/{id}/update(id=${userToUpdate.getUserId()})}"
+                                                                                  th:object="${updateDto}" method="post" enctype="multipart/form-data">
 
-                                                            <div class="mb-4 col-md-6">
-                                                                <div class="rbt-form-group">
-                                                                    <label class="form-label" for="firstName">First Name</label>
-                                                                    <input class="form-control" type="text" name="firstName" id="firstName" th:field="*{firstName}">
-                                                                </div>
-                                                            </div>
-                                                            <div class="mb-4 col-md-6">
-                                                                <div class="rbt-form-group">
-                                                                    <label class="form-label" for="lastName">Last Name</label>
-                                                                    <input class="form-control" name="lastName" id="lastName" type="text" th:field="*{lastName}">
-                                                                </div>
-                                                            </div>
-                                                            <br>
-                                                            <div class="mb-4 col-md-6">
-                                                                <div class="rbt-form-group">
-                                                                <label class="form-label" for="phoneNumber">Phone number</label>
-                                                                <input class="form-control" type="text" name="phoneNumber" id="phoneNumber" th:field="*{phoneNumber}">
-                                                                </div>
-                                                            </div>
+                                                                                <div class="mb-4">
+                                                                                    <div class="rbt-form-group">
+                                                                                        <label class="form-label" for="firstName">First Name</label>
+                                                                                        <input class="form-control" type="text" name="firstName" id="firstName" th:field="*{firstName}" placeholder="First name">
+                                                                                    </div>
+                                                                                </div>
 
-                                                            <div class="mb-4 col-md-6">
-                                                                <div class="rbt-form-group">
-                                                                    <label class="form-label" for="email">Email</label>
-                                                                    <input class="form-control" type="text" name="email" id="email" th:field="*{email}">
-                                                                </div>
-                                                            </div>
-                                                            <div class="mb-4 col-md-6">
-                                                                    <div class="rbt-form-group">
-                                                                        <label for="userPasswordConfirm">New Password</label>
-                                                                        <input id="userPasswordConfirm" type="password" th:field="*{password}"
-                                                                               placeholder="Password">
+                                                                                <div class="mb-4">
+                                                                                    <div class="rbt-form-group">
+                                                                                        <label class="form-label" for="lastName">Last Name</label>
+                                                                                        <input class="form-control" name="lastName" id="lastName" type="text" placeholder="Last name" th:field="*{lastName}">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="mb-4">
+                                                                                    <div class="rbt-form-group">
+                                                                                        <label class="form-label" for="phoneNumber">Phone number</label>
+                                                                                        <input class="form-control" type="text" name="phoneNumber" id="phoneNumber" th:field="*{phoneNumber}">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="mb-4">
+                                                                                    <div class="rbt-form-group">
+                                                                                        <label class="form-label" for="email">Email</label>
+                                                                                        <input class="form-control" type="text" name="email" id="email" th:field="*{email}">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="mb-4">
+                                                                                    <div class="rbt-form-group">
+                                                                                        <label for="userPasswordConfirm">New Password</label>
+                                                                                        <input id="userPasswordConfirm" type="password" th:field="*{password}" placeholder="Password">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="mb-4">
+                                                                                    <div class="rbt-form-group">
+                                                                                        <label for="userPasswordConfirm1">Re-type New Password</label>
+                                                                                        <input id="userPasswordConfirm1" type="password" th:field="*{passwordConfirm}" placeholder="Re-type New Password">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <!-- Hidden input to store the existing password -->
+                                                                                <input type="hidden" name="oldPassword" th:value="${userToUpdate.getPassword()}">
+
+                                                                                <button class="btn btn-outline-primary mb-4" type="submit" th:href="@{/users/}">Save your personal details</button>
+                                                                            </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            <div class="mb-4 col-md-6">
-                                                                <div class="rbt-form-group">
-                                                                    <label for="userPasswordConfirm1">Re-type New Password</label>
-                                                                    <input id="userPasswordConfirm1" type="password"
-                                                                           th:field="*{passwordConfirm}"
-                                                                           placeholder="Re-type New Password">
-                                                                </div>
-                                                            </div>
-                                                            <button class="btn btn-outline-primary mb-4" type="submit"
-                                                                    th:href="@{/users/}">Save your personal details</button>
-                                                        </form>
-
-                                                            </div>
 
                                         </div></div>
                                 </section>

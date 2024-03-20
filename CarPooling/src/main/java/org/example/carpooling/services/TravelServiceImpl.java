@@ -4,7 +4,6 @@ import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.exceptions.OperationNotAllowedException;
 import org.example.carpooling.models.*;
-import org.example.carpooling.models.dto.TravelDto;
 import org.example.carpooling.models.enums.CandidateStatus;
 import org.example.carpooling.models.enums.TravelStatus;
 import org.example.carpooling.models.enums.UserStatus;
@@ -138,5 +137,11 @@ public class TravelServiceImpl implements TravelService {
     public int getCompletedTravelsAsPassengerCount(User user) {
         return travelRepository.countCompletedTravelsAsPassenger(user, CandidateStatus.ACCEPTED,TravelStatus.COMPLETED);
     }
+
+    @Override
+    public List<Travel> getMostRecentTravels(){
+        return travelRepository.getMostRecentTravels();
+    }
+
 }
 

@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -278,4 +279,10 @@ public class UserServiceImpl implements UserService {
         }
         return user;
     }
+
+    @Override
+    public List<User> top10ratingUsers(){
+        return  userRepository.top10ratingUsers();
+    }
+
 }

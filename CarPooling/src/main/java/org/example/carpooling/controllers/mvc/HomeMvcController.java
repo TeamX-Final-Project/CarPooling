@@ -5,9 +5,11 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.mappers.UserMapper;
+import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.dto.ProfileDto;
 import org.example.carpooling.services.AuthenticationService;
+import org.example.carpooling.services.contracts.TravelService;
 import org.example.carpooling.services.contracts.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/home")
 public class HomeMvcController {
@@ -26,12 +30,14 @@ public class HomeMvcController {
     private final AuthenticationService authenticationService;
     private final UserMapper userMapper;
     private final UserService userService;
+    private final TravelService travelService;
 
 
-    public HomeMvcController(AuthenticationService authenticationService, UserMapper userMapper, UserService userService) {
+    public HomeMvcController(AuthenticationService authenticationService, UserMapper userMapper, UserService userService, TravelService travelService) {
         this.authenticationService = authenticationService;
         this.userMapper = userMapper;
         this.userService = userService;
+        this.travelService = travelService;
     }
 
     @ModelAttribute("isAuthenticated")
@@ -41,7 +47,9 @@ public class HomeMvcController {
 
 
     @GetMapping
-    public String showHomePage(Model Model) {
+    public String showHomePage(Model model) {
+        model.addAttribute("recentTravels",travelService.getMostRecentTravels());
+        model.addAttribute("recentRatingUsers",userService.top10ratingUsers());
         return "index";
     }
 

@@ -39,7 +39,7 @@
                                         </div>
                                     </div>
 
-                                    <select th:field="*{sortBy}" >
+                                    <select th:field="*{sortBy}">
                                         <option value="startPoint">Pickup Location</option>
                                         <option value="endPoint">Drop Location</option>
                                     </select>
@@ -70,54 +70,57 @@
     </section>
 </form>
 
-
-<div class="body-content" th:if="${travels.isEmpty()}">
-    <h2 th:text="#{travels.title.empty}">No Travels</h2>
-</div>
-<div class="body-content" th:unless="${travels.isEmpty()}">
-    <h2 th:text="#{travels.title}">"All Travels"</h2>
-
-    <div class="table">
-        <div class="header">
-            <div class="header-cell" th:text="#{travels.driver}">Driver(Rating)</div>
-            <div class="header-cell" th:text="#{travels.startPoint}">Starting Point</div>
-            <div class="header-cell" th:text="#{travels.endPoint}">Ending Point</div>
-            <div class="header-cell" th:text="#{travels.departureTime}">Departure Time</div>
-            <div class="header-cell" th:text="#{travels.freeSpots}">Free Spots</div>
-            <div class="header-cell" th:text="#{travels.button.details}">Details</div>
-        </div>
-
-        <div class="rowGroup" th:if="${isAuthenticated == true}"
-             th:each="travel : ${travels}">
-            <div class="cell" th:text="${travel.getUserId().username}">Driver</div>
-            <div class="cell" th:text="${travel.startPoint}">Starting Point</div>
-            <div class="cell" th:text="${travel.endPoint}">Ending Point</div>
-            <div class="cell" th:text="${travel.departureTime}">Departure Time</div>
-            <div class="cell" th:text="${travel.freeSpots}">FreeSpots</div>
-            <a class="link-info" href="#" th:href="@{/travels/{id}(id=${travel.travelId})}"
-               th:text="#{travels.button.details}">Details</a>
-        </div>
+<div class="book_form">
+    <div class="body-content" th:if="${travels.isEmpty()}">
+        <h2 th:text="#{travels.title.empty}">No Travels</h2>
     </div>
-    <div class="table-borderless">
-        <div class="rowGroup">
-            <div class="cell"> Page:</div>
-            <div class="cell align-content-lg-center">
-                <a th:if="${currentPage>1}" th:href="@{'/travels?page=' + ${currentPage - 2}}"><<</a>
+    <div class="body-content" th:unless="${travels.isEmpty()}">
+        <h2 th:text="#{travels.title}">"
 
+
+            ."</h2>
+
+        <div class="table">
+            <div class="header">
+                <div class="header-cell" th:text="#{travels.driver}">Driver(Rating)</div>
+                <div class="header-cell" th:text="#{travels.startPoint}">Starting Point</div>
+                <div class="header-cell" th:text="#{travels.endPoint}">Ending Point</div>
+                <div class="header-cell" th:text="#{travels.departureTime}">Departure Time</div>
+                <div class="header-cell" th:text="#{travels.freeSpots}">Free Spots</div>
+                <div class="header-cell" th:text="#{travels.button.details}">Details</div>
             </div>
-            <div class="cell align-content-lg-center">
+
+            <div class="rowGroup" th:if="${isAuthenticated == true}"
+                 th:each="travel : ${travels}">
+                <div class="cell" th:text="${travel.getUserId().username}">Driver</div>
+                <div class="cell" th:text="${travel.startPoint}">Starting Point</div>
+                <div class="cell" th:text="${travel.endPoint}">Ending Point</div>
+                <div class="cell" th:text="${travel.departureTime}">Departure Time</div>
+                <div class="cell" th:text="${travel.freeSpots}">FreeSpots</div>
+                <a class="link-info" href="#" th:href="@{/travels/{id}(id=${travel.travelId})}"
+                   th:text="#{travels.button.details}">Details</a>
+            </div>
+        </div>
+        <div class="table-borderless">
+            <div class="rowGroup">
+                <div class="cell"> Page:</div>
+                <div class="cell align-content-lg-center">
+                    <a th:if="${currentPage>1}" th:href="@{'/travels?page=' + ${currentPage - 2}}"><<</a>
+
+                </div>
+                <div class="cell align-content-lg-center">
                 <span>
 
                     <span th:if="${currentPage>0}">[[${currentPage}]]</span>
                 </span>
-            </div>
-            <div class="cell align-content-lg-center">
-                <a th:href="@{'/travels?page=' + ${currentPage}}">>></a>
+                </div>
+                <div class="cell align-content-lg-center">
+                    <a th:href="@{'/travels?page=' + ${currentPage}}">>></a>
 
+                </div>
             </div>
         </div>
     </div>
-</div>
-<form th:replace="~{CommonForm.html::footer}"></form>
+    <form th:replace="~{CommonForm.html::footer}"></form>
 </body>
 </html>

@@ -30,4 +30,6 @@ public interface TravelService {
     int countCompletedTravels();
 
     int getCompletedTravelsAsPassengerCount(User user);
+
+    List<Travel> getMostRecentTravels();
 }

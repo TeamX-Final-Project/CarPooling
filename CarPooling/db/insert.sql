@@ -34,7 +34,7 @@ INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_nam
 INSERT INTO carpoolingx.users (user_id, username, password, first_name, last_name, email, phone_number, user_status, is_admin, profile_picture_url) VALUES (15, 'i.ivanov', 'Ivan@123', 'Ivan', 'Ivanov', 'i.ivanov@example.com', '0889663589', '3', 0, 'https://static.vecteezy.com/system/resources/previews/020/765/399/non_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg');
 
 INSERT INTO carpoolingx.travels (travel_id, start_point, end_point, departure_time, free_spots, is_deleted, user_id, travel_status, distance_travel, duration_travel, comment_travel) VALUES (1, 'Plovdiv', 'Sofia', '2020-07-30 21:00:00', 4, 0, 1, 'COMPLETED', 0, 0, 'comment');
-INSERT INTO carpoolingx.travels (travel_id, start_point, end_point, departure_time, free_spots, is_deleted, user_id, travel_status, distance_travel, duration_travel, comment_travel) VALUES (2, 'Plovdiv', 'Varna', '2020-07-30 21:00:00', 4, 0, 1, 'AVAILABLE', 0, 0, 'comment');
+INSERT INTO carpoolingx.travels (travel_id, start_point, end_point, departure_time, free_spots, is_deleted, user_id, travel_status, distance_travel, duration_travel, comment_travel) VALUES (2, 'Plovdiv', 'Varna', '2020-07-30 21:00:00', 4, 0, 2, 'AVAILABLE', 0, 0, 'comment');
 INSERT INTO carpoolingx.travels (travel_id, start_point, end_point, departure_time, free_spots, is_deleted, user_id, travel_status, distance_travel, duration_travel, comment_travel) VALUES (5, 'Plovdiv', 'Burgas', '2020-07-30 21:00:00', 4, 0, 2, 'AVAILABLE', 0, 0, 'comment');
 INSERT INTO carpoolingx.travels (travel_id, start_point, end_point, departure_time, free_spots, is_deleted, user_id, travel_status, distance_travel, duration_travel, comment_travel) VALUES (6, 'Plovdiv', 'Smolyan', '2020-07-30 21:00:00', 4, 0, 2, 'AVAILABLE', 0, 0, 'comment');
 INSERT INTO carpoolingx.travels (travel_id, start_point, end_point, departure_time, free_spots, is_deleted, user_id, travel_status, distance_travel, duration_travel, comment_travel) VALUES (7, 'Smolyan', 'Sofia', '2020-07-30 21:00:00', 4, 0, 3, 'AVAILABLE', 0, 0, 'comment');
@@ -61,7 +61,12 @@ INSERT INTO carpoolingx.travels (travel_id, start_point, end_point, departure_ti
 INSERT INTO carpoolingx.travels (travel_id, start_point, end_point, departure_time, free_spots, is_deleted, user_id, travel_status, distance_travel, duration_travel, comment_travel) VALUES (28, 'Sofia', 'Ruse', '2020-07-30 21:00:00', 4, 0, 12, 'AVAILABLE', 0, 0, 'comment');
 
 
-INSERT INTO carpoolingx.feedbacks (id, rating, giver_id, receiver_id, from_driver_to_passenger, comment, travel_id) VALUES (1, 5, 2, 1, 1, 'Incredible trip! Highly recommend!', 1);
+INSERT INTO carpoolingx.feedbacks (id, rating, giver_id, receiver_id, from_driver_to_passenger, comment, travel_id) VALUES (1, 5, 2, 1, 0, 'Incredible trip! Highly recommend!', 1);
 INSERT INTO carpoolingx.feedbacks (id, rating, giver_id, receiver_id, from_driver_to_passenger, comment, travel_id) VALUES (2, 4, 3, 1, 1, 'Unforgettable trip! Can\'t wait to go back!', 1);
 INSERT INTO carpoolingx.feedbacks (id, rating, giver_id, receiver_id, from_driver_to_passenger, comment, travel_id) VALUES (3, 4, 4, 1, 1, 'Exceptional adventure! Perfect getaway spot!', 1);
 INSERT INTO carpoolingx.feedbacks (id, rating, giver_id, receiver_id, from_driver_to_passenger, comment, travel_id) VALUES (4, 5, 5, 1, 1, 'Fantastic journey! Loved every moment!', 1);
+
+INSERT INTO carpoolingx.candidates (id, user_id, travel_id, status) VALUES (1, 2, 1, 'ACCEPTED');
+INSERT INTO carpoolingx.candidates (id, user_id, travel_id, status) VALUES (2, 3, 1, 'PENDING');
+INSERT INTO carpoolingx.candidates (id, user_id, travel_id, status) VALUES (3, 4, 2, 'ACCEPTED');
+INSERT INTO carpoolingx.candidates (id, user_id, travel_id, status) VALUES (4, 5, 2, 'PENDING');

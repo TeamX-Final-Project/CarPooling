@@ -44,5 +44,6 @@ public interface TravelRepository extends JpaRepository<Travel, Long> {
     @Query("select COUNT (t) from Travel t where t.travelStatus= :travelStatus")
     int countCompletedTravels(@Param("travelStatus") TravelStatus travelStatus);
 
-
+    @Query(nativeQuery = true,value = "select * from carpoolingx.travels order by travels.travel_id desc limit 10")
+List<Travel> getMostRecentTravels();
 }
