@@ -4,11 +4,12 @@ import org.example.carpooling.models.Candidates;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.User;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CandidateService {
 
-    Candidates findById(long id);
+    Candidates findById(long candidateId);
 
     Candidates applyTravel(long id, User userToApply);
 
@@ -16,6 +17,6 @@ public interface CandidateService {
 
     Optional<Candidates> checkAppliedUsers(User userToApply, Travel travelToApply);
 
-//    Optional<Candidates> checkPendingAndApprovedUsers(User userToApply, Travel travelToApply);
+    List<Candidates> checkPendingAndApprovedUsers(User userToApply, Travel travelToApply);
 
 }
