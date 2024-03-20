@@ -69,7 +69,7 @@ public class CandidatesMvcController {
         }
         try {
             candidateService.applyTravel(id, user);
-            return "redirect:/travels";
+            return "UserView";
         } catch (EntityNotFoundException e) {
             model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
             model.addAttribute("error", e.getMessage());
