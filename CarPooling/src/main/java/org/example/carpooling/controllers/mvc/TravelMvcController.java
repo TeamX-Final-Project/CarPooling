@@ -35,6 +35,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/travels")
@@ -120,9 +121,9 @@ public class TravelMvcController {
         try {
             User user = authenticationService.tryGetCurrentUser(session);
             Travel travel = travelService.getById(id, user);
-//            List<Candidates> candidatesList = candidateService.checkPendingAndApprovedUsers(user,)
+            List<Candidates> candidatesList = candidateService.checkPendingAndApprovedUsers(user, travel);
             model.addAttribute("travel", travel);
-//            model.addAttribute("appliedUsers", travel.get)
+            model.addAttribute("candidates", candidatesList);
             return "TravelView";
         } catch (EntityNotFoundException e) {
             model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
@@ -192,7 +193,7 @@ public class TravelMvcController {
         try {
             Travel travel = travelMapper.fromDto(id, travelDto, user);
             travelService.update(user, travel);
-            return "redirect:/travels";
+            return "redirect:/travels/" + id;
         } catch (EntityNotFoundException e) {
             model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
             model.addAttribute("error", e.getMessage());

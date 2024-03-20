@@ -75,8 +75,8 @@ public class CandidatesMvcController {
         }
     }
 
-    @PostMapping("/approve/{userId}/travel/{travelId}")
-    public String approveTravel(@PathVariable long userId,
+    @PostMapping("/approve/{candidateId}/travel/{travelId}")
+    public String approveTravel(@PathVariable long candidateId,
                                 @PathVariable long travelId,
                                 Model model,
                                 HttpSession session) {
@@ -84,14 +84,14 @@ public class CandidatesMvcController {
         Candidates userToApprove;
         try {
             userToConfirmApprove = authenticationService.tryGetCurrentUser(session);
-            userToApprove = candidateService.findById(userId);
+            userToApprove = candidateService.findById(candidateId);
             model.addAttribute("candidate", userToApprove);
         } catch (AuthorizationException e) {
             return "redirect:/auth/login";
         }
         try {
             candidateService.approveTravel(travelId, userToConfirmApprove, userToApprove);
-            return "redirect:/travels";
+            return "redirect:/travels/" + travelId;
         } catch (EntityNotFoundException e) {
             model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
             model.addAttribute("error", e.getMessage());
