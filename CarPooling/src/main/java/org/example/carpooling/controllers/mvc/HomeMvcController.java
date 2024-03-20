@@ -23,13 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/home")
 public class HomeMvcController {
 
-    @ModelAttribute("isAuthenticated")
-    public boolean populateIsAuthenticated(HttpSession session) {
-
-        return session.getAttribute("currentUser") != null;
-    }
-
-
     private final AuthenticationService authenticationService;
     private final UserMapper userMapper;
     private final UserService userService;
@@ -39,6 +32,11 @@ public class HomeMvcController {
         this.authenticationService = authenticationService;
         this.userMapper = userMapper;
         this.userService = userService;
+    }
+
+    @ModelAttribute("isAuthenticated")
+    public boolean populateIsAuthenticated(HttpSession session) {
+        return session.getAttribute("currentUser") != null;
     }
 
 
