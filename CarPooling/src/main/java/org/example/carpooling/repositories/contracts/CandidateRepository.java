@@ -15,5 +15,7 @@ public interface CandidateRepository extends JpaRepository<Candidates, Long> {
 
     List<Candidates> findByTravelAndStatus(Travel travel, CandidateStatus status);
     List<Candidates> findByTravelAndStatusNot(Travel travel, CandidateStatus status);
-    Optional<Candidates> findByUser(User userId);
+    Optional<Candidates> findByUserAndTravel(User userId, Travel travelToApply);
+
+    List<Candidates> findCandidatesByTravel(Travel travel);
 }

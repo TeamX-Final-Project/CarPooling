@@ -70,11 +70,17 @@
             <label class="label-error" th:errors="*{travelComment}">Comment error placeholder</label>
             <br/>
             <br/>
-            <button type="submit" onclick="formatDateTime()" value="create">Create</button>
+            <div class="book_section book_form btn-box button">
+                <input class="book_section book_form btn-box button"
+                       style="padding: 2px; background-color: #ff7070; color: #ffffff;"
+                       type="submit" value="Create"/>
+            </div>
         </form>
     </div>
 </div>
-
+<footer>
+    <form th:replace="~{CommonForm.html::footer}"></form>
+</footer>
 
 </body>
 </html>
