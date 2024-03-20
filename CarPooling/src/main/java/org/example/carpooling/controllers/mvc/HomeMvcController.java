@@ -53,6 +53,15 @@ public class HomeMvcController {
         return "index";
     }
 
+    @GetMapping("/about")
+    public String showAboutPage(Model model, HttpSession httpSession) {
+        try {
+            model.addAttribute("loggedIn", authenticationService.tryGetCurrentUser(httpSession));
+            return "about";
+        } catch (AuthorizationException e) {
+            return "about";
+        }
+    }
     @GetMapping("/profile")
     public String showProfilePage(Model model, HttpSession session) {
         authenticationService.tryGetCurrentUser(session);

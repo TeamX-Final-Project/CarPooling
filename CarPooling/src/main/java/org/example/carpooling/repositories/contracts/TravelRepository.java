@@ -1,8 +1,6 @@
 package org.example.carpooling.repositories.contracts;
 
-import org.example.carpooling.models.Candidates;
 import org.example.carpooling.models.Travel;
-import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.enums.CandidateStatus;
 import org.example.carpooling.models.enums.TravelStatus;
@@ -11,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -26,7 +23,6 @@ public interface TravelRepository extends JpaRepository<Travel, Long> {
     Travel findById(long id);
 
     List<Travel> findByUserIdAndTravelStatus(User user, TravelStatus status);
-
 
     @Query("select COUNT (t) from Travel t where t.userId = :user and t.travelStatus = :status")
     int countCompletedTravelsAsDriver(@Param("user") User user, @Param("status") TravelStatus status);

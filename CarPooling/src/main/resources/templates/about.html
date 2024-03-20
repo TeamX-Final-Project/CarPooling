@@ -1,193 +1,58 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<form th:replace="~{CommonForm.html::head('Login')}"></form>
+<link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 
-<head>
-  <!-- Basic -->
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!-- Mobile Metas -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <!-- Site Metas -->
-  <meta name="keywords" content="" />
+<body>
+<div class="hero_area">
 
-  <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
-
-  <title>CarpoolingX</title>
-
-  <!-- slider stylesheet -->
-  <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
-
-  <!-- bootstrap core css -->
-  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" th:href="@{/css/bootstrap.css}" />
-  <!-- font awesome style -->
-  <link href="/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" />
-  <!-- fonts style -->
-  <link href="https://fonts.googleapis.com/css?family=Dosis:500|Poppins:400,600,700&display=swap" rel="stylesheet">
-  <!-- Custom styles for this template -->
-  <link href="/css/style.scss" th:href="@{/css/style.scss}" rel="stylesheet" />
-  <!-- responsive style -->
-  <link href="/css/responsive.css" th:href="@{/css/responsive.css}" rel="stylesheet" />
-</head>
-
-<body class="sub_page">
-  <div class="hero_area">
-    <!-- header section strats -->
-    <header class="header_section ">
-      <div class="container">
-        <nav class="navbar navbar-expand-lg custom_nav-container">
-          <a class="navbar-brand" href="index.html">
-            <span>
-              CarpoolingX
-            </span>
-          </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span></span>
-          </button>
-          <div class="collapse navbar-collapse ml-auto  " id="navbarSupportedContent">
-            <ul class="navbar-nav  ">
-              <li class="nav-item ">
-                <a class="nav-link" href="index.html">Home </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="about.html">About </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="why.html">Why Us </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="blog.html">Blog </a>
-              </li>
-            </ul>
-            <div class="user_option ">
-              <a href="" class="">
-                Login / signUp
-              </a>
-            </div>
-          </div>
-        </nav>
-      </div>
-    </header>
-    <!-- end header section -->
-
-  </div>
-
+  <form th:replace="~{CommonForm.html::header}"></form>
+  <form th:replace="~{CommonForm.html::slider}"></form>
+</div>
   <!-- about section -->
+  <main class="mb-4">
+    <div class="container px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+          <br><br>
+          <h3><b> About CarpoolingX</b></h3>
+          <p>**CarpoolingX Application User Guide**
 
-  <section class="about_section layout_padding">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="img-box">
-            <img src="/images/about-img.png" alt="about">
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="detail-box">
-            <div class="heading_container">
-              <h2>
-                About Us
-              </h2>
-            </div>
-            <p>
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout. The point
-              of using Lorem Ipsum is that it has a more-or-less normal
-              distribution of letters
-            </p>
-            <a href="">
-              Read More
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- end about section -->
+            Welcome to our Carpooling Application! Below are the instructions to help you navigate through the various features:</p>
+          <p><b>1. **Creating a Travel:**</b>
+          <p>
+            - To create a travel, click on the "Create Travel" option on the home screen or dashboard.
+            - Fill in the required details such as your starting point, destination, date, time, and any additional preferences you may have (e.g., smoking preference, pet-friendly, etc.).
+            - Once you've filled in the details, confirm your travel plan, and it will be posted on the platform for others to see.
+          </p>
+          <p><b>2. **Attending a Travel:**</b>
+          <p> - Browse through the available travels listed on the platform.
+            - When you find a travel that matches your requirements, click on it to view the details.
+            - If the travel suits your schedule and preferences, select the "Attend Travel" option.
+            - You will receive confirmation once your request to attend the travel has been accepted by the creator.</p>
+          <p><b>3. **Searching Travels:**</b>
+          <p> - To search for travels, go to the search bar and input your desired start point and endpoint.
+            - You can further refine your search by specifying dates, times, and any other preferences.
+            - The platform will display a list of travels that match your search criteria.
+          </p>
+          <p><b>4. **Editing Your Profile:**</b>
+          <p> - Click on the "Profile" or "My Account" section to access your profile settings.
+            - Here, you can edit your personal information, contact details, and any other preferences such as smoking/non-smoking, pet-friendly, etc.
+            - Make sure to save your changes after editing your profile.</p>
+          <p><b> 5. **Leaving Feedback and Ratings:**</b>
+          <p> - After completing a travel, you have the option to leave feedback and rate your driver or your passangers.
+            - Navigate to the completed travel in your history or dashboard.
+            - You can leave a written feedback describing your experience and rate the travel on a scale of 1 to 5 stars.
+            - Your feedback and rating will help other users make informed decisions when choosing travel companions.
+          </p>
+          <h3><b></b></h3>
+          <p>These are the basic instructions to get you started with our Carpooling Application. If you have any further questions or need assistance, feel free to reach out to our customer support team. Happy carpooling!</p>
 
 
-  <!-- info section -->
-  <section class="info_section ">
-
-    <div class="container">
-      <div class="info_top ">
-        <div class="row ">
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="info_detail">
-              <a href="index.html">
-                <h4>
-                  CarpoolingX
-                </h4>
-              </a>
-              <p>
-                Book, Create, Explore travels all over the world!!!
-              </p>
-              <div class="social_box">
-                <a href="">
-                  <i class="fa fa-facebook" aria-hidden="true"></i>
-                </a>
-                <a href="">
-                  <i class="fa fa-twitter" aria-hidden="true"></i>
-                </a>
-                <a href="">
-                  <i class="fa fa-linkedin" aria-hidden="true"></i>
-                </a>
-                <a href="">
-                  <i class="fa fa-instagram" aria-hidden="true"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-3 mx-auto">
-            <h4>
-              Contact us
-            </h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit
-            </p>
-            <div class="contact_nav">
-              <a href="">
-                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                <span>
-                  Location
-                </span>
-              </a>
-              <a href="">
-                <i class="fa fa-phone" aria-hidden="true"></i>
-                <span>
-                  Call : +01 123455678990
-                </span>
-              </a>
-              <a href="">
-                <i class="fa fa-envelope" aria-hidden="true"></i>
-                <span>
-                  Email : demo@gmail.com
-                </span>
-              </a>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="info_form">
-              <h4>
-                SIGN UP TO OUR NEWSLETTER
-              </h4>
-              <form action="">
-                <label>
-                  <input type="text" placeholder="Enter Your Email" />
-                </label>
-                <button type="submit">
-                  Subscribe
-                </button>
-              </form>
-            </div>
-          </div>
         </div>
       </div>
     </div>
-  </section>
-  <!-- end info_section -->
+  </main>
 
 
   <!-- footer section -->

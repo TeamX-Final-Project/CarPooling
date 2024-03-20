@@ -1,19 +1,27 @@
 package org.example.carpooling.mappers;
 
+import org.example.carpooling.models.Candidates;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.User;
+import org.example.carpooling.models.dto.SimpleTravelDto;
 import org.example.carpooling.models.dto.TravelDto;
+import org.example.carpooling.models.enums.CandidateStatus;
+import org.example.carpooling.services.contracts.CandidateService;
 import org.example.carpooling.services.contracts.TravelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class TravelMapper {
     private final TravelService travelService;
+    private final CandidateService candidateService;
 
     @Autowired
-    public TravelMapper(TravelService travelService) {
+    public TravelMapper(TravelService travelService, CandidateService candidateService) {
         this.travelService = travelService;
+        this.candidateService = candidateService;
     }
 
     public Travel fromDto(long id, TravelDto travelDto, User userModifier) {
@@ -49,5 +57,23 @@ public class TravelMapper {
         travelDTO.setTravelStatus(travel.getTravelStatus());
         travelDTO.setTravelComment(travel.getTravelComment());
         return travelDTO;
+    }
+
+    public SimpleTravelDto convertToSimpleTravelDto(User user, Travel travel) {
+        SimpleTravelDto simpleTravelDTO = new SimpleTravelDto();
+        CandidateStatus status = null;
+        Optional<Candidates> optionalCandidate = candidateService.checkAppliedUsers(user, travel);
+        if (optionalCandidate.isPresent()) {
+            status = optionalCandidate.get().getStatus();
+        }
+        simpleTravelDTO.setCurrentUserStatus(status);
+        simpleTravelDTO.setTravelId(travel.getTravelId());
+        simpleTravelDTO.setUserId(travel.getUserId());
+        simpleTravelDTO.setStartPoint(travel.getStartPoint());
+        simpleTravelDTO.setEndPoint(travel.getEndPoint());
+        simpleTravelDTO.setDepartureTime(travel.getDepartureTime());
+        simpleTravelDTO.setFreeSpots(travel.getFreeSpots());
+
+        return simpleTravelDTO;
     }
 }

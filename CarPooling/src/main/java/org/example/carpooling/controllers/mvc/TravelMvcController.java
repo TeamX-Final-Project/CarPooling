@@ -13,6 +13,7 @@ import org.example.carpooling.models.Candidates;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.User;
+import org.example.carpooling.models.dto.SimpleTravelDto;
 import org.example.carpooling.models.dto.TravelDto;
 import org.example.carpooling.models.dto.TravelFilterDto;
 import org.example.carpooling.services.AuthenticationService;
@@ -21,6 +22,7 @@ import org.example.carpooling.services.contracts.TravelService;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -33,6 +35,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/travels")
@@ -73,59 +76,44 @@ public class TravelMvcController {
                                  @RequestParam(defaultValue = "startPoint", required = false, name = "sortBy") String sortBy,
                                  @RequestParam(defaultValue = "asc", name = "orderBy") String orderBy,
                                  @ModelAttribute("travelFilterOptions") TravelFilterDto travelFilterDto,
+
                                  HttpSession session,
                                  Model model) {
+        try {
+            User user = authenticationService.tryGetCurrentUser(session);
+            if (!populateIsAuthenticated(session)) {
+                return "redirect:/auth/login";
+            }
+            travelFilterDto.setPage(page);
+            travelFilterDto.setSize(size);
+            travelFilterDto.setKeyword(keyword);
+            travelFilterDto.setSortBy(sortBy);
+            travelFilterDto.setOrderBy(orderBy);
 
-        if (!populateIsAuthenticated(session)) {
-            return "redirect:/auth/login";
+            TravelFilterOptions travelFilterOptions = new TravelFilterOptions(
+                    travelFilterDto.getPage(),
+                    travelFilterDto.getSize(),
+                    travelFilterDto.getKeyword(),
+                    travelFilterDto.getSortBy(),
+                    travelFilterDto.getOrderBy());
+
+            Page<Travel> travelDtos = travelService.getAllTravels(travelFilterOptions);
+            List<SimpleTravelDto> simpleTravelDtoList = travelDtos.getContent().stream()
+                    .map(travel -> travelMapper.convertToSimpleTravelDto(user, travel)).toList();
+            Page<SimpleTravelDto> simpleTravelDtos = new PageImpl<>(simpleTravelDtoList, travelDtos.getPageable(),
+                    travelDtos.getTotalElements());
+
+            model.addAttribute("totalPages", travelDtos.getTotalPages());
+            model.addAttribute("currentPage", page + 1);
+            model.addAttribute("totalItems", travelDtos.getNumberOfElements());
+            model.addAttribute("travels", simpleTravelDtos);
+            return "TravelsView";
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "ErrorView";
         }
-        travelFilterDto.setPage(page);
-        travelFilterDto.setSize(size);
-        travelFilterDto.setKeyword(keyword);
-        travelFilterDto.setSortBy(sortBy);
-        travelFilterDto.setOrderBy(orderBy);
-
-        TravelFilterOptions travelFilterOptions = new TravelFilterOptions(
-                travelFilterDto.getPage(),
-                travelFilterDto.getSize(),
-                travelFilterDto.getKeyword(),
-                travelFilterDto.getSortBy(),
-                travelFilterDto.getOrderBy());
-
-        Page<Travel> travelDtos = travelService.getAllTravels(travelFilterOptions);
-
-
-        model.addAttribute("totalPages", travelDtos.getTotalPages());
-        model.addAttribute("currentPage", page + 1);
-        model.addAttribute("totalItems", travelDtos.getNumberOfElements());
-        model.addAttribute("travels", travelDtos);
-        return "TravelsView";
     }
-
-//    @GetMapping("/searchTravels")
-//    public String searchFilterTravels(@RequestParam(defaultValue = "0", name = "page") int page,
-//                                      @RequestParam(defaultValue = "10", name = "size") int size,
-//                                      @ModelAttribute("searchFilterTravels") TravelFilterDto travelFilterDto,
-//                                      Model model,
-//                                      BindingResult bindingResult,
-//                                      HttpSession session) {
-//        User user = authenticationService.tryGetCurrentUser(session);
-//        TravelFilterOptions travelFilterOptions = new TravelFilterOptions(page, size, travelFilterDto.getKeyword(),
-//                travelFilterDto.getSortBy(), travelFilterDto.getOrderBy());
-//        if (bindingResult.hasErrors()) {
-//            return "TravelsView";
-//        }
-////            Pageable travelsPage = PageRequest.of(page,size);
-//        Page<Travel> travels = travelService.getAllTravels(travelFilterOptions);
-//        model.addAttribute("searchFilterTravels", travelFilterDto);
-//        model.addAttribute("totalPages", travels.getTotalPages());
-//        model.addAttribute("currentPage", page + 1);
-//        model.addAttribute("totalItems", travels.getNumberOfElements());
-//        model.addAttribute("travels", travels);
-//        model.addAttribute("currentUser", user);
-//        return "TravelsView";
-//
-//    }
 
 
     @GetMapping("/{id}")
@@ -133,11 +121,14 @@ public class TravelMvcController {
         try {
             User user = authenticationService.tryGetCurrentUser(session);
             Travel travel = travelService.getById(id, user);
+            List<Candidates> candidatesList = candidateService.checkPendingAndApprovedUsers(user, travel);
             model.addAttribute("travel", travel);
+            model.addAttribute("candidates", candidatesList);
             return "TravelView";
         } catch (EntityNotFoundException e) {
             model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
             model.addAttribute("error", e.getMessage());
+
             return "ErrorView";
         } catch (AuthorizationException e) {
             model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
@@ -203,7 +194,7 @@ public class TravelMvcController {
         try {
             Travel travel = travelMapper.fromDto(id, travelDto, user);
             travelService.update(user, travel);
-            return "redirect:/travels";
+            return "redirect:/travels/" + id;
         } catch (EntityNotFoundException e) {
             model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
             model.addAttribute("error", e.getMessage());
@@ -225,6 +216,34 @@ public class TravelMvcController {
         }
         try {
             travelService.deleteTravelById(id, user);
+            return "redirect:/travels";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "ErrorView";
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "redirect:/auth/login";
+        } catch (OperationNotAllowedException e) {
+            model.addAttribute("statusCode", HttpStatus.METHOD_NOT_ALLOWED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "ErrorView";
+        }
+    }
+
+    @GetMapping("/cancel/{id}")
+    public String cancelTravel(@PathVariable int id, @Valid @ModelAttribute("travelCancel") Travel travel,
+                               Model model,
+                               HttpSession session) {
+        User user;
+        try {
+            user = authenticationService.tryGetCurrentUser(session);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/login";
+        }
+        try {
+            travelService.cancel(id, user);
             return "redirect:/travels";
         } catch (EntityNotFoundException e) {
             model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());

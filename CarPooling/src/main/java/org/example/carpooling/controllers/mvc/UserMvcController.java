@@ -169,9 +169,10 @@ public class UserMvcController {
             List<SimpleUserDto> simpleUsers = usersPage.getContent().stream().map(userMapper::toSimpleDto).toList();
 
             model.addAttribute("totalPages", usersPage.getTotalPages());
-            model.addAttribute("currentPage", filterDto.getPage() + 1);
+            model.addAttribute("currentPage", filterDto.getPage());
             model.addAttribute("totalItems", usersPage.getNumberOfElements());
             model.addAttribute("users", simpleUsers);
+            model.addAttribute("previousFilterOptions", filterOptions);
             return "UsersView";
         } catch (AuthorizationException e) {
             model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());

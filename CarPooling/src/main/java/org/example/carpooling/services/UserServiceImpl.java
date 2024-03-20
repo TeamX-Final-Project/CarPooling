@@ -9,7 +9,6 @@ import org.example.carpooling.models.UserSecurityCode;
 import org.example.carpooling.models.dto.UserDto;
 import org.example.carpooling.models.enums.UserStatus;
 import org.example.carpooling.repositories.contracts.UserRepository;
-import org.example.carpooling.repositories.contracts.UserRepositoryOld;
 import org.example.carpooling.services.contracts.MailService;
 import org.example.carpooling.services.contracts.UserSecurityCodeService;
 import org.example.carpooling.services.contracts.UserService;
@@ -29,15 +28,13 @@ public class UserServiceImpl implements UserService {
     private static final String ERROR_MESSAGE = "You are not authorized";
     public static final String ACTIVATING_USER_IS_NOT_PERMITTED = "Activating user is not permitted";
 
-    private final UserRepositoryOld userRepositoryOld;
     private final UserRepository userRepository;
     private final UserSecurityCodeService userSecurityCodeService;
     private final ImageHelper imageHelper;
     private final MailService mailService;
 
     @Autowired
-    public UserServiceImpl(UserRepositoryOld userRepositoryOld, UserRepository userRepository, UserSecurityCodeService userSecurityCodeService, ImageHelper imageHelper, MailService mailService) {
-        this.userRepositoryOld = userRepositoryOld;
+    public UserServiceImpl(UserRepository userRepository, UserSecurityCodeService userSecurityCodeService, ImageHelper imageHelper, MailService mailService) {
         this.userRepository = userRepository;
         this.userSecurityCodeService = userSecurityCodeService;
         this.imageHelper = imageHelper;
@@ -246,7 +243,7 @@ public class UserServiceImpl implements UserService {
             duplicateUserExists = false;
         }
         if (duplicateUserExists) {
-            throw new EntityDuplicateException("User", "phone number", user.getPhoneNumber());
+            throw new EntityDuplicateException("User", "phoneNumber", user.getPhoneNumber());
         }
     }
 

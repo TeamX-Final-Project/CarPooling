@@ -70,57 +70,84 @@
     </section>
 </form>
 
-<div class="book_form">
-    <div class="body-content" th:if="${travels.isEmpty()}">
-        <h2 th:text="#{travels.title.empty}">No Travels</h2>
-    </div>
-    <div class="body-content" th:unless="${travels.isEmpty()}">
-        <h2 th:text="#{travels.title}">"
 
+<div class="body-content" th:if="${travels.isEmpty()}">
+    <h2 th:text="#{travels.title.empty}">No Travels</h2>
+</div>
+<div class="body-content" th:unless="${travels.isEmpty()}">
+    <h2 th:text="#{travels.title}">"All Travels"</h2>
 
-            ."</h2>
+    <div class="table">
+        <div class="header">
+            <div class="header-cell" th:text="#{travels.driver}">Driver(Rating)</div>
+            <div class="header-cell" th:text="#{travels.startPoint}">Starting Point</div>
+            <div class="header-cell" th:text="#{travels.endPoint}">Ending Point</div>
+            <div class="header-cell" th:text="#{travels.departureTime}">Departure Time</div>
+            <div class="header-cell" th:text="#{travels.freeSpots}">Free Spots</div>
+            <div class="header-cell" th:text="#{travels.button.details}">Details</div>
+            <div class="header-cell" th:text="#{travels.button.actions}">Actions</div>
+        </div>
 
-        <div class="table">
-            <div class="header">
-                <div class="header-cell" th:text="#{travels.driver}">Driver(Rating)</div>
-                <div class="header-cell" th:text="#{travels.startPoint}">Starting Point</div>
-                <div class="header-cell" th:text="#{travels.endPoint}">Ending Point</div>
-                <div class="header-cell" th:text="#{travels.departureTime}">Departure Time</div>
-                <div class="header-cell" th:text="#{travels.freeSpots}">Free Spots</div>
-                <div class="header-cell" th:text="#{travels.button.details}">Details</div>
+        <div class="rowGroup" th:if="${isAuthenticated == true}"
+             th:each="travel : ${travels}">
+            <div class="cell">
+                <a class="link-info" href="#" th:href="@{/users/{id}(id=${travel.getUserId().getUserId()})}"
+                   th:text="${travel.getUserId().username}">Driver</a>
             </div>
-
-            <div class="rowGroup" th:if="${isAuthenticated == true}"
-                 th:each="travel : ${travels}">
-                <div class="cell" th:text="${travel.getUserId().username}">Driver</div>
-                <div class="cell" th:text="${travel.startPoint}">Starting Point</div>
-                <div class="cell" th:text="${travel.endPoint}">Ending Point</div>
-                <div class="cell" th:text="${travel.departureTime}">Departure Time</div>
-                <div class="cell" th:text="${travel.freeSpots}">FreeSpots</div>
-                <a class="link-info" href="#" th:href="@{/travels/{id}(id=${travel.travelId})}"
-                   th:text="#{travels.button.details}">Details</a>
+            <div class="cell" th:text="${travel.startPoint}">Starting Point</div>
+            <div class="cell" th:text="${travel.endPoint}">Ending Point</div>
+            <div class="cell" th:text="${travel.departureTime}">Departure Time</div>
+            <div class="cell" th:text="${travel.freeSpots}">FreeSpots</div>
+            <a class="link-info" href="#" th:href="@{/travels/{id}(id=${travel.travelId})}"
+               th:text="#{travels.button.details}">Details</a>
+            <div class="cell">
+                <div th:if="${isAuthenticated==true &&
+                ((session.userId != travel.getUserId().userId) && (travel.currentUserStatus == null))}">
+                    <form action="#"
+                          th:action="@{/candidates/apply/{id}(id=${travel.getTravelId()})}"
+                          method="post">
+                        <input type="submit" value="  Apply  "/>
+                    </form>
+                </div>
+                <div th:if="${isAuthenticated==true &&
+                    travel.currentUserStatus == T(org.example.carpooling.models.enums.CandidateStatus).PENDING}">
+                    <a class="link-info"
+                       th:text="#{travels.button.applied}">Applied</a>
+                </div>
+                <div th:if="${isAuthenticated==true &&
+                travel.currentUserStatus == T(org.example.carpooling.models.enums.CandidateStatus).ACCEPTED}">
+                    <a class="link-info"
+                       th:text="#{travels.button.approved}">Approved</a>
+                </div>
+                <div th:if="${isAuthenticated==true &&
+                travel.currentUserStatus == T(org.example.carpooling.models.enums.CandidateStatus).REJECTED}">
+                    <a class="link-info"
+                       th:text="#{travels.button.rejected}">Rejected</a>
+                </div>
             </div>
         </div>
-        <div class="table-borderless">
-            <div class="rowGroup">
-                <div class="cell"> Page:</div>
-                <div class="cell align-content-lg-center">
-                    <a th:if="${currentPage>1}" th:href="@{'/travels?page=' + ${currentPage - 2}}"><<</a>
+    </div>
+    <div class="table-borderless">
+        <div class="rowGroup">
+            <div class="cell"> Page:</div>
+            <div class="cell align-content-lg-center">
+                <a th:if="${currentPage>1}" th:href="@{'/travels?page=' + ${currentPage - 2}}"><<</a>
 
-                </div>
-                <div class="cell align-content-lg-center">
+            </div>
+            <div class="cell align-content-lg-center">
                 <span>
 
                     <span th:if="${currentPage>0}">[[${currentPage}]]</span>
                 </span>
-                </div>
-                <div class="cell align-content-lg-center">
-                    <a th:href="@{'/travels?page=' + ${currentPage}}">>></a>
+            </div>
+            <div class="cell align-content-lg-center">
+                <a th:href="@{'/travels?page=' + ${currentPage}}">>></a>
 
-                </div>
             </div>
         </div>
     </div>
-    <form th:replace="~{CommonForm.html::footer}"></form>
+</div>
+
+<form th:replace="~{CommonForm.html::footer}"></form>
 </body>
 </html>
