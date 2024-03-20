@@ -97,8 +97,10 @@
                                     <div class="caption" th:text="#{travels.comment}">Comment:</div>
                                     <div th:text="${travel.getTravelComment()}">Comment</div>
                                 </div>
-                                <div class="rowGroup">
-                                    <div th:text="#{travels.actions}">Travel Actions</div>
+                                <div class="rowGroup" >
+                                    <div th:text="#{travels.actions}"
+                                         th:if="${isAuthenticated==true &&
+                                         (session.isAdmin || session.userId == travel.getUserId().userId)}">Travel Actions</div>
                                     <div class="cell">
                                         <div th:if="${isAuthenticated==true && (session.userId == travel.getUserId().userId)}">
                                             <div>
