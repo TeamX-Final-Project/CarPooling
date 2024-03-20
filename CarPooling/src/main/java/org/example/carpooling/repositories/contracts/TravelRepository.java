@@ -20,6 +20,7 @@ import java.util.List;
 @Repository
 public interface TravelRepository extends JpaRepository<Travel, Long> {
 
+//    @Query("select t from Travel t where t.travelStatus = 'AVAILABLE'")
     Page<Travel> findAll(Specification<Travel> specification, Pageable pageable);
 
     Travel findById(long id);

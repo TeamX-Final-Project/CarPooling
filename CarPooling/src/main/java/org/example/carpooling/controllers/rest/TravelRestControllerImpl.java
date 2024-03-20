@@ -69,8 +69,8 @@ public class TravelRestControllerImpl implements TravelRestController {
                     orderBy);
 
             return travelService.getAllTravels(travelFilterOptions).stream()
-                    .filter(travel -> travel.getTravelStatus().equals(TravelStatus.AVAILABLE))
-                    .map(travelMapper::convertToDto).toList();
+                    .map(travelMapper::convertToDto)
+                    .toList();
 
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
