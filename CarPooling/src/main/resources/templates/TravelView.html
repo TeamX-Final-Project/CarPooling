@@ -150,18 +150,27 @@
                                        th:href="@{/users/{id}(id=${candidate.getUser().getUserId()})}">
                                         <div class="cell" th:text="*{candidate.getUser().username}"> Username</div>
                                     </a>
-                                        <div class="cell">
-                                            <div th:if="*{candidate.getStatus() == T(org.example.carpooling.models.enums.CandidateStatus).PENDING}">
-                                                <div th:text="*{candidate.getStatus()}">Status</div>
-                                                <form action="#" th:action="@{/candidates/approve/{candidateId}/travel/{travelId}
+                                    <div class="cell">
+                                        <div th:if="*{candidate.getStatus() == T(org.example.carpooling.models.enums.CandidateStatus).PENDING}">
+                                            <div th:text="*{candidate.getStatus()}">Status</div>
+                                            <form action="#" th:action="@{/candidates/approve/{candidateId}/travel/{travelId}
                                             (candidateId=${candidate.getId()}, travelId=${travel.travelId})}"
-                                                      method="post">
-                                                    <input type="submit" value="  Approve  "/>
-                                                </form>
-                                            </div>
-                                            <div th:if="*{candidate.getStatus() != T(org.example.carpooling.models.enums.CandidateStatus).PENDING}">
-                                                <div th:text="*{candidate.getStatus()}">Status</div>
-                                            </div>
+                                                  method="post">
+                                                <input type="submit" value="  Approve  "/>
+                                            </form>
+                                        </div>
+                                        <div th:if="*{candidate.getStatus() != T(org.example.carpooling.models.enums.CandidateStatus).PENDING}">
+                                            <div th:text="*{candidate.getStatus()}">Status</div>
+                                        </div>
+                                    </div>
+                                    <div class="cell">
+                                        <div th:if="*{candidate.getStatus() == T(org.example.carpooling.models.enums.CandidateStatus).PENDING}">
+                                            <div th:text="*{candidate.getStatus()}">Status</div>
+                                            <form action="#" th:action="@{/candidates/reject/{candidateId}/travel/{travelId}
+                                            (candidateId=${candidate.getId()}, travelId=${travel.travelId})}"
+                                                  method="post">
+                                                <input type="submit" value="  Reject  "/>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -172,6 +181,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 </div>
 </div>

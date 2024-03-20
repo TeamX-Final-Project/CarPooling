@@ -106,4 +106,35 @@ public class CandidatesMvcController {
             return "ErrorView";
         }
     }
+    @PostMapping("/reject/{candidateId}/travel/{travelId}")
+    public String rejectTravel(@PathVariable long candidateId,
+                                @PathVariable long travelId,
+                                Model model,
+                                HttpSession session) {
+        User userToConfirmReject;
+        Candidates userToReject;
+        try {
+            userToConfirmReject = authenticationService.tryGetCurrentUser(session);
+            userToReject = candidateService.findById(candidateId);
+            model.addAttribute("candidate", userToReject);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/login";
+        }
+        try {
+            candidateService.rejectTravel(travelId, userToConfirmReject, userToReject);
+            return "redirect:/travels/" + travelId;
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "ErrorView";
+        } catch (AuthorizationException | BlockedUserException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "redirect:/auth/login";
+        } catch (OperationNotAllowedException e) {
+            model.addAttribute("statusCode", HttpStatus.METHOD_NOT_ALLOWED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "ErrorView";
+        }
+    }
 }

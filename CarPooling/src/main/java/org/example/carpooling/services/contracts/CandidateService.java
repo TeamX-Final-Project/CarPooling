@@ -15,8 +15,12 @@ public interface CandidateService {
 
     Candidates approveTravel(long id, User userToConfirmApprove, Candidates userToApprove);
 
+    Candidates rejectTravel(long id, User userToConfirmReject, Candidates userToReject);
+
     Optional<Candidates> checkAppliedUsers(User userToApply, Travel travelToApply);
 
     List<Candidates> checkPendingAndApprovedUsers(User userToApply, Travel travelToApply);
+
+
 
 }
