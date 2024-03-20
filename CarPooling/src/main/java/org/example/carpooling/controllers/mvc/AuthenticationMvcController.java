@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.EntityDuplicateException;
+import org.example.carpooling.exceptions.InvalidPasswordException;
 import org.example.carpooling.exceptions.SendMailException;
 import org.example.carpooling.mappers.UserMapper;
 import org.example.carpooling.models.User;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/auth")
 public class AuthenticationMvcController {
     public static final String PASSWORD_CONFIRM_NEED_TO_MATCH_WITH_PASSWORD_ERROR = "Password confirm need to match with password";
+    public static final String FAILED_TO_SEND_VALIDATION_MAIL_ERROR = "System failed to send validation mail. Please, register again.";
     private final UserService userService;
     private final AuthenticationService authenticationService;
     private final UserMapper userMapper;
@@ -69,7 +71,7 @@ public class AuthenticationMvcController {
                 session.setAttribute("isAdmin", user.isAdmin());
                 session.setAttribute("isBlocked", user.getUserStatus());
                 session.setAttribute("isDeleted", user.getUserStatus());
-            return "redirect:/users/" + user.getUserId();
+                return "redirect:/users/" + user.getUserId();
             }
 
             //ToDo should be authentication exception
@@ -114,9 +116,19 @@ public class AuthenticationMvcController {
             User user = userMapper.fromDto(registerDto);
             userService.create(user);
             return "redirect:/auth/login";
-        } catch (EntityDuplicateException | SendMailException e) {
-            bindingResult.rejectValue("username",
-                    "username_error",
+        } catch (SendMailException e) {
+            bindingResult.rejectValue("email",
+                    "email_error",
+                    FAILED_TO_SEND_VALIDATION_MAIL_ERROR);
+            return "RegisterView";
+        } catch (InvalidPasswordException e) {
+            bindingResult.rejectValue("password",
+                    "password_error",
+                    e.getMessage());
+            return "RegisterView";
+        } catch (EntityDuplicateException e) {
+            bindingResult.rejectValue(e.getAttribute(),
+                    e.getAttribute() + "_error",
                     e.getMessage());
             return "RegisterView";
         }
