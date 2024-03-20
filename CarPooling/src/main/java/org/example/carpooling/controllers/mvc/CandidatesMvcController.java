@@ -9,6 +9,7 @@ import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.exceptions.OperationNotAllowedException;
 import org.example.carpooling.mappers.TravelMapper;
 import org.example.carpooling.models.Candidates;
+import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.User;
 import org.example.carpooling.services.AuthenticationService;
 import org.example.carpooling.services.contracts.CandidateService;
@@ -54,15 +55,11 @@ public class CandidatesMvcController {
     public String applyTravel(@PathVariable int id,
                               Model model,
                               HttpSession session) {
-        User user;
         try {
-            user = authenticationService.tryGetCurrentUser(session);
-        } catch (AuthorizationException e) {
-            return "redirect:/auth/login";
-        }
-        try {
+            User user = authenticationService.tryGetCurrentUser(session);
             candidateService.applyTravel(id, user);
-            return "UserView";
+            model.addAttribute("currentUser", user);
+            return "redirect:/travels";
         } catch (EntityNotFoundException e) {
             model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
             model.addAttribute("error", e.getMessage());

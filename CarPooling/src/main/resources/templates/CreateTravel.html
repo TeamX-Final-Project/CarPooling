@@ -11,88 +11,70 @@
 </div>
 <h1 th:align="center">Create Travel</h1>
 <br/>
-    <div class="col-md-8 col-xl-6 mx-auto">
-        <div class="row">
-            <div class="col-md-12 grid-margin">
-                <div class="card rounded">
-                    <div class="card-header">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <div class="ms-2 text-center">
-                                    <div class="table-borderless">
-                                        <div class="header-cell">
-                                        </div>
-                                        <div class="header-cell">
-                                            <form th:action="@{/travels/new}" th:object="${travel}" action="#"
-                                                  method="post">
-                                                <label th:text="#{travels.startPoint}">Starting point</label>
-                                                <br/>
-                                                <input type="text" th:field="*{startPoint}">
-                                                <br/>
-                                                <label class="label-error" th:errors="*{startPoint}">StartPoint error placeholder</label>
-                                                <br/>
-                                                <label th:text="#{travels.endPoint}"></label>
-                                                <br/>
-                                                <input type="text" th:field="*{endPoint}">
-                                                <br/>
-                                                <label class="label-error" th:errors="*{endPoint}">EndPoint error placeholder</label>
-                                                <br/>
-                                                <script th:inline="javascript">
-                                                    function formatDateTime() {
-                                                        // Get the input value
-                                                        var input = document.getElementById("departureTime").value;
-                                                        // Format the input value to match the expected format (yyyy-MM-ddTHH:mm)
-                                                        var formattedDateTime = input.replace("T", " ").concat(":00");
+<div class="table-borderless" th:align="center">
+    <div class="header-cell">
+        <form th:action="@{/travels/new}" th:object="${travel}" action="#"
+              method="post">
+            <label th:text="#{travels.startPoint}">Starting point</label>
+            <br/>
+            <input type="text" th:field="*{startPoint}">
+            <br/>
+            <label class="label-error" th:errors="*{startPoint}">StartPoint error placeholder</label>
+            <br/>
+            <label th:text="#{travels.endPoint}"></label>
+            <br/>
+            <input type="text" th:field="*{endPoint}">
+            <br/>
+            <label class="label-error" th:errors="*{endPoint}">EndPoint error placeholder</label>
+            <br/>
+            <script th:inline="javascript">
+                function formatDateTime() {
+                    // Get the input value
+                    var input = document.getElementById("departureTime").value;
+                    // Format the input value to match the expected format (yyyy-MM-ddTHH:mm)
+                    var formattedDateTime = input.replace("T", " ").concat(":00");
 
-                                                        // Set the formatted value back to the input field
-                                                        document.getElementById("departureTime").value = formattedDateTime;
-                                                    }
-                                                </script>
-                                                <label type="text" th:text="#{travels.departureTime}"></label>
-                                                <br/>
-                                                <input type="datetime-local" id="departureTime" name="departureTime" th:field="*{departureTime}" />
-                                                <br/>
-                                                <label class="label-error" th:errors="*{departureTime}">Departure time error placeholder</label>
-                                                <br/>
-                                                <label th:text="#{travels.freeSpots}"></label>
-                                                <br/>
-                                                <input type="text" th:field="*{freeSpots}">
-                                                <br/>
-                                                <label class="label-error" th:errors="*{freeSpots}">FreeSpots error placeholder</label>
-                                                <br/>
-                                                <label th:text="#{travels.status}"></label>
-                                                <br/>
-                                                <select th:field="*{travelStatus}">
-                                                    <option value="">Travel Status</option>
-                                                    <option value="AVAILABLE">AVAILABLE</option>
-                                                    <option value="FULL">FULL</option>
-                                                    <option value="CANCELED">CANCELED</option>
-                                                    <option value="COMPLETED">COMPLETED</option>
-                                                    <option value="DELETED">DELETED</option>
-                                                </select>
-                                                <br/>
-                                                <label class="label-error" th:errors="*{freeSpots}">FreeSpots error placeholder</label>
-                                                <br/>
-                                                <label th:text="#{travels.comment}"></label>
-                                                <br/>
-                                                <input type="text" th:field="*{travelComment}">
-                                                <br/>
-                                                <label class="label-error" th:errors="*{travelComment}">Comment error placeholder</label>
-                                                <br/>
-                                                <br/>
-                                                <button type="submit" onclick="formatDateTime()" value="create">Create</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    // Set the formatted value back to the input field
+                    document.getElementById("departureTime").value = formattedDateTime;
+                }
+            </script>
+            <label type="text" th:text="#{travels.departureTime}"></label>
+            <br/>
+            <input type="datetime-local" id="departureTime" name="departureTime" th:field="*{departureTime}"/>
+            <br/>
+            <label class="label-error" th:errors="*{departureTime}">Departure time error placeholder</label>
+            <br/>
+            <label th:text="#{travels.freeSpots}"></label>
+            <br/>
+            <input type="text" th:field="*{freeSpots}">
+            <br/>
+            <label class="label-error" th:errors="*{freeSpots}">FreeSpots error placeholder</label>
+            <br/>
+            <label th:text="#{travels.status}"></label>
+            <br/>
+            <select th:field="*{travelStatus}">
+                <option value="">Travel Status</option>
+                <option value="AVAILABLE">AVAILABLE</option>
+                <option value="FULL">FULL</option>
+                <option value="CANCELED">CANCELED</option>
+                <option value="COMPLETED">COMPLETED</option>
+                <option value="DELETED">DELETED</option>
+            </select>
+            <br/>
+            <label class="label-error" th:errors="*{freeSpots}">FreeSpots error placeholder</label>
+            <br/>
+            <label th:text="#{travels.comment}"></label>
+            <br/>
+            <input type="text" th:field="*{travelComment}">
+            <br/>
+            <label class="label-error" th:errors="*{travelComment}">Comment error placeholder</label>
+            <br/>
+            <br/>
+            <button type="submit" onclick="formatDateTime()" value="create">Create</button>
+        </form>
     </div>
 </div>
+
 
 </body>
 </html>

@@ -22,7 +22,6 @@ public class TravelDto {
     private String startPoint;
     @NotNull(message = "End point can't be empty")
     private String endPoint;
-
     @NotNull(message = "Departure time can't be empty")
     private LocalDateTime departureTime;
     @NotNull(message = "Free spots can't be empty")
