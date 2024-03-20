@@ -6,8 +6,8 @@
 <body>
 <div class="hero_area">
 
-<form th:replace="~{CommonForm.html::header}"></form>
-<form th:replace="~{CommonForm.html::slider}"></form>
+    <form th:replace="~{CommonForm.html::header}"></form>
+    <form th:replace="~{CommonForm.html::slider}"></form>
 </div>
 <div class="body-content">
 
@@ -28,10 +28,15 @@
         <label class="label-error" th:errors="*{password}">Password error placeholder</label>
         <br/><br/>
         <div class="load-more-btn text-center mb-3">
-            <a class="rbt-btn-link" href="RegisterView.html" th:href="@{/auth/register}">Don't have account? Sign up<i class="feather-arrow-right"></i></a>
+            <a class="rbt-btn-link" href="RegisterView.html" th:href="@{/auth/register}">Don't have account? Sign up<i
+                    class="feather-arrow-right"></i></a>
         </div>
         <br>
-        <input type="submit" value="Login" />
+        <div class="book_section book_form btn-box button">
+            <input class="book_section book_form btn-box button"
+                   style="padding: 2px; background-color: #ff7070; color: #ffffff;"
+                   type="submit" value="Login"/>
+        </div>
     </form>
 </div>
 <form th:replace="~{CommonForm.html::footer}"></form>

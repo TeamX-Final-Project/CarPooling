@@ -5,8 +5,8 @@
 
 <body>
 <div class="hero_area">
-<form th:replace="~{CommonForm.html::header}"></form>
-<form th:replace="~{CommonForm.html::slider}"></form>
+    <form th:replace="~{CommonForm.html::header}"></form>
+    <form th:replace="~{CommonForm.html::slider}"></form>
 </div>
 <div class="body-content">
 
@@ -57,7 +57,11 @@
         <label class="label-error" th:errors="*{passwordConfirm}">Confirm password error placeholder</label>
         <br/>
 
-        <input type="submit" value="Register" />
+        <div class="book_section book_form btn-box button">
+            <input class="book_section book_form btn-box button"
+                   style="padding: 2px; background-color: #ff7070; color: #ffffff;"
+                   type="submit" value="Register"/>
+        </div>
     </form>
 </div>
 <footer th:fragment="footer" class="border-top">

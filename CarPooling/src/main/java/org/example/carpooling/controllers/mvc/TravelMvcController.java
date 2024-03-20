@@ -78,36 +78,41 @@ public class TravelMvcController {
 
                                  HttpSession session,
                                  Model model) {
-        User user = authenticationService.tryGetCurrentUser(session);
-        if (!populateIsAuthenticated(session)) {
-            return "redirect:/auth/login";
+        try {
+            User user = authenticationService.tryGetCurrentUser(session);
+            if (!populateIsAuthenticated(session)) {
+                return "redirect:/auth/login";
+            }
+            travelFilterDto.setPage(page);
+            travelFilterDto.setSize(size);
+            travelFilterDto.setKeyword(keyword);
+            travelFilterDto.setSortBy(sortBy);
+            travelFilterDto.setOrderBy(orderBy);
+
+            TravelFilterOptions travelFilterOptions = new TravelFilterOptions(
+                    travelFilterDto.getPage(),
+                    travelFilterDto.getSize(),
+                    travelFilterDto.getKeyword(),
+                    travelFilterDto.getSortBy(),
+                    travelFilterDto.getOrderBy());
+
+            Page<Travel> travelDtos = travelService.getAllTravels(travelFilterOptions);
+            List<SimpleTravelDto> simpleTravelDtoList = travelDtos.getContent().stream()
+                    .map(travel -> travelMapper.convertToSimpleTravelDto(user, travel)).toList();
+            Page<SimpleTravelDto> simpleTravelDtos = new PageImpl<>(simpleTravelDtoList, travelDtos.getPageable(),
+                    travelDtos.getTotalElements());
+
+            model.addAttribute("totalPages", travelDtos.getTotalPages());
+            model.addAttribute("currentPage", page + 1);
+            model.addAttribute("totalItems", travelDtos.getNumberOfElements());
+            model.addAttribute("travels", simpleTravelDtos);
+            return "TravelsView";
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "ErrorView";
         }
-        travelFilterDto.setPage(page);
-        travelFilterDto.setSize(size);
-        travelFilterDto.setKeyword(keyword);
-        travelFilterDto.setSortBy(sortBy);
-        travelFilterDto.setOrderBy(orderBy);
-
-        TravelFilterOptions travelFilterOptions = new TravelFilterOptions(
-                travelFilterDto.getPage(),
-                travelFilterDto.getSize(),
-                travelFilterDto.getKeyword(),
-                travelFilterDto.getSortBy(),
-                travelFilterDto.getOrderBy());
-
-        Page<Travel> travelDtos = travelService.getAllTravels(travelFilterOptions);
-        List<SimpleTravelDto> simpleTravelDtoList = travelDtos.getContent().stream()
-                .map(travel -> travelMapper.convertToSimpleTravelDto(user,travel)).toList();
-        Page<SimpleTravelDto> simpleTravelDtos = new PageImpl<>(simpleTravelDtoList, travelDtos.getPageable(),
-                travelDtos.getTotalElements());
-
-        model.addAttribute("totalPages", travelDtos.getTotalPages());
-        model.addAttribute("currentPage", page + 1);
-        model.addAttribute("totalItems", travelDtos.getNumberOfElements());
-        model.addAttribute("travels", simpleTravelDtos);
-        return "TravelsView";
     }
-
 
 
     @GetMapping("/{id}")
