@@ -5,10 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dcb0a7cd-e081-4ff2-8538-e918b7c85a24" name="Changes" comment="img and font">
-      <change afterPath="$PROJECT_DIR$/CarPooling/src/main/resources/templates/Test.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CarPooling/src/test/java/org/example/carpooling/services/CandidateServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0ca0e116-0c72-4b70-a6a9-9251a2270374.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/0ca0e116-0c72-4b70-a6a9-9251a2270374.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c1a6ec9c-caef-409b-afdc-0e9cd6cd4d21.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c1a6ec9c-caef-409b-afdc-0e9cd6cd4d21/storage_v2/_src_/schema/carpoolingx.xvqiUA.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c1a6ec9c-caef-409b-afdc-0e9cd6cd4d21/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c1a6ec9c-caef-409b-afdc-0e9cd6cd4d21/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c1a6ec9c-caef-409b-afdc-0e9cd6cd4d21/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/resources/templates/UsersView.html" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/resources/templates/UsersView.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/TravelServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/TravelServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/contracts/TravelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/contracts/TravelService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/resources/templates/TravelView.html" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/resources/templates/TravelView.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/test/java/org/example/carpooling/Helpers.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/test/java/org/example/carpooling/Helpers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/test/java/org/example/carpooling/services/TravelServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/test/java/org/example/carpooling/services/TravelServiceTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,8 +51,8 @@
       <list>
         <option value="Enum" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="HTML File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -78,68 +89,80 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Database Script.insert.sql.executor&quot;: &quot;Run&quot;,
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Gradle.Build CarPooling.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.MailServiceImplImplTests.sendConformationEmail_should_succeed.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Tests in 'CarPooling.CarPooling.test'.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Tests in 'org.example.carpooling.services'.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.UserSecurityCodeServiceImplTests.create_should_save_user_security_code_in_database.executor&quot;: &quot;Coverage&quot;,
-    &quot;Gradle.UserSecurityCodeServiceImplTests.crete_should_throw_EntityNotFoundException.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.UserServiceImplTests.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.UserServiceImplTests.saveImage_should_succeed.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.UserServiceTests.blockUserAdmin_should_Call_Repository_WhenUserIsAuthorized.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.UserServiceTests.changeUserAdminValue_should_throw_authorization_exception_when_user_is_not_admin.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.UserServiceTests.changeUserAdminValue_should_throw_entity_attribute_already_set_exception.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.UserServiceTests.create_should_create_user_successfully.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.UserServiceTests.create_should_return_invalid_password_exception.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.UserServiceTests.create_should_return_user_already_exist_with_same_email.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.UserServiceTests.create_should_return_user_already_exist_with_same_phoneNumber.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.UserServiceTests.create_should_return_user_already_exist_with_same_username.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.UserServiceTests.delete_should_set_user_status_to_delete_when_user_is_admin.executor&quot;: &quot;Coverage&quot;,
-    &quot;Gradle.UserServiceTests.delete_should_throw_authorization_exception_when_user_is_not_admin_or_owner.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.UserServiceTests.executor&quot;: &quot;Coverage&quot;,
-    &quot;Gradle.UserServiceTests.getUserById_should_return_user_when_call_by_admin.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.UserServiceTests.getUserById_should_return_user_when_call_by_owner.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.UserServiceTests.getUserById_should_throw_exception_when_is_called_from_neither_admin_or_owner.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.UserServiceTests.makeUserAdmin_should_succeed.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.UserServiceTests.saveImage_should_succeed.executor&quot;: &quot;Coverage&quot;,
-    &quot;Gradle.UserServiceTests.updateUserStatus_should_throw_entity_attribute_already_set_exception.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.UserServiceTests.update_should_update_user_successfully.executor&quot;: &quot;Coverage&quot;,
-    &quot;Gradle.UserServiceTests.verify_should_set_user_status_to_active.executor&quot;: &quot;Run&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Spring Boot.CarPoolingApplication.executor&quot;: &quot;Run&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;sql.rename.search.for.storage.occurrences&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Database Script.insert.sql.executor": "Run",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Downloaded.Files.Path.Enabled": "false",
+    "Gradle.Build CarPooling.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.MailServiceImplImplTests.sendConformationEmail_should_succeed.executor": "Run",
+    "Gradle.Tests in 'CarPooling.CarPooling.test'.executor": "Run",
+    "Gradle.Tests in 'org.example.carpooling.services'.executor": "Run",
+    "Gradle.UserSecurityCodeServiceImplTests.create_should_save_user_security_code_in_database.executor": "Coverage",
+    "Gradle.UserSecurityCodeServiceImplTests.crete_should_throw_EntityNotFoundException.executor": "Run",
+    "Gradle.UserServiceImplTests.executor": "Run",
+    "Gradle.UserServiceImplTests.saveImage_should_succeed.executor": "Run",
+    "Gradle.UserServiceTests.blockUserAdmin_should_Call_Repository_WhenUserIsAuthorized.executor": "Run",
+    "Gradle.UserServiceTests.changeUserAdminValue_should_throw_authorization_exception_when_user_is_not_admin.executor": "Run",
+    "Gradle.UserServiceTests.changeUserAdminValue_should_throw_entity_attribute_already_set_exception.executor": "Run",
+    "Gradle.UserServiceTests.create_should_create_user_successfully.executor": "Run",
+    "Gradle.UserServiceTests.create_should_return_invalid_password_exception.executor": "Run",
+    "Gradle.UserServiceTests.create_should_return_user_already_exist_with_same_email.executor": "Run",
+    "Gradle.UserServiceTests.create_should_return_user_already_exist_with_same_phoneNumber.executor": "Run",
+    "Gradle.UserServiceTests.create_should_return_user_already_exist_with_same_username.executor": "Run",
+    "Gradle.UserServiceTests.delete_should_set_user_status_to_delete_when_user_is_admin.executor": "Coverage",
+    "Gradle.UserServiceTests.delete_should_throw_authorization_exception_when_user_is_not_admin_or_owner.executor": "Run",
+    "Gradle.UserServiceTests.executor": "Coverage",
+    "Gradle.UserServiceTests.getUserById_should_return_user_when_call_by_admin.executor": "Run",
+    "Gradle.UserServiceTests.getUserById_should_return_user_when_call_by_owner.executor": "Run",
+    "Gradle.UserServiceTests.getUserById_should_throw_exception_when_is_called_from_neither_admin_or_owner.executor": "Run",
+    "Gradle.UserServiceTests.makeUserAdmin_should_succeed.executor": "Run",
+    "Gradle.UserServiceTests.saveImage_should_succeed.executor": "Coverage",
+    "Gradle.UserServiceTests.updateUserStatus_should_throw_entity_attribute_already_set_exception.executor": "Run",
+    "Gradle.UserServiceTests.update_should_update_user_successfully.executor": "Coverage",
+    "Gradle.UserServiceTests.verify_should_set_user_status_to_active.executor": "Run",
+    "JUnit.All in CarPooling.test.executor": "Coverage",
+    "JUnit.CandidateServiceTests.applyTravel_Should_Throw_Exception_When_User_Is_CreatorOfTravel.executor": "Coverage",
+    "JUnit.CandidateServiceTests.findById_Should_CallRepository.executor": "Coverage",
+    "JUnit.CandidateServiceTests.findById_Should_Throw_WhenCandidateDoesNotExist.executor": "Coverage",
+    "JUnit.CandidateServiceTests.testFindById_WhenCandidateExists.executor": "Coverage",
+    "JUnit.TravelServiceTests.countTravelByStatus_Should_CallRepository.executor": "Coverage",
+    "JUnit.TravelServiceTests.executor": "Coverage",
+    "JUnit.TravelServiceTests.getCompletedTravelsAsDriverCount_Should_CallRepository.executor": "Coverage",
+    "JUnit.TravelServiceTests.getCompletedTravelsAsPassengerCount_Should_CallRepository.executor": "Coverage",
+    "JUnit.TravelServiceTests.getCompletedTravelsOfDriver_Should_CallRepository.executor": "Coverage",
+    "JUnit.TravelServiceTests.getOpenTravelsAsDriverCount_Should_CallRepository.executor": "Coverage",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.CarPoolingApplication.executor": "Run",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "sql.rename.search.for.storage.occurrences": "true",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mariadb&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mariadb"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="org.example.carpooling.models.dto" />
@@ -147,122 +170,93 @@
       <recent name="org.example.carpooling.repositories.contracts" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.CarPoolingApplication">
-    <configuration name="Tests in 'CarPooling.CarPooling.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/CarPooling" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="Tests in 'org.example.carpooling.services'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/CarPooling" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;org.example.carpooling.services.*&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="UserServiceImplTests" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/CarPooling" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;org.example.carpooling.services.UserServiceImplTests&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="UserServiceImplTests.saveImage_should_succeed" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/CarPooling" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;org.example.carpooling.services.UserServiceImplTests.saveImage_should_succeed&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="CarPoolingApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
-      <module name="CarPooling.CarPooling.main" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.carpooling.CarPoolingApplication" />
+  <component name="RunManager" selected="JUnit.CandidateServiceTests.applyTravel_Should_Throw_Exception_When_User_Is_CreatorOfTravel">
+    <configuration name="CandidateServiceTests.applyTravel_Should_Throw_Exception_When_User_Is_CreatorOfTravel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CarPooling.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.example.carpooling.*" />
+          <option name="PATTERN" value="org.example.carpooling.services.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="org.example.carpooling.services" />
+      <option name="MAIN_CLASS_NAME" value="org.example.carpooling.services.CandidateServiceTests" />
+      <option name="METHOD_NAME" value="applyTravel_Should_Throw_Exception_When_User_Is_CreatorOfTravel" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CandidateServiceTests.findById_Should_CallRepository" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CarPooling.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.carpooling.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.carpooling.services" />
+      <option name="MAIN_CLASS_NAME" value="org.example.carpooling.services.CandidateServiceTests" />
+      <option name="METHOD_NAME" value="findById_Should_CallRepository" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CandidateServiceTests.findById_Should_Throw_WhenCandidateDoesNotExist" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CarPooling.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.carpooling.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.carpooling.services" />
+      <option name="MAIN_CLASS_NAME" value="org.example.carpooling.services.CandidateServiceTests" />
+      <option name="METHOD_NAME" value="findById_Should_Throw_WhenCandidateDoesNotExist" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CandidateServiceTests.testFindById_WhenCandidateExists" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CarPooling.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.carpooling.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.carpooling.services" />
+      <option name="MAIN_CLASS_NAME" value="org.example.carpooling.services.CandidateServiceTests" />
+      <option name="METHOD_NAME" value="testFindById_WhenCandidateExists" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TravelServiceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CarPooling.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.carpooling.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.carpooling.services" />
+      <option name="MAIN_CLASS_NAME" value="org.example.carpooling.services.TravelServiceTests" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.CarPoolingApplication" />
-        <item itemvalue="Gradle.Tests in 'org.example.carpooling.services'" />
-        <item itemvalue="Gradle.Tests in 'CarPooling.CarPooling.test'" />
-        <item itemvalue="Gradle.UserServiceImplTests" />
-        <item itemvalue="Gradle.UserServiceImplTests.saveImage_should_succeed" />
+        <item itemvalue="JUnit.CandidateServiceTests.applyTravel_Should_Throw_Exception_When_User_Is_CreatorOfTravel" />
+        <item itemvalue="JUnit.CandidateServiceTests.findById_Should_Throw_WhenCandidateDoesNotExist" />
+        <item itemvalue="JUnit.CandidateServiceTests.testFindById_WhenCandidateExists" />
+        <item itemvalue="JUnit.CandidateServiceTests.findById_Should_CallRepository" />
+        <item itemvalue="JUnit.TravelServiceTests" />
       </list>
     </recent_temporary>
   </component>
@@ -290,6 +284,7 @@
       <workItem from="1710318680933" duration="56756000" />
       <workItem from="1710496117227" duration="50263000" />
       <workItem from="1710779105620" duration="102746000" />
+      <workItem from="1711014436407" duration="3759000" />
     </task>
     <task id="LOCAL-00005" summary="User class">
       <option name="closed" value="true" />
@@ -780,7 +775,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/mvc/UserMvcController.java</url>
-          <line>170</line>
+          <line>162</line>
           <option name="timeStamp" value="34" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -795,12 +790,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/mvc/UserMvcController.java</url>
-          <line>155</line>
+          <line>147</line>
           <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/mvc/AuthenticationMvcController.java</url>
-          <line>116</line>
+          <line>111</line>
           <option name="timeStamp" value="39" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -828,17 +823,48 @@
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/CarPooling$UserServiceTests_create_should_return_user_already_exist_with_same_email.ic" NAME="UserServiceTests.create_should_return_user_already_exist_with_same_email Coverage Results" MODIFIED="1710435884273" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/CarPooling$UserServiceTests_delete_should_set_user_status_to_delete_when_user_is_admin.ic" NAME="UserServiceTests.delete_should_set_user_status_to_delete_when_user_is_admin Coverage Results" MODIFIED="1710447238094" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/CarPooling$Tests_in__org_example_carpooling_services_.ic" NAME="Tests in 'org.example.carpooling.services' Coverage Results" MODIFIED="1710941649592" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Final_Project___Carpool$CandidateServiceTests_testFindById_WhenCandidateExists.ic" NAME="CandidateServiceTests.testFindById_WhenCandidateExists Coverage Results" MODIFIED="1711017348303" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.example.carpooling.services.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/CarPooling$UserSecurityCodeServiceImplTests_create_should_save_user_security_code_in_database.ic" NAME="UserSecurityCodeServiceImplTests.create_should_save_user_security_code_in_database Coverage Results" MODIFIED="1710618004373" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/CarPooling$UserServiceImplTests.ic" NAME="UserServiceImplTests Coverage Results" MODIFIED="1710848672825" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/CarPooling$UserServiceTests_update_should_update_user_successfully.ic" NAME="UserServiceTests.update_should_update_user_successfully Coverage Results" MODIFIED="1710439829062" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/CarPooling$UserServiceTests_create_should_return_user_already_exist_with_same_email.ic" NAME="UserServiceTests.create_should_return_user_already_exist_with_same_email Coverage Results" MODIFIED="1710435884273" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/CarPooling$UserServiceTests_saveImage_should_succeed.ic" NAME="UserServiceTests.saveImage_should_succeed Coverage Results" MODIFIED="1710457110725" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Final_Project___Carpool$CandidateServiceTests_findById_Should_CallRepository.ic" NAME="CandidateServiceTests.findById_Should_CallRepository Coverage Results" MODIFIED="1711017079608" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.example.carpooling.services.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Final_Project___Carpool$TravelServiceTests_getCompletedTravelsOfDriver_Should_CallRepository.ic" NAME="TravelServiceTests.getCompletedTravelsOfDriver_Should_CallRepository Coverage Results" MODIFIED="1711015482349" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.example.carpooling.services.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Final_Project___Carpool$CandidateServiceTests_applyTravel_Should_Throw_Exception_When_User_Is_CreatorOfTravel.ic" NAME="CandidateServiceTests.applyTravel_Should_Throw_Exception_When_User_Is_CreatorOfTravel Coverage Results" MODIFIED="1711018154357" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.example.carpooling.services.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CarPooling$MailServiceImplImplTests_sendConformationEmail_should_succeed.ic" NAME="MailServiceImplImplTests.sendConformationEmail_should_succeed Coverage Results" MODIFIED="1710620795933" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Final_Project___Carpool$TravelServiceTests_getCompletedTravelsAsPassengerCount_Should_CallRepository.ic" NAME="TravelServiceTests.getCompletedTravelsAsPassengerCount_Should_CallRepository Coverage Results" MODIFIED="1711015643266" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.example.carpooling.services.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Final_Project___Carpool$All_in_CarPooling_test.ic" NAME="All in CarPooling.test Coverage Results" MODIFIED="1711014555235" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/CarPooling$UserServiceTests_delete_should_set_user_status_to_delete_when_user_is_admin.ic" NAME="UserServiceTests.delete_should_set_user_status_to_delete_when_user_is_admin Coverage Results" MODIFIED="1710447238094" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Final_Project___Carpool$TravelServiceTests_getOpenTravelsAsDriverCount_Should_CallRepository.ic" NAME="TravelServiceTests.getOpenTravelsAsDriverCount_Should_CallRepository Coverage Results" MODIFIED="1711015356763" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.example.carpooling.services.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Final_Project___Carpool$CandidateServiceTests_findById_Should_Throw_WhenCandidateDoesNotExist.ic" NAME="CandidateServiceTests.findById_Should_Throw_WhenCandidateDoesNotExist Coverage Results" MODIFIED="1711017502045" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.example.carpooling.services.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/CarPooling$CarPoolingApplication.ic" NAME="CarPoolingApplication Coverage Results" MODIFIED="1710897901215" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>org.example.carpooling.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/CarPooling$Tests_in__org_example_carpooling_services_.ic" NAME="Tests in 'org.example.carpooling.services' Coverage Results" MODIFIED="1710941649592" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/CarPooling$UserServiceTests_update_should_update_user_successfully.ic" NAME="UserServiceTests.update_should_update_user_successfully Coverage Results" MODIFIED="1710439829062" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/CarPooling$MailServiceImplImplTests_sendConformationEmail_should_succeed.ic" NAME="MailServiceImplImplTests.sendConformationEmail_should_succeed Coverage Results" MODIFIED="1710620795933" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/CarPooling$UserServiceTests_saveImage_should_succeed.ic" NAME="UserServiceTests.saveImage_should_succeed Coverage Results" MODIFIED="1710457110725" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Final_Project___Carpool$TravelServiceTests.ic" NAME="TravelServiceTests Coverage Results" MODIFIED="1711015662964" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.example.carpooling.services.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Final_Project___Carpool$TravelServiceTests_getCompletedTravelsAsDriverCount_Should_CallRepository.ic" NAME="TravelServiceTests.getCompletedTravelsAsDriverCount_Should_CallRepository Coverage Results" MODIFIED="1711015179730" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.example.carpooling.services.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CarPooling$UserServiceImplTests.ic" NAME="UserServiceImplTests Coverage Results" MODIFIED="1710848672825" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Final_Project___Carpool$TravelServiceTests_countTravelByStatus_Should_CallRepository.ic" NAME="TravelServiceTests.countTravelByStatus_Should_CallRepository Coverage Results" MODIFIED="1711015569191" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.example.carpooling.services.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/CarPooling$UserServiceTests.ic" NAME="UserServiceTests Coverage Results" MODIFIED="1710459073713" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

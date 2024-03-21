@@ -1,8 +1,10 @@
 package org.example.carpooling;
 
+import org.example.carpooling.models.Candidates;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.User;
+import org.example.carpooling.models.enums.CandidateStatus;
 import org.example.carpooling.models.enums.TravelStatus;
 import org.example.carpooling.models.enums.UserStatus;
 
@@ -36,6 +38,18 @@ public class Helpers {
         user.setAdmin(false);
         user.setUserStatus(UserStatus.ACTIVE);
         return user;
+    }
+
+    public static Candidates createMockCandidateAccepted() {
+        Candidates candidate = new Candidates();
+        User user = createMockUserActive();
+        Travel travel = createMockTravel();
+        candidate.setId(USER_ID);
+        candidate.setTravel(travel);
+        candidate.setUser(user);
+        candidate.setStatus(CandidateStatus.ACCEPTED);
+
+        return candidate;
     }
 
     private static void setCommonUserData(User user) {

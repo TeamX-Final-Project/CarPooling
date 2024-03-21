@@ -5,6 +5,7 @@ import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.exceptions.OperationNotAllowedException;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.User;
+import org.example.carpooling.models.enums.CandidateStatus;
 import org.example.carpooling.models.enums.TravelStatus;
 import org.example.carpooling.repositories.contracts.TravelRepository;
 import org.junit.jupiter.api.Assertions;
@@ -213,6 +214,61 @@ public class TravelServiceTests {
         //Act, Assert
         Assertions.assertThrows(AuthorizationException.class, () ->
                 TravelService.cancel(travel.getTravelId(), notCreator));
+    }
+
+    @Test
+    public void getCompletedTravelsAsDriverCount_Should_CallRepository(){
+        User user = createMockUserActive();
+
+
+        TravelService .getCompletedTravelsAsDriverCount(user);
+
+        Mockito.verify(mockTravelRepository, Mockito.times(1))
+                .countCompletedTravelsAsDriver(user, TravelStatus.COMPLETED);
+
+    }
+
+    @Test
+    public void getOpenTravelsAsDriverCount_Should_CallRepository(){
+        User user = createMockUserActive();
+
+        TravelService .getOpenTravelsOfDriver(user);
+
+        Mockito.verify(mockTravelRepository, Mockito.times(1))
+                .findByUserIdAndTravelStatus(user, TravelStatus.AVAILABLE);
+
+    }
+
+    @Test
+    public void getCompletedTravelsOfDriver_Should_CallRepository(){
+        User user = createMockUserActive();
+
+        TravelService .getCompletedTravelsOfDriver(user);
+
+        Mockito.verify(mockTravelRepository, Mockito.times(1))
+                .findByUserIdAndTravelStatus(user, TravelStatus.COMPLETED);
+
+    }
+
+    @Test
+    public void countTravelByStatus_Should_CallRepository(){
+        Travel travel = createMockTravel();
+        TravelStatus travelStatus = travel.getTravelStatus();
+
+        TravelService .countTravelsByStatus(travelStatus);
+
+        Mockito.verify(mockTravelRepository, Mockito.times(1))
+                .countTravelByTravelStatus(travelStatus);
+    }
+
+    @Test
+    public void getCompletedTravelsAsPassengerCount_Should_CallRepository(){
+        User user = createMockUserActive();
+
+        TravelService .getCompletedTravelsAsPassengerCount(user);
+
+        Mockito.verify(mockTravelRepository, Mockito.times(1))
+                .countCompletedTravelsAsPassenger(user, CandidateStatus.ACCEPTED, TravelStatus.COMPLETED);
     }
 
 

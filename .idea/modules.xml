@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/CarPooling.iml" filepath="$PROJECT_DIR$/.idea/CarPooling.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CarPooling.CarPooling.main~1.iml" filepath="$PROJECT_DIR$/.idea/modules/CarPooling.CarPooling.main~1.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CarPooling.CarPooling.test~1.iml" filepath="$PROJECT_DIR$/.idea/modules/CarPooling.CarPooling.test~1.iml" />
     </modules>
