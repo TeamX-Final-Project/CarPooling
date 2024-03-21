@@ -78,8 +78,6 @@ public class UserMvcController {
             model.addAttribute("user", user);
             model.addAttribute("id", id);
 
-//            String profilePicture = user.getProfilePictureUrl();
-//            model.addAttribute("profilePicture", profilePicture);
             model.addAttribute("completedCountAsDriver", completedTravelsAsDriverCount);
             model.addAttribute("completedCountAsPassenger", completedTravelsAsPassengerCount);
 
@@ -107,10 +105,8 @@ public class UserMvcController {
             User user = userService.getById(id);
             model.addAttribute("userToUpdate", currentUser);
             model.addAttribute("updateDto", userMapper.toDto(user));
-//            model.addAttribute("loggedIn", currentUser);
             model.addAttribute("id", id);
             String profilePictureUrl = user.getProfilePictureUrl();
-//            model.addAttribute("profilePicture", profilePictureUrl);
             return "UpdateProfile";
         } catch (AuthorizationException e) {
             return "redirect:/auth/login";
@@ -126,11 +122,7 @@ public class UserMvcController {
             User currentUser = authenticationService.tryGetCurrentUser(httpSession);
             User user2 = userService.getById(id);
             model.addAttribute("userToUpdate", currentUser);
-//            model.addAttribute("user", user2);
-//            model.addAttribute("loggedIn", user);
             model.addAttribute("id", id);
-//            String url = imageHelper.uploadImage(profilePicture);
-//            user2.setProfilePictureUrl(url);
             userService.updateUser(currentUser, user2, userDtoUpdate);
             return "redirect:/users/{id}";
         } catch (AuthorizationException exception) {

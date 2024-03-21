@@ -37,12 +37,7 @@ public interface UserService {
 
     User updateUserStatus(long id, User currentUser, UserStatus userStatus);
 
-
-
     void verify(long id, long securityCode);
 
-
     User updateUser(User user, User updatedUser, UserDto userDto);
-
-    List<User> top10ratingUsers();
 }

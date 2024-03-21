@@ -278,10 +278,4 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    @Override
-    public List<User> top10ratingUsers(){
-  //      return  userRepository.top10ratingUsers();
-        return  new ArrayList<>();
-    }
-
 }

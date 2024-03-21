@@ -11,12 +11,10 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-
     Page<User> findAll( Pageable pageable);
 
     Page<User> findAllByPhoneNumberContainingOrEmailContainingOrUsernameContaining
             (String phoneNumber, String email, String username, Pageable pageable);
-
 
     User getByUserId(long UserId);
 
@@ -27,8 +25,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User getByUsername(String username);
 
     int countAllUsersByUserStatus(UserStatus userStatus);
-
-//@Query(nativeQuery = true,value = "select * from carpoolingx.feedbacks order by feedbacks.rating desc limit 10")
-//List<User> top10ratingUsers();
 }
 

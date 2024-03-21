@@ -5,10 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import org.checkerframework.common.aliasing.qual.Unique;
 import org.example.carpooling.models.enums.UserStatus;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
