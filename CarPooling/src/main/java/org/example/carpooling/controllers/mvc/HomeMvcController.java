@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping("/")
 public class HomeMvcController {
 
     private final AuthenticationService authenticationService;
@@ -47,7 +47,7 @@ public class HomeMvcController {
     }
 
 
-    @GetMapping
+    @GetMapping("/home")
     public String showHomePage(Model model) {
 //        model.addAttribute("recentTravels",travelService.getMostRecentTravels());
 //        model.addAttribute("recentRatingUsers",userService.top10ratingUsers());
@@ -56,6 +56,10 @@ public class HomeMvcController {
         model.addAttribute("countActiveUsers",userService.getUserCount());
 
         return "index";
+    }
+    @GetMapping
+    public String redirectToHome(){
+        return "redirect:/home";
     }
 
     @GetMapping("/about")
