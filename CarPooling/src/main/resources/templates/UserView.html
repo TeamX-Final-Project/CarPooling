@@ -116,36 +116,39 @@
                                                                 <div class="w-100 h-100 hover-animate">
                                                                     <div class="card h-100 border-0 shadow">
                                                                         <div class="card-img-overlay-bottom z-index-20">
-                                                                            <span><b>Start point:</b> </span>
-                                                                            <span th:text="${travel.getStartPoint()}"></span>
-                                                                            <br>
-                                                                            <span><b>End point: </b></span>
-                                                                            <span th:text="${travel.getEndPoint()}"></span>
-                                                                            <div th:unless="${travel.getFreeSpots() == 1}">
+
+                                                                            <a class="rbt-btn btn-xs bg-primary-opacity update"
+                                                                               th:href="@{/travels/{id}(id=${travel.getTravelId()})}">
+                                                                                <span><b>Start point:</b> </span>
+                                                                                <span th:text="${travel.getStartPoint()}"></span>
                                                                                 <br>
-                                                                                <span><b>Available Seats: </b></span>
-                                                                                <span th:text="${travel.getFreeSpots()}"></span>
-                                                                            </div>
-                                                                            <div th:if="${travel.getFreeSpots() == 1}"
-                                                                                 class="badge badge-transparent badge-pill px-3 py-2">
+                                                                                <span><b>End point: </b></span>
+                                                                                <span th:text="${travel.getEndPoint()}"></span>
+                                                                                <div th:unless="${travel.getFreeSpots() == 1}">
+                                                                                    <br>
+                                                                                    <span><b>Available Seats: </b></span>
+                                                                                    <span th:text="${travel.getFreeSpots()}"></span>
+                                                                                </div>
+                                                                                <div th:if="${travel.getFreeSpots() == 1}"
+                                                                                     class="badge badge-transparent badge-pill px-3 py-2">
                                                                                                                          <span th:classappend="${travel.getFreeSpots() == 1} ? 'text-danger' : ''">
                                                                                                                                      Last Spot</span>
-                                                                            </div>
-                                                                            <span><b>Departure time:</b></span>
-                                                                            <span th:text="${#temporals.format(travel.departureTime, 'dd MMMM yyyy, h:mm a')}"></span>
-                                                                            </p>
-                                                                            <p class="text-sm text-muted text-uppercase mb-1">
-                                                                                Driver:
-                                                                                <a th:href="@{/users/{id}(id=${travel.getUserId().getUserId()})}"
-                                                                                   class="text-dark"
-                                                                                   th:text="${travel.getUserId().getFirstName() + ' ' + travel.getUserId().getLastName()}"></a>
-                                                                            </p>
-                                                                            <p class="text-sm mb-0">
+                                                                                </div>
+                                                                                <span><b>Departure time:</b></span>
+                                                                                <span th:text="${#temporals.format(travel.departureTime, 'dd MMMM yyyy, h:mm a')}"></span>
+                                                                                </p>
+                                                                                <p class="text-sm text-muted text-uppercase mb-1">
+                                                                                    Driver:
+                                                                                    <a th:href="@{/users/{id}(id=${travel.getUserId().getUserId()})}"
+                                                                                       class="text-dark"
+                                                                                       th:text="${travel.getUserId().getFirstName() + ' ' + travel.getUserId().getLastName()}"></a>
+                                                                                </p>
+                                                                                <p class="text-sm mb-0">
                       <span th:if="${feedbackService.getAverageRatingForUser(travel.getUserId()) == null}">
                         Not Rated Yet
                       </span>
 
-                                                                                <span th:unless="${feedbackService.getAverageRatingForUser(travel.getUserId()) == null}">
+                                                                                    <span th:unless="${feedbackService.getAverageRatingForUser(travel.getUserId()) == null}">
                           <span th:if="${feedbackService.getAverageRatingForUser(travel.getUserId()) >= 3.00}"
                                 th:each="star: ${#numbers.sequence(1, 5)}"
                                 th:class="${feedbackService.getAverageRatingForUser(travel.getUserId()) > (star - 1) ? 'text-success' : 'text-gray-200'}">★</span>
@@ -156,8 +159,9 @@
                                 th:each="star: ${#numbers.sequence(1, 5)}"
                                 th:class="${feedbackService.getAverageRatingForUser(travel.getUserId()) > (star - 1) ? 'text-danger' : 'text-gray-200'}">★</span>
                       </span>
-                                                                            <hr>
-                                                                            </p>
+                                                                                <hr>
+                                                                                </p>
+                                                                            </a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -217,35 +221,37 @@
                                                                     <div class="w-100 h-100 hover-animate">
                                                                         <div class="card h-100 border-0 shadow">
                                                                             <div class="card-img-overlay-bottom z-index-20">
-                                                                                <span><b>Start point:</b> </span>
-                                                                                <span th:text="${travel.getStartPoint()}"></span>
-                                                                                <br>
-                                                                                <span><b>End point: </b></span>
-                                                                                <span th:text="${travel.getEndPoint()}"></span>
-                                                                                <div th:unless="${travel.getFreeSpots() == 1}">
+                                                                                <a class="rbt-btn btn-xs bg-primary-opacity update"
+                                                                                   th:href="@{/travels/{id}(id=${travel.getTravelId()})}">
+                                                                                    <span><b>Start point:</b> </span>
+                                                                                    <span th:text="${travel.getStartPoint()}"></span>
                                                                                     <br>
-                                                                                    <span><b>Available Seats: </b></span>
-                                                                                    <span th:text="${travel.getFreeSpots()}"></span>
-                                                                                </div>
-                                                                                <div th:if="${travel.getFreeSpots() == 1}"
-                                                                                     class="badge badge-transparent badge-pill px-3 py-2">
+                                                                                    <span><b>End point: </b></span>
+                                                                                    <span th:text="${travel.getEndPoint()}"></span>
+                                                                                    <div th:unless="${travel.getFreeSpots() == 1}">
+                                                                                        <br>
+                                                                                        <span><b>Available Seats: </b></span>
+                                                                                        <span th:text="${travel.getFreeSpots()}"></span>
+                                                                                    </div>
+                                                                                    <div th:if="${travel.getFreeSpots() == 1}"
+                                                                                         class="badge badge-transparent badge-pill px-3 py-2">
                                                                                                                          <span th:classappend="${travel.getFreeSpots() == 1} ? 'text-danger' : ''">
                                                                                                                                      Last Spot</span>
-                                                                                </div>
-                                                                                <span><b>Departure time:</b></span>
-                                                                                <span th:text="${#temporals.format(travel.departureTime, 'dd MMMM yyyy, h:mm a')}"></span>
-                                                                                </p>
-                                                                                <p class="text-sm text-muted text-uppercase mb-1">
-                                                                                    Driver:
-                                                                                    <a th:href="@{/users/{id}(id=${travel.getUserId().getUserId()})}"
-                                                                                       class="text-dark"
-                                                                                       th:text="${travel.getUserId().getFirstName() + ' ' + travel.getUserId().getLastName()}"></a>
-                                                                                </p>
-                                                                                <p class="text-sm mb-0">
+                                                                                    </div>
+                                                                                    <span><b>Departure time:</b></span>
+                                                                                    <span th:text="${#temporals.format(travel.departureTime, 'dd MMMM yyyy, h:mm a')}"></span>
+                                                                                    </p>
+                                                                                    <p class="text-sm text-muted text-uppercase mb-1">
+                                                                                        Driver:
+                                                                                        <a th:href="@{/users/{id}(id=${travel.getUserId().getUserId()})}"
+                                                                                           class="text-dark"
+                                                                                           th:text="${travel.getUserId().getFirstName() + ' ' + travel.getUserId().getLastName()}"></a>
+                                                                                    </p>
+                                                                                    <p class="text-sm mb-0">
                       <span th:if="${feedbackService.getAverageRatingForUser(travel.getUserId()) == null}">
                         Not Rated Yet
                       </span>
-                                                                                    <span th:unless="${feedbackService.getAverageRatingForUser(travel.getUserId()) == null}">
+                                                                                        <span th:unless="${feedbackService.getAverageRatingForUser(travel.getUserId()) == null}">
                           <span th:if="${feedbackService.getAverageRatingForUser(travel.getUserId()) >= 3.00}"
                                 th:each="star: ${#numbers.sequence(1, 5)}"
                                 th:class="${feedbackService.getAverageRatingForUser(travel.getUserId()) > (star - 1) ? 'text-success' : 'text-gray-200'}">★</span>
@@ -256,8 +262,9 @@
                                 th:each="star: ${#numbers.sequence(1, 5)}"
                                 th:class="${feedbackService.getAverageRatingForUser(travel.getUserId()) > (star - 1) ? 'text-danger' : 'text-gray-200'}">★</span>
                       </span>
-                                                                                <hr>
-                                                                                </p>
+                                                                                    <hr>
+                                                                                    </p>
+                                                                                </a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
