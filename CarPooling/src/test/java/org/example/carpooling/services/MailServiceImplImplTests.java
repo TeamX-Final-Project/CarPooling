@@ -28,7 +28,6 @@ public class MailServiceImplImplTests {
 
     @InjectMocks
     MailServiceImpl mailService;
-
     @Captor
     ArgumentCaptor<Request> captor;
 

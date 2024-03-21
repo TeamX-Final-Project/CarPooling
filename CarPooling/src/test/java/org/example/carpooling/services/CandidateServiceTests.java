@@ -35,15 +35,6 @@ public class CandidateServiceTests {
     @InjectMocks
     CandidateServiceImpl candidateService;
 
-//    @Test
-//    public void findById_Should_CallRepository(){
-//        Optional<Candidates> candidates = createMockCandidateAccepted();
-//
-//        candidateService.findById(candidates.get().getId());
-//
-//        Mockito.verify(mockCandidateRepository, Mockito.times(1)).ifPresentOrElse();
-//    }
-
     @Test
     public void findById_Should_Return_Candidate_WhenCandidateExists() {
         long candidateId = 1L;
@@ -57,26 +48,26 @@ public class CandidateServiceTests {
     }
 
 //    @Test
-//    public void findById_Should_Throw_WhenCandidateDoesNotExist() {
+//    public void applyTravel_Should_Throw_Exception_When_User_Is_CreatorOfTravel(){
+//        long travelId = 1L;
+//        User creator = createMockUserActive();
+//        creator.setUserId(2L);
+//        Travel travelToApply = createMockTravel();
+//        travelToApply.setTravelId(travelId);
+//        travelToApply.setUserId(creator);
 //
-//        long nonExistentCandidateId = 2L;
-//        Candidates expectedCandidate = createMockCandidateAccepted();
+//        Mockito.when(travelRepository.save(travelToApply)).thenReturn(travelToApply);
 //
-//        Mockito.when(mockCandidateRepository.findById(nonExistentCandidateId)).thenReturn(Optional.of(expectedCandidate));
+//        Mockito.when(TravelService.getById(travelId, creator)).thenReturn(travelToApply);
 //
-//        Assertions.assertThrows(EntityNotFoundException.class, () -> candidateService.findById(nonExistentCandidateId));
+//
+//        Assertions.assertThrows(AuthorizationException.class, () ->
+//                candidateService.applyTravel(travelId, creator));
+//
+//        Mockito.verify(TravelService, Mockito.times(1)).getById(travelId, creator);
 //    }
-    @Test
-    public void applyTravel_Should_Throw_Exception_When_User_Is_CreatorOfTravel(){
-        Travel travel = createMockTravel();
-        User user = createMockUserActive();
-        travel.setUserId(user);
 
-//        Mockito.when(travelRepository.findById())
 
-        Assertions.assertThrows(AuthorizationException.class, () ->
-                candidateService.applyTravel(travel.getTravelId(), user));
-    }
 
 
 }

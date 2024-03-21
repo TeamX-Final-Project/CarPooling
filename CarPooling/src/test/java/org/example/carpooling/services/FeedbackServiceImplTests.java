@@ -4,20 +4,15 @@ package org.example.carpooling.services;
 import org.example.carpooling.Helpers;
 import org.example.carpooling.exceptions.EntityDuplicateException;
 import org.example.carpooling.exceptions.OperationNotAllowedException;
-import org.example.carpooling.exceptions.TravelException;
-import org.example.carpooling.models.Candidates;
 import org.example.carpooling.models.Feedback;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.User;
-import org.example.carpooling.models.enums.CandidateStatus;
-import org.example.carpooling.models.enums.TravelStatus;
 import org.example.carpooling.repositories.contracts.CandidateRepository;
 import org.example.carpooling.repositories.contracts.FeedbackRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
@@ -37,12 +32,8 @@ public class FeedbackServiceImplTests {
 
     @InjectMocks
     FeedbackServiceImpl feedbackService;
-
     @Mock
     FeedbackRepository mockFeedbackRepository;
-    @Mock
-    CandidateRepository mockCandidateRepository;
-
 
     @Test
     void testGetFeedbackById_ExistingFeedback() {
@@ -71,7 +62,6 @@ public class FeedbackServiceImplTests {
     @Test
     void testCreateValidFeedback() {
         Feedback validFeedback = createValidFeedback();
-        Travel travel = Helpers.createMockTravel();
 
         when(mockFeedbackRepository.save(any(Feedback.class))).thenReturn(validFeedback);
 

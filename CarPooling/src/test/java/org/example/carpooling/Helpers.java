@@ -65,7 +65,7 @@ public class Helpers {
     public static Travel createMockTravel() {
         var mockUser = createMockUser();
         var mockTravel = new Travel();
-        mockTravel.setTravelId(1);
+        mockTravel.setTravelId(1L);
         mockTravel.setStartPoint("Sofia");
         mockTravel.setEndPoint("Plovdiv");
         mockTravel.setDepartureTime(LocalDateTime.parse("2023-07-30T18:00"));
