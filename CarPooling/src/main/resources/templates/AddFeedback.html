@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<form th:replace="~{CommonForm.html::head('All Travels')}">
+
+</form>
+<link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+<body>
+<div class="hero_area">
+    <form th:replace="~{CommonForm.html::header}"></form>
+    <form th:replace="~{CommonForm.html::slider}"></form>
+</div>
+<div class="body-content">
+</div>
+<div class="container-fluid px-3">
+    <div class="row min-vh-100">
+        <div class="col-md-8 col-lg-6 col-xl-5 d-flex align-items-center">
+            <div class="w-100 py-5 px-md-5 px-xxl-6 position-relative">
+                <div class="mb-5">
+
+                    <h2>You are leaving a review for: <br>
+                        <span th:text="${receiver.firstName + ' ' + receiver.lastName}"></span></h2>
+                </div>
+                <form th:action="@{/feedbacks/new/travel:{travelId}/user:{receiverUserId}
+                (travelId=${travel.getTravelId()}, receiverUserId=${receiver.getUserId()})}" th:object="${feedback}" method="post">
+                    <div class="mb-4">
+                        <label class="form-label" for="comment" >Comment *</label>
+                        <input class="form-control" name="username" id="comment" th:field="*{comment}" type="text" placeholder="Tell more about your experience"
+                               autocomplete="off" required data-msg="Please enter a comment">
+                        <div class="error alert alert-danger" th:errors="*{comment}"><h6>Comment error placeholder</h6></div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-4">
+                            <label class="form-label" for="rating">Your rating *</label>
+                            <select class="form-select focus-shadow-0" name="rating" id="rating">
+                                <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733; (5/5)</option>
+                                <option value="4">&#9733;&#9733;&#9733;&#9733;&#9734; (4/5)</option>
+                                <option value="3">&#9733;&#9733;&#9733;&#9734;&#9734; (3/5)</option>
+                                <option value="2">&#9733;&#9733;&#9734;&#9734;&#9734; (2/5)</option>
+                                <option value="1">&#9733;&#9734;&#9734;&#9734;&#9734; (1/5)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="travelId" th:value="${travelId}" />
+                    <input type="hidden" name="receiverUserId" th:value="${receiverUserId}" />
+                    <!-- Submit-->
+                    <div class="d-grid">
+                        <button class="btn btn-primary" type="submit"><h5>Post feedback</h5></button>
+                    </div>
+                </form><a class="close-absolute me-md-5 me-xl-6 pt-5" th:href="@{/travels/{id}(id=${travelId})}">
+                <svg class="svg-icon w-3rem h-3rem">
+                </svg></a>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-6 col-xl-7 d-none d-md-block">
+            <!-- Image-->
+        </div>
+    </div>
+</div>
+
+
+<form th:replace="~{CommonForm.html::footer}"></form>
+</div>
+</body>
+</html>

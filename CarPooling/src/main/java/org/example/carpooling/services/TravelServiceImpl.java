@@ -48,11 +48,10 @@ public class TravelServiceImpl implements TravelService {
     }
 
 
-
     @Override
     public Travel getById(long id, User user) {
 
-        if (!UserStatus.ACTIVE.equals(user.getUserStatus())){
+        if (!UserStatus.ACTIVE.equals(user.getUserStatus())) {
             throw new AuthorizationException(YOUR_STATUS_IS_NOT_ACTIVE_TO_REQUEST_THIS_INFORMATION_ERROR);
         }
         Travel travel = travelRepository.findById(id);
@@ -118,10 +117,12 @@ public class TravelServiceImpl implements TravelService {
             throw new OperationNotAllowedException(YOU_ARE_NOT_ALLOWED_TO_CREATE_A_TRAVEL_ERROR);
         }
     }
+
     @Override
     public int getCompletedTravelsAsDriverCount(User user) {
         return travelRepository.countCompletedTravelsAsDriver(user, TravelStatus.COMPLETED);
     }
+
     @Override
     public List<Travel> getOpenTravelsOfDriver(User user) {
         return travelRepository.findByUserIdAndTravelStatus(user, TravelStatus.AVAILABLE)
@@ -129,13 +130,28 @@ public class TravelServiceImpl implements TravelService {
                 .sorted(Comparator.comparing(Travel::getDepartureTime))
                 .collect(Collectors.toList());
     }
+
     @Override
-    public int countCompletedTravels(){
+    public List<Travel> getCompletedTravelsOfDriver(User user) {
+        return travelRepository.findByUserIdAndTravelStatus(user, TravelStatus.COMPLETED)
+                .stream()
+                .sorted(Comparator.comparing(Travel::getDepartureTime)).toList();
+    }
+
+    @Override
+    public int countCompletedTravels() {
         return travelRepository.countCompletedTravels(TravelStatus.COMPLETED);
     }
+
     @Override
     public int getCompletedTravelsAsPassengerCount(User user) {
-        return travelRepository.countCompletedTravelsAsPassenger(user, CandidateStatus.ACCEPTED,TravelStatus.COMPLETED);
+        return travelRepository.countCompletedTravelsAsPassenger(user, CandidateStatus.ACCEPTED, TravelStatus.COMPLETED);
     }
+
+    @Override
+    public List<Travel> getMostRecentTravels(){
+        return travelRepository.getMostRecentTravels();
+    }
+
 }
 

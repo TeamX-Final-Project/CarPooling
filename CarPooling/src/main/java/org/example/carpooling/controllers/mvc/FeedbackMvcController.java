@@ -75,10 +75,10 @@ public class FeedbackMvcController {
         }
     }
 
-    @PostMapping("/new")
-    public String createFeedback(@Valid @ModelAttribute("feedback") FeedbackDto feedbackDto,
-                                 @RequestParam("travelId") Long travelId,
-                                 @RequestParam("receiverUserId") Long receiverUserId,
+    @PostMapping("/new/travel:{travelId}/user:{receiverUserId}")
+    public String createFeedback(@ModelAttribute("feedback") FeedbackDto feedbackDto,
+                                 @PathVariable("travelId") Long travelId,
+                                 @PathVariable("receiverUserId") Long receiverUserId,
                                  BindingResult errors,
                                  Model model,
                                  HttpSession session) {
@@ -98,7 +98,7 @@ public class FeedbackMvcController {
             model.addAttribute("receiver", receiverUser);
             Feedback feedback = feedbackMapper.fromFeedbackDto(feedbackDto, currentUser, receiverUser, travel);
             feedbackService.create(feedback);
-            return "redirect:/travels/{id}" + travel.getUserId();
+            return "redirect:/travels/{id}" ;
 
         } catch (AuthorizationException e) {
             return "ErrorView";

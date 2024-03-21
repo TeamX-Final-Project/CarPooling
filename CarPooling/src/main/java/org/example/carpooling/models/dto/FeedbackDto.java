@@ -1,8 +1,14 @@
 package org.example.carpooling.models.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.*;
 
 public class FeedbackDto {
+
+@JsonIgnore
+ private long id;
+
+
 
     @NotNull(message = "Rating can't be empty")
     @Min(value = 1, message = "Rating must be at least 1")
@@ -14,6 +20,13 @@ public class FeedbackDto {
     private String comment;
 
     public FeedbackDto() {
+    }
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getRating() {
@@ -31,6 +44,7 @@ public class FeedbackDto {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
 }
 
 

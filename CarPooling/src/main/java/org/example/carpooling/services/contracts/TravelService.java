@@ -26,7 +26,11 @@ public interface TravelService {
 
     List<Travel> getOpenTravelsOfDriver(User user);
 
+    List<Travel> getCompletedTravelsOfDriver(User user);
+
     int countCompletedTravels();
 
     int getCompletedTravelsAsPassengerCount(User user);
+
+    List<Travel> getMostRecentTravels();
 }
