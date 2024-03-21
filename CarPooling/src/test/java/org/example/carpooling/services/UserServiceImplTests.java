@@ -164,7 +164,7 @@ public class UserServiceImplTests {
 
         //Act and Assert
         EntityDuplicateException exception = assertThrows(EntityDuplicateException.class, () -> userService.create(userToCreate));
-        assertTrue(exception.getMessage().contains("phone number"));
+        assertTrue(exception.getMessage().contains("phoneNumber"));
     }
 
     @Test

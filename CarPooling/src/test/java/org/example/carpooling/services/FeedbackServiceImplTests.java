@@ -1,21 +1,29 @@
 package org.example.carpooling.services;
 
 
+import org.example.carpooling.Helpers;
 import org.example.carpooling.exceptions.EntityDuplicateException;
-import org.example.carpooling.exceptions.EntityNotFoundException;
+import org.example.carpooling.exceptions.OperationNotAllowedException;
 import org.example.carpooling.exceptions.TravelException;
+import org.example.carpooling.models.Candidates;
 import org.example.carpooling.models.Feedback;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.User;
+import org.example.carpooling.models.enums.CandidateStatus;
+import org.example.carpooling.models.enums.TravelStatus;
+import org.example.carpooling.repositories.contracts.CandidateRepository;
 import org.example.carpooling.repositories.contracts.FeedbackRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.example.carpooling.services.FeedbackServiceImpl.FEEDBACK_ALREADY_GIVEN_ERROR;
@@ -31,7 +39,9 @@ public class FeedbackServiceImplTests {
     FeedbackServiceImpl feedbackService;
 
     @Mock
-    FeedbackRepository feedbackRepository;
+    FeedbackRepository mockFeedbackRepository;
+    @Mock
+    CandidateRepository mockCandidateRepository;
 
 
     @Test
@@ -40,7 +50,7 @@ public class FeedbackServiceImplTests {
         Feedback expectedFeedback = new Feedback();
         expectedFeedback.setId(feedbackId);
 
-        when(feedbackRepository.findById(feedbackId)).thenReturn(java.util.Optional.of(expectedFeedback));
+        when(mockFeedbackRepository.findById(feedbackId)).thenReturn(java.util.Optional.of(expectedFeedback));
 
         Feedback resultFeedback = feedbackService.getById(feedbackId);
 
@@ -51,9 +61,9 @@ public class FeedbackServiceImplTests {
     void testGetFeedbackById_NonExistingFeedback() {
         Long nonExcitingFeedback = 1L;
 
-        when(feedbackRepository.findById(nonExcitingFeedback)).thenReturn(Optional.empty());
+        when(mockFeedbackRepository.findById(nonExcitingFeedback)).thenReturn(Optional.empty());
 
-        assertThrows(EntityNotFoundException.class,
+        assertThrows(NoSuchElementException.class,
                 () -> feedbackService.getById(nonExcitingFeedback));
     }
 
@@ -61,25 +71,25 @@ public class FeedbackServiceImplTests {
     @Test
     void testCreateValidFeedback() {
         Feedback validFeedback = createValidFeedback();
+        Travel travel = Helpers.createMockTravel();
 
-        when(feedbackRepository.save(any(Feedback.class))).thenReturn(validFeedback);
+        when(mockFeedbackRepository.save(any(Feedback.class))).thenReturn(validFeedback);
 
         // Act
         feedbackService.create(validFeedback);
 
         // Assert
-        verify(feedbackRepository, times(1)).save(validFeedback);
+        verify(mockFeedbackRepository, times(1)).save(validFeedback);
     }
 
     @Test
     void testCreateFeedbackForIncompleteTravel() {
         // Arrange
         Feedback invalidFeedback = createValidFeedback();
-        Travel travel = new Travel();
+        LocalDateTime departureTime = LocalDateTime.now().plusDays(1);
+        invalidFeedback.getTravel().setDepartureTime(departureTime);
 
-        when(feedbackRepository.save(invalidFeedback));
-
-        assertThrows(TravelException.class, () -> feedbackService.create(invalidFeedback));
+        assertThrows(OperationNotAllowedException.class, () -> feedbackService.create(invalidFeedback));
     }
 
     @Test
@@ -98,12 +108,14 @@ public class FeedbackServiceImplTests {
     @Test
     void testCreateFeedbackWithDuplicateFeedback() {
         Feedback duplicateFeedback = createValidFeedback();
-        Travel travel = new Travel();
+        Travel travel = Helpers.createMockTravel();
         User driver = new User();
         travel.setUserId(driver);
         duplicateFeedback.setTravel(travel);
+        duplicateFeedback.setGiver(driver);
+
         doThrow(new EntityDuplicateException(FEEDBACK_ALREADY_GIVEN_ERROR))
-                .when(feedbackRepository)
+                .when(mockFeedbackRepository)
                 .findByGiverAndReceiverAndTravel(duplicateFeedback.getGiver(), duplicateFeedback.getReceiver(), travel);
 
         assertThrows(EntityDuplicateException.class, () -> feedbackService.create(duplicateFeedback));
@@ -119,19 +131,20 @@ public class FeedbackServiceImplTests {
         feedbacks.add(feedback1);
         feedbacks.add(feedback2);
 
-        when(feedbackRepository.findAllByReceiver(receiverUser)).thenReturn(feedbacks);
+        when(mockFeedbackRepository.findAllByReceiver(receiverUser)).thenReturn(feedbacks);
 
         List<Feedback> resultFeedbacks = feedbackService.getByReceiver(receiverUser);
         assertEquals(2, resultFeedbacks.size());
 
-        verify(feedbackRepository, times(1)).findAllByReceiver(receiverUser);
+        verify(mockFeedbackRepository, times(1)).findAllByReceiver(receiverUser);
     }
 
     private Feedback createValidFeedback() {
-        User giver = new User();
-        User receiver = new User();
-        Travel travel = new Travel();
-        return new Feedback();
+        Feedback feedback = new Feedback();
+        feedback.setGiver(Helpers.createMockUser());
+        feedback.setReceiver(Helpers.createMockUser());
+        feedback.setTravel(Helpers.createMockTravel());
+        return feedback;
     }
 
 
