@@ -49,8 +49,6 @@ public class HomeMvcController {
 
     @GetMapping("/home")
     public String showHomePage(Model model) {
-//        model.addAttribute("recentTravels",travelService.getMostRecentTravels());
-//        model.addAttribute("recentRatingUsers",userService.top10ratingUsers());
         model.addAttribute("countCompletedTravels",travelService.countTravelsByStatus(TravelStatus.COMPLETED));
         model.addAttribute("countActiveTravels",travelService.countTravelsByStatus(TravelStatus.AVAILABLE));
         model.addAttribute("countActiveUsers",userService.getUserCount());
@@ -133,6 +131,5 @@ public class HomeMvcController {
         } catch (AuthorizationException e) {
             return "redirect:/auth/login";
         }
-
     }
 }

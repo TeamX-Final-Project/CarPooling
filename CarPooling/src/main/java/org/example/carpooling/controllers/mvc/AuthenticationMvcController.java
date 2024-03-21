@@ -41,7 +41,6 @@ public class AuthenticationMvcController {
 
     @ModelAttribute("isAuthenticated")
     public boolean populateIsAuthenticated(HttpSession session) {
-
         return session.getAttribute("currentUser") != null;
     }
 
@@ -55,11 +54,9 @@ public class AuthenticationMvcController {
     public String handleLogin(@Valid @ModelAttribute("login") LoginDto loginDto,
                               BindingResult bindingResult,
                               HttpSession session) {
-
         if (bindingResult.hasErrors()) {
             return "LoginView";
         }
-
         try {
             User user = authenticationService.verifyAuthentication(loginDto.getUsername(), loginDto.getPassword());
             if (!UserStatus.ACTIVE.equals(user.getUserStatus())) {
@@ -73,8 +70,6 @@ public class AuthenticationMvcController {
                 session.setAttribute("isDeleted", user.getUserStatus());
                 return "redirect:/users/" + user.getUserId();
             }
-
-            //ToDo should be authentication exception
         } catch (AuthorizationException e) {
             bindingResult.rejectValue("username", "auth_error", e.getMessage());
             bindingResult.rejectValue("password", "auth_error", e.getMessage());

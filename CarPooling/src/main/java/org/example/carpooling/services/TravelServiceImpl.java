@@ -29,7 +29,7 @@ public class TravelServiceImpl implements TravelService {
     private final TravelRepository travelRepository;
 
     @Autowired
-    public TravelServiceImpl(UserService userService, TravelRepository travelRepository) {
+    public TravelServiceImpl(TravelRepository travelRepository) {
         this.travelRepository = travelRepository;
     }
 
