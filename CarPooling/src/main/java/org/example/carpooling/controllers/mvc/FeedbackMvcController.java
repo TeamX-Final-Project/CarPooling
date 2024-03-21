@@ -98,7 +98,7 @@ public class FeedbackMvcController {
             model.addAttribute("receiver", receiverUser);
             Feedback feedback = feedbackMapper.fromFeedbackDto(feedbackDto, currentUser, receiverUser, travel);
             feedbackService.create(feedback);
-            return "redirect:/travels/{id}" + travel.getUserId();
+            return "redirect:/travels/{id}" ;
 
         } catch (AuthorizationException e) {
             return "ErrorView";

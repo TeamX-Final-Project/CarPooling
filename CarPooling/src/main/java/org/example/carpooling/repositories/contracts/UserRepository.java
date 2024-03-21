@@ -5,6 +5,9 @@ import org.example.carpooling.models.enums.UserStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
@@ -25,7 +28,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     int countAllUsersByUserStatus(UserStatus userStatus);
 
-
-
+@Query(nativeQuery = true,value = "select * from carpoolingx.feedbacks order by feedbacks.rating desc limit 10")
+List<User> top10ratingUsers();
 }
 

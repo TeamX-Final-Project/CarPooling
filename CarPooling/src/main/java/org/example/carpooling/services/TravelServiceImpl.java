@@ -147,5 +147,11 @@ public class TravelServiceImpl implements TravelService {
     public int getCompletedTravelsAsPassengerCount(User user) {
         return travelRepository.countCompletedTravelsAsPassenger(user, CandidateStatus.ACCEPTED, TravelStatus.COMPLETED);
     }
+
+    @Override
+    public List<Travel> getMostRecentTravels(){
+        return travelRepository.getMostRecentTravels();
+    }
+
 }
 
