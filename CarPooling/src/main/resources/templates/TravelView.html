@@ -174,7 +174,7 @@
                                         </div>
                                         <div th:if="*{travel.getTravelStatus() == T(org.example.carpooling.models.enums.TravelStatus).COMPLETED}">
                                             <form action="#" th:action="@{/feedbacks/new/travel:{travelId}/user:{receiverUserId}
-                                            (travelId=${travel.getTravelId()}, receiverUserId=${candidate.getId()})}"
+                                            (travelId=${travel.getTravelId()}, receiverUserId=${candidate.getUser().getUserId()})}"
                                                   method="post">
                                                 <input type="submit" value="  Give Feedback  "/>
                                             </form>
