@@ -110,7 +110,7 @@ public class TravelServiceTests {
     }
 
     @Test
-    public void update_Should_Throw_Authorization_Exception_IfUserIsNotAdmin_OrCreatorOfTravel(){
+    public void update_Should_Throw_Authorization_Exception_IfUserIsNotAdmin_OrCreatorOfTravel() {
         //Arrange
         Travel travel = createMockTravel();
         User user = createMockUserActive();
@@ -124,10 +124,9 @@ public class TravelServiceTests {
     }
 
     @Test
-    public void update_Should_Save_Updated_Travel(){
+    public void update_Should_Save_Updated_Travel() {
         //Arrange
         User user = createMockUserActive();
-//        Travel travel = createMockTravel();
         Travel updatedTravel = createMockTravel();
         updatedTravel.setStartPoint("Plovdiv");
         updatedTravel.setEndPoint("Sofia");
@@ -139,14 +138,15 @@ public class TravelServiceTests {
         updatedTravel.setTravelComment("MockTravelComments");
 
         //Act
-        TravelService.update(user,updatedTravel);
+        TravelService.update(user, updatedTravel);
 
         //Assert
-        Mockito.verify(mockTravelRepository,Mockito.times(1))
+        Mockito.verify(mockTravelRepository, Mockito.times(1))
                 .save(updatedTravel);
     }
+
     @Test
-    public void delete_Should_Save_Deleted_Travel(){
+    public void delete_Should_Save_Deleted_Travel() {
         //Arrange
         User user = createMockUserActive();
         Travel travel = createMockTravel();
@@ -164,7 +164,7 @@ public class TravelServiceTests {
 
 
     @Test
-    public void delete_Should_Throw_Authorization_Exception_IfUserIsNotAdmin_OrCreatorOfTravel(){
+    public void delete_Should_Throw_Authorization_Exception_IfUserIsNotAdmin_OrCreatorOfTravel() {
         //Arrange
         User user = createMockUserActive();
         Travel travel = createMockTravel();
@@ -182,7 +182,7 @@ public class TravelServiceTests {
     }
 
     @Test
-    public void cancel_Should_Save_Canceled_Travel(){
+    public void cancel_Should_Save_Canceled_Travel() {
         //Arrange
         User user = createMockUserActive();
         Travel travel = createMockTravel();
@@ -199,7 +199,7 @@ public class TravelServiceTests {
     }
 
     @Test
-    public void cancel_Should_Throw_Authorization_Exception_IfUserIsNotAdmin_OrCreatorOfTravel(){
+    public void cancel_Should_Throw_Authorization_Exception_IfUserIsNotAdmin_OrCreatorOfTravel() {
         //Arrange
         User user = createMockUserActive();
         Travel travel = createMockTravel();
@@ -217,60 +217,72 @@ public class TravelServiceTests {
     }
 
     @Test
-    public void getCompletedTravelsAsDriverCount_Should_CallRepository(){
+    public void getCompletedTravelsAsDriverCount_Should_CallRepository() {
+        //Arrange
         User user = createMockUserActive();
 
+        //Act
+        TravelService.getCompletedTravelsAsDriverCount(user);
 
-        TravelService .getCompletedTravelsAsDriverCount(user);
-
+        //Assert
         Mockito.verify(mockTravelRepository, Mockito.times(1))
                 .countCompletedTravelsAsDriver(user, TravelStatus.COMPLETED);
 
     }
 
     @Test
-    public void getOpenTravelsAsDriverCount_Should_CallRepository(){
+    public void getOpenTravelsAsDriverCount_Should_CallRepository() {
+        //Arrange
         User user = createMockUserActive();
 
-        TravelService .getOpenTravelsOfDriver(user);
+        //Act
+        TravelService.getOpenTravelsOfDriver(user);
 
+        //Assert
         Mockito.verify(mockTravelRepository, Mockito.times(1))
                 .findByUserIdAndTravelStatus(user, TravelStatus.AVAILABLE);
 
     }
 
     @Test
-    public void getCompletedTravelsOfDriver_Should_CallRepository(){
+    public void getCompletedTravelsOfDriver_Should_CallRepository() {
+        //Arrange
         User user = createMockUserActive();
 
-        TravelService .getCompletedTravelsOfDriver(user);
-
+        //Act
+        TravelService.getCompletedTravelsOfDriver(user);
+        //Assert
         Mockito.verify(mockTravelRepository, Mockito.times(1))
                 .findByUserIdAndTravelStatus(user, TravelStatus.COMPLETED);
 
     }
 
     @Test
-    public void countTravelByStatus_Should_CallRepository(){
+    public void countTravelByStatus_Should_CallRepository() {
+        //Act
         Travel travel = createMockTravel();
         TravelStatus travelStatus = travel.getTravelStatus();
 
-        TravelService .countTravelsByStatus(travelStatus);
+        //Arrange
+        TravelService.countTravelsByStatus(travelStatus);
 
+        //Assert
         Mockito.verify(mockTravelRepository, Mockito.times(1))
                 .countTravelByTravelStatus(travelStatus);
     }
 
     @Test
-    public void getCompletedTravelsAsPassengerCount_Should_CallRepository(){
+    public void getCompletedTravelsAsPassengerCount_Should_CallRepository() {
+        //Act
         User user = createMockUserActive();
 
-        TravelService .getCompletedTravelsAsPassengerCount(user);
+        //Arrange
+        TravelService.getCompletedTravelsAsPassengerCount(user);
 
+        //Assert
         Mockito.verify(mockTravelRepository, Mockito.times(1))
                 .countCompletedTravelsAsPassenger(user, CandidateStatus.ACCEPTED, TravelStatus.COMPLETED);
     }
-
 
 
 }
