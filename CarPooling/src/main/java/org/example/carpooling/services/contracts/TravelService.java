@@ -5,6 +5,7 @@ import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.dto.TravelDto;
+import org.example.carpooling.models.enums.TravelStatus;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public interface TravelService {
 
     List<Travel> getCompletedTravelsOfDriver(User user);
 
-    int countCompletedTravels();
+    long countTravelsByStatus(TravelStatus travelStatus);
 
     int getCompletedTravelsAsPassengerCount(User user);
 

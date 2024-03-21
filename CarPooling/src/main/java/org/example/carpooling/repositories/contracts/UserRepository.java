@@ -28,7 +28,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     int countAllUsersByUserStatus(UserStatus userStatus);
 
-@Query(nativeQuery = true,value = "select * from carpoolingx.feedbacks order by feedbacks.rating desc limit 10")
-List<User> top10ratingUsers();
+//@Query(nativeQuery = true,value = "select * from carpoolingx.feedbacks order by feedbacks.rating desc limit 10")
+//List<User> top10ratingUsers();
 }
 

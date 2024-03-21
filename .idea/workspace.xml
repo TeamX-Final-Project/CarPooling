@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="449f3e54-417e-48aa-ba1e-768442efc3fc" name="Changes" comment="Still working on feedback">
-      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/resources/templates/TravelView.html" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/resources/templates/TravelView.html" afterDir="false" />
+    <list default="true" id="dcb0a7cd-e081-4ff2-8538-e918b7c85a24" name="Changes" comment="img and font">
+      <change afterPath="$PROJECT_DIR$/CarPooling/src/main/resources/templates/Test.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/resources/templates/UsersView.html" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/resources/templates/UsersView.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,12 +28,7 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="CarPooling" type="f1a62948:ProjectNode" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
@@ -42,8 +40,8 @@
       <list>
         <option value="Enum" />
         <option value="Interface" />
-        <option value="HTML File" />
         <option value="Class" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -54,7 +52,7 @@
           <entry type="REMOTE">
             <value>
               <list>
-                <branch-info repo="$PROJECT_DIR$" source="origin/Dinko's-Branch" />
+                <branch-info repo="$PROJECT_DIR$" source="origin/Pepi's-Branch" />
               </list>
             </value>
           </entry>
@@ -67,85 +65,112 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RESET_MODE" value="MIXED" />
-  </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/TravelRestController.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 7
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
 }</component>
-  <component name="ProjectId" id="2ciWfd5qPMG0xt6hjxZPEzWXFk7" />
+  <component name="ProjectId" id="2cijYjo4sP6LHlGScEMyW92mjuh" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Database Script.create.sql.executor": "Run",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Gradle.Build CarPooling.executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.TravelServiceTests.cancel_Should_Save_Canceled_Travel.executor": "Coverage",
-    "Gradle.TravelServiceTests.cancel_Should_Throw_Authorization_Exception_IfUserIsNotAdmin_OrCreatorOfTravel.executor": "Coverage",
-    "Gradle.TravelServiceTests.create_Should_Save_New_Travel.executor": "Coverage",
-    "Gradle.TravelServiceTests.create_Should_Throw_Exception_When_UserIsNotActive.executor": "Coverage",
-    "Gradle.TravelServiceTests.delete_Should_Save_Deleted_Travel.executor": "Coverage",
-    "Gradle.TravelServiceTests.delete_Should_Throw_Authorization_Exception_IfUserIsNotAdmin_OrCreatorOfTravel.executor": "Coverage",
-    "Gradle.TravelServiceTests.executor": "Run",
-    "Gradle.TravelServiceTests.getAllTravels_Should_CallRepository.executor": "Debug",
-    "Gradle.TravelServiceTests.getById_Should_CallRepository.executor": "Coverage",
-    "Gradle.TravelServiceTests.getById_Should_Return_Travel.executor": "Coverage",
-    "Gradle.TravelServiceTests.getById_Should_Throw_Exception_When_TravelDoesNotExist.executor": "Coverage",
-    "Gradle.TravelServiceTests.getById_Should_Throw_Exception_When_UserStatusIsNotActive.executor": "Coverage",
-    "Gradle.TravelServiceTests.update_Should_Save_Updated_Travel.executor": "Coverage",
-    "Gradle.TravelServiceTests.update_Should_Throw_Authorization_Exception_IfUserIsNotAdmin_OrCreatorOfTravel.executor": "Coverage",
-    "Gradle.UserServiceImplTests.executor": "Coverage",
-    "JavaScript Debug.about.html.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.CarPoolingApplication.executor": "Run",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/SHIKKKAAA/Desktop/Telerik/Alpha56 - Spring/Web-Forum-Project",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.Confirmation",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Database Script.insert.sql.executor&quot;: &quot;Run&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Gradle.Build CarPooling.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MailServiceImplImplTests.sendConformationEmail_should_succeed.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Tests in 'CarPooling.CarPooling.test'.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Tests in 'org.example.carpooling.services'.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserSecurityCodeServiceImplTests.create_should_save_user_security_code_in_database.executor&quot;: &quot;Coverage&quot;,
+    &quot;Gradle.UserSecurityCodeServiceImplTests.crete_should_throw_EntityNotFoundException.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceImplTests.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceImplTests.saveImage_should_succeed.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTests.blockUserAdmin_should_Call_Repository_WhenUserIsAuthorized.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTests.changeUserAdminValue_should_throw_authorization_exception_when_user_is_not_admin.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTests.changeUserAdminValue_should_throw_entity_attribute_already_set_exception.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTests.create_should_create_user_successfully.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTests.create_should_return_invalid_password_exception.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTests.create_should_return_user_already_exist_with_same_email.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTests.create_should_return_user_already_exist_with_same_phoneNumber.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTests.create_should_return_user_already_exist_with_same_username.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTests.delete_should_set_user_status_to_delete_when_user_is_admin.executor&quot;: &quot;Coverage&quot;,
+    &quot;Gradle.UserServiceTests.delete_should_throw_authorization_exception_when_user_is_not_admin_or_owner.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTests.executor&quot;: &quot;Coverage&quot;,
+    &quot;Gradle.UserServiceTests.getUserById_should_return_user_when_call_by_admin.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTests.getUserById_should_return_user_when_call_by_owner.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTests.getUserById_should_throw_exception_when_is_called_from_neither_admin_or_owner.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTests.makeUserAdmin_should_succeed.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTests.saveImage_should_succeed.executor&quot;: &quot;Coverage&quot;,
+    &quot;Gradle.UserServiceTests.updateUserStatus_should_throw_entity_attribute_already_set_exception.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTests.update_should_update_user_successfully.executor&quot;: &quot;Coverage&quot;,
+    &quot;Gradle.UserServiceTests.verify_should_set_user_status_to_active.executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.CarPoolingApplication.executor&quot;: &quot;Run&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;sql.rename.search.for.storage.occurrences&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mariadb"
-    ],
-    "RunConfigurationTargetLRU": [
-      "c1a6ec9c-caef-409b-afdc-0e9cd6cd4d21/schema/\"carpoolingx\""
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mariadb&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\SHIKKKAAA\Desktop\Telerik\Alpha56 - Final\Final Project - Carpool\CarPooling\src\main\resources\static\css" />
-      <recent name="C:\Users\SHIKKKAAA\Desktop\Telerik\Alpha56 - Final\Final Project - Carpool\CarPooling\src\main\resources\static" />
-      <recent name="C:\Users\SHIKKKAAA\Desktop\Telerik\Alpha56 - Final\Final Project - Carpool\CarPooling\src\main\resources\templates" />
-      <recent name="C:\Users\SHIKKKAAA\Desktop\Telerik\Alpha56 - Final\Final Project - Carpool\CarPooling\src\main\resources" />
-      <recent name="C:\Users\SHIKKKAAA\Desktop\Telerik\Alpha56 - Final\Final Project - Carpool\CarPooling\src\main\java\org\example\carpooling\repositories" />
-    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="org.example.carpooling.controllers.mvc" />
-      <recent name="org.example.carpooling.exceptions" />
+      <recent name="org.example.carpooling.models.dto" />
+      <recent name="org.example.carpooling.models" />
+      <recent name="org.example.carpooling.repositories.contracts" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.CarPoolingApplication">
-    <configuration name="TravelServiceTests" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="Tests in 'CarPooling.CarPooling.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/CarPooling" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="Tests in 'org.example.carpooling.services'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/CarPooling" />
@@ -158,7 +183,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;org.example.carpooling.services.TravelServiceTests&quot;" />
+            <option value="&quot;org.example.carpooling.services.*&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -169,7 +194,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="TravelServiceTests.cancel_Should_Save_Canceled_Travel" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="UserServiceImplTests" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/CarPooling" />
@@ -182,7 +207,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;org.example.carpooling.services.TravelServiceTests.cancel_Should_Save_Canceled_Travel&quot;" />
+            <option value="&quot;org.example.carpooling.services.UserServiceImplTests&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -193,7 +218,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="TravelServiceTests.cancel_Should_Throw_Authorization_Exception_IfUserIsNotAdmin_OrCreatorOfTravel" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="UserServiceImplTests.saveImage_should_succeed" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/CarPooling" />
@@ -206,7 +231,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;org.example.carpooling.services.TravelServiceTests.cancel_Should_Throw_Authorization_Exception_IfUserIsNotAdmin_OrCreatorOfTravel&quot;" />
+            <option value="&quot;org.example.carpooling.services.UserServiceImplTests.saveImage_should_succeed&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -217,626 +242,603 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="TravelServiceTests.delete_Should_Save_Deleted_Travel" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/CarPooling" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;org.example.carpooling.services.TravelServiceTests.delete_Should_Save_Deleted_Travel&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="TravelServiceTests.delete_Should_Throw_Authorization_Exception_IfUserIsNotAdmin_OrCreatorOfTravel" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/CarPooling" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;org.example.carpooling.services.TravelServiceTests.delete_Should_Throw_Authorization_Exception_IfUserIsNotAdmin_OrCreatorOfTravel&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="CarPoolingApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <configuration name="CarPoolingApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
-      <module name="CarPooling.main" />
+      <module name="CarPooling.CarPooling.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.carpooling.CarPoolingApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.carpooling.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.TravelServiceTests" />
-        <item itemvalue="Gradle.TravelServiceTests.cancel_Should_Throw_Authorization_Exception_IfUserIsNotAdmin_OrCreatorOfTravel" />
-        <item itemvalue="Gradle.TravelServiceTests.cancel_Should_Save_Canceled_Travel" />
-        <item itemvalue="Gradle.TravelServiceTests.delete_Should_Throw_Authorization_Exception_IfUserIsNotAdmin_OrCreatorOfTravel" />
-        <item itemvalue="Gradle.TravelServiceTests.delete_Should_Save_Deleted_Travel" />
+        <item itemvalue="Spring Boot.CarPoolingApplication" />
+        <item itemvalue="Gradle.Tests in 'org.example.carpooling.services'" />
+        <item itemvalue="Gradle.Tests in 'CarPooling.CarPooling.test'" />
+        <item itemvalue="Gradle.UserServiceImplTests" />
+        <item itemvalue="Gradle.UserServiceImplTests.saveImage_should_succeed" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.9-corretto-17.0.9-3183f394aec4-8f899f12" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="449f3e54-417e-48aa-ba1e-768442efc3fc" name="Changes" comment="" />
-      <created>1708594983619</created>
+      <changelist id="dcb0a7cd-e081-4ff2-8538-e918b7c85a24" name="Changes" comment="" />
+      <created>1708601344052</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1708594983619</updated>
-      <workItem from="1708594984801" duration="13183000" />
-      <workItem from="1708680806083" duration="7113000" />
-      <workItem from="1708764822924" duration="816000" />
-      <workItem from="1708766304108" duration="2659000" />
-      <workItem from="1708769223494" duration="2377000" />
-      <workItem from="1708939637186" duration="1485000" />
-      <workItem from="1708970762168" duration="5413000" />
-      <workItem from="1709023718387" duration="6671000" />
-      <workItem from="1709042636126" duration="4178000" />
-      <workItem from="1709210914928" duration="12075000" />
-      <workItem from="1709286984886" duration="1784000" />
-      <workItem from="1709369704809" duration="6163000" />
-      <workItem from="1709535535477" duration="16798000" />
-      <workItem from="1709579417439" duration="330000" />
-      <workItem from="1709623624464" duration="19064000" />
-      <workItem from="1709659994237" duration="6567000" />
-      <workItem from="1709713798066" duration="6481000" />
-      <workItem from="1709731276855" duration="3497000" />
-      <workItem from="1709735582555" duration="2341000" />
-      <workItem from="1709835831923" duration="1717000" />
-      <workItem from="1709839118910" duration="846000" />
-      <workItem from="1709887330823" duration="6744000" />
-      <workItem from="1709909968067" duration="17000" />
-      <workItem from="1709972845993" duration="2704000" />
-      <workItem from="1709988730443" duration="4906000" />
-      <workItem from="1710315397973" duration="3180000" />
-      <workItem from="1710281520041" duration="18238000" />
-      <workItem from="1710407982616" duration="4094000" />
-      <workItem from="1710435767321" duration="2306000" />
-      <workItem from="1710487032813" duration="7616000" />
-      <workItem from="1710506269612" duration="11326000" />
-      <workItem from="1710576128297" duration="11861000" />
-      <workItem from="1710609346802" duration="3258000" />
-      <workItem from="1710667454077" duration="10189000" />
-      <workItem from="1710691616070" duration="9301000" />
-      <workItem from="1710708961115" duration="1321000" />
-      <workItem from="1710748380906" duration="15856000" />
-      <workItem from="1710776902614" duration="2717000" />
-      <workItem from="1710784642504" duration="3786000" />
-      <workItem from="1710865879153" duration="17273000" />
-      <workItem from="1710957678978" duration="23184000" />
+      <updated>1708601344052</updated>
+      <workItem from="1708601347147" duration="427000" />
+      <workItem from="1708601785275" duration="3476000" />
+      <workItem from="1708863877156" duration="25082000" />
+      <workItem from="1709042095114" duration="18825000" />
+      <workItem from="1709274972136" duration="73623000" />
+      <workItem from="1709665030125" duration="5785000" />
+      <workItem from="1710318680933" duration="56756000" />
+      <workItem from="1710496117227" duration="50263000" />
+      <workItem from="1710779105620" duration="102746000" />
     </task>
-    <task id="LOCAL-00006" summary="implemented getTravelById">
+    <task id="LOCAL-00005" summary="User class">
       <option name="closed" value="true" />
-      <created>1708682981408</created>
+      <created>1708970182578</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1708970182578</updated>
+    </task>
+    <task id="LOCAL-00006" summary="UserRepository interface and UserRepositoryImpl class">
+      <option name="closed" value="true" />
+      <created>1708970215887</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1708682981408</updated>
+      <updated>1708970215887</updated>
     </task>
-    <task id="LOCAL-00007" summary="Create method for travel completed with TravelDTO &amp; TravelMapper to get the info from the user&#10;Exception for blocked users also added not to be able to create travels">
+    <task id="LOCAL-00007" summary="UserService interface and UserServiceImpl class">
       <option name="closed" value="true" />
-      <created>1708697327250</created>
+      <created>1708970234571</created>
       <option name="number" value="00007" />
       <option name="presentableId" value="LOCAL-00007" />
       <option name="project" value="LOCAL" />
-      <updated>1708697327250</updated>
+      <updated>1708970234571</updated>
     </task>
-    <task id="LOCAL-00008" summary="Update travel finished need to double check when User is ready">
+    <task id="LOCAL-00008" summary="UserRestController class">
       <option name="closed" value="true" />
-      <created>1708768714110</created>
+      <created>1708970248228</created>
       <option name="number" value="00008" />
       <option name="presentableId" value="LOCAL-00008" />
       <option name="project" value="LOCAL" />
-      <updated>1708768714111</updated>
+      <updated>1708970248228</updated>
     </task>
-    <task id="LOCAL-00009" summary="Delete travel also finished">
+    <task id="LOCAL-00009" summary="UserMapper class">
       <option name="closed" value="true" />
-      <created>1708770999783</created>
+      <created>1708970263299</created>
       <option name="number" value="00009" />
       <option name="presentableId" value="LOCAL-00009" />
       <option name="project" value="LOCAL" />
-      <updated>1708770999783</updated>
+      <updated>1708970263299</updated>
     </task>
-    <task id="LOCAL-00010" summary="Updated database and finished cancelTravel as well update of TravelStatus">
+    <task id="LOCAL-00010" summary="create/update functions">
       <option name="closed" value="true" />
-      <created>1709033179602</created>
+      <created>1709212053016</created>
       <option name="number" value="00010" />
       <option name="presentableId" value="LOCAL-00010" />
       <option name="project" value="LOCAL" />
-      <updated>1709033179602</updated>
+      <updated>1709212053016</updated>
     </task>
-    <task id="LOCAL-00011" summary="Added a TODO in TravelRepository to fix the filter method and updated the build.gradle configuration">
+    <task id="LOCAL-00011" summary="some block,delete, admin  functions">
       <option name="closed" value="true" />
-      <created>1709062677583</created>
+      <created>1709293855618</created>
       <option name="number" value="00011" />
       <option name="presentableId" value="LOCAL-00011" />
       <option name="project" value="LOCAL" />
-      <updated>1709062677583</updated>
+      <updated>1709293855618</updated>
     </task>
-    <task id="LOCAL-00012" summary="Need a fix how to save the ENUM for travel status as int in the database">
+    <task id="LOCAL-00012" summary="image function">
       <option name="closed" value="true" />
-      <created>1709222740515</created>
+      <created>1709457673270</created>
       <option name="number" value="00012" />
       <option name="presentableId" value="LOCAL-00012" />
       <option name="project" value="LOCAL" />
-      <updated>1709222740515</updated>
+      <updated>1709457673270</updated>
     </task>
-    <task id="LOCAL-00013" summary="Updated Join Column for Enum">
+    <task id="LOCAL-00013" summary="image function fix">
       <option name="closed" value="true" />
-      <created>1709287447599</created>
+      <created>1709568585592</created>
       <option name="number" value="00013" />
       <option name="presentableId" value="LOCAL-00013" />
       <option name="project" value="LOCAL" />
-      <updated>1709287447599</updated>
+      <updated>1709568585592</updated>
     </task>
-    <task id="LOCAL-00014" summary="CRUD operations confirmed for Travel">
+    <task id="LOCAL-00014" summary="image function fix">
       <option name="closed" value="true" />
-      <created>1709372385186</created>
+      <created>1709571278398</created>
       <option name="number" value="00014" />
       <option name="presentableId" value="LOCAL-00014" />
       <option name="project" value="LOCAL" />
-      <updated>1709372385187</updated>
+      <updated>1709571278398</updated>
     </task>
-    <task id="LOCAL-00015" summary="Removed size for starting/ending point">
+    <task id="LOCAL-00015" summary="image function fix">
       <option name="closed" value="true" />
-      <created>1709377857918</created>
+      <created>1709572885914</created>
       <option name="number" value="00015" />
       <option name="presentableId" value="LOCAL-00015" />
       <option name="project" value="LOCAL" />
-      <updated>1709377857918</updated>
+      <updated>1709572885914</updated>
     </task>
-    <task id="LOCAL-00016" summary="Removed size for starting/ending point">
+    <task id="LOCAL-00016" summary="image database fix">
       <option name="closed" value="true" />
-      <created>1709379240177</created>
+      <created>1709574842858</created>
       <option name="number" value="00016" />
       <option name="presentableId" value="LOCAL-00016" />
       <option name="project" value="LOCAL" />
-      <updated>1709379240179</updated>
+      <updated>1709574842858</updated>
     </task>
-    <task id="LOCAL-00017" summary="Maps distance and duration implemented for Travels">
+    <task id="LOCAL-00017" summary="hide api properties">
       <option name="closed" value="true" />
-      <created>1709546602341</created>
+      <created>1709601912542</created>
       <option name="number" value="00017" />
       <option name="presentableId" value="LOCAL-00017" />
       <option name="project" value="LOCAL" />
-      <updated>1709546602341</updated>
+      <updated>1709601912542</updated>
     </task>
-    <task id="LOCAL-00018" summary="Travel comment done">
+    <task id="LOCAL-00018" summary="AuthenticationException and ValidatePasswordException classes">
       <option name="closed" value="true" />
-      <created>1709547209632</created>
+      <created>1709601944269</created>
       <option name="number" value="00018" />
       <option name="presentableId" value="LOCAL-00018" />
       <option name="project" value="LOCAL" />
-      <updated>1709547209632</updated>
+      <updated>1709601944269</updated>
     </task>
-    <task id="LOCAL-00019" summary="Fixed travel update to change the distance and time">
+    <task id="LOCAL-00019" summary="EntityAttributeAlreadySetException class">
       <option name="closed" value="true" />
-      <created>1709548408552</created>
+      <created>1709601970649</created>
       <option name="number" value="00019" />
       <option name="presentableId" value="LOCAL-00019" />
       <option name="project" value="LOCAL" />
-      <updated>1709548408552</updated>
+      <updated>1709601970649</updated>
     </task>
-    <task id="LOCAL-00020" summary="User Rest Controller changes">
+    <task id="LOCAL-00020" summary="SimpleUserDto class">
       <option name="closed" value="true" />
-      <created>1709569212679</created>
+      <created>1709601991503</created>
       <option name="number" value="00020" />
       <option name="presentableId" value="LOCAL-00020" />
       <option name="project" value="LOCAL" />
-      <updated>1709569212679</updated>
+      <updated>1709601991503</updated>
     </task>
-    <task id="LOCAL-00021" summary="Added logic to check if user is active before creating travel">
+    <task id="LOCAL-00021" summary="fix AuthenticationHelper class">
       <option name="closed" value="true" />
-      <created>1709571115104</created>
+      <created>1709602010702</created>
       <option name="number" value="00021" />
       <option name="presentableId" value="LOCAL-00021" />
       <option name="project" value="LOCAL" />
-      <updated>1709571115104</updated>
+      <updated>1709602010702</updated>
     </task>
-    <task id="LOCAL-00022" summary="Updated the logic to check if user is active before creating travel">
+    <task id="LOCAL-00022" summary="fix ValidationHelper class">
       <option name="closed" value="true" />
-      <created>1709579482530</created>
+      <created>1709602030135</created>
       <option name="number" value="00022" />
       <option name="presentableId" value="LOCAL-00022" />
       <option name="project" value="LOCAL" />
-      <updated>1709579482530</updated>
+      <updated>1709602030135</updated>
     </task>
-    <task id="LOCAL-00023" summary="application.properties commit">
+    <task id="LOCAL-00023" summary="fix User classes . Some exceptions, logic and KISS">
       <option name="closed" value="true" />
-      <created>1709623785471</created>
+      <created>1709602100105</created>
       <option name="number" value="00023" />
       <option name="presentableId" value="LOCAL-00023" />
       <option name="project" value="LOCAL" />
-      <updated>1709623785471</updated>
+      <updated>1709602100105</updated>
     </task>
-    <task id="LOCAL-00024" summary="Updated small changes for Travel">
+    <task id="LOCAL-00024" summary="swagger">
       <option name="closed" value="true" />
-      <created>1709720758690</created>
+      <created>1709996632437</created>
       <option name="number" value="00024" />
       <option name="presentableId" value="LOCAL-00024" />
       <option name="project" value="LOCAL" />
-      <updated>1709720758690</updated>
+      <updated>1709996632437</updated>
     </task>
-    <task id="LOCAL-00025" summary="Apply/Approve travel done with JPA repository and separate REST Controller/Service/Repository for candidates">
+    <task id="LOCAL-00025" summary="refactor ids from int to long">
       <option name="closed" value="true" />
-      <created>1709893637831</created>
+      <created>1710332509623</created>
       <option name="number" value="00025" />
       <option name="presentableId" value="LOCAL-00025" />
       <option name="project" value="LOCAL" />
-      <updated>1709893637831</updated>
+      <updated>1710332509623</updated>
     </task>
-    <task id="LOCAL-00026" summary="Updated some logic in the apply/approve methods and removed the travelRepositoryImpl class since is not needed when using JPARepostitory">
+    <task id="LOCAL-00026" summary="commit controller todos">
       <option name="closed" value="true" />
-      <created>1709975507883</created>
+      <created>1710354986721</created>
       <option name="number" value="00026" />
       <option name="presentableId" value="LOCAL-00026" />
       <option name="project" value="LOCAL" />
-      <updated>1709975507883</updated>
+      <updated>1710354986721</updated>
     </task>
-    <task id="LOCAL-00027" summary="Theme for UI implemented">
+    <task id="LOCAL-00027" summary="UserServiceImpl tests">
       <option name="closed" value="true" />
-      <created>1709998112980</created>
+      <created>1710363498420</created>
       <option name="number" value="00027" />
       <option name="presentableId" value="LOCAL-00027" />
       <option name="project" value="LOCAL" />
-      <updated>1709998112981</updated>
+      <updated>1710363498421</updated>
     </task>
-    <task id="LOCAL-00028" summary="Fixed the theme to work since something was blocking the page to load in the index.html file">
+    <task id="LOCAL-00028" summary="UserServiceImpl tests">
       <option name="closed" value="true" />
-      <created>1710288255631</created>
+      <created>1710494786684</created>
       <option name="number" value="00028" />
       <option name="presentableId" value="LOCAL-00028" />
       <option name="project" value="LOCAL" />
-      <updated>1710288255632</updated>
+      <updated>1710494786684</updated>
     </task>
-    <task id="LOCAL-00029" summary="Working on the travel frontEnd pages">
+    <task id="LOCAL-00029" summary="AuthenticationMvcController fix">
       <option name="closed" value="true" />
-      <created>1710343555791</created>
+      <created>1710497116320</created>
       <option name="number" value="00029" />
       <option name="presentableId" value="LOCAL-00029" />
       <option name="project" value="LOCAL" />
-      <updated>1710343555792</updated>
+      <updated>1710497116320</updated>
     </task>
-    <task id="LOCAL-00030" summary="Created AuthenticationMVCController to be able to display the proper information for different type of users">
+    <task id="LOCAL-00030" summary="SwaggerConfig and html">
       <option name="closed" value="true" />
-      <created>1710437234966</created>
+      <created>1710609833516</created>
       <option name="number" value="00030" />
       <option name="presentableId" value="LOCAL-00030" />
       <option name="project" value="LOCAL" />
-      <updated>1710437234966</updated>
+      <updated>1710609833516</updated>
     </task>
-    <task id="LOCAL-00031" summary="Minor changes after the merge">
+    <task id="LOCAL-00031" summary="SwaggerConfig and html">
       <option name="closed" value="true" />
-      <created>1710437917914</created>
+      <created>1710609837774</created>
       <option name="number" value="00031" />
       <option name="presentableId" value="LOCAL-00031" />
       <option name="project" value="LOCAL" />
-      <updated>1710437917914</updated>
+      <updated>1710609837775</updated>
     </task>
-    <task id="LOCAL-00032" summary="Created CommonForm.html so that we can use fragments on it for the other HTML sides">
+    <task id="LOCAL-00032" summary="LoginView.html, RegisterView.html and some service tests">
       <option name="closed" value="true" />
-      <created>1710506880560</created>
+      <created>1710623893824</created>
       <option name="number" value="00032" />
       <option name="presentableId" value="LOCAL-00032" />
       <option name="project" value="LOCAL" />
-      <updated>1710506880560</updated>
+      <updated>1710623893824</updated>
     </task>
-    <task id="LOCAL-00033" summary="Updated the pages for pagination">
+    <task id="LOCAL-00033" summary="LoginView.html, RegisterView.html and some service tests&#10;create and insert sql">
       <option name="closed" value="true" />
-      <created>1710670931380</created>
+      <created>1710778917888</created>
       <option name="number" value="00033" />
       <option name="presentableId" value="LOCAL-00033" />
       <option name="project" value="LOCAL" />
-      <updated>1710670931381</updated>
+      <updated>1710778917888</updated>
     </task>
-    <task id="LOCAL-00034" summary="Updated the TravelDTO to get the travel Id and the creator so that I can visualize it properly through the MVC controller">
+    <task id="LOCAL-00034" summary="ProfileView.html, LoginView.html and AuthenticationMvcController">
       <option name="closed" value="true" />
-      <created>1710674458236</created>
+      <created>1710841033494</created>
       <option name="number" value="00034" />
       <option name="presentableId" value="LOCAL-00034" />
       <option name="project" value="LOCAL" />
-      <updated>1710674458236</updated>
+      <updated>1710841033494</updated>
     </task>
-    <task id="LOCAL-00035" summary="Fixed travels to show only the travels of other users not the current logged in user">
+    <task id="LOCAL-00035" summary="user picture update">
       <option name="closed" value="true" />
-      <created>1710676471748</created>
+      <created>1710850855620</created>
       <option name="number" value="00035" />
       <option name="presentableId" value="LOCAL-00035" />
       <option name="project" value="LOCAL" />
-      <updated>1710676471748</updated>
+      <updated>1710850855620</updated>
     </task>
-    <task id="LOCAL-00036" summary="Travels &amp; Single Travel almost finished need to work on the details">
+    <task id="LOCAL-00036" summary="Home MVC controller">
       <option name="closed" value="true" />
-      <created>1710700235694</created>
+      <created>1710851233971</created>
       <option name="number" value="00036" />
       <option name="presentableId" value="LOCAL-00036" />
       <option name="project" value="LOCAL" />
-      <updated>1710700235694</updated>
+      <updated>1710851233971</updated>
     </task>
-    <task id="LOCAL-00037" summary="small change for merge">
+    <task id="LOCAL-00037" summary="user fixes">
       <option name="closed" value="true" />
-      <created>1710701035493</created>
+      <created>1710854255905</created>
       <option name="number" value="00037" />
       <option name="presentableId" value="LOCAL-00037" />
       <option name="project" value="LOCAL" />
-      <updated>1710701035493</updated>
+      <updated>1710854255905</updated>
     </task>
-    <task id="LOCAL-00038" summary="Working on the search bar for travels">
+    <task id="LOCAL-00038" summary="User mvc controller and AuthenticationMvcController methods">
       <option name="closed" value="true" />
-      <created>1710758968583</created>
+      <created>1710862702856</created>
       <option name="number" value="00038" />
       <option name="presentableId" value="LOCAL-00038" />
       <option name="project" value="LOCAL" />
-      <updated>1710758968584</updated>
+      <updated>1710862702856</updated>
     </task>
-    <task id="LOCAL-00039" summary="Working on the createTravel">
+    <task id="LOCAL-00039" summary="User mvc controller and AuthenticationMvcController methods">
       <option name="closed" value="true" />
-      <created>1710784075716</created>
+      <created>1710865164232</created>
       <option name="number" value="00039" />
       <option name="presentableId" value="LOCAL-00039" />
       <option name="project" value="LOCAL" />
-      <updated>1710784075716</updated>
+      <updated>1710865164232</updated>
     </task>
-    <task id="LOCAL-00040" summary="Need to find a way to resolve the departure string parse error">
+    <task id="LOCAL-00040" summary="JPA repository for user and UserSecurityCode&#10;UsersView.html - admin operations">
       <option name="closed" value="true" />
-      <created>1710792871633</created>
+      <created>1710880295731</created>
       <option name="number" value="00040" />
       <option name="presentableId" value="LOCAL-00040" />
       <option name="project" value="LOCAL" />
-      <updated>1710792871634</updated>
+      <updated>1710880295731</updated>
     </task>
-    <task id="LOCAL-00041" summary="Finished travelservice tests">
+    <task id="LOCAL-00041" summary="userRepository">
       <option name="closed" value="true" />
-      <created>1710884610861</created>
+      <created>1710880746096</created>
       <option name="number" value="00041" />
       <option name="presentableId" value="LOCAL-00041" />
       <option name="project" value="LOCAL" />
-      <updated>1710884610862</updated>
+      <updated>1710880746096</updated>
     </task>
-    <task id="LOCAL-00042" summary="Finished travelservice tests">
+    <task id="LOCAL-00042" summary="paging in user list">
       <option name="closed" value="true" />
-      <created>1710884703005</created>
+      <created>1710928718774</created>
       <option name="number" value="00042" />
       <option name="presentableId" value="LOCAL-00042" />
       <option name="project" value="LOCAL" />
-      <updated>1710884703005</updated>
+      <updated>1710928718774</updated>
     </task>
-    <task id="LOCAL-00043" summary="Finished travelservice tests">
+    <task id="LOCAL-00043" summary="header updates">
       <option name="closed" value="true" />
-      <created>1710887009190</created>
+      <created>1710937300915</created>
       <option name="number" value="00043" />
       <option name="presentableId" value="LOCAL-00043" />
       <option name="project" value="LOCAL" />
-      <updated>1710887009190</updated>
+      <updated>1710937300915</updated>
     </task>
-    <task id="LOCAL-00044" summary="Updated singleTravel and create/update + filled the database with travels and users">
+    <task id="LOCAL-00044" summary="header updates">
       <option name="closed" value="true" />
-      <created>1710960477280</created>
+      <created>1710940611177</created>
       <option name="number" value="00044" />
       <option name="presentableId" value="LOCAL-00044" />
       <option name="project" value="LOCAL" />
-      <updated>1710960477280</updated>
+      <updated>1710940611177</updated>
     </task>
-    <task id="LOCAL-00045" summary="Updated RegisterView footer">
+    <task id="LOCAL-00045" summary="user picture">
       <option name="closed" value="true" />
-      <created>1710962267621</created>
+      <created>1710941622129</created>
       <option name="number" value="00045" />
       <option name="presentableId" value="LOCAL-00045" />
       <option name="project" value="LOCAL" />
-      <updated>1710962267621</updated>
+      <updated>1710941622129</updated>
     </task>
-    <task id="LOCAL-00046" summary="Updated Approve button in TravelView">
+    <task id="LOCAL-00046" summary="users pagination frontend">
       <option name="closed" value="true" />
-      <created>1710968187272</created>
+      <created>1710959735938</created>
       <option name="number" value="00046" />
       <option name="presentableId" value="LOCAL-00046" />
       <option name="project" value="LOCAL" />
-      <updated>1710968187272</updated>
+      <updated>1710959735938</updated>
     </task>
-    <task id="LOCAL-00047" summary="Updated Reject button for travel">
+    <task id="LOCAL-00047" summary="fix register bug">
       <option name="closed" value="true" />
-      <created>1710974065130</created>
+      <created>1710960970088</created>
       <option name="number" value="00047" />
       <option name="presentableId" value="LOCAL-00047" />
       <option name="project" value="LOCAL" />
-      <updated>1710974065130</updated>
+      <updated>1710960970088</updated>
     </task>
-    <task id="LOCAL-00048" summary="Completed travels update">
+    <task id="LOCAL-00048" summary="change buttons style">
       <option name="closed" value="true" />
-      <created>1710976713046</created>
+      <created>1710962391471</created>
       <option name="number" value="00048" />
       <option name="presentableId" value="LOCAL-00048" />
       <option name="project" value="LOCAL" />
-      <updated>1710976713047</updated>
+      <updated>1710962391471</updated>
     </task>
-    <task id="LOCAL-00049" summary="pushing the css and images">
+    <task id="LOCAL-00049" summary="home page and header buttons">
       <option name="closed" value="true" />
-      <created>1710977345641</created>
+      <created>1710966499870</created>
       <option name="number" value="00049" />
       <option name="presentableId" value="LOCAL-00049" />
       <option name="project" value="LOCAL" />
-      <updated>1710977345641</updated>
+      <updated>1710966499870</updated>
     </task>
-    <task id="LOCAL-00050" summary="UpdateProfile.html also fixed">
+    <task id="LOCAL-00050" summary="home and aboutUs html">
       <option name="closed" value="true" />
-      <created>1710977418280</created>
+      <created>1710977933138</created>
       <option name="number" value="00050" />
       <option name="presentableId" value="LOCAL-00050" />
       <option name="project" value="LOCAL" />
-      <updated>1710977418281</updated>
+      <updated>1710977933139</updated>
     </task>
-    <task id="LOCAL-00051" summary="UpdateProfile.html also fixed">
+    <task id="LOCAL-00051" summary="carusel">
       <option name="closed" value="true" />
-      <created>1710977558130</created>
+      <created>1710983475920</created>
       <option name="number" value="00051" />
       <option name="presentableId" value="LOCAL-00051" />
       <option name="project" value="LOCAL" />
-      <updated>1710977558130</updated>
+      <updated>1710983475920</updated>
     </task>
-    <task id="LOCAL-00052" summary="UserView update button">
+    <task id="LOCAL-00052" summary="img and font">
       <option name="closed" value="true" />
-      <created>1710980160315</created>
+      <created>1710983631585</created>
       <option name="number" value="00052" />
       <option name="presentableId" value="LOCAL-00052" />
       <option name="project" value="LOCAL" />
-      <updated>1710980160316</updated>
+      <updated>1710983631585</updated>
     </task>
-    <task id="LOCAL-00053" summary="Working on feedback">
+    <task id="LOCAL-00053" summary="img and font">
       <option name="closed" value="true" />
-      <created>1710983051733</created>
+      <created>1710983670681</created>
       <option name="number" value="00053" />
       <option name="presentableId" value="LOCAL-00053" />
       <option name="project" value="LOCAL" />
-      <updated>1710983051733</updated>
+      <updated>1710983670681</updated>
     </task>
-    <task id="LOCAL-00054" summary="Still working on feedback">
-      <option name="closed" value="true" />
-      <created>1710984067907</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1710984067907</updated>
-    </task>
-    <option name="localTasksCounter" value="55" />
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="main" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/Pepi's-Branch" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Theme for UI implemented" />
-    <MESSAGE value="Fixed the theme to work since something was blocking the page to load in the index.html file" />
-    <MESSAGE value="Working on the travel frontEnd pages" />
-    <MESSAGE value="Created AuthenticationMVCController to be able to display the proper information for different type of users" />
-    <MESSAGE value="Minor changes after the merge" />
-    <MESSAGE value="Created CommonForm.html so that we can use fragments on it for the other HTML sides" />
-    <MESSAGE value="Updated the pages for pagination" />
-    <MESSAGE value="Updated the TravelDTO to get the travel Id and the creator so that I can visualize it properly through the MVC controller" />
-    <MESSAGE value="Fixed travels to show only the travels of other users not the current logged in user" />
-    <MESSAGE value="Travels &amp; Single Travel almost finished need to work on the details" />
-    <MESSAGE value="small change for merge" />
-    <MESSAGE value="Working on the search bar for travels" />
-    <MESSAGE value="Working on the createTravel" />
-    <MESSAGE value="Need to find a way to resolve the departure string parse error" />
-    <MESSAGE value="Finished travelservice tests" />
-    <MESSAGE value="Updated singleTravel and create/update + filled the database with travels and users" />
-    <MESSAGE value="Updated RegisterView footer" />
-    <MESSAGE value="Updated Approve button in TravelView" />
-    <MESSAGE value="Updated Reject button for travel" />
-    <MESSAGE value="Completed travels update" />
-    <MESSAGE value="pushing the css and images" />
-    <MESSAGE value="UpdateProfile.html also fixed" />
-    <MESSAGE value="UserView update button" />
-    <MESSAGE value="Working on feedback" />
-    <MESSAGE value="Still working on feedback" />
-    <option name="LAST_COMMIT_MESSAGE" value="Still working on feedback" />
+    <MESSAGE value="swagger" />
+    <MESSAGE value="refactor ids from int to long" />
+    <MESSAGE value="commit controller todos" />
+    <MESSAGE value="UserServiceImpl tests" />
+    <MESSAGE value="AuthenticationMvcController fix" />
+    <MESSAGE value="SwaggerConfig and html" />
+    <MESSAGE value="LoginView.html, RegisterView.html and some service tests" />
+    <MESSAGE value="LoginView.html, RegisterView.html and some service tests&#10;create and insert sql" />
+    <MESSAGE value="ProfileView.html, LoginView.html and AuthenticationMvcController" />
+    <MESSAGE value="user picture update" />
+    <MESSAGE value="Home MVC controller" />
+    <MESSAGE value="user fixes" />
+    <MESSAGE value="User mvc controller and AuthenticationMvcController methods" />
+    <MESSAGE value="JPA repository for user and UserSecurityCode&#10;UsersView.html - admin operations" />
+    <MESSAGE value="userRepository" />
+    <MESSAGE value="paging in user list" />
+    <MESSAGE value="header updates" />
+    <MESSAGE value="user picture" />
+    <MESSAGE value="users pagination frontend" />
+    <MESSAGE value="fix register bug" />
+    <MESSAGE value="change buttons style" />
+    <MESSAGE value="home page and header buttons" />
+    <MESSAGE value="home and aboutUs html" />
+    <MESSAGE value="carusel" />
+    <MESSAGE value="img and font" />
+    <option name="LAST_COMMIT_MESSAGE" value="img and font" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="org.attoparser.ParseException" package="org.attoparser" />
-          <option name="timeStamp" value="10" />
-        </breakpoint>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.NullPointerException" package="java.lang" />
-          <option name="timeStamp" value="18" />
-        </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/TravelServiceImpl.java</url>
-          <line>74</line>
-          <option name="timeStamp" value="27" />
+          <url>file://$PROJECT_DIR$/CarPooling/src/test/java/org/example/carpooling/services/MailServiceImplImplTests.java</url>
+          <line>59</line>
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/CandidateServiceImpl.java</url>
-          <line>126</line>
+          <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/mvc/TravelMvcController.java</url>
+          <line>86</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/UserServiceImpl.java</url>
+          <line>90</line>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/mvc/UserMvcController.java</url>
+          <line>170</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/UserServiceImpl.java</url>
+          <line>51</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/UserServiceImpl.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/mvc/UserMvcController.java</url>
+          <line>155</line>
           <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/CandidateServiceImpl.java</url>
-          <line>119</line>
+          <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/mvc/AuthenticationMvcController.java</url>
+          <line>116</line>
           <option name="timeStamp" value="39" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/mvc/FeedbackMvcController.java</url>
-          <line>99</line>
+          <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/UserServiceImpl.java</url>
+          <line>237</line>
           <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/FeedbackServiceImpl.java</url>
-          <line>98</line>
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/FeedbackServiceImpl.java</url>
-          <line>92</line>
-          <option name="timeStamp" value="43" />
+          <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/UserServiceImpl.java</url>
+          <line>245</line>
+          <option name="timeStamp" value="41" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="java.lang.String" memberName="value" />
+        <PinnedItemInfo parentTag="org.example.carpooling.services.MailService" memberName="sendgridApiKey" />
+      </pinned-members>
+    </pin-to-top-manager>
     <watches-manager>
       <configuration name="SpringBootApplicationConfigurationType">
-        <watch expression="travel.travelStatus" />
-        <watch expression="((java.util.ArrayList)((PageImpl)travelDtos).content).get(1)" custom="org.springframework.data.domain.PageImpl,java.util.ArrayList" />
+        <watch expression="((java.util.ArrayList)((PageImpl)usersPage).content).get(0)" custom="org.springframework.data.domain.PageImpl,java.util.ArrayList" />
       </configuration>
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Final_Project___Carpool$TravelServiceTests_cancel_Should_Save_Canceled_Travel.ic" NAME="TravelServiceTests.cancel_Should_Save_Canceled_Travel Coverage Results" MODIFIED="1710884193530" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/Final_Project___Carpool$TravelServiceTests_cancel_Should_Throw_Authorization_Exception_IfUserIsNotAdmin_OrCreatorOfTravel.ic" NAME="TravelServiceTests.cancel_Should_Throw_Authorization_Exception_IfUserIsNotAdmin_OrCreatorOfTravel Coverage Results" MODIFIED="1710884230701" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/Final_Project___Carpool$TravelServiceTests_getAllTravels_Should_CallRepository.ic" NAME="TravelServiceTests.getAllTravels_Should_CallRepository Coverage Results" MODIFIED="1710868680820" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/Final_Project___Carpool$TravelServiceTests_getById_Should_Throw_Exception_When_TravelDoesNotExist.ic" NAME="TravelServiceTests.getById_Should_Throw_Exception_When_TravelDoesNotExist Coverage Results" MODIFIED="1710873028223" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/Final_Project___Carpool$TravelServiceTests_create_Should_Save_New_Travel.ic" NAME="TravelServiceTests.create_Should_Save_New_Travel Coverage Results" MODIFIED="1710874935695" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/Final_Project___Carpool$TravelServiceTests_getById_Should_Return_Travel.ic" NAME="TravelServiceTests.getById_Should_Return_Travel Coverage Results" MODIFIED="1710873300136" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/Final_Project___Carpool$TravelServiceTests_update_Should_Save_Updated_Travel.ic" NAME="TravelServiceTests.update_Should_Save_Updated_Travel Coverage Results" MODIFIED="1710876043021" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/Final_Project___Carpool$TravelServiceTests_delete_Should_Save_Deleted_Travel.ic" NAME="TravelServiceTests.delete_Should_Save_Deleted_Travel Coverage Results" MODIFIED="1710883645917" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/Final_Project___Carpool$TravelServiceTests.ic" NAME="TravelServiceTests Coverage Results" MODIFIED="1710887034185" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/Final_Project___Carpool$UserServiceImplTests.ic" NAME="UserServiceImplTests Coverage Results" MODIFIED="1710868625815" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/Final_Project___Carpool$TravelServiceTests_getById_Should_CallRepository.ic" NAME="TravelServiceTests.getById_Should_CallRepository Coverage Results" MODIFIED="1710870270095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/Final_Project___Carpool$TravelServiceTests_update_Should_Throw_Authorization_Exception_IfUserIsNotAdmin_OrCreatorOfTravel.ic" NAME="TravelServiceTests.update_Should_Throw_Authorization_Exception_IfUserIsNotAdmin_OrCreatorOfTravel Coverage Results" MODIFIED="1710882957065" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/Final_Project___Carpool$TravelServiceTests_create_Should_Throw_Exception_When_UserIsNotActive.ic" NAME="TravelServiceTests.create_Should_Throw_Exception_When_UserIsNotActive Coverage Results" MODIFIED="1710873736425" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/Final_Project___Carpool$TravelServiceTests_delete_Should_Throw_Authorization_Exception_IfUserIsNotAdmin_OrCreatorOfTravel.ic" NAME="TravelServiceTests.delete_Should_Throw_Authorization_Exception_IfUserIsNotAdmin_OrCreatorOfTravel Coverage Results" MODIFIED="1710883834593" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/Final_Project___Carpool$TravelServiceTests_getById_Should_Throw_Exception_When_UserStatusIsNotActive.ic" NAME="TravelServiceTests.getById_Should_Throw_Exception_When_UserStatusIsNotActive Coverage Results" MODIFIED="1710872657300" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/CarPooling$UserServiceTests_create_should_return_user_already_exist_with_same_email.ic" NAME="UserServiceTests.create_should_return_user_already_exist_with_same_email Coverage Results" MODIFIED="1710435884273" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/CarPooling$UserServiceTests_delete_should_set_user_status_to_delete_when_user_is_admin.ic" NAME="UserServiceTests.delete_should_set_user_status_to_delete_when_user_is_admin Coverage Results" MODIFIED="1710447238094" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/CarPooling$UserSecurityCodeServiceImplTests_create_should_save_user_security_code_in_database.ic" NAME="UserSecurityCodeServiceImplTests.create_should_save_user_security_code_in_database Coverage Results" MODIFIED="1710618004373" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/CarPooling$UserServiceImplTests.ic" NAME="UserServiceImplTests Coverage Results" MODIFIED="1710848672825" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/CarPooling$CarPoolingApplication.ic" NAME="CarPoolingApplication Coverage Results" MODIFIED="1710897901215" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.example.carpooling.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CarPooling$Tests_in__org_example_carpooling_services_.ic" NAME="Tests in 'org.example.carpooling.services' Coverage Results" MODIFIED="1710941649592" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/CarPooling$UserServiceTests_update_should_update_user_successfully.ic" NAME="UserServiceTests.update_should_update_user_successfully Coverage Results" MODIFIED="1710439829062" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/CarPooling$MailServiceImplImplTests_sendConformationEmail_should_succeed.ic" NAME="MailServiceImplImplTests.sendConformationEmail_should_succeed Coverage Results" MODIFIED="1710620795933" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/CarPooling$UserServiceTests_saveImage_should_succeed.ic" NAME="UserServiceTests.saveImage_should_succeed Coverage Results" MODIFIED="1710457110725" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/CarPooling$UserServiceTests.ic" NAME="UserServiceTests Coverage Results" MODIFIED="1710459073713" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

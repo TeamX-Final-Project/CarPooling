@@ -8,6 +8,7 @@ import org.example.carpooling.mappers.UserMapper;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.dto.ProfileDto;
+import org.example.carpooling.models.enums.TravelStatus;
 import org.example.carpooling.services.AuthenticationService;
 import org.example.carpooling.services.contracts.TravelService;
 import org.example.carpooling.services.contracts.UserService;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping("/")
 public class HomeMvcController {
 
     private final AuthenticationService authenticationService;
@@ -46,11 +47,19 @@ public class HomeMvcController {
     }
 
 
-    @GetMapping
+    @GetMapping("/home")
     public String showHomePage(Model model) {
-        model.addAttribute("recentTravels",travelService.getMostRecentTravels());
-        model.addAttribute("recentRatingUsers",userService.top10ratingUsers());
+//        model.addAttribute("recentTravels",travelService.getMostRecentTravels());
+//        model.addAttribute("recentRatingUsers",userService.top10ratingUsers());
+        model.addAttribute("countCompletedTravels",travelService.countTravelsByStatus(TravelStatus.COMPLETED));
+        model.addAttribute("countActiveTravels",travelService.countTravelsByStatus(TravelStatus.AVAILABLE));
+        model.addAttribute("countActiveUsers",userService.getUserCount());
+
         return "index";
+    }
+    @GetMapping
+    public String redirectToHome(){
+        return "redirect:/home";
     }
 
     @GetMapping("/about")
