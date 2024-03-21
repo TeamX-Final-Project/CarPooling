@@ -1,0 +1,16 @@
+Index: CarPooling/src/main/java/org/example/carpooling/CarPoolingApplication.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.carpooling;\r\n\r\nimport org.springframework.boot.SpringApplication;\r\nimport org.springframework.boot.autoconfigure.SpringBootApplication;\r\n\r\n@SpringBootApplication\r\npublic class CarPoolingApplication {\r\n\r\n    public static void main(String[] args) {\r\n        SpringApplication.run(CarPoolingApplication.class, args);\r\n    }\r\n\r\n}\r\n
+===================================================================
+diff --git a/CarPooling/src/main/java/org/example/carpooling/CarPoolingApplication.java b/CarPooling/src/main/java/org/example/carpooling/CarPoolingApplication.java
+--- a/CarPooling/src/main/java/org/example/carpooling/CarPoolingApplication.java	
++++ b/CarPooling/src/main/java/org/example/carpooling/CarPoolingApplication.java	
+@@ -7,6 +7,7 @@
+ public class CarPoolingApplication {
+ 
+     public static void main(String[] args) {
++
+         SpringApplication.run(CarPoolingApplication.class, args);
+     }
+ 
