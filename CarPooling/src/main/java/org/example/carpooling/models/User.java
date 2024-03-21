@@ -5,10 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import org.checkerframework.common.aliasing.qual.Unique;
 import org.example.carpooling.models.enums.UserStatus;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -16,7 +14,6 @@ import java.util.Set;
 @Table(name = "users")
 public class User {
     public static final String CAN_T_BE_EMPTY = "Can't be empty";
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -151,6 +148,7 @@ public class User {
     public void setAdmin(boolean admin) {
         isAdmin = admin;
     }
+
     public String getProfilePictureUrl() {
         return profilePictureUrl;
     }

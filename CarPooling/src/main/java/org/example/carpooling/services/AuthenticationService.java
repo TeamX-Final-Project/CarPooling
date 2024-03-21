@@ -40,10 +40,11 @@ public class AuthenticationService {
                 throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
             }
             return userService.getByUsername(currentUsername);
-        }  catch (EntityNotFoundException e) {
+        } catch (EntityNotFoundException e) {
             throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
         }
     }
+
     public User verifyAuthentication(String username, String password) {
         try {
             User user = userService.getByUsername(username);
@@ -60,10 +61,12 @@ public class AuthenticationService {
         int firstSpace = getFirstSpaceIndex(userInfo);
         return userInfo.substring(0, firstSpace);
     }
+
     private String getPassword(String userInfo) {
         int firstSpace = getFirstSpaceIndex(userInfo);
         return userInfo.substring(firstSpace + 1);
     }
+
     private int getFirstSpaceIndex(String userInfo) {
         int firstSpace = userInfo.indexOf(" ");
         if (firstSpace == -1) {

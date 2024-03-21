@@ -21,14 +21,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
     private static final String ERROR_MESSAGE = "You are not authorized";
     public static final String ACTIVATING_USER_IS_NOT_PERMITTED = "Activating user is not permitted";
-
     private final UserRepository userRepository;
     private final UserSecurityCodeService userSecurityCodeService;
     private final ImageHelper imageHelper;
@@ -96,10 +93,11 @@ public class UserServiceImpl implements UserService {
         mailService.sendConformationEmail(user, securityCode.getSecurityCode());
         return createdUser;
     }
-//todo add email
-@Override
+
+    //todo add email
+    @Override
     public User updateUser(User user, User updatedUser, UserDto userDtoUpdate) {
-        if (!(user.isAdmin()|| user.equals(updatedUser))) {
+        if (!(user.isAdmin() || user.equals(updatedUser))) {
             throw new AuthorizationException("You don't have permission.");
         }
         if (userDtoUpdate.getFirstName() != null) {
@@ -117,7 +115,7 @@ public class UserServiceImpl implements UserService {
         }
         return userRepository.save(updatedUser);
 
-        }
+    }
 
     @Override
     public User update(User updatedUser) {
@@ -276,12 +274,6 @@ public class UserServiceImpl implements UserService {
             throw new EntityNotFoundException("User", "email", email);
         }
         return user;
-    }
-
-    @Override
-    public List<User> top10ratingUsers(){
-  //      return  userRepository.top10ratingUsers();
-        return  new ArrayList<>();
     }
 
 }

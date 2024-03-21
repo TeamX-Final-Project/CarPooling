@@ -34,17 +34,16 @@ public class FeedbackRestControllerImpl implements FeedbackRestController {
     private final FeedbackMapper feedbackMapper;
 
     public FeedbackRestControllerImpl(FeedbackService feedbackService,
-                                  AuthenticationService authenticationService,
-                                  UserService userService,
-                                  TravelService travelService,
-                                  FeedbackMapper feedbackMapper) {
+                                      AuthenticationService authenticationService,
+                                      UserService userService,
+                                      TravelService travelService,
+                                      FeedbackMapper feedbackMapper) {
         this.feedbackService = feedbackService;
         this.authenticationService = authenticationService;
         this.userService = userService;
         this.travelService = travelService;
         this.feedbackMapper = feedbackMapper;
     }
-
     @Override
     @GetMapping("/{id}")
     public Feedback getById(@PathVariable long id) {
@@ -57,20 +56,18 @@ public class FeedbackRestControllerImpl implements FeedbackRestController {
                     e.getMessage());
         }
     }
-
-    //todo - must change the methods in userService(getById must be public and override)
     @Override
     @PostMapping("/travel/{travelId}/user/{userId}")
     public Feedback create(
             @RequestHeader HttpHeaders headers,
             @PathVariable Long travelId,
             @PathVariable Long userId,
-            @Valid @RequestBody FeedbackDto feedbackDto){
+            @Valid @RequestBody FeedbackDto feedbackDto) {
         try {
             User giver = authenticationService.tryGetUser(headers);
             User receiver = userService.getById(userId);
             Travel travel = travelService.getById(travelId, giver);
-            Feedback feedback = feedbackMapper.fromFeedbackDto (feedbackDto,giver,receiver,travel);
+            Feedback feedback = feedbackMapper.fromFeedbackDto(feedbackDto, giver, receiver, travel);
             feedbackService.create(feedback);
             return feedback;
         } catch (EntityNotFoundException e) {

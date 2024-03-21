@@ -20,9 +20,6 @@ public class Feedback {
     @Column(name = "comment")
     private String comment;
 
-//    @Column(name = "from_driver_to_passenger")
-//    private boolean fromDriverToPassenger;
-
     @OneToOne
     @JoinColumn(name = "travel_id")
     private Travel travel;

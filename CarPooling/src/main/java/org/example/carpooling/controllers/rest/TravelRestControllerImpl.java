@@ -12,22 +12,16 @@ import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.dto.TravelDto;
-import org.example.carpooling.models.enums.TravelStatus;
 import org.example.carpooling.services.AuthenticationService;
 import org.example.carpooling.services.contracts.TravelService;
 import org.example.carpooling.services.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Tag(name = "Travel", description = "Travel REST controller")
 @RestController
@@ -36,7 +30,6 @@ public class TravelRestControllerImpl implements TravelRestController {
     public static final String PAGE_NUMBER = "0";
     public static final String SIZE_PAGE = "10";
     private final AuthenticationService authenticationService;
-
     private final UserService userService;
     private final TravelService travelService;
     private final TravelMapper travelMapper;
@@ -146,11 +139,5 @@ public class TravelRestControllerImpl implements TravelRestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
-
-
-//    @PutMapping("/approve:{id}")
-//    public Candidates approveTravel(@RequestHeader HttpHeaders headers, @PathVariable int id){
-//
-//    }
 }
 

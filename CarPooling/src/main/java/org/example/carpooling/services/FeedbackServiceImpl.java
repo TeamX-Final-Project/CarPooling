@@ -22,12 +22,7 @@ import java.util.List;
 public class FeedbackServiceImpl implements FeedbackService {
     private static final String DELETE_ONLY_GIVEN_FEEDBACKS_ERROR = "You should be an author of the feedback";
     private static final String TRAVEL_NOT_COMPLETED_YET_ERROR = "Travel hasn't been completed yet";
-    private static final String GIVER_IS_NOT_TRAVEL_DRIVER_ERROR = "You should be the driver of the travel";
-    private static final String GIVER_IS_NOT_TRAVEL_PASSENGER_ERROR = "You should be a passenger in the travel";
-    private static final String RECEIVER_IS_NOT_TRAVEL_PASSENGER_ERROR = "User is not passenger in the travel";
-    private static final String RECEIVER_IS_NOT_TRAVEL_DRIVER_ERROR = "User is not the driver of the travel";
     static final String FEEDBACK_ALREADY_GIVEN_ERROR = "You already gave your feedback";
-    public static final String THERE_ARE_NO_CANDIDATES_FOR_THIS_TRAVEL = "There are no candidates for this travel.";
     public static final String YOU_CANNOT_LEAVE_FEEDBACK_IF_YOU_ARE_NOT_PARTICIPANT_IN_THE_TRAVEL = "You cannot leave feedback if you are not participant in the travel.";
 
     private final FeedbackRepository feedbackRepository;

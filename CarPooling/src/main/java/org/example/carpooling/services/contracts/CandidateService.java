@@ -22,5 +22,4 @@ public interface CandidateService {
     List<Candidates> checkPendingAndApprovedUsers(User userToApply, Travel travelToApply);
 
 
-
 }

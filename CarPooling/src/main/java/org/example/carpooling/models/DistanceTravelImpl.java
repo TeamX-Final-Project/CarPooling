@@ -2,7 +2,6 @@ package org.example.carpooling.models;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
 import java.net.URI;
@@ -13,10 +12,9 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
 public class DistanceTravelImpl {
-//    @Value("${bing.Maps.Api.Key}")
-//    private static String bingMapsApiKey;
+
     private static final String bingMapsApiKey = "AiBFhZ1cxdAmuWT8wXlxv3VbYasqPgbjqmM1P1O69JAvPPPxv_xJm9Q3Twu1GoU0";
-//
+
     public static int[] getTravelDetails(String startPoint, String endPoint) {
         try {
             String encodedStart = URLEncoder.encode(startPoint, StandardCharsets.UTF_8);

@@ -1,17 +1,11 @@
 package org.example.carpooling.models.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.enums.TravelStatus;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 public class TravelDto {
 
@@ -65,6 +59,7 @@ public class TravelDto {
     public LocalDateTime getDepartureTime() {
         return departureTime;
     }
+
     public void setDepartureTime(LocalDateTime departureTime) {
         this.departureTime = departureTime;
     }

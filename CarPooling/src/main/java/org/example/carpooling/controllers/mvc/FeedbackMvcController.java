@@ -1,7 +1,6 @@
 package org.example.carpooling.controllers.mvc;
 
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.OperationNotAllowedException;
 import org.example.carpooling.exceptions.TravelException;
@@ -53,9 +52,9 @@ public class FeedbackMvcController {
     }
 
     @GetMapping("/new/travel:{travelId}/user:{receiverUserId}")
-    public String showNewFeedbackPage( @PathVariable("travelId") Long travelId,
-                                       @PathVariable("receiverUserId") Long receiverUserId,
-                                       Model model, HttpSession httpSession) {
+    public String showNewFeedbackPage(@PathVariable("travelId") Long travelId,
+                                      @PathVariable("receiverUserId") Long receiverUserId,
+                                      Model model, HttpSession httpSession) {
         try {
             User currentUser = authenticationService.tryGetCurrentUser(httpSession);
             model.addAttribute("currentUser", currentUser);
@@ -95,13 +94,13 @@ public class FeedbackMvcController {
             User receiverUser = userService.getById(receiverUserId);
             Feedback feedback = feedbackMapper.fromFeedbackDto(feedbackDto, currentUser, receiverUser, travel);
             feedbackService.create(feedback);
-            return "redirect:/travels/" + travelId ;
+            return "redirect:/travels/" + travelId;
 
         } catch (AuthorizationException e) {
             return "redirect:/auth/login";
         } catch (TravelException e) {
             return "AddFeedback";
-        } catch (OperationNotAllowedException e){
+        } catch (OperationNotAllowedException e) {
             return "redirect:/travels/" + travelId;
         }
     }

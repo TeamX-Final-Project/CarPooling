@@ -1,6 +1,5 @@
 package org.example.carpooling.models.dto;
 
-import jakarta.validation.constraints.NotNull;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.enums.CandidateStatus;
 
@@ -23,16 +22,6 @@ public class SimpleTravelDto {
     private CandidateStatus currentUserStatus;
 
     public SimpleTravelDto() {
-    }
-
-    public SimpleTravelDto(long travelId, User userId, String startPoint, String endPoint, LocalDateTime departureTime, int freeSpots, CandidateStatus currentUserStatus) {
-        this.travelId = travelId;
-        this.userId = userId;
-        this.startPoint = startPoint;
-        this.endPoint = endPoint;
-        this.departureTime = departureTime;
-        this.freeSpots = freeSpots;
-        this.currentUserStatus = currentUserStatus;
     }
 
     public long getTravelId() {

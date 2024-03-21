@@ -176,7 +176,7 @@
                                         && !candidate.isHasGivenFeedback()}">
                                             <form action="#" th:action="@{/feedbacks/new/travel:{travelId}/user:{receiverUserId}
                                             (travelId=${travel.getTravelId()}, receiverUserId=${candidate.getUser().getUserId()})}"
-                                                  method="get">
+                                                  method="post">
                                                 <input type="submit" value="  Give Feedback  "/>
                                             </form>
                                         </div>

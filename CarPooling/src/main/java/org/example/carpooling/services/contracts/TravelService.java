@@ -1,10 +1,8 @@
 package org.example.carpooling.services.contracts;
 
-import org.example.carpooling.models.Candidates;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.User;
-import org.example.carpooling.models.dto.TravelDto;
 import org.example.carpooling.models.enums.TravelStatus;
 import org.springframework.data.domain.Page;
 
@@ -33,5 +31,5 @@ public interface TravelService {
 
     int getCompletedTravelsAsPassengerCount(User user);
 
-    List<Travel> getMostRecentTravels();
+
 }

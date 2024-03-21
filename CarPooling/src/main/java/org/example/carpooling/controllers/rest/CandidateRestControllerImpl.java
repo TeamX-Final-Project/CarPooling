@@ -4,9 +4,9 @@ import org.example.carpooling.controllers.rest.contracts.CandidateRestController
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.BlockedUserException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
-import org.example.carpooling.services.AuthenticationService;
 import org.example.carpooling.models.Candidates;
 import org.example.carpooling.models.User;
+import org.example.carpooling.services.AuthenticationService;
 import org.example.carpooling.services.contracts.CandidateService;
 import org.example.carpooling.services.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

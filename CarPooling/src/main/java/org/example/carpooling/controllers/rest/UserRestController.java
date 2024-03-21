@@ -3,12 +3,13 @@ package org.example.carpooling.controllers.rest;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.example.carpooling.exceptions.*;
-import org.example.carpooling.models.*;
-import org.example.carpooling.services.AuthenticationService;
 import org.example.carpooling.mappers.UserMapper;
+import org.example.carpooling.models.TravelFilterOptions;
+import org.example.carpooling.models.User;
 import org.example.carpooling.models.dto.SimpleUserDto;
 import org.example.carpooling.models.dto.UserDto;
 import org.example.carpooling.models.enums.UserStatus;
+import org.example.carpooling.services.AuthenticationService;
 import org.example.carpooling.services.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,10 +17,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.IOException;
 import java.util.List;
 
 import static org.example.carpooling.controllers.rest.TravelRestControllerImpl.PAGE_NUMBER;
@@ -193,34 +192,4 @@ public class UserRestController {
             throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED);
         }
     }
-//todo
-//    @PostMapping(value = "/{id}/image")
-//    public String updateImage(@RequestParam("avatar") MultipartFile file,
-//                              @RequestHeader HttpHeaders headers, @PathVariable int id) {
-//        try {
-//            User currentUser = authenticationService.tryGetUser(headers);
-//            if (currentUser.getUserId() == id) {
-//                throw new AuthorizationException(ERROR_MESSAGE);
-//            }
-//            User user = userService.addProfilePhoto(currentUser, file);
-//            return user.getProfilePictureUrl();
-//        } catch (IOException e) {
-//            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
-//        } catch (AuthorizationException e) {
-//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-//        }
-//    }
-
-//    @GetMapping("/{id}/image")
-//    public String getImage(@PathVariable long id, @RequestHeader HttpHeaders headers) {
-//        try {
-//            authenticationService.tryGetUser(headers);
-//            User user = userService.getById(id);
-//            return user.getProfilePictureUrl();
-//        } catch (AuthorizationException e) {
-//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-//        } catch (EntityNotFoundException e) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-//        }
-//    }
 }
