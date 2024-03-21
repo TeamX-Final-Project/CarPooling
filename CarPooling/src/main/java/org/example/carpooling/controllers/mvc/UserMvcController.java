@@ -86,8 +86,10 @@ public class UserMvcController {
 
             List<Feedback> feedbacksReceived = feedbackService.getByReceiver(user);
             model.addAttribute("feedbacksReceived", feedbacksReceived);
-            List<Travel> listings = travelService.getOpenTravelsOfDriver(user);
-            model.addAttribute("listings", listings);
+            List<Travel> listingsOpenTravels = travelService.getOpenTravelsOfDriver(user);
+            model.addAttribute("listings", listingsOpenTravels);
+            List<Travel>  listingsCompletedTravels = travelService.getCompletedTravelsOfDriver(user);
+            model.addAttribute("listingsCompleted", listingsCompletedTravels);
 
             return "UserView";
         } catch (AuthorizationException e) {
