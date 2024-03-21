@@ -7,7 +7,7 @@
 <div class="hero_area">
     <form th:replace="~{CommonForm.html::header}"></form>
     <form th:replace="~{CommonForm.html::slider}"></form>
-</div>
+    </div>
 
 <div class="body-content" th:if="${isAuthenticated && session.isAdmin}">
     <form class="book_section" action="#" th:action="@{/users}" th:object="${userFilterOptions}" method="get">

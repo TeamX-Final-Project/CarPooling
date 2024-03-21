@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<form th:replace="~{CommonForm.html::head('Register')}"></form>
+<link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+
+<body>
+<div class="hero_area">
+    <form th:replace="~{CommonForm.html::header}"></form>
+    <form th:replace="~{CommonForm.html::slider}"></form>
+</div>
+<div class="body-content">
+    <div class="table">
+        <div class="header">
+            <div class="count-box">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="#" th:href="@{/travels}">Total Travels:
+                            <span class="count-number" th:text="${getUserCount}">23</span>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="#" th:href="@{/users}">Total Users:
+                            <span class="count-number" th:text="${countCompletedTravels}">20</span>
+                        </a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <section class="header">
+                        <h2>Top 10 highest rating drivers</h2>
+
+                    </section>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <section class="header">
+                        <h2>Top 10 highest rating passengers</h2>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-container">
+                        <div class="table-recent">
+                            <table class="tbl-content">
+                                <thead>
+                                <!-- Add header information if needed -->
+                                </thead>
+                                <tbody>
+                                <div class="divider">
+                                    <tr th:each="post : ${recentlyAddedPosts}" class="row-tables">
+                                        <td class="cell">
+                                            <a href="#" th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.getTitle()}">Post</a>
+                                        </td>
+                                        <td class="cell">
+                                            <img th:src="'https://icons.veryicon.com/png/o/miscellaneous/8atour/people-23.png'"
+                                                 alt="Creator Icon" width="20" height="20"/>
+                                            <span th:text="${post.getAuthor().getUsername()}">user@gmail.com</span>
+                                        </td>
+                                    </tr>
+                                </div>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-container">
+                        <div class="table-recent">
+                            <table class="tbl-content">
+                                <thead>
+                                <!-- Add header information if needed -->
+                                </thead>
+                                <body>
+                                <div class="divider">
+                                    <tr th:each="post : ${topCommented}" class="row-tables">
+                                        <td class="cell">
+                                            <a href="#" th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.getTitle()}">Post</a>
+                                        </td>
+                                        <td class="cell">
+                                            <img th:src="'https://icons.veryicon.com/png/o/miscellaneous/8atour/people-23.png'"
+                                                 alt="Creator Icon" width="20" height="20"/>
+                                            <span th:text="${post.getAuthor().getUsername()}">user@gmail.com</span>
+                                        </td>
+                                    </tr>
+                                </div>
+                                </body>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

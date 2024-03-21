@@ -3,6 +3,7 @@ package org.example.carpooling.controllers.mvc;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.example.carpooling.exceptions.AuthorizationException;
+import org.example.carpooling.exceptions.OperationNotAllowedException;
 import org.example.carpooling.exceptions.TravelException;
 import org.example.carpooling.mappers.FeedbackMapper;
 import org.example.carpooling.models.Feedback;
@@ -87,23 +88,21 @@ public class FeedbackMvcController {
         }
         try {
             User currentUser = authenticationService.tryGetCurrentUser(session);
-            model.addAttribute("currentUser", currentUser);
-
             if (currentUser == null) {
                 return "redirect:/auth/login";
             }
             Travel travel = travelService.getById(travelId, currentUser);
             User receiverUser = userService.getById(receiverUserId);
-            model.addAttribute("travel", travel);
-            model.addAttribute("receiver", receiverUser);
             Feedback feedback = feedbackMapper.fromFeedbackDto(feedbackDto, currentUser, receiverUser, travel);
             feedbackService.create(feedback);
-            return "redirect:/travels/{id}" ;
+            return "redirect:/travels/" + travelId ;
 
         } catch (AuthorizationException e) {
-            return "ErrorView";
+            return "redirect:/auth/login";
         } catch (TravelException e) {
             return "AddFeedback";
+        } catch (OperationNotAllowedException e){
+            return "redirect:/travels/" + travelId;
         }
     }
 }

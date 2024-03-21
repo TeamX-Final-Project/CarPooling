@@ -1,5 +1,6 @@
 package org.example.carpooling.services.contracts;
 
+import org.example.carpooling.models.Candidates;
 import org.example.carpooling.models.Feedback;
 import org.example.carpooling.models.User;
 
@@ -16,4 +17,6 @@ public interface FeedbackService {
     void delete(User modifier, Feedback feedback);
 
     Double getAverageRatingForUser(User user);
+
+    boolean hasUserGivenFeedbackForCandidate(User currentUser, Candidates candidate);
 }

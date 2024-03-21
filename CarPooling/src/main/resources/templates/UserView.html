@@ -136,7 +136,7 @@
                                                                             </p>
                                                                             <p class="text-sm text-muted text-uppercase mb-1">
                                                                                 Driver:
-                                                                                <a th:href="@{/users/{id}(id=${travel.getUserId()})}"
+                                                                                <a th:href="@{/users/{id}(id=${travel.getUserId().getUserId()})}"
                                                                                    class="text-dark"
                                                                                    th:text="${travel.getUserId().getFirstName() + ' ' + travel.getUserId().getLastName()}"></a>
                                                                             </p>
@@ -237,7 +237,7 @@
                                                                                 </p>
                                                                                 <p class="text-sm text-muted text-uppercase mb-1">
                                                                                     Driver:
-                                                                                    <a th:href="@{/users/{id}(id=${travel.getUserId()})}"
+                                                                                    <a th:href="@{/users/{id}(id=${travel.getUserId().getUserId()})}"
                                                                                        class="text-dark"
                                                                                        th:text="${travel.getUserId().getFirstName() + ' ' + travel.getUserId().getLastName()}"></a>
                                                                                 </p>

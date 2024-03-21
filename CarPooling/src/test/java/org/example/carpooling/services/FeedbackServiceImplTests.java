@@ -4,7 +4,6 @@ package org.example.carpooling.services;
 import org.example.carpooling.exceptions.EntityDuplicateException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.exceptions.TravelException;
-import org.example.carpooling.helpers.AuthorizationHelper;
 import org.example.carpooling.models.Feedback;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.User;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.example.carpooling.helpers.AuthorizationHelper.FEEDBACK_ALREADY_GIVEN_ERROR;
+import static org.example.carpooling.services.FeedbackServiceImpl.FEEDBACK_ALREADY_GIVEN_ERROR;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -34,9 +33,6 @@ public class FeedbackServiceImplTests {
     @Mock
     FeedbackRepository feedbackRepository;
 
-    @Mock
-    AuthorizationHelper authorizationHelper;
-
 
     @Test
     void testGetFeedbackById_ExistingFeedback() {
@@ -50,16 +46,16 @@ public class FeedbackServiceImplTests {
 
         assertEquals(expectedFeedback, resultFeedback);
     }
+
     @Test
     void testGetFeedbackById_NonExistingFeedback() {
-       Long nonExcitingFeedback =  1L;
+        Long nonExcitingFeedback = 1L;
 
-       when(feedbackRepository.findById(nonExcitingFeedback)).thenReturn(Optional.empty());
+        when(feedbackRepository.findById(nonExcitingFeedback)).thenReturn(Optional.empty());
 
-       assertThrows(EntityNotFoundException.class,
-               () -> feedbackService.getById(nonExcitingFeedback));
+        assertThrows(EntityNotFoundException.class,
+                () -> feedbackService.getById(nonExcitingFeedback));
     }
-
 
 
     @Test
@@ -74,6 +70,7 @@ public class FeedbackServiceImplTests {
         // Assert
         verify(feedbackRepository, times(1)).save(validFeedback);
     }
+
     @Test
     void testCreateFeedbackForIncompleteTravel() {
         // Arrange
@@ -84,6 +81,7 @@ public class FeedbackServiceImplTests {
 
         assertThrows(TravelException.class, () -> feedbackService.create(invalidFeedback));
     }
+
     @Test
     void testCreateFeedbackWithInvalidGiverAndReceiver() {
         Feedback invalidFeedback = new Feedback();
@@ -105,11 +103,12 @@ public class FeedbackServiceImplTests {
         travel.setUserId(driver);
         duplicateFeedback.setTravel(travel);
         doThrow(new EntityDuplicateException(FEEDBACK_ALREADY_GIVEN_ERROR))
-                .when(authorizationHelper)
-                .checkDuplicateFeedback(duplicateFeedback);
+                .when(feedbackRepository)
+                .findByGiverAndReceiverAndTravel(duplicateFeedback.getGiver(), duplicateFeedback.getReceiver(), travel);
 
         assertThrows(EntityDuplicateException.class, () -> feedbackService.create(duplicateFeedback));
     }
+
     @Test
     void testGetByReceiver() {
         User receiverUser = new User();
@@ -134,7 +133,6 @@ public class FeedbackServiceImplTests {
         Travel travel = new Travel();
         return new Feedback();
     }
-
 
 
 }

@@ -8,11 +8,13 @@ import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.exceptions.BlockedUserException;
 import org.example.carpooling.exceptions.EntityNotFoundException;
 import org.example.carpooling.exceptions.OperationNotAllowedException;
+import org.example.carpooling.mappers.CandidateMapper;
 import org.example.carpooling.mappers.TravelMapper;
 import org.example.carpooling.models.Candidates;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.TravelFilterOptions;
 import org.example.carpooling.models.User;
+import org.example.carpooling.models.dto.CandidateDto;
 import org.example.carpooling.models.dto.SimpleTravelDto;
 import org.example.carpooling.models.dto.TravelDto;
 import org.example.carpooling.models.dto.TravelFilterDto;
@@ -45,15 +47,17 @@ public class TravelMvcController {
     private final CandidateService candidateService;
     private final AuthenticationService authenticationService;
 
+    private final CandidateMapper candidateMapper;
     private final TravelMapper travelMapper;
 
     @Autowired
     public TravelMvcController(TravelService travelService, CandidateService candidateService,
-                               AuthenticationService authenticationService,
+                               AuthenticationService authenticationService, CandidateMapper candidateMapper,
                                TravelMapper travelMapper) {
         this.travelService = travelService;
         this.candidateService = candidateService;
         this.authenticationService = authenticationService;
+        this.candidateMapper = candidateMapper;
         this.travelMapper = travelMapper;
     }
 
@@ -122,8 +126,10 @@ public class TravelMvcController {
             User user = authenticationService.tryGetCurrentUser(session);
             Travel travel = travelService.getById(id, user);
             List<Candidates> candidatesList = candidateService.checkPendingAndApprovedUsers(user, travel);
+            List<CandidateDto> candidatesDtos = candidatesList.stream()
+                    .map(candidates -> candidateMapper.toDto(candidates, user)).toList();
             model.addAttribute("travel", travel);
-            model.addAttribute("candidates", candidatesList);
+            model.addAttribute("candidates", candidatesDtos);
             model.addAttribute("giveFeedback", candidatesList);
             return "TravelView";
         } catch (EntityNotFoundException e) {
