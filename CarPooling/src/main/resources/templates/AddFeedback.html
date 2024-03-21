@@ -20,7 +20,8 @@
                     <h2>You are leaving a review for: <br>
                         <span th:text="${receiver.firstName + ' ' + receiver.lastName}"></span></h2>
                 </div>
-                <form th:action="@{/feedbacks/new}" th:object="${feedback}" method="post">
+                <form th:action="@{/feedbacks/new/travel:{travelId}/user:{receiverUserId}
+                (travelId=${travel.getTravelId()}, receiverUserId=${receiver.getUserId()})}" th:object="${feedback}" method="post">
                     <div class="mb-4">
                         <label class="form-label" for="comment" >Comment *</label>
                         <input class="form-control" name="username" id="comment" th:field="*{comment}" type="text" placeholder="Tell more about your experience"

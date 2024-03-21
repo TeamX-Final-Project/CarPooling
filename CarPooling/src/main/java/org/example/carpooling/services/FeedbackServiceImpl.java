@@ -52,7 +52,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     public void create(Feedback feedback){
-        checkIfTravelPassed(feedback.getTravel().getUserId().getUserId());
+        checkIfTravelPassed(feedback.getTravel().getTravelId());
         if(feedback.getTravel().getUserId().equals(feedback.getGiver())){
             checkIfIsDriver(feedback.getGiver(), feedback.getTravel());
             checkIfIsPassenger(feedback.getReceiver(), feedback.getTravel());
