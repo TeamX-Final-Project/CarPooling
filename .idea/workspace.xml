@@ -162,7 +162,7 @@
       <recent name="org.example.carpooling.repositories.contracts" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in CarPooling.test (2)">
+  <component name="RunManager" selected="JUnit.All in CarPooling.test (3)">
     <configuration name="All in CarPooling.test (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="CarPooling.test" />
       <option name="PACKAGE_NAME" value="" />
@@ -179,7 +179,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="All in CarPooling.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="All in CarPooling.test (3)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="CarPooling.test" />
       <option name="PACKAGE_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
@@ -187,18 +187,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CandidateServiceTests.applyTravel_Should_Throw_Exception_When_User_Is_CreatorOfTravel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="All in CarPooling.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="CarPooling.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.carpooling.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.example.carpooling.services" />
-      <option name="MAIN_CLASS_NAME" value="org.example.carpooling.services.CandidateServiceTests" />
-      <option name="METHOD_NAME" value="applyTravel_Should_Throw_Exception_When_User_Is_CreatorOfTravel" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -219,11 +211,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.All in CarPooling.test (3)" />
         <item itemvalue="JUnit.All in CarPooling.test (2)" />
         <item itemvalue="JUnit.org.example.carpooling.services in CarPooling.main" />
         <item itemvalue="JUnit.All in CarPooling.test (1)" />
         <item itemvalue="JUnit.All in CarPooling.test" />
-        <item itemvalue="JUnit.CandidateServiceTests.applyTravel_Should_Throw_Exception_When_User_Is_CreatorOfTravel" />
       </list>
     </recent_temporary>
   </component>

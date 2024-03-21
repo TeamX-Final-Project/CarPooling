@@ -112,7 +112,6 @@ public class UserServiceImpl implements UserService {
             updatedUser.setPhoneNumber(userDtoUpdate.getPhoneNumber());
         }
         return userRepository.save(updatedUser);
-
     }
 
     @Override
