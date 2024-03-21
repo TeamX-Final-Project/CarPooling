@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.example.carpooling.models.enums.TravelStatus;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -123,6 +122,7 @@ public class Travel {
     public void setDurationTravel(int durationTravel) {
         this.durationTravel = durationTravel;
     }
+
     public String getTravelComment() {
         return travelComment;
     }

@@ -51,7 +51,7 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public void sendConformationEmail(User receiver, long userSecurityCode) throws SendMailException {
-     try {
+        try {
             Request request = createRequest(receiver, userSecurityCode);
             Response response = sendGrid.api(request);
             logger.info(String.format("Sent mail response with status code: %d and body %s",

@@ -26,6 +26,7 @@ public class ImageHelper {
                 "api_key", API_KEY,
                 "api_secret", API_SECRET));
     }
+
     public String uploadImage(MultipartFile image) throws IOException {
         File tempFile = File.createTempFile("tempImage", ".jpg");
         image.transferTo(tempFile);

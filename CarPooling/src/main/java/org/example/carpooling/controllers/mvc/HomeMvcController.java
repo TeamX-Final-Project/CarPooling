@@ -1,11 +1,9 @@
 package org.example.carpooling.controllers.mvc;
 
 import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.example.carpooling.exceptions.AuthorizationException;
 import org.example.carpooling.mappers.UserMapper;
-import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.dto.ProfileDto;
 import org.example.carpooling.models.enums.TravelStatus;
@@ -18,11 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -49,14 +43,15 @@ public class HomeMvcController {
 
     @GetMapping("/home")
     public String showHomePage(Model model) {
-        model.addAttribute("countCompletedTravels",travelService.countTravelsByStatus(TravelStatus.COMPLETED));
-        model.addAttribute("countActiveTravels",travelService.countTravelsByStatus(TravelStatus.AVAILABLE));
-        model.addAttribute("countActiveUsers",userService.getUserCount());
+        model.addAttribute("countCompletedTravels", travelService.countTravelsByStatus(TravelStatus.COMPLETED));
+        model.addAttribute("countActiveTravels", travelService.countTravelsByStatus(TravelStatus.AVAILABLE));
+        model.addAttribute("countActiveUsers", userService.getUserCount());
 
         return "index";
     }
+
     @GetMapping
-    public String redirectToHome(){
+    public String redirectToHome() {
         return "redirect:/home";
     }
 
@@ -69,38 +64,13 @@ public class HomeMvcController {
             return "about";
         }
     }
+
     @GetMapping("/profile")
     public String showProfilePage(Model model, HttpSession session) {
         authenticationService.tryGetCurrentUser(session);
         model.addAttribute("profile", new ProfileDto());
         return "ProfileView";
     }
-
-//    @PostMapping("/profile")
-//    public String handleProfileUpdate(@Valid @ModelAttribute("profile") ProfileDto profileDto,
-//                                      BindingResult bindingResult, HttpSession session) {
-//        User user = authenticationService.tryGetCurrentUser(session);
-//        if (bindingResult.hasErrors()) {
-//            return "ProfileView";
-//        }
-//        try {
-//            user = userMapper.fromDto(profileDto, user);
-//            userService.update(user);
-//            return "redirect:/profile";
-//        } catch (FirstNameChangeProfileError e) {
-//            bindingResult.rejectValue("firstName", "profile_error", e.getMessage());
-//            return "ProfileView";
-//        } catch (LastNameChangeProfileError e) {
-//            bindingResult.rejectValue("lastName", "profile_error", e.getMessage());
-//            return "ProfileView";
-//        } catch (EmailChangeProfileError e) {
-//            bindingResult.rejectValue("email", "profile_error", e.getMessage());
-//            return "ProfileView";
-//        } catch (PasswordChangeProfileError e) {
-//            bindingResult.rejectValue("password", "profile_error", e.getMessage());
-//            return "ProfileView";
-//        }
-//    }
 
 
     @GetMapping("/profileDelete")

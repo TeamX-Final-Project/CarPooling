@@ -4,22 +4,49 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dcb0a7cd-e081-4ff2-8538-e918b7c85a24" name="Changes" comment="img and font">
-      <change afterPath="$PROJECT_DIR$/CarPooling/src/test/java/org/example/carpooling/services/CandidateServiceTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0ca0e116-0c72-4b70-a6a9-9251a2270374.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/0ca0e116-0c72-4b70-a6a9-9251a2270374.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c1a6ec9c-caef-409b-afdc-0e9cd6cd4d21.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c1a6ec9c-caef-409b-afdc-0e9cd6cd4d21/storage_v2/_src_/schema/carpoolingx.xvqiUA.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c1a6ec9c-caef-409b-afdc-0e9cd6cd4d21/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c1a6ec9c-caef-409b-afdc-0e9cd6cd4d21/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c1a6ec9c-caef-409b-afdc-0e9cd6cd4d21/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+    <list default="true" id="dcb0a7cd-e081-4ff2-8538-e918b7c85a24" name="Changes" comment="Finished travelService Tests working on CandidatesServiceTests">
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/CarPooling.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/CarPooling.main.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/mvc/CandidatesMvcController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/mvc/CandidatesMvcController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/mvc/FeedbackMvcController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/mvc/FeedbackMvcController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/mvc/HomeMvcController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/mvc/HomeMvcController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/mvc/TravelMvcController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/mvc/TravelMvcController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/mvc/UserMvcController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/mvc/UserMvcController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/rest/CandidateRestControllerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/rest/CandidateRestControllerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/rest/FeedbackRestControllerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/rest/FeedbackRestControllerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/rest/TravelRestControllerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/rest/TravelRestControllerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/rest/UserRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/rest/UserRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/rest/contracts/TravelRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/rest/contracts/TravelRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/exceptions/AuthenticationException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/exceptions/FileUploadException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/helpers/ImageHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/helpers/ImageHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/mappers/FeedbackMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/mappers/FeedbackMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/mappers/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/mappers/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/models/DistanceTravelImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/models/DistanceTravelImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/models/Feedback.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/models/Feedback.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/models/ImageData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/models/Travel.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/models/Travel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/models/TravelSpecifications.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/models/TravelSpecifications.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/models/dto/ProfileDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/models/dto/ProfileDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/models/dto/SimpleTravelDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/models/dto/SimpleTravelDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/models/dto/TravelDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/models/dto/TravelDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/models/dto/TravelFilterDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/models/dto/TravelFilterDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/models/enums/UserStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/models/enums/UserStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/repositories/contracts/CandidateRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/repositories/contracts/CandidateRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/repositories/contracts/FeedbackRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/repositories/contracts/FeedbackRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/repositories/contracts/TravelRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/repositories/contracts/TravelRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/repositories/contracts/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/repositories/contracts/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/AuthenticationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/CandidateServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/CandidateServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/FeedbackServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/FeedbackServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/MailServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/MailServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/TravelServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/TravelServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/contracts/CandidateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/contracts/CandidateService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/contracts/TravelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/contracts/TravelService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/resources/templates/TravelView.html" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/resources/templates/TravelView.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarPooling/src/test/java/org/example/carpooling/Helpers.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/test/java/org/example/carpooling/Helpers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarPooling/src/test/java/org/example/carpooling/services/TravelServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/test/java/org/example/carpooling/services/TravelServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/contracts/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/contracts/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,7 +197,7 @@
       <recent name="org.example.carpooling.repositories.contracts" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CandidateServiceTests.applyTravel_Should_Throw_Exception_When_User_Is_CreatorOfTravel">
+  <component name="RunManager" selected="Spring Boot.CarPoolingApplication">
     <configuration name="CandidateServiceTests.applyTravel_Should_Throw_Exception_When_User_Is_CreatorOfTravel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="CarPooling.test" />
       <extension name="coverage">
@@ -235,28 +262,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TravelServiceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="CarPooling.test" />
+    <configuration name="CarPoolingApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="CarPooling.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.carpooling.CarPoolingApplication" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.example.carpooling.services.*" />
+          <option name="PATTERN" value="org.example.carpooling.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="org.example.carpooling.services" />
-      <option name="MAIN_CLASS_NAME" value="org.example.carpooling.services.TravelServiceTests" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.CarPoolingApplication" />
         <item itemvalue="JUnit.CandidateServiceTests.applyTravel_Should_Throw_Exception_When_User_Is_CreatorOfTravel" />
         <item itemvalue="JUnit.CandidateServiceTests.findById_Should_Throw_WhenCandidateDoesNotExist" />
         <item itemvalue="JUnit.CandidateServiceTests.testFindById_WhenCandidateExists" />
         <item itemvalue="JUnit.CandidateServiceTests.findById_Should_CallRepository" />
-        <item itemvalue="JUnit.TravelServiceTests" />
       </list>
     </recent_temporary>
   </component>
@@ -284,15 +310,7 @@
       <workItem from="1710318680933" duration="56756000" />
       <workItem from="1710496117227" duration="50263000" />
       <workItem from="1710779105620" duration="102746000" />
-      <workItem from="1711014436407" duration="3759000" />
-    </task>
-    <task id="LOCAL-00005" summary="User class">
-      <option name="closed" value="true" />
-      <created>1708970182578</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1708970182578</updated>
+      <workItem from="1711014436407" duration="6551000" />
     </task>
     <task id="LOCAL-00006" summary="UserRepository interface and UserRepositoryImpl class">
       <option name="closed" value="true" />
@@ -678,7 +696,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710983670681</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Finished travelService Tests working on CandidatesServiceTests">
+      <option name="closed" value="true" />
+      <created>1711018894988</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1711018894989</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -728,7 +754,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="swagger" />
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="refactor ids from int to long" />
     <MESSAGE value="commit controller todos" />
     <MESSAGE value="UserServiceImpl tests" />
@@ -753,7 +780,8 @@
     <MESSAGE value="home and aboutUs html" />
     <MESSAGE value="carusel" />
     <MESSAGE value="img and font" />
-    <option name="LAST_COMMIT_MESSAGE" value="img and font" />
+    <MESSAGE value="Finished travelService Tests working on CandidatesServiceTests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished travelService Tests working on CandidatesServiceTests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -764,34 +792,19 @@
           <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/mvc/TravelMvcController.java</url>
-          <line>86</line>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/UserServiceImpl.java</url>
-          <line>90</line>
+          <line>87</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/mvc/UserMvcController.java</url>
-          <line>162</line>
-          <option name="timeStamp" value="34" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/UserServiceImpl.java</url>
-          <line>51</line>
+          <line>48</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/UserServiceImpl.java</url>
-          <line>49</line>
+          <line>46</line>
           <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/mvc/UserMvcController.java</url>
-          <line>147</line>
-          <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/controllers/mvc/AuthenticationMvcController.java</url>
@@ -800,12 +813,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/UserServiceImpl.java</url>
-          <line>237</line>
+          <line>235</line>
           <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/CarPooling/src/main/java/org/example/carpooling/services/UserServiceImpl.java</url>
-          <line>245</line>
+          <line>243</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
       </breakpoints>

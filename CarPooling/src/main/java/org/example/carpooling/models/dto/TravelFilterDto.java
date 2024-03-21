@@ -13,16 +13,6 @@ public class TravelFilterDto {
     public TravelFilterDto() {
     }
 
-    public TravelFilterDto(int page, int size, String keyword, String startPoint, String endPoint, String sortBy, String orderBy) {
-        this.page = page;
-        this.size = size;
-        this.keyword = keyword;
-        this.startPoint = startPoint;
-        this.endPoint = endPoint;
-        this.sortBy = sortBy;
-        this.orderBy = orderBy;
-    }
-
     public int getPage() {
         return page;
     }

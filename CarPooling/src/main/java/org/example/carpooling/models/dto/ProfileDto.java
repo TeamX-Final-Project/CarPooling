@@ -1,7 +1,5 @@
 package org.example.carpooling.models.dto;
 
-import org.checkerframework.common.aliasing.qual.Unique;
-
 public class ProfileDto {
     private String firstName;
     private String lastName;

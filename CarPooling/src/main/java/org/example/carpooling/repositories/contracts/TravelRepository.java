@@ -16,8 +16,6 @@ import java.util.List;
 
 @Repository
 public interface TravelRepository extends JpaRepository<Travel, Long> {
-
-//    @Query("select t from Travel t where t.travelStatus = 'AVAILABLE'")
     Page<Travel> findAll(Specification<Travel> specification, Pageable pageable);
 
     Travel findById(long id);
@@ -37,10 +35,8 @@ public interface TravelRepository extends JpaRepository<Travel, Long> {
             @Param("travelStatus") TravelStatus travelStatus
     );
 
-
-
     long countTravelByTravelStatus(TravelStatus travelStatus);
 
-    @Query(nativeQuery = true,value = "select * from carpoolingx.travels order by travels.travel_id desc limit 10")
-List<Travel> getMostRecentTravels();
+    @Query(nativeQuery = true, value = "select * from carpoolingx.travels order by travels.travel_id desc limit 10")
+    List<Travel> getMostRecentTravels();
 }

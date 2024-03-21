@@ -86,7 +86,7 @@ public class UserMvcController {
             model.addAttribute("feedbacksReceived", feedbacksReceived);
             List<Travel> listingsOpenTravels = travelService.getOpenTravelsOfDriver(user);
             model.addAttribute("listings", listingsOpenTravels);
-            List<Travel>  listingsCompletedTravels = travelService.getCompletedTravelsOfDriver(user);
+            List<Travel> listingsCompletedTravels = travelService.getCompletedTravelsOfDriver(user);
             model.addAttribute("listingsCompleted", listingsCompletedTravels);
 
             return "UserView";
@@ -246,5 +246,4 @@ public class UserMvcController {
             return "ErrorView";
         }
     }
-
 }

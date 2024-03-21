@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CarPooling.CarPooling.main~1.iml" filepath="$PROJECT_DIR$/.idea/modules/CarPooling.CarPooling.main~1.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CarPooling.CarPooling.test~1.iml" filepath="$PROJECT_DIR$/.idea/modules/CarPooling.CarPooling.test~1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CarPooling.main.iml" filepath="$PROJECT_DIR$/.idea/modules/CarPooling.main.iml" />
     </modules>
   </component>
 </project>

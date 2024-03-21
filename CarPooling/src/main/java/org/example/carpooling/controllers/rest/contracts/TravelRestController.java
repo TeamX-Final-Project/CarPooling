@@ -7,9 +7,7 @@ import jakarta.validation.Valid;
 import org.example.carpooling.controllers.rest.TravelRestControllerImpl;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.dto.TravelDto;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -25,8 +25,6 @@ public class CandidateServiceImpl implements CandidateService {
 
     public static final String YOU_ARE_NOT_ALLOWED_TO_APPROVE_FOR_TRAVEL_ERROR = "You are not allowed to approve for this travel";
     public static final String YOU_CAN_T_APPLY_TO_THE_SAME_TRAVEL_TWICE_ERROR = "You can't apply to the same travel twice";
-    public static final String YOU_ARE_NOT_ALLOWED_TO_RECEIVE_THIS_INFORMATION_ERROR = "You are not allowed to receive this information";
-
 
     private final CandidateRepository candidateRepository;
 
@@ -70,7 +68,7 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public List<Candidates> checkPendingAndApprovedUsers(User userToConfirmApprove, Travel travelToConfirm) {
-        if (userToConfirmApprove.getUserId() != travelToConfirm.getUserId().getUserId()){
+        if (userToConfirmApprove.getUserId() != travelToConfirm.getUserId().getUserId()) {
             return new ArrayList<>();
         }
         return candidateRepository.findCandidatesByTravel(travelToConfirm);

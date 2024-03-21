@@ -15,7 +15,6 @@ import java.util.Set;
 public class User {
     public static final String CAN_T_BE_EMPTY = "Can't be empty";
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -149,6 +148,7 @@ public class User {
     public void setAdmin(boolean admin) {
         isAdmin = admin;
     }
+
     public String getProfilePictureUrl() {
         return profilePictureUrl;
     }
