@@ -8,6 +8,7 @@ import org.example.carpooling.mappers.UserMapper;
 import org.example.carpooling.models.Travel;
 import org.example.carpooling.models.User;
 import org.example.carpooling.models.dto.ProfileDto;
+import org.example.carpooling.models.enums.TravelStatus;
 import org.example.carpooling.services.AuthenticationService;
 import org.example.carpooling.services.contracts.TravelService;
 import org.example.carpooling.services.contracts.UserService;
@@ -48,8 +49,12 @@ public class HomeMvcController {
 
     @GetMapping
     public String showHomePage(Model model) {
-        model.addAttribute("recentTravels",travelService.getMostRecentTravels());
-        model.addAttribute("recentRatingUsers",userService.top10ratingUsers());
+//        model.addAttribute("recentTravels",travelService.getMostRecentTravels());
+//        model.addAttribute("recentRatingUsers",userService.top10ratingUsers());
+        model.addAttribute("countCompletedTravels",travelService.countTravelsByStatus(TravelStatus.COMPLETED));
+        model.addAttribute("countActiveTravels",travelService.countTravelsByStatus(TravelStatus.AVAILABLE));
+        model.addAttribute("countActiveUsers",userService.getUserCount());
+
         return "index";
     }
 
