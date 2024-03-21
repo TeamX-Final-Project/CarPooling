@@ -11,7 +11,7 @@ public class FeedbackMapper {
 
     public Feedback fromFeedbackDto(FeedbackDto feedbackDto, User fromUser, User toUser, Travel travel){
         Feedback feedback = new Feedback();
-        feedback.setId(feedbackDto.getId());
+//        feedback.setId(feedbackDto.getId());
         feedback.setComment(feedbackDto.getComment());
         feedback.setRating(feedbackDto.getRating());
         feedback.setGiver(fromUser);

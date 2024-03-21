@@ -172,10 +172,11 @@
                                                 <input type="submit" value="  Reject  "/>
                                             </form>
                                         </div>
-                                        <div th:if="*{travel.getTravelStatus() == T(org.example.carpooling.models.enums.TravelStatus).COMPLETED}">
+                                        <div th:if="*{travel.getTravelStatus() == T(org.example.carpooling.models.enums.TravelStatus).COMPLETED
+                                        && !candidate.isHasGivenFeedback()}">
                                             <form action="#" th:action="@{/feedbacks/new/travel:{travelId}/user:{receiverUserId}
-                                            (travelId=${travel.getTravelId()}, receiverUserId=${candidate.getId()})}"
-                                                  method="post">
+                                            (travelId=${travel.getTravelId()}, receiverUserId=${candidate.getUser().getUserId()})}"
+                                                  method="get">
                                                 <input type="submit" value="  Give Feedback  "/>
                                             </form>
                                         </div>

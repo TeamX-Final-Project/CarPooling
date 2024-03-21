@@ -5,10 +5,8 @@ import jakarta.validation.constraints.*;
 
 public class FeedbackDto {
 
-@JsonIgnore
- private long id;
-
-
+    @JsonIgnore
+    private long id;
 
     @NotNull(message = "Rating can't be empty")
     @Min(value = 1, message = "Rating must be at least 1")
@@ -21,6 +19,7 @@ public class FeedbackDto {
 
     public FeedbackDto() {
     }
+
     public long getId() {
         return id;
     }

@@ -139,8 +139,8 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
-    public int countCompletedTravels() {
-        return travelRepository.countCompletedTravels(TravelStatus.COMPLETED);
+    public long countTravelsByStatus(TravelStatus travelStatus) {
+        return travelRepository.countTravelByTravelStatus(travelStatus);
     }
 
     @Override
