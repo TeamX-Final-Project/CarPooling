@@ -75,10 +75,10 @@ public class FeedbackMvcController {
         }
     }
 
-    @PostMapping("/new")
-    public String createFeedback(@Valid @ModelAttribute("feedback") FeedbackDto feedbackDto,
-                                 @RequestParam("travelId") Long travelId,
-                                 @RequestParam("receiverUserId") Long receiverUserId,
+    @PostMapping("/new/travel:{travelId}/user:{receiverUserId}")
+    public String createFeedback(@ModelAttribute("feedback") FeedbackDto feedbackDto,
+                                 @PathVariable("travelId") Long travelId,
+                                 @PathVariable("receiverUserId") Long receiverUserId,
                                  BindingResult errors,
                                  Model model,
                                  HttpSession session) {

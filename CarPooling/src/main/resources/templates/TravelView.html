@@ -172,6 +172,13 @@
                                                 <input type="submit" value="  Reject  "/>
                                             </form>
                                         </div>
+                                        <div th:if="*{travel.getTravelStatus() == T(org.example.carpooling.models.enums.TravelStatus).COMPLETED}">
+                                            <form action="#" th:action="@{/feedbacks/new/travel:{travelId}/user:{receiverUserId}
+                                            (travelId=${travel.getTravelId()}, receiverUserId=${candidate.getId()})}"
+                                                  method="post">
+                                                <input type="submit" value="  Give Feedback  "/>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -185,6 +192,8 @@
 </div>
 </div>
 </div>
+<footer>
 <form th:replace="~{CommonForm.html::footer}"></form>
+</footer>
 </body>
 </html>

@@ -124,6 +124,7 @@ public class TravelMvcController {
             List<Candidates> candidatesList = candidateService.checkPendingAndApprovedUsers(user, travel);
             model.addAttribute("travel", travel);
             model.addAttribute("candidates", candidatesList);
+            model.addAttribute("giveFeedback", candidatesList);
             return "TravelView";
         } catch (EntityNotFoundException e) {
             model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
