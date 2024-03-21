@@ -35,6 +35,9 @@ public class UserServiceImplTests {
     UserSecurityCodeService mockUserSecurityCodeService;
 
     @Mock
+    MailService mockMailService;
+
+    @Mock
     ImageHelper mockImageHelper;
 
     @InjectMocks

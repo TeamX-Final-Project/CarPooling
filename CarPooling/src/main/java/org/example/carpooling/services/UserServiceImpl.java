@@ -93,8 +93,6 @@ public class UserServiceImpl implements UserService {
         mailService.sendConformationEmail(user, securityCode.getSecurityCode());
         return createdUser;
     }
-
-    //todo add email
     @Override
     public User updateUser(User user, User updatedUser, UserDto userDtoUpdate) {
         if (!(user.isAdmin() || user.equals(updatedUser))) {
@@ -132,7 +130,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(long userId, User currentUser) {
-        //todo what to do with deleted uncompleted travels
         validateIsAdminOrOwner(userId, currentUser);
         User userToDelete = getById(userId);
         userToDelete.setUserStatus(UserStatus.DELETED);
@@ -152,7 +149,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateUserStatus(long id, User currentUser, UserStatus userStatus) {
-        //todo Pet: what to do with blocked travels
         validateIsAdmin(currentUser);
         User userToUpdate = getById(id);
         if (userStatus == userToUpdate.getUserStatus()) {
@@ -186,13 +182,6 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    //todo Pet: delete if this method is unused
-    private void validateIsOwner(long id, User currentUser) {
-        if (currentUser.getUserId() != id) {
-            throw new AuthorizationException(ERROR_MESSAGE);
-        }
-    }
-
     private void validateUserInfo(User user) {
         ValidationHelper.validatePassword(user.getPassword());
         validateUniqueUsername(user);
@@ -200,7 +189,6 @@ public class UserServiceImpl implements UserService {
         validateUniquePhoneNumber(user);
     }
 
-    //todo Pet: check username, email, phone number with one query
     private void validateUniqueUsername(User user) {
         boolean duplicateUserExists = true;
         try {
